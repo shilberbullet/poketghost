@@ -165,17 +165,34 @@ void initializeTeamCode() {
 
 int isTeamCodeCompleted() {
     static int choice = 0;
+    char input[10];
     
     // 사용자 입력 받기
     if (choice == 0) {
-        scanf("%d", &choice);
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            return 0;
+        }
+        
+        // 입력값 검증
+        char* endptr;
+        choice = strtol(input, &endptr, 10);
+        
+        // 입력이 숫자가 아니거나 범위를 벗어난 경우
+        if (*endptr != '\n' && *endptr != '\0') {
+            printf("\n잘못된 입력입니다. 숫자를 입력해주세요.\n");
+            printf("선택: ");
+            choice = 0;
+            return 0;
+        }
         
         switch (choice) {
             case 1:
                 printf("\n%s와 싸우기 시작합니다...\n", currentMonster->name);
                 startCompanionBattle();  // 동료 요괴 전투 시스템 호출
+                printf("\n전투가 끝났습니다!\n");
+                Sleep(1000);
                 choice = 0;  // 다음 스테이지를 위해 초기화
-                return 1;
+                return 1;  // 전투 완료 후 다음 스테이지로 진행
                 
             case 2:
                 printf("\n%s에게 부적을 던집니다...\n", currentMonster->name);

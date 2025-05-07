@@ -67,60 +67,56 @@ void battleSystem(SaveData* saveData) {
     
     printCharByChar("\n\n사용할 동료 요괴를 선택하세요: ");
     
-    int choice;
-    if (scanf("%d", &choice) != 1) {
-        // 입력 오류 처리
-        while (getchar() != '\n');  // 입력 버퍼 비우기
-        printCharByChar("\n잘못된 입력입니다!");
+    char input[10];
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        return;
+    }
+    
+    int choice = atoi(input);
+    if (choice < 1 || choice > saveData->companionCount) {
+        printCharByChar("\n잘못된 선택입니다!");
         Sleep(2000);
         return;
     }
-    while (getchar() != '\n');  // 입력 버퍼 비우기
     
-    if (choice >= 1 && choice <= saveData->companionCount) {
-        // 선택한 동료 요괴의 기술 목록 표시
-        Companion* selectedCompanion = &saveData->companions[choice - 1];
-        printCharByChar("\n=== 사용 가능한 기술 ===");
-        for (int i = 0; i < selectedCompanion->currentSkillCount; i++) {
-            char buffer[200];
-            CompanionSkill* skill = &selectedCompanion->currentSkills[i];
-            sprintf(buffer, "\n%d. %s", i + 1, skill->name);
-            printCharByChar(buffer);
-            sprintf(buffer, "\n   위력: %d  명중률: %d%%", skill->power, skill->accuracy);
-            printCharByChar(buffer);
-            sprintf(buffer, "\n   설명: %s", skill->description);
-            printCharByChar(buffer);
-        }
-        
-        printCharByChar("\n\n사용할 기술을 선택하세요: ");
-        int skillChoice;
-        if (scanf("%d", &skillChoice) != 1) {
-            // 입력 오류 처리
-            while (getchar() != '\n');  // 입력 버퍼 비우기
-            printCharByChar("\n잘못된 입력입니다!");
-            Sleep(2000);
-            return;
-        }
-        while (getchar() != '\n');  // 입력 버퍼 비우기
-        
-        if (skillChoice >= 1 && skillChoice <= selectedCompanion->currentSkillCount) {
-            printCharByChar("\n전투를 시작합니다!");
-            initializeTeamCode();
-            
-            while (!isTeamCodeCompleted()) {
-                Sleep(1000);
-            }
-            
-            printCharByChar("\n전투에서 승리했습니다!");
-            Sleep(2000);
-        } else {
-            printCharByChar("\n잘못된 기술을 선택했습니다!");
-            Sleep(2000);
-        }
-    } else {
-        printCharByChar("\n잘못된 선택입니다!");
-        Sleep(2000);
+    // 선택한 동료 요괴의 기술 목록 표시
+    Companion* selectedCompanion = &saveData->companions[choice - 1];
+    printCharByChar("\n=== 사용 가능한 기술 ===");
+    for (int i = 0; i < selectedCompanion->currentSkillCount; i++) {
+        char buffer[200];
+        CompanionSkill* skill = &selectedCompanion->currentSkills[i];
+        sprintf(buffer, "\n%d. %s", i + 1, skill->name);
+        printCharByChar(buffer);
+        sprintf(buffer, "\n   위력: %d  명중률: %d%%", skill->power, skill->accuracy);
+        printCharByChar(buffer);
+        sprintf(buffer, "\n   설명: %s", skill->description);
+        printCharByChar(buffer);
     }
+    
+    printCharByChar("\n\n사용할 기술을 선택하세요: ");
+    
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        return;
+    }
+    
+    int skillChoice = atoi(input);
+    if (skillChoice < 1 || skillChoice > selectedCompanion->currentSkillCount) {
+        printCharByChar("\n잘못된 기술을 선택했습니다!");
+        Sleep(2000);
+        return;
+    }
+    
+    printCharByChar("\n전투를 시작합니다!");
+    Sleep(1000);
+    
+    // 전투 결과 처리
+    printCharByChar("\n전투에서 승리했습니다!");
+    Sleep(2000);
+    
+    // 전투 완료 후 저장
+    saveGame(saveData->stageNumber, saveData->time, 
+            saveData->lastLocation, saveData->lastTerrain, 
+            saveData->gameSpeed);
 }
 
 // 동료 요괴 전투 시작
