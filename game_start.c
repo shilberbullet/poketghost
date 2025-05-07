@@ -29,60 +29,30 @@ void printCharByChar(const char* str) {
     Sleep(gameSpeeds[currentSpeedIndex].lineDelay);
 }
 
-// 게임 시작 화면 표시
-void displayStartScreen() {
-    system("cls");
-    printCharByChar("\n=== 포켓 요괴 ===");
-    printCharByChar("\n1. 새 게임 시작");
-    printCharByChar("2. 이어하기");
-    printCharByChar("3. 게임 설정");
-    printCharByChar("4. 종료");
-    printCharByChar("\n선택: ");
-}
-
-// 게임 설정 화면 표시
-void displaySettings() {
-    system("cls");
-    printCharByChar("\n=== 게임 설정 ===");
-    printCharByChar("\n게임 속도를 선택하세요:");
-    printCharByChar("1. 0.5배속");
-    printCharByChar("2. 1배속 (기본)");
-    printCharByChar("3. 2배속");
-    printCharByChar("4. 4배속");
-    printCharByChar("\n선택: ");
-}
-
-// 게임 설정 처리
-void handleSettings() {
-    int choice;
-    displaySettings();
-    scanf("%d", &choice);
-    
-    switch (choice) {
-        case 1:
-            currentSpeedIndex = 0;  // 0.5배속
-            printCharByChar("\n게임 속도가 0.5배속으로 설정되었습니다.");
-            break;
-        case 2:
-            currentSpeedIndex = 1;  // 1배속
-            printCharByChar("\n게임 속도가 1배속으로 설정되었습니다.");
-            break;
-        case 3:
-            currentSpeedIndex = 2;  // 2배속
-            printCharByChar("\n게임 속도가 2배속으로 설정되었습니다.");
-            break;
-        case 4:
-            currentSpeedIndex = 3;  // 4배속
-            printCharByChar("\n게임 속도가 4배속으로 설정되었습니다.");
-            break;
-        default:
-            printCharByChar("\n잘못된 선택입니다. 기본 속도(1배속)로 설정됩니다.");
-            currentSpeedIndex = 1;
+// 게임 속도 저장 함수
+void saveGameSpeed(int speedIndex) {
+    SaveData* currentSave = loadGame();
+    if (currentSave) {
+        // 현재 게임 상태가 있으면 그대로 유지하면서 속도만 업데이트
+        saveGame(currentSave->stageNumber, 
+                currentSave->time,
+                currentSave->lastLocation,
+                currentSave->lastTerrain,
+                speedIndex);
+        free(currentSave);
+    } else {
+        // 저장된 게임이 없으면 새 게임 상태로 저장
+        saveGame(1, 0, "시작", "평지", speedIndex);
     }
-    
-    // 설정 변경 후 즉시 저장
-    saveGame(1, 0, "시작", "평지", currentSpeedIndex);
-    Sleep(1000);
+}
+
+// 게임 속도 로드 함수
+void loadGameSpeed() {
+    SaveData* savedData = loadGame();
+    if (savedData) {
+        currentSpeedIndex = savedData->gameSpeed;
+        free(savedData);
+    }
 }
 
 // 게임 설정 함수
@@ -116,21 +86,7 @@ void gameSettings() {
 
             if (speedChoice >= 1 && speedChoice <= speedCount) {
                 currentSpeedIndex = speedChoice - 1;
-                
-                // 현재 게임 상태 저장
-                SaveData* currentSave = loadGame();
-                if (currentSave) {
-                    saveGame(currentSave->stageNumber, 
-                            currentSave->time,
-                            currentSave->lastLocation,
-                            currentSave->lastTerrain,
-                            currentSpeedIndex);
-                    free(currentSave);
-                } else {
-                    // 저장된 게임이 없어도 속도 설정은 저장
-                    saveGame(1, 0, "시작", "평지", currentSpeedIndex);
-                }
-                
+                saveGameSpeed(currentSpeedIndex);  // 속도 변경 즉시 저장
                 printCharByChar("\n게임 속도가 변경되었습니다!");
                 Sleep(1000);
             } else {
@@ -163,19 +119,14 @@ void mainMenu() {
 
         switch (choice) {
             case 1: {
-                // 저장된 게임 속도 불러오기
-                SaveData* savedData = loadGame();
-                if (savedData) {
-                    currentSpeedIndex = savedData->gameSpeed;
-                    free(savedData);
-                }
+                loadGameSpeed();  // 저장된 게임 속도 불러오기
                 startGame();
                 break;
             }
             case 2: {
                 SaveData* saveData = loadGame();
                 if (saveData) {
-                    currentSpeedIndex = saveData->gameSpeed;  // 저장된 게임 속도 적용
+                    currentSpeedIndex = saveData->gameSpeed;
                     continueGame(saveData->stageNumber, saveData->time, 
                                saveData->lastLocation, saveData->lastTerrain,
                                saveData->gameSpeed);
@@ -202,14 +153,7 @@ void mainMenu() {
 int main() {
     system("chcp 65001");  // UTF-8 인코딩 설정
     loadGameSpeeds();  // 게임 속도 설정 로드
-    
-    // 저장된 게임 속도 불러오기
-    SaveData* savedData = loadGame();
-    if (savedData) {
-        currentSpeedIndex = savedData->gameSpeed;
-        free(savedData);
-    }
-    
+    loadGameSpeed();   // 저장된 게임 속도 불러오기
     mainMenu();
     return 0;
 } 

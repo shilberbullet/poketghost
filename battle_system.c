@@ -68,8 +68,14 @@ void battleSystem(SaveData* saveData) {
     printCharByChar("\n\n사용할 동료 요괴를 선택하세요: ");
     
     int choice;
-    scanf("%d", &choice);
-    getchar();  // 버퍼 비우기
+    if (scanf("%d", &choice) != 1) {
+        // 입력 오류 처리
+        while (getchar() != '\n');  // 입력 버퍼 비우기
+        printCharByChar("\n잘못된 입력입니다!");
+        Sleep(2000);
+        return;
+    }
+    while (getchar() != '\n');  // 입력 버퍼 비우기
     
     if (choice >= 1 && choice <= saveData->companionCount) {
         // 선택한 동료 요괴의 기술 목록 표시
@@ -88,8 +94,14 @@ void battleSystem(SaveData* saveData) {
         
         printCharByChar("\n\n사용할 기술을 선택하세요: ");
         int skillChoice;
-        scanf("%d", &skillChoice);
-        getchar();  // 버퍼 비우기
+        if (scanf("%d", &skillChoice) != 1) {
+            // 입력 오류 처리
+            while (getchar() != '\n');  // 입력 버퍼 비우기
+            printCharByChar("\n잘못된 입력입니다!");
+            Sleep(2000);
+            return;
+        }
+        while (getchar() != '\n');  // 입력 버퍼 비우기
         
         if (skillChoice >= 1 && skillChoice <= selectedCompanion->currentSkillCount) {
             printCharByChar("\n전투를 시작합니다!");
