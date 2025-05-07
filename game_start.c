@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <string.h>
 #include <stdlib.h>
+#include <conio.h>
 #include "game_db.h"
 #include "battle_system.h"
 
@@ -21,12 +22,27 @@ extern SaveData* loadGame();
 
 // 한 글자씩 출력하는 함수
 void printCharByChar(const char* str) {
+    // 입력 버퍼 비우기
+    while (_kbhit()) {
+        _getch();
+    }
+    
     for (int i = 0; str[i] != '\0'; i++) {
         printf("%c", str[i]);
         Sleep(gameSpeeds[currentSpeedIndex].charDelay);
+        
+        // 출력 중에 입력된 키 무시
+        while (_kbhit()) {
+            _getch();
+        }
     }
     printf("\n");
     Sleep(gameSpeeds[currentSpeedIndex].lineDelay);
+    
+    // 줄바꿈 후에도 입력 버퍼 비우기
+    while (_kbhit()) {
+        _getch();
+    }
 }
 
 // 게임 속도 저장 함수
