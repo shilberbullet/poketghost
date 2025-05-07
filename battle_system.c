@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+#include <conio.h>
 #include "game_db.h"
 #include "boss_monsters.h"
 
@@ -12,6 +13,13 @@ extern int currentSpeedIndex;
 extern SaveData* loadGame();  // 저장된 게임 데이터 불러오기 함수
 extern void initializeTeamCode();
 extern int isTeamCodeCompleted();
+
+// 입력 버퍼를 비우는 함수
+void clearInputBuffer() {
+    while (_kbhit()) {
+        _getch();
+    }
+}
 
 // 전투 시스템 초기화
 void initializeCompanionBattle() {
@@ -64,19 +72,40 @@ void battleSystem(SaveData* saveData) {
                 comp->hp, comp->maxHp, comp->attack, comp->defense, comp->evasion);
         printCharByChar(buffer);
     }
+    Sleep(1000);  // 목록 출력 후 1초 대기
+    clearInputBuffer();  // 입력 버퍼 비우기
     
-    printCharByChar("\n\n사용할 동료 요괴를 선택하세요: ");
-    
+    int validChoice = 0;
+    int choice;
     char input[10];
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        return;
-    }
-    
-    int choice = atoi(input);
-    if (choice < 1 || choice > saveData->companionCount) {
-        printCharByChar("\n잘못된 선택입니다!");
-        Sleep(2000);
-        return;
+    while (!validChoice) {
+        printCharByChar("\n\n사용할 동료 요괴를 선택하세요: ");
+        Sleep(1000);  // 메시지 출력 후 1초 대기
+        clearInputBuffer();  // 입력 버퍼 비우기
+        
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            return;
+        }
+        
+        choice = atoi(input);
+        if (choice < 1 || choice > saveData->companionCount) {
+            printCharByChar("\n잘못된 선택입니다!");
+            Sleep(2000);
+            printCharByChar("\n\n=== 동료 요괴 목록 ===");
+            for (int i = 0; i < saveData->companionCount; i++) {
+                char buffer[200];
+                Companion* comp = &saveData->companions[i];
+                sprintf(buffer, "\n%d. %s (Lv.%d)", i + 1, comp->name, comp->level);
+                printCharByChar(buffer);
+                sprintf(buffer, "\n   HP: %d/%d  공격력: %d  방어력: %d  회피율: %d%%", 
+                        comp->hp, comp->maxHp, comp->attack, comp->defense, comp->evasion);
+                printCharByChar(buffer);
+            }
+            Sleep(1000);  // 목록 출력 후 1초 대기
+            clearInputBuffer();  // 입력 버퍼 비우기
+        } else {
+            validChoice = 1;
+        }
     }
     
     // 선택한 동료 요괴의 기술 목록 표시
@@ -92,26 +121,50 @@ void battleSystem(SaveData* saveData) {
         sprintf(buffer, "\n   설명: %s", skill->description);
         printCharByChar(buffer);
     }
+    Sleep(1000);  // 목록 출력 후 1초 대기
+    clearInputBuffer();  // 입력 버퍼 비우기
     
-    printCharByChar("\n\n사용할 기술을 선택하세요: ");
-    
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        return;
-    }
-    
-    int skillChoice = atoi(input);
-    if (skillChoice < 1 || skillChoice > selectedCompanion->currentSkillCount) {
-        printCharByChar("\n잘못된 기술을 선택했습니다!");
-        Sleep(2000);
-        return;
+    validChoice = 0;
+    int skillChoice;
+    while (!validChoice) {
+        printCharByChar("\n\n사용할 기술을 선택하세요: ");
+        Sleep(1000);  // 메시지 출력 후 1초 대기
+        clearInputBuffer();  // 입력 버퍼 비우기
+        
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            return;
+        }
+        
+        skillChoice = atoi(input);
+        if (skillChoice < 1 || skillChoice > selectedCompanion->currentSkillCount) {
+            printCharByChar("\n잘못된 기술을 선택했습니다!");
+            Sleep(2000);
+            printCharByChar("\n=== 사용 가능한 기술 ===");
+            for (int i = 0; i < selectedCompanion->currentSkillCount; i++) {
+                char buffer[200];
+                CompanionSkill* skill = &selectedCompanion->currentSkills[i];
+                sprintf(buffer, "\n%d. %s", i + 1, skill->name);
+                printCharByChar(buffer);
+                sprintf(buffer, "\n   위력: %d  명중률: %d%%", skill->power, skill->accuracy);
+                printCharByChar(buffer);
+                sprintf(buffer, "\n   설명: %s", skill->description);
+                printCharByChar(buffer);
+            }
+            Sleep(1000);  // 목록 출력 후 1초 대기
+            clearInputBuffer();  // 입력 버퍼 비우기
+        } else {
+            validChoice = 1;
+        }
     }
     
     printCharByChar("\n전투를 시작합니다!");
     Sleep(1000);
+    clearInputBuffer();  // 입력 버퍼 비우기
     
     // 전투 결과 처리
     printCharByChar("\n전투에서 승리했습니다!");
     Sleep(2000);
+    clearInputBuffer();  // 입력 버퍼 비우기
     
     // 전투 완료 후 저장
     saveGame(saveData->stageNumber, saveData->time, 
