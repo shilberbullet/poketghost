@@ -46,7 +46,3 @@ gcc game_start.c poketgost.c team_code.c game_db.c battle_system.c boss_monsters
 - `game_db.h`: 데이터 구조체 정의
 - `boss_monsters.h`: 보스 요괴 구조체 정의
 - `battle_system.h`: 전투 시스템 함수 선언
-
-## 라이선스
-
-MIT License 
