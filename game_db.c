@@ -29,6 +29,11 @@ void saveGame(int stageNumber, int gameTime, const char* location, const char* t
         return;
     }
 
+    // 스테이지 번호가 0이면 1로 설정
+    if (stageNumber < 1) {
+        stageNumber = 1;
+    }
+
     // 현재 게임 데이터 업데이트
     currentGameData.stageNumber = stageNumber;
     currentGameData.time = gameTime;
@@ -94,6 +99,11 @@ SaveData* loadGame() {
         saveData->lastLocation,
         saveData->lastTerrain,
         &saveData->gameSpeed);
+
+    // 스테이지 번호가 0이면 1로 설정
+    if (saveData->stageNumber < 1) {
+        saveData->stageNumber = 1;
+    }
 
     // 동료 요괴 정보 읽기
     fscanf(file, "%d\n", &saveData->companionCount);

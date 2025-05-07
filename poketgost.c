@@ -30,6 +30,48 @@ SaveData currentGameData;
 // 외부 함수 선언
 extern void printCharByChar(const char* str);
 
+// 도깨비 초기화 함수
+void initializeDokkaebi() {
+    // 게임 데이터 초기화
+    memset(&currentGameData, 0, sizeof(SaveData));
+    currentGameData.stageNumber = currentStage;
+    currentGameData.time = currentTime;
+    currentGameData.companionCount = 0;
+    currentGameData.gameSpeed = currentSpeedIndex;
+
+    // 기본 동료 요괴(도깨비) 추가
+    Companion* dokkaebi = &currentGameData.companions[currentGameData.companionCount];
+    strcpy(dokkaebi->name, "도깨비");
+    dokkaebi->level = 1;
+    dokkaebi->hp = 100;
+    dokkaebi->maxHp = 100;
+    dokkaebi->attack = 15;
+    dokkaebi->defense = 10;
+    dokkaebi->evasion = 5;
+    
+    // 도깨비의 기본 기술 설정
+    dokkaebi->currentSkillCount = 2;
+    
+    // 기술 1: 불꽃 발사
+    strcpy(dokkaebi->currentSkills[0].name, "불꽃 발사");
+    dokkaebi->currentSkills[0].power = 20;
+    dokkaebi->currentSkills[0].accuracy = 90;
+    strcpy(dokkaebi->currentSkills[0].description, "강력한 불꽃을 발사하여 적을 공격합니다.");
+    
+    // 기술 2: 도깨비 불
+    strcpy(dokkaebi->currentSkills[1].name, "도깨비 불");
+    dokkaebi->currentSkills[1].power = 15;
+    dokkaebi->currentSkills[1].accuracy = 95;
+    strcpy(dokkaebi->currentSkills[1].description, "도깨비의 특기인 불을 사용하여 적을 공격합니다.");
+    
+    // 사용 가능한 기술 목록 설정
+    dokkaebi->availableSkillCount = 2;
+    memcpy(dokkaebi->availableSkills, dokkaebi->currentSkills, 
+           sizeof(CompanionSkill) * dokkaebi->availableSkillCount);
+    
+    currentGameData.companionCount++;
+}
+
 // 지역 정보 파일에서 읽어오기
 void loadLocations() {
     FILE* file = fopen("locations.txt", "r");
@@ -151,46 +193,18 @@ void startGame() {
     srand(time(NULL));
     loadLocations();
     
+    // 저장된 게임 속도 불러오기
+    SaveData* savedData = loadGame();
+    if (savedData) {
+        currentSpeedIndex = savedData->gameSpeed;
+        free(savedData);
+    }
+    
     currentStage = 1;
     currentTime = 0;
     
-    // 게임 데이터 초기화
-    memset(&currentGameData, 0, sizeof(SaveData));
-    currentGameData.stageNumber = currentStage;
-    currentGameData.time = currentTime;
-    currentGameData.companionCount = 0;
-    
-    // 기본 동료 요괴(도깨비) 추가
-    Companion* dokkaebi = &currentGameData.companions[currentGameData.companionCount];
-    strcpy(dokkaebi->name, "도깨비");
-    dokkaebi->level = 1;
-    dokkaebi->hp = 100;
-    dokkaebi->maxHp = 100;
-    dokkaebi->attack = 15;
-    dokkaebi->defense = 10;
-    dokkaebi->evasion = 5;
-    
-    // 도깨비의 기본 기술 설정
-    dokkaebi->currentSkillCount = 2;
-    
-    // 기술 1: 불꽃 발사
-    strcpy(dokkaebi->currentSkills[0].name, "불꽃 발사");
-    dokkaebi->currentSkills[0].power = 20;
-    dokkaebi->currentSkills[0].accuracy = 90;
-    strcpy(dokkaebi->currentSkills[0].description, "강력한 불꽃을 발사하여 적을 공격합니다.");
-    
-    // 기술 2: 도깨비 불
-    strcpy(dokkaebi->currentSkills[1].name, "도깨비 불");
-    dokkaebi->currentSkills[1].power = 15;
-    dokkaebi->currentSkills[1].accuracy = 95;
-    strcpy(dokkaebi->currentSkills[1].description, "도깨비의 특기인 불을 사용하여 적을 공격합니다.");
-    
-    // 사용 가능한 기술 목록 설정
-    dokkaebi->availableSkillCount = 2;
-    memcpy(dokkaebi->availableSkills, dokkaebi->currentSkills, 
-           sizeof(CompanionSkill) * dokkaebi->availableSkillCount);
-    
-    currentGameData.companionCount++;
+    // 도깨비 초기화
+    initializeDokkaebi();
     
     // 초기 게임 데이터 저장
     saveGame(currentStage, currentTime, "시작", "평지", currentSpeedIndex);
@@ -213,6 +227,9 @@ void continueGame(int stageNumber, int gameTime, const char* location, const cha
     if (loadedData) {
         memcpy(&currentGameData, loadedData, sizeof(SaveData));
         free(loadedData);
+    } else {
+        // 저장된 게임이 없으면 도깨비 초기화
+        initializeDokkaebi();
     }
     
     // 저장된 게임 속도 적용
