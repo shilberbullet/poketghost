@@ -113,9 +113,19 @@ void mainMenu() {
         printCharByChar("4. 종료");
         printCharByChar("\n선택: ");
 
-        int choice;
-        scanf("%d", &choice);
-        getchar();  // 버퍼 비우기
+        char input[10];
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            continue;
+        }
+
+        char* endptr;
+        int choice = strtol(input, &endptr, 10);
+        
+        if (*endptr != '\n' && *endptr != '\0') {
+            printCharByChar("\n잘못된 입력입니다. 숫자를 입력해주세요.");
+            Sleep(1000);
+            continue;
+        }
 
         switch (choice) {
             case 1: {
