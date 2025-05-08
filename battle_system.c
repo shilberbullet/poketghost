@@ -13,7 +13,7 @@ extern int currentSpeedIndex;
 extern SaveData* loadGame();  // 저장된 게임 데이터 불러오기 함수
 extern void initializeTeamCode();
 extern int isTeamCodeCompleted();
-extern void postBattleSystem();  // 새로운 전투 후 시스템 함수 선언
+extern void itemSystem();  // 함수 이름 변경
 
 // 입력 버퍼를 비우는 함수
 void clearInputBuffer() {
@@ -173,7 +173,7 @@ void battleSystem(SaveData* saveData) {
             saveData->gameSpeed);
             
     // 전투 후 시스템 실행
-    postBattleSystem();
+    itemSystem();  // 함수 이름 변경
 }
 
 // 동료 요괴 전투 시작

@@ -10,7 +10,7 @@ extern void printCharByChar(const char* str);
 extern void clearInputBuffer();  // clearInputBuffer를 외부 함수로 선언
 
 // 전투 후 실행될 코드
-void postBattleSystem() {
+void itemSystem() {
     system("cls");
     printCharByChar("\n=== 전투 후 시스템 ===");
     printCharByChar("\n임시 시스템입니다. 'a'를 입력하여 다음으로 진행하세요.");
