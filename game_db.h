@@ -68,6 +68,6 @@ SaveData* loadGame();
 void closeDB();
 
 // 전투 후 시스템 함수 선언
-void postBattleSystem();
+void itemSystem();
 
 #endif 
