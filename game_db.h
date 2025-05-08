@@ -67,4 +67,7 @@ SaveData* loadGame();
 // 파일 시스템 정리
 void closeDB();
 
+// 전투 후 시스템 함수 선언
+void postBattleSystem();
+
 #endif 
