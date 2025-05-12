@@ -1,11 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "savefile.h"
 #include "stage.h"
 #include "party.h"
 #include "yokai.h"
+#include "game.h"
+#include "settings.h"
 
-#define SAVE_FILE "save.dat"
+#define SAVE_FILE "data/save.dat"
 
 void saveGame() {
     FILE* file = fopen(SAVE_FILE, "wb");

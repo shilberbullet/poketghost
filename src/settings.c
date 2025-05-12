@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "settings.h"
 #include "input.h"
 #include "text.h"
 
-#define SETTINGS_FILE "settings.dat"
+#define SETTINGS_FILE "data/settings.dat"
 
 // 전역 게임 설정 초기화
 GameSettings gameSettings = {3};  // 기본값: 보통 속도
