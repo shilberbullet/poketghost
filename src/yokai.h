@@ -8,6 +8,7 @@
 #define MAX_MOVES 4
 #define YOKAI_NAME_MAX 32
 #define MAX_YOKAI 32
+#define MAX_BOSS_YOKAI 8
 
 // 요괴 상성 타입
 typedef enum {
@@ -45,11 +46,17 @@ extern const int YOKAI_COUNT;
 extern Yokai yokaiList[MAX_YOKAI];
 extern int yokaiListCount;
 
+extern Yokai bossYokaiList[MAX_BOSS_YOKAI];
+extern int bossYokaiListCount;
+
 void loadYokaiFromFile(const char* filename);
 Yokai* findYokaiByName(const char* name);
 
 // 랜덤 요괴 생성 함수
 Yokai createRandomYokai();
+
+// 랜덤 보스 요괴 생성 함수
+Yokai createRandomBossYokai();
 
 // 요괴 정보 출력 함수
 void printYokaiInfo(const Yokai* yokai);

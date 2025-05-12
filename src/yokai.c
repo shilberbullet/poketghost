@@ -7,6 +7,9 @@
 Yokai yokaiList[MAX_YOKAI];
 int yokaiListCount = 0;
 
+Yokai bossYokaiList[MAX_BOSS_YOKAI];
+int bossYokaiListCount = 0;
+
 // 요괴 이름 배열
 const char* yokaiNames[] = {
     "구미호", "도깨비", "오니", "텐구", "카파",
@@ -53,30 +56,40 @@ YokaiType parseType(const char* typeStr) {
 
 void loadYokaiFromFile(const char* filename) {
     yokaiListCount = 0;
+    bossYokaiListCount = 0;
     FILE* file = fopen(filename, "r");
     if (!file) return;
     char line[256];
+    int isBoss = 0;
     while (fgets(line, sizeof(line), file)) {
+        if (strstr(line, "# 보스 요괴")) { isBoss = 1; continue; }
+        if (line[0] == '#' || line[0] == '\n') continue;
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
         char* moves = strtok(NULL, "\n");
-        if (name && type && moves && yokaiListCount < MAX_YOKAI) {
-            strncpy(yokaiList[yokaiListCount].name, name, YOKAI_NAME_MAX);
-            yokaiList[yokaiListCount].type = parseType(type);
-            yokaiList[yokaiListCount].moveCount = 0;
+        if (name && type && moves) {
+            Yokai* y;
+            if (!isBoss && yokaiListCount < MAX_YOKAI) {
+                y = &yokaiList[yokaiListCount++];
+            } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
+                y = &bossYokaiList[bossYokaiListCount++];
+            } else {
+                continue;
+            }
+            strncpy(y->name, name, YOKAI_NAME_MAX);
+            y->type = parseType(type);
+            y->moveCount = 0;
             char* moveName = strtok(moves, ";");
-            while (moveName && yokaiList[yokaiListCount].moveCount < MAX_MOVES) {
+            while (moveName && y->moveCount < MAX_MOVES) {
                 Move* m = findMoveByName(moveName);
                 if (m) {
-                    yokaiList[yokaiListCount].moves[yokaiList[yokaiListCount].moveCount++] = *m;
+                    y->moves[y->moveCount++] = *m;
                 }
                 moveName = strtok(NULL, ";");
             }
-            // 기본 능력치 랜덤 (임시)
-            yokaiList[yokaiListCount].attack = rand() % 50 + 50;
-            yokaiList[yokaiListCount].defense = rand() % 40 + 40;
-            yokaiList[yokaiListCount].hp = rand() % 100 + 100;
-            yokaiListCount++;
+            y->attack = rand() % 50 + 50;
+            y->defense = rand() % 40 + 40;
+            y->hp = rand() % 100 + 100;
         }
     }
     fclose(file);
@@ -92,6 +105,11 @@ Yokai* findYokaiByName(const char* name) {
 Yokai createRandomYokai() {
     int idx = rand() % yokaiListCount;
     return yokaiList[idx];
+}
+
+Yokai createRandomBossYokai() {
+    int idx = rand() % bossYokaiListCount;
+    return bossYokaiList[idx];
 }
 
 void printYokaiInfo(const Yokai* yokai) {
