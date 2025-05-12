@@ -44,7 +44,7 @@ void nextStage() {
     currentStage.hour = (currentStage.hour + 1) % 24;
     
     // 10개 스테이지마다 지역 변경
-    int regionIndex = (currentStage.stageNumber - 1) / 10;
+    size_t regionIndex = (currentStage.stageNumber - 1) / 10;
     if (regionIndex < sizeof(regions) / sizeof(regions[0])) {
         strcpy(currentStage.region, regions[regionIndex]);
     }

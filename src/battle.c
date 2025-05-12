@@ -135,6 +135,7 @@ int selectTalismanFromInventory() {
 }
 
 int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
+    (void)enemy;  // 사용하지 않는 매개변수 명시
     switch (choice) {
         case BATTLE_FIGHT: {
             int yokaiIdx = selectPartyYokai();
