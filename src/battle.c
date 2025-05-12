@@ -12,10 +12,14 @@
 #include "item.h"
 
 void startBattle() {
-    Yokai enemy = createRandomYokai();
+    Yokai enemy;
+    if (currentStage.stageNumber % 10 == 0) {
+        enemy = createRandomBossYokai();
+    } else {
+        enemy = createRandomYokai();
+    }
     char buffer[256];
-    
-    sprintf(buffer, "\n%s가 싸움을 걸어왔다!\n", enemy.name);
+    sprintf(buffer, "\n%s(이)가 싸움을 걸어왔다!\n", enemy.name);
     printText(buffer);
     
     while (1) {
