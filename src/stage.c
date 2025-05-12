@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include "stage.h"
+#include "text.h"
+#include "input.h"
+#include "battle.h"
+#include "savefile.h"
+
+// 지역 이름 배열 (10개씩 그룹화)
+const char* regions[] = {
+    // 1-10 스테이지
+    "초보자의 숲", "초보자의 언덕", "초보자의 계곡", "초보자의 호수", "초보자의 들판",
+    "초보자의 마을", "초보자의 길", "초보자의 동굴", "초보자의 강", "초보자의 산",
+    
+    // 11-20 스테이지
+    "숙련자의 숲", "숙련자의 언덕", "숙련자의 계곡", "숙련자의 호수", "숙련자의 들판",
+    "숙련자의 마을", "숙련자의 길", "숙련자의 동굴", "숙련자의 강", "숙련자의 산",
+    
+    // 21-30 스테이지
+    "전문가의 숲", "전문가의 언덕", "전문가의 계곡", "전문가의 호수", "전문가의 들판",
+    "전문가의 마을", "전문가의 길", "전문가의 동굴", "전문가의 강", "전문가의 산"
+};
+
+// 지형 이름 배열
+const char* terrainNames[] = {
+    "산", "강", "바다", "논", "마을"
+};
+
+// 전역 스테이지 정보
+StageInfo currentStage = {0};
+
+void initStage() {
+    srand(time(NULL));
+    currentStage.stageNumber = 1;
+    currentStage.hour = 0;
+    strcpy(currentStage.region, regions[0]);
+    currentStage.terrain = rand() % TERRAIN_COUNT;
+}
+
+void nextStage() {
+    currentStage.stageNumber++;
+    currentStage.hour = (currentStage.hour + 1) % 24;
+    
+    // 10개 스테이지마다 지역 변경
+    int regionIndex = (currentStage.stageNumber - 1) / 10;
+    if (regionIndex < sizeof(regions) / sizeof(regions[0])) {
+        strcpy(currentStage.region, regions[regionIndex]);
+    }
+    
+    // 랜덤 지형 설정
+    currentStage.terrain = rand() % TERRAIN_COUNT;
+    
+    // 5의 배수 스테이지 완료 시 자동 저장
+    if ((currentStage.stageNumber - 1) % 5 == 0) {
+        saveGame();
+    }
+}
+
+void showStageInfo() {
+    char buffer[256];
+    
+    system("cls");
+    printText("=== 스테이지 정보 ===\n\n");
+    
+    sprintf(buffer, "스테이지: %d\n", currentStage.stageNumber);
+    printText(buffer);
+    
+    sprintf(buffer, "지역: %s\n", currentStage.region);
+    printText(buffer);
+    
+    sprintf(buffer, "지형: %s\n", terrainNames[currentStage.terrain]);
+    printText(buffer);
+    
+    sprintf(buffer, "시간: %02d시\n\n", currentStage.hour);
+    printText(buffer);
+}
+
+void showBattleInterface() {
+    startBattle();
+    nextStage();
+} 

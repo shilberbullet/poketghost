@@ -1,0 +1,52 @@
+#ifndef ITEM_H
+#define ITEM_H
+
+#define ITEM_NAME_MAX 32
+#define ITEM_DESC_MAX 128
+#define ITEM_LIST_MAX 16
+#define INVENTORY_MAX 20
+
+// 아이템 등급
+typedef enum {
+    ITEM_COMMON,    // 일반
+    ITEM_RARE,      // 희귀
+    ITEM_SUPERRARE  // 초희귀
+} ItemGrade;
+
+// 아이템 타입
+typedef enum {
+    ITEM_TALISMAN,  // 부적류
+    ITEM_HEAL,      // 회복류
+    ITEM_EQUIP,     // 장비류
+    ITEM_OTHER      // 기타
+} ItemType;
+
+// 아이템 구조체
+typedef struct {
+    char name[ITEM_NAME_MAX];
+    char desc[ITEM_DESC_MAX];
+    ItemGrade grade;
+    ItemType type;
+} Item;
+
+// 인벤토리용 구조체 (아이템+개수)
+typedef struct {
+    Item item;
+    int count;
+} InventoryItem;
+
+// 전체 아이템 목록
+extern const Item itemList[ITEM_LIST_MAX];
+extern const int itemListCount;
+
+// 인벤토리
+extern InventoryItem inventory[INVENTORY_MAX];
+extern int inventoryCount;
+
+// 아이템 3개를 확률에 따라 랜덤 추출
+void getRandomItems(Item* outItems, int count);
+
+// 인벤토리에 아이템 추가
+void addItemToInventory(const Item* item);
+
+#endif // ITEM_H 
