@@ -5,10 +5,12 @@ typedef struct {
     int isRunning;
     int isNewGame;
     int isLoadedGame;
+    int currentStage;
+    int currentTime;
 } GameState;
 
 extern GameState gameState;
 
-void initGame();
+void initGame(void);
 
 #endif // GAME_H 

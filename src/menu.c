@@ -54,6 +54,7 @@ void handleMenuChoice(int choice) {
 }
 
 void startNewGame() {
+    initGame(); // 게임 상태 초기화
     initStage();
     initParty();
     while (gameState.isRunning) {
@@ -64,6 +65,7 @@ void startNewGame() {
 
 void loadGame() {
     if (loadGameData()) {
+        initGame(); // 게임 상태 초기화
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
         while (gameState.isRunning) {
             showStageInfo();

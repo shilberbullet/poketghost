@@ -18,4 +18,10 @@ int addYokaiToParty(const Yokai* yokai);
 // 동료 요괴 목록 출력
 void printParty();
 
+// 요괴 성불 처리
+void releaseYokai(int index);
+
+// 파티가 가득 찼을 때의 처리
+int handleFullParty(const Yokai* newYokai);
+
 #endif // PARTY_H 
