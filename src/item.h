@@ -61,4 +61,7 @@ void addItemToInventory(const Item* item);
 // 부적 사용 함수
 bool useTalisman(const Item* item, Yokai* targetYokai);
 
+// 인벤토리 출력 함수
+void printInventory();
+
 #endif // ITEM_H 

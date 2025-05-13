@@ -9,6 +9,7 @@ typedef enum {
     BATTLE_TALISMAN,
     BATTLE_CHECK_PARTY,
     BATTLE_RUN,
+    BATTLE_CHECK_INVENTORY,
     BATTLE_SAVE_AND_EXIT
 } BattleChoice;
 

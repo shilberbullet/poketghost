@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "item.h"
+#include "text.h"
+#include "yokai.h"
 
 // 아이템 목록
 Item itemList[ITEM_LIST_MAX];
@@ -108,5 +110,57 @@ void addItemToInventory(const Item* item) {
         inventory[inventoryCount].item = *item;
         inventory[inventoryCount].count = 1;
         inventoryCount++;
+    }
+}
+
+// 인벤토리 출력 함수
+void printInventory() {
+    if (inventoryCount == 0) {
+        printTextAndWait("\n인벤토리가 비어있습니다.");
+        return;
+    }
+
+    printText("\n=== 인벤토리 ===\n");
+    for (int i = 0; i < inventoryCount; i++) {
+        char buffer[256];
+        sprintf(buffer, "%d. %s [%s] x%d\n    %s\n", 
+            i+1, 
+            inventory[i].item.name,
+            inventory[i].item.grade == ITEM_COMMON ? "일반" : 
+            inventory[i].item.grade == ITEM_RARE ? "희귀" : "초희귀",
+            inventory[i].count,
+            inventory[i].item.desc);
+        printText(buffer);
+    }
+    printTextAndWait("\n");
+}
+
+// 부적 사용 함수
+bool useTalisman(const Item* item, Yokai* targetYokai) {
+    if (item->type != ITEM_TALISMAN) {
+        printf("이 아이템은 부적이 아닙니다!\n");
+        return false;
+    }
+    // 부적 등급에 따라 포획 확률 결정
+    float catchRate = 0.0f;
+    switch (item->grade) {
+        case ITEM_COMMON:
+            catchRate = 0.3f;
+            break;
+        case ITEM_RARE:
+            catchRate = 0.5f;
+            break;
+        case ITEM_SUPERRARE:
+            catchRate = 0.8f;
+            break;
+        default:
+            catchRate = 0.3f;
+    }
+    if ((float)rand() / RAND_MAX < catchRate) {
+        printf("포획 성공!\n");
+        return true;
+    } else {
+        printf("포획 실패...\n");
+        return false;
     }
 } 

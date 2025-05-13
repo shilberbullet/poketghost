@@ -73,7 +73,10 @@ void showStageInfo() {
     sprintf(buffer, "지형: %s\n", terrainNames[currentStage.terrain]);
     printText(buffer);
     
-    sprintf(buffer, "시간: %02d시\n\n", currentStage.hour);
+    sprintf(buffer, "시간: %02d시\n", currentStage.hour);
+    printText(buffer);
+    
+    sprintf(buffer, "보유 전: %d전\n\n", player.money);
     printText(buffer);
 }
 

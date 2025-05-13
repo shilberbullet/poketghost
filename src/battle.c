@@ -11,6 +11,20 @@
 #include "game.h"
 #include "item.h"
 
+// 전투 보상 전 계산 함수
+int calculateBattleReward() {
+    int baseReward = 100;  // 기본 보상
+    int stageBonus = (currentStage.stageNumber / 10) * 50;  // 10스테이지마다 50전씩 증가
+    int randomBonus = rand() % 50;  // 0-49전 랜덤 보너스
+    
+    // 10의 배수 스테이지에서는 2배 보상
+    if (currentStage.stageNumber % 10 == 0) {
+        return (baseReward + stageBonus + randomBonus) * 2;
+    }
+    
+    return baseReward + stageBonus + randomBonus;
+}
+
 void startBattle() {
     Yokai enemy;
     if (currentStage.stageNumber % 10 == 0) {
@@ -24,7 +38,15 @@ void startBattle() {
     
     while (1) {
         int done = showBattleMenu(&enemy);
-        if (done) break;
+        if (done == 1) {
+            // 전투 승리 시 보상 지급
+            int reward = calculateBattleReward();
+            addMoney(reward);
+            break;
+        } else if (done == 2) {
+            // 저장 후 종료: 보상 지급 없음
+            break;
+        }
     }
 }
 
@@ -36,14 +58,15 @@ int showBattleMenu(const Yokai* enemy) {
     printText("2. 부적을 던진다\n");
     printText("3. 동료 요괴를 본다\n");
     printText("4. 도망간다\n");
-    printText("5. 게임을 저장하고 메뉴로 돌아간다\n\n");
+    printText("5. 인벤토리를 본다\n");
+    printText("6. 게임을 저장하고 메뉴로 돌아간다\n\n");
     printText("숫자를 입력하세요: ");
     
     choice = getIntInput();
-    if (choice >= 1 && choice <= 5) {
+    if (choice >= 1 && choice <= 6) {
         return handleBattleChoice((BattleChoice)choice, enemy);
     } else {
-        printTextAndWait("\n잘못된 선택입니다. 1-5 사이의 숫자를 입력해주세요.");
+        printTextAndWait("\n잘못된 선택입니다. 1-6 사이의 숫자를 입력해주세요.");
         return 0;
     }
 }
@@ -159,16 +182,16 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
             // 실제 부적 효과 적용
             if (useTalisman(&inventory[idx].item, (Yokai*)enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
-            printTextAndWait(buffer);
+                printTextAndWait(buffer);
                 // 인벤토리에서 부적 차감
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
-            itemRewardSystem();
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
+                itemRewardSystem();
                 return 1; // 전투 종료(잡았으니)
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
@@ -195,11 +218,14 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                 printTextAndWait("\n도망치는데 실패했습니다!");
                 return 0;
             }
+        case BATTLE_CHECK_INVENTORY:
+            printInventory();
+            return 0;
         case BATTLE_SAVE_AND_EXIT:
             saveGame();
             printTextAndWait("\n게임이 저장되었습니다. 메뉴로 돌아갑니다.");
             gameState.isRunning = 0;
-            return 1;
+            return 2; // 저장 후 종료는 2 반환
     }
     return 0;
 } 
