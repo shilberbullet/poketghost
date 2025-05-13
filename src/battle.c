@@ -156,8 +156,11 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                 return 0; // 부적 없음: 메뉴 반복
             }
             char buffer[128];
-            sprintf(buffer, "\n%s를 던졌다! (효과는 추후 구현)", inventory[idx].item.name);
+            // 실제 부적 효과 적용
+            if (useTalisman(&inventory[idx].item, (Yokai*)enemy)) {
+                sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
             printTextAndWait(buffer);
+                // 인벤토리에서 부적 차감
             if (inventory[idx].count == 1) {
                 for (int i = idx; i < inventoryCount - 1; i++)
                     inventory[i] = inventory[i + 1];
@@ -166,7 +169,20 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                 inventory[idx].count--;
             }
             itemRewardSystem();
-            return 1;
+                return 1; // 전투 종료(잡았으니)
+            } else {
+                sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
+                printTextAndWait(buffer);
+                // 인벤토리에서 부적 차감
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
+                return 0; // 전투 계속
+            }
         }
         case BATTLE_CHECK_PARTY:
             printParty();

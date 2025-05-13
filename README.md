@@ -41,8 +41,6 @@ gcc -o poketghost src/main.c src/menu.c src/game.c src/input.c src/settings.c sr
 - 숫자 키를 사용하여 메뉴 선택
 - 전투 시 기술 선택 및 아이템 사용
 - 저장 및 불러오기 기능
-- 메인 메뉴에서 '3'을 눌러 아이템 목록 확인 가능
-- 전투 중 '2'를 눌러 부적 사용 가능
 
 ## 프로젝트 구조
 
@@ -58,3 +56,7 @@ poketghost/
 ## 개발자
 
 - shilberbullet
+
+## 라이선스
+
+이 프로젝트는 MIT 라이선스를 따릅니다. 
