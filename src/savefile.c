@@ -21,6 +21,8 @@ void saveGame() {
     for (int i = 0; i < partyCount; i++) {
         fwrite(&party[i], sizeof(Yokai), 1, file);
     }
+    // 플레이어 정보 저장
+    fwrite(&player, sizeof(Player), 1, file);
     fclose(file);
 }
 
@@ -35,6 +37,8 @@ int loadGameData() {
     for (int i = 0; i < partyCount; i++) {
         fread(&party[i], sizeof(Yokai), 1, file);
     }
+    // 플레이어 정보 불러오기
+    fread(&player, sizeof(Player), 1, file);
     fclose(file);
     return 1;
 } 
