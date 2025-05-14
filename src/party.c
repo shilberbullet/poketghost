@@ -6,6 +6,9 @@
 #include "text.h"
 #include "input.h"
 
+// assignRandomMoves 함수 선언
+void assignRandomMoves(Yokai* y);
+
 Yokai party[MAX_PARTY_SIZE];
 int partyCount = 0;
 
@@ -15,6 +18,7 @@ void initParty() {
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
         party[0] = *dokkaebi;
+        assignRandomMoves(&party[0]);
         partyCount = 1;
     }
 }
@@ -83,7 +87,9 @@ int addYokaiToParty(const Yokai* yokai) {
     if (partyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
     }
-    party[partyCount++] = *yokai;
+    party[partyCount] = *yokai;
+    assignRandomMoves(&party[partyCount]);
+    partyCount++;
     return 1;
 }
 

@@ -38,13 +38,15 @@ void startBattle() {
     
     while (1) {
         int done = showBattleMenu(&enemy);
-        if (done == 1) {
-            // 전투 승리 시 보상 지급
+        if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
             break;
+        } else if (done == 103) {
+            // 도망 성공: 보상 없음
+            break;
         } else if (done == 2) {
-            // 저장 후 종료: 보상 지급 없음
+            // 저장 후 종료
             break;
         }
     }
@@ -162,7 +164,7 @@ int selectTalismanFromInventory() {
 }
 
 int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
-    (void)enemy;  // 사용하지 않는 매개변수 명시
+    (void)enemy;
     switch (choice) {
         case BATTLE_FIGHT: {
             int yokaiIdx = selectPartyYokai();
@@ -171,7 +173,7 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
             sprintf(buffer, "\n%s가 %s 기술을 사용했다! (전투 로직은 추후 구현)\n", party[yokaiIdx].name, party[yokaiIdx].moves[moveIdx].name);
             printTextAndWait(buffer);
             itemRewardSystem();
-            return 1;
+            return 101; // BATTLE_FIGHT 성공
         }
         case BATTLE_TALISMAN: {
             int idx = selectTalismanFromInventory();
@@ -179,11 +181,9 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                 return 0; // 부적 없음: 메뉴 반복
             }
             char buffer[128];
-            // 실제 부적 효과 적용
             if (useTalisman(&inventory[idx].item, (Yokai*)enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
-                // 인벤토리에서 부적 차감
                 if (inventory[idx].count == 1) {
                     for (int i = idx; i < inventoryCount - 1; i++)
                         inventory[i] = inventory[i + 1];
@@ -192,11 +192,10 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                     inventory[idx].count--;
                 }
                 itemRewardSystem();
-                return 1; // 전투 종료(잡았으니)
+                return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
                 printTextAndWait(buffer);
-                // 인벤토리에서 부적 차감
                 if (inventory[idx].count == 1) {
                     for (int i = idx; i < inventoryCount - 1; i++)
                         inventory[i] = inventory[i + 1];
@@ -213,7 +212,7 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
         case BATTLE_RUN:
             if (rand() % 2 == 0) {
                 printTextAndWait("\n도망치는데 성공했습니다!");
-                return 1;
+                return 103; // 도망 성공
             } else {
                 printTextAndWait("\n도망치는데 실패했습니다!");
                 return 0;
@@ -225,7 +224,7 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
             saveGame();
             printTextAndWait("\n게임이 저장되었습니다. 메뉴로 돌아갑니다.");
             gameState.isRunning = 0;
-            return 2; // 저장 후 종료는 2 반환
+            return 2;
     }
     return 0;
 } 

@@ -65,6 +65,7 @@ void startNewGame() {
 
 void loadGame() {
     if (loadGameData()) {
+        gameState.isLoadedGame = 1;
         initGame(); // 게임 상태 초기화
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
         while (gameState.isRunning) {

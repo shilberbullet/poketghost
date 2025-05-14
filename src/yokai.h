@@ -6,6 +6,7 @@
 #include "move.h"
 
 #define MAX_MOVES 4
+#define MAX_LEARNABLE_MOVES 12
 #define YOKAI_NAME_MAX 32
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
@@ -33,8 +34,10 @@ typedef struct {
     int defense;        // 방어력
     int hp;            // 체력
     YokaiType type;    // 상성
-    Move moves[MAX_MOVES];  // 배울 수 있는 기술들
+    Move moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수
+    Move learnableMoves[MAX_LEARNABLE_MOVES]; // 배울 수 있는 기술 목록
+    int learnableMoveCount;
 } Yokai;
 
 // 요괴 이름 배열

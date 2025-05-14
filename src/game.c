@@ -12,9 +12,11 @@ void initGame() {
     gameState.isRunning = 1;
     gameState.currentStage = 1;
     
-    // 플레이어 초기화
-    player.money = 0;  // 초기 전을 0으로 설정
-    
+    // 이어하기가 아닌 경우에만 플레이어 초기화
+    if (!gameState.isLoadedGame) {
+        player.money = 0;  // 초기 전을 0으로 설정
+    }
+    gameState.isLoadedGame = 0; // 초기화 후 플래그 리셋
     // 기본 요괴 추가 코드 삭제 (initParty에서 처리)
 }
 
