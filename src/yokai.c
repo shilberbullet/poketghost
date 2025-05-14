@@ -66,8 +66,12 @@ void loadYokaiFromFile(const char* filename) {
         if (line[0] == '#' || line[0] == '\n') continue;
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
+        char* attack = strtok(NULL, ",");
+        char* defense = strtok(NULL, ",");
+        char* hp = strtok(NULL, ",");
+        char* speed = strtok(NULL, ",");
         char* moves = strtok(NULL, "\n");
-        if (name && type && moves) {
+        if (name && type && attack && defense && hp && speed && moves) {
             Yokai* y;
             if (!isBoss && yokaiListCount < MAX_YOKAI) {
                 y = &yokaiList[yokaiListCount++];
@@ -78,6 +82,10 @@ void loadYokaiFromFile(const char* filename) {
             }
             strncpy(y->name, name, YOKAI_NAME_MAX);
             y->type = parseType(type);
+            y->attack = atoi(attack);
+            y->defense = atoi(defense);
+            y->hp = atoi(hp);
+            y->speed = atoi(speed);
             y->learnableMoveCount = 0;
             char* moveName = strtok(moves, ";");
             while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
@@ -87,9 +95,6 @@ void loadYokaiFromFile(const char* filename) {
                 }
                 moveName = strtok(NULL, ";");
             }
-            y->attack = rand() % 50 + 50;
-            y->defense = rand() % 40 + 40;
-            y->hp = rand() % 100 + 100;
             y->moveCount = 0; // 실제 moves는 생성 시 랜덤 4개로 할당
         }
     }
@@ -139,6 +144,7 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("공격력: %d\n", yokai->attack);
     printf("방어력: %d\n", yokai->defense);
     printf("체력: %d\n", yokai->hp);
+    printf("스피드: %d\n", yokai->speed);
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         printf("%d. %s\n", i + 1, yokai->moves[i].name);

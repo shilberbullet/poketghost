@@ -33,6 +33,7 @@ typedef struct {
     int attack;         // 공격력
     int defense;        // 방어력
     int hp;            // 체력
+    int speed;         // 스피드
     YokaiType type;    // 상성
     Move moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수
