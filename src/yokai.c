@@ -78,21 +78,37 @@ void loadYokaiFromFile(const char* filename) {
             }
             strncpy(y->name, name, YOKAI_NAME_MAX);
             y->type = parseType(type);
-            y->moveCount = 0;
+            y->learnableMoveCount = 0;
             char* moveName = strtok(moves, ";");
-            while (moveName && y->moveCount < MAX_MOVES) {
+            while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
                 Move* m = findMoveByName(moveName);
                 if (m) {
-                    y->moves[y->moveCount++] = *m;
+                    y->learnableMoves[y->learnableMoveCount++] = *m;
                 }
                 moveName = strtok(NULL, ";");
             }
             y->attack = rand() % 50 + 50;
             y->defense = rand() % 40 + 40;
             y->hp = rand() % 100 + 100;
+            y->moveCount = 0; // 실제 moves는 생성 시 랜덤 4개로 할당
         }
     }
     fclose(file);
+}
+
+// learnableMoves에서 랜덤 4개를 moves에 복사하는 함수
+void assignRandomMoves(Yokai* y) {
+    int idx[MAX_LEARNABLE_MOVES];
+    for (int i = 0; i < y->learnableMoveCount; i++) idx[i] = i;
+    // Fisher-Yates shuffle
+    for (int i = y->learnableMoveCount - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp;
+    }
+    y->moveCount = (y->learnableMoveCount < MAX_MOVES) ? y->learnableMoveCount : MAX_MOVES;
+    for (int i = 0; i < y->moveCount; i++) {
+        y->moves[i] = y->learnableMoves[idx[i]];
+    }
 }
 
 Yokai* findYokaiByName(const char* name) {
@@ -104,12 +120,16 @@ Yokai* findYokaiByName(const char* name) {
 
 Yokai createRandomYokai() {
     int idx = rand() % yokaiListCount;
-    return yokaiList[idx];
+    Yokai y = yokaiList[idx];
+    assignRandomMoves(&y);
+    return y;
 }
 
 Yokai createRandomBossYokai() {
     int idx = rand() % bossYokaiListCount;
-    return bossYokaiList[idx];
+    Yokai y = bossYokaiList[idx];
+    assignRandomMoves(&y);
+    return y;
 }
 
 void printYokaiInfo(const Yokai* yokai) {
