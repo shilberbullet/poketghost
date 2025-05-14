@@ -21,19 +21,46 @@
 
 ## 실행 방법
 
-1. 소스 코드 다운로드
+### 1. 개발 환경 준비
+1. MinGW 설치 (C 컴파일러)
+   - [MinGW 다운로드 페이지](https://sourceforge.net/projects/mingw/)에서 설치
+   - 설치 시 `mingw32-base`와 `mingw32-gcc-g++` 패키지 선택
+   - 설치 후 시스템 환경 변수 PATH에 MinGW의 bin 폴더 경로 추가
+     (예: `C:\MinGW\bin`)
+
+2. Git 설치
+   - [Git 다운로드 페이지](https://git-scm.com/downloads)에서 설치
+
+### 2. 프로젝트 다운로드
+1. 명령 프롬프트(cmd) 실행
+   - Windows 키 + R을 누르고 'cmd' 입력 후 실행
+
+2. 프로젝트 폴더 생성 및 이동
 ```bash
-git clone https://github.com/shilberbullet/poketghost.git
+# 원하는 위치로 이동 (예: C 드라이브)
+cd C:\
+
+# 프로젝트 폴더 생성
+mkdir poketghostv2
+
+# 생성한 폴더로 이동
+cd poketghostv2
 ```
 
-2. 컴파일
+3. GitHub에서 소스 코드 다운로드
 ```bash
-gcc -o poketghost src/main.c src/menu.c src/game.c src/input.c src/settings.c src/text.c src/stage.c src/yokai.c src/move.c src/battle.c src/party.c src/savefile.c src/item.c -Wall -Wextra
+git clone https://github.com/shilberbullet/poketghost.git .
 ```
 
-3. 실행
+### 3. 컴파일 및 실행
+1. 소스 코드 컴파일
 ```bash
-./poketghost
+gcc -o poketghost src/main.c src/menu.c src/game.c src/input.c src/settings.c src/text.c src/stage.c src/yokai.c src/move.c src/battle.c src/party.c src/savefile.c src/item.c -I./include -I./src
+```
+
+2. 게임 실행
+```bash
+poketghost
 ```
 
 ## 게임 조작
