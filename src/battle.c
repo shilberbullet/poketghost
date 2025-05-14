@@ -66,7 +66,7 @@ int showBattleMenu(const Yokai* enemy) {
     
     choice = getIntInput();
     if (choice >= 1 && choice <= 6) {
-        return handleBattleChoice((BattleChoice)choice, enemy);
+        return handleBattleChoice((BattleChoice)choice, (Yokai*)enemy);
     } else {
         printTextAndWait("\n잘못된 선택입니다. 1-6 사이의 숫자를 입력해주세요.");
         return 0;
@@ -163,8 +163,7 @@ int selectTalismanFromInventory() {
     return talismanIdx[idx];
 }
 
-int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
-    (void)enemy;
+int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
     switch (choice) {
         case BATTLE_FIGHT: {
             int yokaiIdx = selectPartyYokai();
@@ -181,9 +180,17 @@ int handleBattleChoice(BattleChoice choice, const Yokai* enemy) {
                 return 0; // 부적 없음: 메뉴 반복
             }
             char buffer[128];
-            if (useTalisman(&inventory[idx].item, (Yokai*)enemy)) {
+            if (useTalisman(&inventory[idx].item, enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
+                
+                // 요괴를 파티에 추가
+                Yokai newYokai = *enemy;  // enemy의 복사본 생성
+                if (addYokaiToParty(&newYokai)) {
+                    sprintf(buffer, "\n%s가 동료가 되었습니다!", newYokai.name);
+                    printTextAndWait(buffer);
+                }
+                
                 if (inventory[idx].count == 1) {
                     for (int i = idx; i < inventoryCount - 1; i++)
                         inventory[i] = inventory[i + 1];

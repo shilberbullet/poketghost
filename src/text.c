@@ -40,5 +40,6 @@ void printText(const char* text) {
 
 void printTextAndWait(const char* text) {
     printText(text);
-    waitForEnter();
+    Sleep(1000);  // 1초 대기 후 자동으로 넘어감
+    printf("\n");
 } 
