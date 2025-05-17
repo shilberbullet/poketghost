@@ -229,24 +229,25 @@ Yokai createRandomBossYokai() {
 }
 
 void printYokaiInfo(const Yokai* yokai) {
-    printf("\n=== %s Lv.%d ===\n", yokai->name, yokai->level);
-    printf("상성: %s\n", typeNames[yokai->type]);
-    printf("설명: %s\n", typeDescriptions[yokai->type]);
+    printf("\n=== %s Lv.%d의 정보 ===\n", yokai->name, yokai->level);
+    printf("체력: %d\n", yokai->hp);
     printf("공격력: %d\n", yokai->attack);
     printf("방어력: %d\n", yokai->defense);
-    printf("체력: %d\n", yokai->hp);
-    printf("스피드: %d\n", yokai->speed);
+    printf("상성: %s\n", typeNames[yokai->type]);
     
     // 도감설명을 여러 줄로 나누어 출력
     printf("\n도감설명:\n");
     const char* desc = yokai->desc;
     int lineLen = 0;
-    const int MAX_LINE_LEN = 50;  // 한 줄의 최대 길이
+    const int MAX_LINE_LEN = 40;  // 한 줄의 최대 길이를 줄임
     
     while (*desc) {
+        // 현재 문자가 공백, 쉼표, 마침표이고 줄 길이가 충분하면 줄바꿈
         if (lineLen >= MAX_LINE_LEN && (*desc == ' ' || *desc == ',' || *desc == '.')) {
             printf("\n");
             lineLen = 0;
+            // 줄바꿈 후 공백이면 건너뛰기
+            if (*desc == ' ') desc++;
         }
         printf("%c", *desc);
         lineLen++;
@@ -256,7 +257,12 @@ void printYokaiInfo(const Yokai* yokai) {
     
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
-        printf("%d. %s\n", i + 1, yokai->moves[i].name);
+        printf("%d. %s (공격력: %d, 명중률: %d%%)\n", 
+            i + 1, 
+            yokai->moves[i].name,
+            yokai->moves[i].power,
+            yokai->moves[i].accuracy);
+        printf("   설명: %s\n", yokai->moves[i].description);
     }
     printf("\n");
 }
