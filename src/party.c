@@ -114,7 +114,7 @@ void printParty() {
     
     if (choice > 0 && choice <= partyCount) {
         int idx = choice - 1;
-        char buffer[1024];  // 버퍼 크기를 1024로 증가
+        char buffer[1024];
         
         // 기본 정보 출력
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
@@ -130,7 +130,7 @@ void printParty() {
         
         // 도감설명 출력
         printText("\n도감설명: ");
-        printText(party[idx].desc);  // 도감설명을 직접 출력
+        printText(party[idx].desc);
         printText("\n");
         
         // 기술 목록 출력
