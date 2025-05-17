@@ -63,7 +63,7 @@ void loadYokaiFromFile(const char* filename) {
     bossYokaiListCount = 0;
     FILE* file = fopen(filename, "r");
     if (!file) return;
-    char line[1024];  // 라인 버퍼 크기 증가
+    char line[32768];  // 한글 인코딩을 고려하여 버퍼 크기를 더 크게 증가
     int isBoss = 0;
     while (fgets(line, sizeof(line), file)) {
         if (strstr(line, "# 보스 요괴")) { isBoss = 1; continue; }
@@ -72,26 +72,22 @@ void loadYokaiFromFile(const char* filename) {
         // 줄바꿈 문자 제거
         line[strcspn(line, "\n")] = 0;
         
-        // 필드 파싱 (desc/moves 분리 개선)
+        // 마지막 쉼표 위치 찾기
+        char* last_comma = strrchr(line, ',');
+        if (!last_comma) continue;
+        char* moves = last_comma + 1;
+        *last_comma = '\0'; // desc와 moves 분리
+        
+        // 앞에서부터 차례로 파싱
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
         char* attack = strtok(NULL, ",");
         char* defense = strtok(NULL, ",");
         char* hp = strtok(NULL, ",");
         char* speed = strtok(NULL, ",");
-        char* desc = strtok(NULL, ",");
-        char* moves = NULL;
+        char* desc = strtok(NULL, ""); // 남은 전체를 desc로
         
-        // desc와 moves 분리
-        if (desc) {
-            char* lastComma = strrchr(line, ',');
-            if (lastComma) {
-                moves = lastComma + 1;
-                *lastComma = '\0';  // desc 문자열 끝에 널 문자 삽입
-            }
-        }
-        
-        if (name && type && attack && defense && hp && speed && desc && moves && strlen(moves) > 0) {
+        if (name && type && attack && defense && hp && speed && desc && moves) {
             Yokai* y;
             if (!isBoss && yokaiListCount < MAX_YOKAI) {
                 y = &yokaiList[yokaiListCount++];
@@ -103,17 +99,18 @@ void loadYokaiFromFile(const char* filename) {
             
             strncpy(y->name, name, YOKAI_NAME_MAX - 1);
             y->name[YOKAI_NAME_MAX - 1] = '\0';
-            
             y->type = parseType(type);
             y->attack = atoi(attack);
             y->defense = atoi(defense);
             y->hp = atoi(hp);
             y->speed = atoi(speed);
             
-            // 도감 설명 저장 개선
+            // 도감 설명 복사 전에 버퍼 초기화
+            memset(y->desc, 0, YOKAI_DESC_MAX);
             strncpy(y->desc, desc, YOKAI_DESC_MAX - 1);
             y->desc[YOKAI_DESC_MAX - 1] = '\0';
             
+            // 기술 목록 파싱
             y->learnableMoveCount = 0;
             char* moveName = strtok(moves, ";");
             while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
