@@ -4,6 +4,10 @@
 #include "yokai.h"
 #include "move.h"
 
+#ifndef YOKAI_DESC_MAX
+#define YOKAI_DESC_MAX 256
+#endif
+
 Yokai yokaiList[MAX_YOKAI];
 int yokaiListCount = 0;
 
@@ -59,95 +63,68 @@ void loadYokaiFromFile(const char* filename) {
     bossYokaiListCount = 0;
     FILE* file = fopen(filename, "r");
     if (!file) return;
-    char line[512];
+    char line[1024];  // 라인 버퍼 크기 증가
     int isBoss = 0;
     while (fgets(line, sizeof(line), file)) {
         if (strstr(line, "# 보스 요괴")) { isBoss = 1; continue; }
         if (line[0] == '#' || line[0] == '\n') continue;
         
         // 줄바꿈 문자 제거
-        size_t len = strlen(line);
-        if (len > 0 && line[len-1] == '\n') {
-            line[len-1] = '\0';
-        }
+        line[strcspn(line, "\n")] = 0;
         
-        // 각 필드의 시작 위치 찾기
-        char* name = line;
-        char* type = strchr(name, ',');
-        if (!type) continue;
-        *type = '\0';
-        type++;
+        // 필드 파싱 (desc/moves 분리 개선)
+        char* name = strtok(line, ",");
+        char* type = strtok(NULL, ",");
+        char* attack = strtok(NULL, ",");
+        char* defense = strtok(NULL, ",");
+        char* hp = strtok(NULL, ",");
+        char* speed = strtok(NULL, ",");
+        char* desc = strtok(NULL, ",");
+        char* moves = NULL;
         
-        char* attack = strchr(type, ',');
-        if (!attack) continue;
-        *attack = '\0';
-        attack++;
-        
-        char* defense = strchr(attack, ',');
-        if (!defense) continue;
-        *defense = '\0';
-        defense++;
-        
-        char* hp = strchr(defense, ',');
-        if (!hp) continue;
-        *hp = '\0';
-        hp++;
-        
-        char* speed = strchr(hp, ',');
-        if (!speed) continue;
-        *speed = '\0';
-        speed++;
-        
-        // speed 다음 쉼표를 찾아 그 뒤를 desc로 사용
-        char* desc = strchr(speed, ',');
-        if (!desc) continue;
-        *desc = '\0';
-        desc++;
-        
-        // desc에서 마지막 쉼표를 찾아 기술 목록 분리
-        char* moves = strrchr(desc, ',');
-        if (!moves) continue;
-        *moves = '\0';
-        moves++;
-        
-        Yokai* y;
-        if (!isBoss && yokaiListCount < MAX_YOKAI) {
-            y = &yokaiList[yokaiListCount++];
-        } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
-            y = &bossYokaiList[bossYokaiListCount++];
-        } else {
-            continue;
-        }
-        
-        // 이름 복사
-        strncpy(y->name, name, YOKAI_NAME_MAX - 1);
-        y->name[YOKAI_NAME_MAX - 1] = '\0';
-        
-        // 기본 정보 설정
-        y->type = parseType(type);
-        y->attack = atoi(attack);
-        y->defense = atoi(defense);
-        y->hp = atoi(hp);
-        y->speed = atoi(speed);
-        
-        // 도감설명 복사 (공백 제거)
-        while (*desc == ' ') desc++;  // 앞쪽 공백 제거
-        char* end = desc + strlen(desc) - 1;
-        while (end > desc && *end == ' ') *end-- = '\0';  // 뒤쪽 공백 제거
-        strncpy(y->desc, desc, 255);
-        y->desc[255] = '\0';
-        
-        // 기술 목록 설정
-        y->learnableMoveCount = 0;
-        char* moveName = strtok(moves, ";");
-        while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
-            Move* m = findMoveByName(moveName);
-            if (m) {
-                y->learnableMoves[y->learnableMoveCount++] = *m;
+        // desc와 moves 분리
+        if (desc) {
+            char* lastComma = strrchr(line, ',');
+            if (lastComma) {
+                moves = lastComma + 1;
+                *lastComma = '\0';  // desc 문자열 끝에 널 문자 삽입
             }
-            moveName = strtok(NULL, ";");
         }
-        y->moveCount = 0; // 실제 moves는 생성 시 랜덤 4개로 할당
+        
+        if (name && type && attack && defense && hp && speed && desc && moves && strlen(moves) > 0) {
+            Yokai* y;
+            if (!isBoss && yokaiListCount < MAX_YOKAI) {
+                y = &yokaiList[yokaiListCount++];
+            } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
+                y = &bossYokaiList[bossYokaiListCount++];
+            } else {
+                continue;
+            }
+            
+            strncpy(y->name, name, YOKAI_NAME_MAX - 1);
+            y->name[YOKAI_NAME_MAX - 1] = '\0';
+            
+            y->type = parseType(type);
+            y->attack = atoi(attack);
+            y->defense = atoi(defense);
+            y->hp = atoi(hp);
+            y->speed = atoi(speed);
+            
+            // 도감 설명 저장 개선
+            strncpy(y->desc, desc, YOKAI_DESC_MAX - 1);
+            y->desc[YOKAI_DESC_MAX - 1] = '\0';
+            
+            y->learnableMoveCount = 0;
+            char* moveName = strtok(moves, ";");
+            while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
+                Move* m = findMoveByName(moveName);
+                if (m) {
+                    y->learnableMoves[y->learnableMoveCount++] = *m;
+                }
+                moveName = strtok(NULL, ";");
+            }
+            y->moveCount = 0;
+        }
     }
     fclose(file);
 }
@@ -229,73 +206,16 @@ Yokai createRandomBossYokai() {
 }
 
 void printYokaiInfo(const Yokai* yokai) {
-    printf("\n=== %s Lv.%d의 정보 ===\n", yokai->name, yokai->level);
-    printf("체력: %d\n", yokai->hp);
+    printf("\n=== %s Lv.%d ===\n", yokai->name, yokai->level);
+    printf("상성: %s\n", typeNames[yokai->type]);
+    printf("설명: %s\n", typeDescriptions[yokai->type]);
     printf("공격력: %d\n", yokai->attack);
     printf("방어력: %d\n", yokai->defense);
-    printf("상성: %s\n", typeNames[yokai->type]);
-    
-    // 도감설명을 여러 줄로 나누어 출력
-    printf("\n도감설명:\n");
-    const char* desc = yokai->desc;
-    char word[50] = {0};  // 단어 버퍼
-    int wordLen = 0;      // 현재 단어 길이
-    int lineLen = 0;      // 현재 줄 길이
-    const int MAX_LINE_LEN = 12;  // 한 줄의 최대 길이를 더 줄임
-    
-    while (*desc) {
-        if (*desc == ' ' || *desc == ',' || *desc == '.') {
-            // 단어가 완성되면 출력
-            if (wordLen > 0) {
-                // 현재 줄에 단어를 추가하면 줄 길이를 초과하는 경우
-                if (lineLen + wordLen > MAX_LINE_LEN) {
-                    printf("\n");
-                    lineLen = 0;
-                }
-                // 첫 단어가 아니면 공백 추가
-                if (lineLen > 0) {
-                    printf(" ");
-                    lineLen++;
-                }
-                printf("%s", word);
-                lineLen += wordLen;
-                wordLen = 0;
-            }
-            // 구두점 출력
-            printf("%c", *desc);
-            lineLen++;
-            // 마침표나 쉼표 다음에 줄바꿈
-            if (*desc == '.' || *desc == ',') {
-                printf("\n");
-                lineLen = 0;
-            }
-        } else {
-            // 단어에 문자 추가
-            if (wordLen < 49) {
-                word[wordLen++] = *desc;
-            }
-        }
-        desc++;
-    }
-    // 마지막 단어가 있으면 출력
-    if (wordLen > 0) {
-        if (lineLen + wordLen > MAX_LINE_LEN) {
-            printf("\n");
-        } else if (lineLen > 0) {
-            printf(" ");
-        }
-        printf("%s", word);
-    }
-    printf("\n");
-    
+    printf("체력: %d\n", yokai->hp);
+    printf("스피드: %d\n", yokai->speed);
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
-        printf("%d. %s (공격력: %d, 명중률: %d%%)\n", 
-            i + 1, 
-            yokai->moves[i].name,
-            yokai->moves[i].power,
-            yokai->moves[i].accuracy);
-        printf("   설명: %s\n", yokai->moves[i].description);
+        printf("%d. %s\n", i + 1, yokai->moves[i].name);
     }
     printf("\n");
 }
