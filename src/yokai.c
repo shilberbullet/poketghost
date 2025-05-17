@@ -241,7 +241,7 @@ void printYokaiInfo(const Yokai* yokai) {
     char word[50] = {0};  // 단어 버퍼
     int wordLen = 0;      // 현재 단어 길이
     int lineLen = 0;      // 현재 줄 길이
-    const int MAX_LINE_LEN = 25;  // 한 줄의 최대 길이
+    const int MAX_LINE_LEN = 20;  // 한 줄의 최대 길이를 더 줄임
     
     while (*desc) {
         if (*desc == ' ' || *desc == ',' || *desc == '.') {
