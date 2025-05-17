@@ -134,8 +134,8 @@ void loadYokaiFromFile(const char* filename) {
         while (*desc == ' ') desc++;  // 앞쪽 공백 제거
         char* end = desc + strlen(desc) - 1;
         while (end > desc && *end == ' ') *end-- = '\0';  // 뒤쪽 공백 제거
-        strncpy(y->desc, desc, 127);
-        y->desc[127] = '\0';
+        strncpy(y->desc, desc, 255);
+        y->desc[255] = '\0';
         
         // 기술 목록 설정
         y->learnableMoveCount = 0;
