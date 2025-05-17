@@ -33,7 +33,7 @@ void startBattle() {
         enemy = createRandomYokai();
     }
     char buffer[256];
-    sprintf(buffer, "\n%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
+    sprintf(buffer, "\n%s(이)가 싸움을 걸어왔다!\n", enemy.name);
     printText(buffer);
     
     while (1) {

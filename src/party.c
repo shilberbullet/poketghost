@@ -6,6 +6,10 @@
 #include "text.h"
 #include "input.h"
 
+#ifndef YOKAI_DESC_MAX
+#define YOKAI_DESC_MAX 256
+#endif
+
 // assignRandomMoves 함수 선언
 void assignRandomMoves(Yokai* y);
 
@@ -17,18 +21,22 @@ void initParty() {
     // 도깨비 요괴를 파일에서 불러와 추가
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
-        // 깊은 복사 수행
-        memcpy(&party[0], dokkaebi, sizeof(Yokai));
-        party[0].level = 1;  // 초기 레벨 1로 설정
-        adjustStatsByLevel(&party[0]);  // 레벨에 따른 능력치 보정
+        memset(&party[0], 0, sizeof(Yokai)); // 구조체 전체를 0으로 초기화
+        party[0] = *dokkaebi;  // 기본 정보 복사
+        party[0].level = 1;    // 초기 레벨 1로 설정
         
-        // 기술 목록 초기화
-        party[0].moveCount = 0;
-        for (int i = 0; i < dokkaebi->learnableMoveCount && i < MAX_MOVES; i++) {
-            party[0].moves[i] = dokkaebi->learnableMoves[i];
-            party[0].moveCount++;
+        // 도감 설명 명시적 복사
+        strncpy(party[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
+        party[0].desc[YOKAI_DESC_MAX - 1] = '\0';
+        
+        // learnableMoves 복사
+        party[0].learnableMoveCount = dokkaebi->learnableMoveCount;
+        for (int i = 0; i < dokkaebi->learnableMoveCount; i++) {
+            party[0].learnableMoves[i] = dokkaebi->learnableMoves[i];
         }
         
+        adjustStatsByLevel(&party[0]);  // 레벨에 따른 능력치 보정
+        assignRandomMoves(&party[0]);   // 랜덤 기술 할당
         partyCount = 1;
     }
 }
@@ -97,10 +105,22 @@ int addYokaiToParty(const Yokai* yokai) {
     if (partyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
     }
-    party[partyCount] = *yokai;
+    memset(&party[partyCount], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
+    party[partyCount] = *yokai;  // 기본 정보 복사
     party[partyCount].level = 1;  // 새로 잡은 요괴도 레벨 1로 시작
+    
+    // 도감 설명 명시적 복사
+    strncpy(party[partyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
+    party[partyCount].desc[YOKAI_DESC_MAX - 1] = '\0';
+    
+    // learnableMoves 복사
+    party[partyCount].learnableMoveCount = yokai->learnableMoveCount;
+    for (int i = 0; i < yokai->learnableMoveCount; i++) {
+        party[partyCount].learnableMoves[i] = yokai->learnableMoves[i];
+    }
+    
     adjustStatsByLevel(&party[partyCount]);  // 레벨에 따른 능력치 보정
-    assignRandomMoves(&party[partyCount]);
+    assignRandomMoves(&party[partyCount]);   // 랜덤 기술 할당
     partyCount++;
     return 1;
 }
