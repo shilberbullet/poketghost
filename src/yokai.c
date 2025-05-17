@@ -238,20 +238,53 @@ void printYokaiInfo(const Yokai* yokai) {
     // 도감설명을 여러 줄로 나누어 출력
     printf("\n도감설명:\n");
     const char* desc = yokai->desc;
-    int lineLen = 0;
-    const int MAX_LINE_LEN = 35;  // 한 줄의 최대 길이를 더 줄임
+    char word[50] = {0};  // 단어 버퍼
+    int wordLen = 0;      // 현재 단어 길이
+    int lineLen = 0;      // 현재 줄 길이
+    const int MAX_LINE_LEN = 30;  // 한 줄의 최대 길이
     
     while (*desc) {
-        // 현재 문자가 공백, 쉼표, 마침표이고 줄 길이가 충분하면 줄바꿈
-        if (lineLen >= MAX_LINE_LEN && (*desc == ' ' || *desc == ',' || *desc == '.')) {
-            printf("\n");
-            lineLen = 0;
-            // 줄바꿈 후 공백이면 건너뛰기
-            if (*desc == ' ') desc++;
+        if (*desc == ' ' || *desc == ',' || *desc == '.') {
+            // 단어가 완성되면 출력
+            if (wordLen > 0) {
+                // 현재 줄에 단어를 추가하면 줄 길이를 초과하는 경우
+                if (lineLen + wordLen > MAX_LINE_LEN) {
+                    printf("\n");
+                    lineLen = 0;
+                }
+                // 첫 단어가 아니면 공백 추가
+                if (lineLen > 0) {
+                    printf(" ");
+                    lineLen++;
+                }
+                printf("%s", word);
+                lineLen += wordLen;
+                wordLen = 0;
+            }
+            // 구두점 출력
+            printf("%c", *desc);
+            lineLen++;
+            // 마침표나 쉼표 다음에 줄바꿈
+            if (*desc == '.' || *desc == ',') {
+                printf("\n");
+                lineLen = 0;
+            }
+        } else {
+            // 단어에 문자 추가
+            if (wordLen < 49) {
+                word[wordLen++] = *desc;
+            }
         }
-        printf("%c", *desc);
-        lineLen++;
         desc++;
+    }
+    // 마지막 단어가 있으면 출력
+    if (wordLen > 0) {
+        if (lineLen + wordLen > MAX_LINE_LEN) {
+            printf("\n");
+        } else if (lineLen > 0) {
+            printf(" ");
+        }
+        printf("%s", word);
     }
     printf("\n");
     

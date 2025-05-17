@@ -33,7 +33,7 @@ void startBattle() {
         enemy = createRandomYokai();
     }
     char buffer[256];
-    sprintf(buffer, "\n%s(이)가 싸움을 걸어왔다!\n", enemy.name);
+    sprintf(buffer, "\n%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
     printText(buffer);
     
     while (1) {
@@ -188,17 +188,17 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 Yokai newYokai = *enemy;  // enemy의 복사본 생성
                 if (addYokaiToParty(&newYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", newYokai.name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
                 
-                if (inventory[idx].count == 1) {
-                    for (int i = idx; i < inventoryCount - 1; i++)
-                        inventory[i] = inventory[i + 1];
-                    inventoryCount--;
-                } else {
-                    inventory[idx].count--;
-                }
-                itemRewardSystem();
+            if (inventory[idx].count == 1) {
+                for (int i = idx; i < inventoryCount - 1; i++)
+                    inventory[i] = inventory[i + 1];
+                inventoryCount--;
+            } else {
+                inventory[idx].count--;
+            }
+            itemRewardSystem();
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
