@@ -81,21 +81,6 @@ void showStageInfo() {
 }
 
 void showBattleInterface() {
-    int minLevel, maxLevel;
-    calculateLevelRange(currentStage.stageNumber, &minLevel, &maxLevel);
-    int randomLevel = minLevel + rand() % (maxLevel - minLevel + 1);
-    
-    Yokai enemy;
-    if (currentStage.stageNumber % 10 == 0) {
-        enemy = createRandomBossYokaiWithLevel(randomLevel);
-    } else {
-        enemy = createRandomYokaiWithLevel(randomLevel);
-    }
-    
-    char buffer[256];
-    sprintf(buffer, "%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
-    printText(buffer);
-    
-    startBattle(&enemy);
+    startBattle();
     nextStage();
 } 
