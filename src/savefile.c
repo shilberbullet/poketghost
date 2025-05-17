@@ -40,5 +40,6 @@ int loadGameData() {
     // 플레이어 정보 불러오기
     fread(&player, sizeof(Player), 1, file);
     fclose(file);
+    gameState.isLoadedGame = 1; // 이어하기 플래그 설정
     return 1;
 } 

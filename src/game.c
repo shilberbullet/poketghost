@@ -2,6 +2,7 @@
 #include "game.h"
 #include "text.h"
 #include "party.h"
+#include "item.h"
 
 // 전역 게임 상태 초기화
 GameState gameState = {0};
@@ -15,8 +16,8 @@ void initGame() {
     // 이어하기가 아닌 경우에만 플레이어 초기화
     if (!gameState.isLoadedGame) {
         player.money = 0;  // 초기 전을 0으로 설정
+        inventoryCount = 0;  // 인벤토리 초기화
     }
-    gameState.isLoadedGame = 0; // 초기화 후 플래그 리셋
     // 기본 요괴 추가 코드 삭제 (initParty에서 처리)
 }
 

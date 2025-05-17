@@ -76,7 +76,7 @@ int showBattleMenu(const Yokai* enemy) {
 // 동료 요괴 선택 함수
 int selectPartyYokai() {
     printText("\n동료 요괴를 선택하세요:\n");
-    printText("0. 뒤로 돌아간다\n");
+    printText("0. 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
         sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d)\n", i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense);
@@ -85,7 +85,7 @@ int selectPartyYokai() {
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
     if (idx == -1) {
-        return -1; // 뒤로 돌아가기
+        return -1; // 뒤로 가기
     }
     if (idx < 0 || idx >= partyCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
@@ -150,12 +150,12 @@ int selectTalismanFromInventory() {
         return -1;
     }
     printText("\n사용할 부적을 선택하세요:\n");
+    printText("0. 뒤로 가기\n");
     for (int i = 0; i < talismanCount; i++) {
         char buffer[128];
         sprintf(buffer, "%d. %s (보유: %d개)\n", i+1, inventory[talismanIdx[i]].item.name, inventory[talismanIdx[i]].count);
         printText(buffer);
     }
-    printText("0. 뒤로 돌아간다\n");
     printText("숫자를 입력하세요: ");
     int idx = getIntInput();
     if (idx == 0) return -1;

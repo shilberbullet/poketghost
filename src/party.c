@@ -127,12 +127,12 @@ int addYokaiToParty(const Yokai* yokai) {
 
 void printParty() {
     printText("\n=== 동료 요괴 목록 ===\n");
+    printText("[0] 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
         sprintf(buffer, "[%d] %s Lv.%d\n", i+1, party[i].name, party[i].level);
         printText(buffer);
     }
-    printText("[0] 뒤로 가기\n");
     printText("\n선택하세요: ");
     
     int choice = getIntInput();
@@ -172,27 +172,12 @@ void printParty() {
         
         // 기술 목록 출력
         printText("\n기술 목록:\n");
-        for (int j = 0; j < party[idx].moveCount; j++) {
+        for (int i = 0; i < party[idx].moveCount; i++) {
             sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%)\n", 
-                j+1, party[idx].moves[j].name, 
-                party[idx].moves[j].power,
-                party[idx].moves[j].accuracy);
+                i+1, party[idx].moves[i].name, party[idx].moves[i].power, party[idx].moves[i].accuracy);
             printText(buffer);
-            printText("   설명: ");
-            char* moveDesc = party[idx].moves[j].description;
-            while (*moveDesc) {
-                char temp[256];
-                int i = 0;
-                while (*moveDesc && i < 255) {
-                    temp[i++] = *moveDesc++;
-                }
-                temp[i] = '\0';
-                printText(temp);
-                printText("\n");
-            }
         }
-        printText("\n");
-        printParty(); // 다시 목록으로 돌아가기
+        printTextAndWait("\n아무 키나 누르면 돌아갑니다...");
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
