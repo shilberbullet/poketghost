@@ -64,6 +64,13 @@ void loadYokaiFromFile(const char* filename) {
     while (fgets(line, sizeof(line), file)) {
         if (strstr(line, "# 보스 요괴")) { isBoss = 1; continue; }
         if (line[0] == '#' || line[0] == '\n') continue;
+        
+        // 줄바꿈 문자 제거
+        size_t len = strlen(line);
+        if (len > 0 && line[len-1] == '\n') {
+            line[len-1] = '\0';
+        }
+        
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
         char* attack = strtok(NULL, ",");
@@ -72,6 +79,7 @@ void loadYokaiFromFile(const char* filename) {
         char* speed = strtok(NULL, ",");
         char* desc = strtok(NULL, ",");
         char* moves = strtok(NULL, "\n");
+        
         if (name && type && attack && defense && hp && speed && desc && moves) {
             Yokai* y;
             if (!isBoss && yokaiListCount < MAX_YOKAI) {
@@ -81,13 +89,22 @@ void loadYokaiFromFile(const char* filename) {
             } else {
                 continue;
             }
-            strncpy(y->name, name, YOKAI_NAME_MAX);
+            
+            strncpy(y->name, name, YOKAI_NAME_MAX - 1);
+            y->name[YOKAI_NAME_MAX - 1] = '\0';
+            
             y->type = parseType(type);
             y->attack = atoi(attack);
             y->defense = atoi(defense);
             y->hp = atoi(hp);
             y->speed = atoi(speed);
-            strncpy(y->desc, desc, 127); y->desc[127] = '\0';
+            
+            // 도감설명 복사 및 줄바꿈 문자 제거
+            strncpy(y->desc, desc, 127);
+            y->desc[127] = '\0';
+            char* newline = strchr(y->desc, '\n');
+            if (newline) *newline = '\0';
+            
             y->learnableMoveCount = 0;
             char* moveName = strtok(moves, ";");
             while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
