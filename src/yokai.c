@@ -71,51 +71,73 @@ void loadYokaiFromFile(const char* filename) {
             line[len-1] = '\0';
         }
         
+        // 첫 번째 쉼표까지의 문자열을 이름으로
         char* name = strtok(line, ",");
-        char* type = strtok(NULL, ",");
-        char* attack = strtok(NULL, ",");
-        char* defense = strtok(NULL, ",");
-        char* hp = strtok(NULL, ",");
-        char* speed = strtok(NULL, ",");
-        char* desc = strtok(NULL, ",");
-        char* moves = strtok(NULL, "\n");
+        if (!name) continue;
         
-        if (name && type && attack && defense && hp && speed && desc && moves) {
-            Yokai* y;
-            if (!isBoss && yokaiListCount < MAX_YOKAI) {
-                y = &yokaiList[yokaiListCount++];
-            } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
-                y = &bossYokaiList[bossYokaiListCount++];
-            } else {
-                continue;
-            }
-            
-            strncpy(y->name, name, YOKAI_NAME_MAX - 1);
-            y->name[YOKAI_NAME_MAX - 1] = '\0';
-            
-            y->type = parseType(type);
-            y->attack = atoi(attack);
-            y->defense = atoi(defense);
-            y->hp = atoi(hp);
-            y->speed = atoi(speed);
-            
-            // 도감설명 복사 및 줄바꿈 문자 제거
-            strncpy(y->desc, desc, 127);
-            y->desc[127] = '\0';
-            char* newline = strchr(y->desc, '\n');
-            if (newline) *newline = '\0';
-            
-            y->learnableMoveCount = 0;
-            char* moveName = strtok(moves, ";");
-            while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
-                Move* m = findMoveByName(moveName);
-                if (m) {
-                    y->learnableMoves[y->learnableMoveCount++] = *m;
-                }
-                moveName = strtok(NULL, ";");
-            }
-            y->moveCount = 0; // 실제 moves는 생성 시 랜덤 4개로 할당
+        // 두 번째 쉼표까지의 문자열을 타입으로
+        char* type = strtok(NULL, ",");
+        if (!type) continue;
+        
+        // 세 번째 쉼표까지의 문자열을 공격력으로
+        char* attack = strtok(NULL, ",");
+        if (!attack) continue;
+        
+        // 네 번째 쉼표까지의 문자열을 방어력으로
+        char* defense = strtok(NULL, ",");
+        if (!defense) continue;
+        
+        // 다섯 번째 쉼표까지의 문자열을 체력으로
+        char* hp = strtok(NULL, ",");
+        if (!hp) continue;
+        
+        // 여섯 번째 쉼표까지의 문자열을 스피드로
+        char* speed = strtok(NULL, ",");
+        if (!speed) continue;
+        
+        // 마지막 쉼표부터 줄 끝까지를 도감설명으로
+        char* desc = strtok(NULL, ",");
+        if (!desc) continue;
+        
+        // 나머지 부분을 기술 목록으로
+        char* moves = strtok(NULL, "\n");
+        if (!moves) continue;
+        
+        Yokai* y;
+        if (!isBoss && yokaiListCount < MAX_YOKAI) {
+            y = &yokaiList[yokaiListCount++];
+        } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
+            y = &bossYokaiList[bossYokaiListCount++];
+        } else {
+            continue;
         }
+        
+        // 이름 복사
+        strncpy(y->name, name, YOKAI_NAME_MAX - 1);
+        y->name[YOKAI_NAME_MAX - 1] = '\0';
+        
+        // 기본 정보 설정
+        y->type = parseType(type);
+        y->attack = atoi(attack);
+        y->defense = atoi(defense);
+        y->hp = atoi(hp);
+        y->speed = atoi(speed);
+        
+        // 도감설명 복사
+        strncpy(y->desc, desc, 127);
+        y->desc[127] = '\0';
+        
+        // 기술 목록 설정
+        y->learnableMoveCount = 0;
+        char* moveName = strtok(moves, ";");
+        while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
+            Move* m = findMoveByName(moveName);
+            if (m) {
+                y->learnableMoves[y->learnableMoveCount++] = *m;
+            }
+            moveName = strtok(NULL, ";");
+        }
+        y->moveCount = 0; // 실제 moves는 생성 시 랜덤 4개로 할당
     }
     fclose(file);
 }
