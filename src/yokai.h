@@ -30,11 +30,13 @@ extern const char* typeDescriptions[];
 // 요괴 구조체
 typedef struct {
     char name[YOKAI_NAME_MAX];
+    int level;         // 레벨
     int attack;         // 공격력
     int defense;        // 방어력
     int hp;            // 체력
     int speed;         // 스피드
     YokaiType type;    // 상성
+    char desc[128];    // 도감설명
     Move moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수
     Move learnableMoves[MAX_LEARNABLE_MOVES]; // 배울 수 있는 기술 목록
@@ -67,5 +69,17 @@ void printYokaiInfo(const Yokai* yokai);
 
 // 상성 관계 확인 함수 (공격자의 공격력이 방어자에게 얼마나 효과적인지 반환)
 float getTypeEffectiveness(YokaiType attacker, YokaiType defender);
+
+// 레벨에 따른 능력치 보정 함수
+void adjustStatsByLevel(Yokai* yokai);
+
+// 스테이지 번호에 따른 레벨 범위 계산 함수
+void calculateLevelRange(int stage, int* minLevel, int* maxLevel);
+
+// 랜덤 요괴 생성 함수 (레벨 지정)
+Yokai createRandomYokaiWithLevel(int level);
+
+// 랜덤 보스 요괴 생성 함수 (레벨 지정)
+Yokai createRandomBossYokaiWithLevel(int level);
 
 #endif // YOKAI_H 
