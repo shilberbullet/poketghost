@@ -94,17 +94,49 @@ int addYokaiToParty(const Yokai* yokai) {
 }
 
 void printParty() {
-    printf("\n=== 동료 요괴 목록 ===\n");
+    printText("\n=== 동료 요괴 목록 ===\n");
     for (int i = 0; i < partyCount; i++) {
-        printf("[%d] %s (체력: %d, 공격력: %d, 방어력: %d, 상성: %s)\n", 
-            i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense, 
-            typeNames[party[i].type]);
-        printf("  기술: ");
-        for (int j = 0; j < party[i].moveCount; j++) {
-            printf("%s%s", party[i].moves[j].name, 
-                (j < party[i].moveCount-1) ? ", " : "");
-        }
-        printf("\n");
+        char buffer[128];
+        sprintf(buffer, "[%d] %s\n", i+1, party[i].name);
+        printText(buffer);
     }
-    printf("\n");
+    printText("[0] 뒤로 가기\n");
+    printText("\n선택하세요: ");
+    
+    int choice = getIntInput();
+    if (choice == 0) {
+        return;
+    }
+    
+    if (choice > 0 && choice <= partyCount) {
+        int idx = choice - 1;
+        char buffer[512];
+        sprintf(buffer, "\n=== %s의 정보 ===\n", party[idx].name);
+        printText(buffer);
+        sprintf(buffer, "체력: %d\n", party[idx].hp);
+        printText(buffer);
+        sprintf(buffer, "공격력: %d\n", party[idx].attack);
+        printText(buffer);
+        sprintf(buffer, "방어력: %d\n", party[idx].defense);
+        printText(buffer);
+        sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
+        printText(buffer);
+        sprintf(buffer, "\n도감설명: %s\n", party[idx].desc);
+        printText(buffer);
+        printText("\n기술 목록:\n");
+        for (int j = 0; j < party[idx].moveCount; j++) {
+            sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%)\n", 
+                j+1, party[idx].moves[j].name, 
+                party[idx].moves[j].power,
+                party[idx].moves[j].accuracy);
+            printText(buffer);
+            sprintf(buffer, "   설명: %s\n", party[idx].moves[j].description);
+            printText(buffer);
+        }
+        printText("\n");
+        printParty(); // 다시 목록으로 돌아가기
+    } else {
+        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printParty();
+    }
 } 
