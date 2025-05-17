@@ -114,7 +114,9 @@ void printParty() {
     
     if (choice > 0 && choice <= partyCount) {
         int idx = choice - 1;
-        char buffer[512];
+        char buffer[1024];  // 버퍼 크기를 1024로 증가
+        
+        // 기본 정보 출력
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
         printText(buffer);
         sprintf(buffer, "체력: %d\n", party[idx].hp);
@@ -125,8 +127,13 @@ void printParty() {
         printText(buffer);
         sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
         printText(buffer);
-        sprintf(buffer, "\n도감설명: %s\n", party[idx].desc);
-        printText(buffer);
+        
+        // 도감설명 출력
+        printText("\n도감설명: ");
+        printText(party[idx].desc);  // 도감설명을 직접 출력
+        printText("\n");
+        
+        // 기술 목록 출력
         printText("\n기술 목록:\n");
         for (int j = 0; j < party[idx].moveCount; j++) {
             sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%)\n", 
