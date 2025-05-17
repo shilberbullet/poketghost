@@ -17,10 +17,18 @@ void initParty() {
     // 도깨비 요괴를 파일에서 불러와 추가
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
-        party[0] = *dokkaebi;
+        // 깊은 복사 수행
+        memcpy(&party[0], dokkaebi, sizeof(Yokai));
         party[0].level = 1;  // 초기 레벨 1로 설정
         adjustStatsByLevel(&party[0]);  // 레벨에 따른 능력치 보정
-        assignRandomMoves(&party[0]);
+        
+        // 기술 목록 초기화
+        party[0].moveCount = 0;
+        for (int i = 0; i < dokkaebi->learnableMoveCount && i < MAX_MOVES; i++) {
+            party[0].moves[i] = dokkaebi->learnableMoves[i];
+            party[0].moveCount++;
+        }
+        
         partyCount = 1;
     }
 }
