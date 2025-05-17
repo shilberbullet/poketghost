@@ -114,7 +114,7 @@ void printParty() {
     
     if (choice > 0 && choice <= partyCount) {
         int idx = choice - 1;
-        char buffer[1024];
+        char buffer[1024];  // 버퍼 크기를 1024로 증가
         
         // 기본 정보 출력
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
@@ -128,8 +128,8 @@ void printParty() {
         sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
         printText(buffer);
         
-        // 도감설명 출력
-        printText("\n도감설명: ");
+        // 도감 설명을 별도로 출력
+        printText("\n도감설명:\n");
         printText(party[idx].desc);
         printText("\n");
         
@@ -141,8 +141,9 @@ void printParty() {
                 party[idx].moves[j].power,
                 party[idx].moves[j].accuracy);
             printText(buffer);
-            sprintf(buffer, "   설명: %s\n", party[idx].moves[j].description);
-            printText(buffer);
+            printText("   설명: ");
+            printText(party[idx].moves[j].description);
+            printText("\n");
         }
         printText("\n");
         printParty(); // 다시 목록으로 돌아가기
