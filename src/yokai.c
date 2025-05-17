@@ -71,37 +71,42 @@ void loadYokaiFromFile(const char* filename) {
             line[len-1] = '\0';
         }
         
-        // 첫 번째 쉼표까지의 문자열을 이름으로
-        char* name = strtok(line, ",");
-        if (!name) continue;
-        
-        // 두 번째 쉼표까지의 문자열을 타입으로
-        char* type = strtok(NULL, ",");
+        // 각 필드의 시작 위치 찾기
+        char* name = line;
+        char* type = strchr(name, ',');
         if (!type) continue;
+        *type = '\0';
+        type++;
         
-        // 세 번째 쉼표까지의 문자열을 공격력으로
-        char* attack = strtok(NULL, ",");
+        char* attack = strchr(type, ',');
         if (!attack) continue;
+        *attack = '\0';
+        attack++;
         
-        // 네 번째 쉼표까지의 문자열을 방어력으로
-        char* defense = strtok(NULL, ",");
+        char* defense = strchr(attack, ',');
         if (!defense) continue;
+        *defense = '\0';
+        defense++;
         
-        // 다섯 번째 쉼표까지의 문자열을 체력으로
-        char* hp = strtok(NULL, ",");
+        char* hp = strchr(defense, ',');
         if (!hp) continue;
+        *hp = '\0';
+        hp++;
         
-        // 여섯 번째 쉼표까지의 문자열을 스피드로
-        char* speed = strtok(NULL, ",");
+        char* speed = strchr(hp, ',');
         if (!speed) continue;
+        *speed = '\0';
+        speed++;
         
-        // 마지막 쉼표부터 줄 끝까지를 도감설명으로
-        char* desc = strtok(NULL, ",");
+        char* desc = strchr(speed, ',');
         if (!desc) continue;
+        *desc = '\0';
+        desc++;
         
-        // 나머지 부분을 기술 목록으로
-        char* moves = strtok(NULL, "\n");
+        char* moves = strchr(desc, ',');
         if (!moves) continue;
+        *moves = '\0';
+        moves++;
         
         Yokai* y;
         if (!isBoss && yokaiListCount < MAX_YOKAI) {
