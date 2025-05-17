@@ -18,6 +18,8 @@ void initParty() {
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
         party[0] = *dokkaebi;
+        party[0].level = 1;  // 초기 레벨 1로 설정
+        adjustStatsByLevel(&party[0]);  // 레벨에 따른 능력치 보정
         assignRandomMoves(&party[0]);
         partyCount = 1;
     }
@@ -88,6 +90,8 @@ int addYokaiToParty(const Yokai* yokai) {
         return handleFullParty(yokai);
     }
     party[partyCount] = *yokai;
+    party[partyCount].level = 1;  // 새로 잡은 요괴도 레벨 1로 시작
+    adjustStatsByLevel(&party[partyCount]);  // 레벨에 따른 능력치 보정
     assignRandomMoves(&party[partyCount]);
     partyCount++;
     return 1;
@@ -97,7 +101,7 @@ void printParty() {
     printText("\n=== 동료 요괴 목록 ===\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
-        sprintf(buffer, "[%d] %s\n", i+1, party[i].name);
+        sprintf(buffer, "[%d] %s Lv.%d\n", i+1, party[i].name, party[i].level);
         printText(buffer);
     }
     printText("[0] 뒤로 가기\n");
@@ -111,7 +115,7 @@ void printParty() {
     if (choice > 0 && choice <= partyCount) {
         int idx = choice - 1;
         char buffer[512];
-        sprintf(buffer, "\n=== %s의 정보 ===\n", party[idx].name);
+        sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
         printText(buffer);
         sprintf(buffer, "체력: %d\n", party[idx].hp);
         printText(buffer);
