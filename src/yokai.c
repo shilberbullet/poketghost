@@ -236,6 +236,24 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("방어력: %d\n", yokai->defense);
     printf("체력: %d\n", yokai->hp);
     printf("스피드: %d\n", yokai->speed);
+    
+    // 도감설명을 여러 줄로 나누어 출력
+    printf("\n도감설명:\n");
+    const char* desc = yokai->desc;
+    int lineLen = 0;
+    const int MAX_LINE_LEN = 50;  // 한 줄의 최대 길이
+    
+    while (*desc) {
+        if (lineLen >= MAX_LINE_LEN && (*desc == ' ' || *desc == ',' || *desc == '.')) {
+            printf("\n");
+            lineLen = 0;
+        }
+        printf("%c", *desc);
+        lineLen++;
+        desc++;
+    }
+    printf("\n");
+    
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         printf("%d. %s\n", i + 1, yokai->moves[i].name);
