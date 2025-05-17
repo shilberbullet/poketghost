@@ -76,6 +76,7 @@ int showBattleMenu(const Yokai* enemy) {
 // 동료 요괴 선택 함수
 int selectPartyYokai() {
     printText("\n동료 요괴를 선택하세요:\n");
+    printText("0. 뒤로 돌아간다\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
         sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d)\n", i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense);
@@ -83,6 +84,9 @@ int selectPartyYokai() {
     }
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
+    if (idx == -1) {
+        return -1; // 뒤로 돌아가기
+    }
     if (idx < 0 || idx >= partyCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         return selectPartyYokai();
@@ -167,6 +171,9 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
     switch (choice) {
         case BATTLE_FIGHT: {
             int yokaiIdx = selectPartyYokai();
+            if (yokaiIdx == -1) {
+                return 0; // 뒤로 돌아가기
+            }
             int moveIdx = selectMove(&party[yokaiIdx]);
             char buffer[256];
             sprintf(buffer, "\n%s가 %s 기술을 사용했다! (전투 로직은 추후 구현)\n", party[yokaiIdx].name, party[yokaiIdx].moves[moveIdx].name);
