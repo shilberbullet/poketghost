@@ -98,16 +98,17 @@ void loadYokaiFromFile(const char* filename) {
         *speed = '\0';
         speed++;
         
-        // 도감설명은 마지막 쉼표까지
-        char* desc = speed;
-        char* moves = NULL;
-        char* lastComma = strrchr(desc, ',');
-        if (lastComma) {
-            *lastComma = '\0';
-            moves = lastComma + 1;
-        }
+        // speed 다음 쉼표를 찾아 그 뒤를 desc로 사용
+        char* desc = strchr(speed, ',');
+        if (!desc) continue;
+        *desc = '\0';
+        desc++;
         
+        // desc에서 마지막 쉼표를 찾아 기술 목록 분리
+        char* moves = strrchr(desc, ',');
         if (!moves) continue;
+        *moves = '\0';
+        moves++;
         
         Yokai* y;
         if (!isBoss && yokaiListCount < MAX_YOKAI) {
