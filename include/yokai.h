@@ -29,7 +29,7 @@ typedef struct {
     int moveCount;
     Move learnableMoves[MAX_LEARNABLE_MOVES];
     int learnableMoveCount;
-    char desc[128];
+    char desc[256];
     int level;
 } Yokai;
 
