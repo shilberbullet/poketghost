@@ -239,7 +239,7 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("\n도감설명:\n");
     const char* desc = yokai->desc;
     int lineLen = 0;
-    const int MAX_LINE_LEN = 40;  // 한 줄의 최대 길이를 줄임
+    const int MAX_LINE_LEN = 35;  // 한 줄의 최대 길이를 더 줄임
     
     while (*desc) {
         // 현재 문자가 공백, 쉼표, 마침표이고 줄 길이가 충분하면 줄바꿈
