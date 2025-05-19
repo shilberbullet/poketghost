@@ -108,8 +108,15 @@ int selectMove(const Yokai* yokai) {
 
 // 아이템 선택 함수
 void itemRewardSystem() {
-    Item candidates[3];
-    getRandomItems(candidates, 3);
+    static Item candidates[3];  // static으로 선언하여 함수 호출 간에도 값이 유지되도록 함
+    static int isInitialized = 0;  // 아이템이 초기화되었는지 확인하는 플래그
+    
+    // 처음 호출될 때만 랜덤 아이템 생성
+    if (!isInitialized) {
+        getRandomItems(candidates, 3);
+        isInitialized = 1;
+    }
+    
     printText("\n전투 보상! 아이템을 하나 선택하세요:\n");
     for (int i = 0; i < 3; i++) {
         char buffer[256];
@@ -129,6 +136,9 @@ void itemRewardSystem() {
     char buffer[128];
     sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
     printTextAndWait(buffer);
+    
+    // 보상 선택이 완료되면 초기화 플래그를 리셋
+    isInitialized = 0;
 }
 
 // 부적 아이템 선택 함수
