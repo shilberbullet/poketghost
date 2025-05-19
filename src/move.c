@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "move.h"
+#include "text.h"
 
 Move moveList[MAX_MOVES_TOTAL];
 int moveListCount = 0;
@@ -12,14 +13,17 @@ void loadMovesFromFile(const char* filename) {
     if (!file) return;
     char line[256];
     while (fgets(line, sizeof(line), file)) {
+        if (line[0] == '#' || line[0] == '\n') continue;
         char* name = strtok(line, ",");
         char* power = strtok(NULL, ",");
         char* acc = strtok(NULL, ",");
+        char* pp = strtok(NULL, ",");
         char* desc = strtok(NULL, "\n");
-        if (name && power && acc && desc && moveListCount < MAX_MOVES_TOTAL) {
+        if (name && power && acc && pp && desc && moveListCount < MAX_MOVES_TOTAL) {
             strncpy(moveList[moveListCount].name, name, YOKAI_NAME_MAX);
             moveList[moveListCount].power = atoi(power);
             moveList[moveListCount].accuracy = atoi(acc);
+            moveList[moveListCount].pp = atoi(pp);
             strncpy(moveList[moveListCount].description, desc, 255);
             moveListCount++;
         }

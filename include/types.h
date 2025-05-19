@@ -7,7 +7,7 @@ typedef struct {
     char name[YOKAI_NAME_MAX];
     int power;          // 공격력
     int accuracy;       // 명중률 (0-100)
-    int pp;             // 사용 가능 횟수 (PP)
+    int pp;             // 최대 사용 가능 횟수 (PP)
     char description[256];  // 기술 설명
 } Move;
 

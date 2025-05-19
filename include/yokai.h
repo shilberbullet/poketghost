@@ -28,7 +28,7 @@ typedef struct {
     int hp;
     int speed;
     char desc[YOKAI_DESC_MAX];  // 도감 설명 버퍼 크기 증가
-    Move moves[MAX_MOVES];
+    MoveInstance moves[MAX_MOVES];
     int moveCount;
     Move learnableMoves[MAX_LEARNABLE_MOVES];
     int learnableMoveCount;

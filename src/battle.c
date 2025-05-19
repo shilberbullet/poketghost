@@ -25,29 +25,20 @@ int calculateBattleReward() {
     return baseReward + stageBonus + randomBonus;
 }
 
-void startBattle() {
-    Yokai enemy;
-    if (currentStage.stageNumber % 10 == 0) {
-        enemy = createRandomBossYokai();
-    } else {
-        enemy = createRandomYokai();
-    }
-    char buffer[256];
-    sprintf(buffer, "\n%s(이)가 싸움을 걸어왔다!\n", enemy.name);
-    printText(buffer);
-    
+int startBattle(const Yokai* enemy) {
+    // 등장 메시지 출력 삭제
     while (1) {
-        int done = showBattleMenu(&enemy);
+        int done = showBattleMenu(enemy);
         if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
-            break;
+            return done;  // 전투 결과 반환
         } else if (done == 103) {
             // 도망 성공: 보상 없음
-            break;
+            return done;
         } else if (done == 2) {
             // 저장 후 종료
-            break;
+            return done;
         }
     }
 }
@@ -99,13 +90,17 @@ int selectMove(const Yokai* yokai) {
     printText("\n사용할 기술을 선택하세요:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         char buffer[128];
-        sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%)\n", i+1, yokai->moves[i].name, yokai->moves[i].power, yokai->moves[i].accuracy);
+        sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", i+1, yokai->moves[i].move.name, yokai->moves[i].move.power, yokai->moves[i].move.accuracy, yokai->moves[i].currentPP, yokai->moves[i].move.pp);
         printText(buffer);
     }
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
     if (idx < 0 || idx >= yokai->moveCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        return selectMove(yokai);
+    }
+    if (yokai->moves[idx].currentPP <= 0) {
+        printTextAndWait("\n해당 기술의 PP가 부족합니다. 다른 기술을 선택하세요.");
         return selectMove(yokai);
     }
     return idx;
@@ -175,8 +170,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 return 0; // 뒤로 돌아가기
             }
             int moveIdx = selectMove(&party[yokaiIdx]);
+            // PP 감소
+            party[yokaiIdx].moves[moveIdx].currentPP--;
             char buffer[256];
-            sprintf(buffer, "\n%s가 %s 기술을 사용했다! (전투 로직은 추후 구현)\n", party[yokaiIdx].name, party[yokaiIdx].moves[moveIdx].name);
+            sprintf(buffer, "\n%s가 %s 기술을 사용했다! (전투 로직은 추후 구현)\n", party[yokaiIdx].name, party[yokaiIdx].moves[moveIdx].move.name);
             printTextAndWait(buffer);
             itemRewardSystem();
             return 101; // BATTLE_FIGHT 성공
