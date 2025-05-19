@@ -7,7 +7,7 @@
 // 전역 게임 상태 초기화
 GameState gameState = {0};
 Player player = {0};
-
+ 
 void initGame() {
     // 게임 상태 초기화
     gameState.isRunning = 1;
