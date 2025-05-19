@@ -12,7 +12,7 @@ typedef enum {
     BATTLE_SAVE_AND_EXIT
 } BattleChoice;
 
-void startBattle();
+int startBattle(const Yokai* enemy);
 int showBattleMenu(const Yokai* enemy);
 int handleBattleChoice(BattleChoice choice, Yokai* enemy);
 

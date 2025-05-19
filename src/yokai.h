@@ -1,8 +1,8 @@
 #ifndef YOKAI_H
 #define YOKAI_H
 
-#include <stdbool.h>
 #include "types.h"
+#include <stdbool.h>
 #include "move.h"
 
 #define MAX_MOVES 4
@@ -37,7 +37,7 @@ typedef struct {
     int speed;         // 스피드
     YokaiType type;    // 상성
     char desc[128];    // 도감설명
-    Move moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
+    MoveInstance moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수
     Move learnableMoves[MAX_LEARNABLE_MOVES]; // 배울 수 있는 기술 목록
     int learnableMoveCount;

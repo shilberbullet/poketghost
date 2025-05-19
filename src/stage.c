@@ -7,6 +7,7 @@
 #include "input.h"
 #include "battle.h"
 #include "savefile.h"
+#include "party.h"
 
 // 지역 이름 배열 (10개씩 그룹화)
 const char* regions[] = {
@@ -96,6 +97,33 @@ void showBattleInterface() {
     sprintf(buffer, "%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
     printText(buffer);
     
-    startBattle(&enemy);
+    int battleResult = startBattle(&enemy);
+    
+    // 보스 요괴를 물리쳤을 때만 clearStage 호출
+    if (currentStage.stageNumber % 10 == 0 && (battleResult == 101 || battleResult == 102)) {
+        clearStage();
+    }
+    
     nextStage();
+}
+
+// 모든 동료 요괴의 기술 PP를 초기화하는 함수
+void resetAllYokaiPP() {
+    for (int i = 0; i < partyCount; i++) {
+        for (int j = 0; j < party[i].moveCount; j++) {
+            party[i].moves[j].currentPP = party[i].moves[j].move.pp;
+        }
+    }
+}
+
+void clearStage() {
+    // ... 기존 코드 ...
+    
+    // 10의 배수 스테이지 클리어 시 기술 PP 초기화
+    if (currentStage.stageNumber % 10 == 0) {
+        resetAllYokaiPP();
+        printTextAndWait("\n모든 동료 요괴의 기술 PP가 초기화되었습니다!");
+    }
+    
+    // ... 기존 코드 ...
 } 

@@ -137,7 +137,8 @@ void assignRandomMoves(Yokai* y) {
     }
     y->moveCount = (y->learnableMoveCount < MAX_MOVES) ? y->learnableMoveCount : MAX_MOVES;
     for (int i = 0; i < y->moveCount; i++) {
-        y->moves[i] = y->learnableMoves[idx[i]];
+        y->moves[i].move = y->learnableMoves[idx[i]];
+        y->moves[i].currentPP = y->learnableMoves[idx[i]].pp;
     }
 }
 
@@ -212,7 +213,7 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("스피드: %d\n", yokai->speed);
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
-        printf("%d. %s\n", i + 1, yokai->moves[i].name);
+        printf("%d. %s\n", i + 1, yokai->moves[i].move.name);
     }
     printf("\n");
 }
