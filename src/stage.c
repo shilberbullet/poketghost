@@ -105,24 +105,32 @@ void showBattleInterface() {
     int minLevel, maxLevel;
     calculateLevelRange(currentStage.stageNumber, &minLevel, &maxLevel);
     int randomLevel = minLevel + rand() % (maxLevel - minLevel + 1);
-    
+
     Yokai enemy;
-    if (currentStage.stageNumber % 10 == 0) {
+    if (gameState.isLoadedGame) {
+        enemy = currentEnemy;
+        gameState.isLoadedGame = 0; // 한 번만 사용
+    } else if (currentStage.stageNumber % 10 == 0) {
         enemy = createRandomBossYokaiWithLevel(randomLevel);
     } else {
         enemy = createRandomYokaiWithLevel(randomLevel);
     }
-    
+
     char buffer[256];
     sprintf(buffer, "%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
     printText(buffer);
-    
+
     int battleResult = startBattle(&enemy);
-    
-    // 보스 요괴를 물리쳤을 때만 clearStage 호출
-    if (currentStage.stageNumber % 10 == 0 && (battleResult == 101 || battleResult == 102)) {
-        clearStage();
+
+    // 보스 스테이지 처리 (10의 배수 스테이지)
+    if (currentStage.stageNumber % 10 == 0) {
+        if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
+            clearStage();
+            nextStage();
+        }
+        // 패배하거나 도망친 경우는 다음 스테이지로 진행하지 않음
+    } else {
+        // 일반 스테이지는 항상 다음으로 진행
+        nextStage();
     }
-    
-    nextStage();
 } 

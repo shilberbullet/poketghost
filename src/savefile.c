@@ -8,6 +8,7 @@
 #include "game.h"
 #include "settings.h"
 #include "item.h"
+#include "battle.h"
 
 #define SAVE_FILE "data/save.dat"
 
@@ -34,6 +35,8 @@ void saveGame() {
     for (int i = 0; i < inventoryCount; i++) {
         fwrite(&inventory[i], sizeof(InventoryItem), 1, file);
     }
+    // 현재 전투 중인 상대 요괴 정보 저장
+    fwrite(&currentEnemy, sizeof(Yokai), 1, file);
     fclose(file);
 }
 
@@ -60,6 +63,8 @@ int loadGameData() {
     for (int i = 0; i < inventoryCount; i++) {
         fread(&inventory[i], sizeof(InventoryItem), 1, file);
     }
+    // 현재 전투 중인 상대 요괴 정보 불러오기
+    fread(&currentEnemy, sizeof(Yokai), 1, file);
     fclose(file);
     gameState.isLoadedGame = 1; // 이어하기 플래그 설정
     return 1;

@@ -14,6 +14,9 @@ typedef enum {
     BATTLE_SAVE_AND_EXIT = 6
 } BattleChoice;
 
+// 현재 전투 중인 상대 요괴
+extern Yokai currentEnemy;
+
 // 전투 시작 함수
 int startBattle(const Yokai* enemy);
 
@@ -22,5 +25,7 @@ int showBattleMenu(const Yokai* enemy);
 
 // 전투 선택 처리 함수 (1: 전투 종료, 0: 반복)
 int handleBattleChoice(BattleChoice choice, Yokai* enemy);
+
+int tryToEscape(void);
 
 #endif // BATTLE_H 
