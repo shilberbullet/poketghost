@@ -153,6 +153,8 @@ void printParty() {
         printText(buffer);
         sprintf(buffer, "방어력: %d\n", party[idx].defense);
         printText(buffer);
+        sprintf(buffer, "스피드: %d\n", party[idx].speed);
+        printText(buffer);
         sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
         printText(buffer);
         
@@ -177,7 +179,7 @@ void printParty() {
                 i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-    }
+        }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();

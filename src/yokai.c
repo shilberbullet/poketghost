@@ -205,12 +205,12 @@ Yokai createRandomBossYokai() {
 
 void printYokaiInfo(const Yokai* yokai) {
     printf("\n=== %s Lv.%d ===\n", yokai->name, yokai->level);
-    printf("상성: %s\n", typeNames[yokai->type]);
-    printf("설명: %s\n", typeDescriptions[yokai->type]);
+    printf("체력: %d\n", yokai->hp);
     printf("공격력: %d\n", yokai->attack);
     printf("방어력: %d\n", yokai->defense);
-    printf("체력: %d\n", yokai->hp);
     printf("스피드: %d\n", yokai->speed);
+    printf("상성: %s\n", typeNames[yokai->type]);
+    printf("설명: %s\n", typeDescriptions[yokai->type]);
     printf("\n기술 목록:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         printf("%d. %s\n", i + 1, yokai->moves[i].move.name);
