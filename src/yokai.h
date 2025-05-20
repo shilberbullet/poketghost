@@ -11,16 +11,6 @@
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
 
-// 요괴 상성 타입
-typedef enum {
-    TYPE_EVIL_SPIRIT,    // 악귀
-    TYPE_GHOST,          // 원귀
-    TYPE_MONSTER,        // 괴수형
-    TYPE_HUMAN,          // 인간형
-    TYPE_ANIMAL,         // 동물형
-    TYPE_COUNT
-} YokaiType;
-
 // 상성 이름 배열
 extern const char* typeNames[];
 

@@ -11,6 +11,9 @@
 #include "game.h"
 #include "item.h"
 
+// 현재 전투 중인 상대 요괴
+Yokai currentEnemy;
+
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
     int baseReward = 100;  // 기본 보상
@@ -26,6 +29,9 @@ int calculateBattleReward() {
 }
 
 int startBattle(const Yokai* enemy) {
+    // 현재 전투 중인 상대 요괴 정보 저장
+    currentEnemy = *enemy;
+    
     // 등장 메시지 출력 삭제
     while (1) {
         int done = showBattleMenu(enemy);
@@ -113,7 +119,7 @@ void itemRewardSystem() {
     
     // 처음 호출될 때만 랜덤 아이템 생성
     if (!isInitialized) {
-        getRandomItems(candidates, 3);
+    getRandomItems(candidates, 3);
         isInitialized = 1;
     }
     
@@ -189,6 +195,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             return 101; // BATTLE_FIGHT 성공
         }
         case BATTLE_TALISMAN: {
+            if (currentStage.stageNumber % 10 == 0) {
+                printTextAndWait("\n알 수 없는 힘이 부적을 던질 수 없게 합니다!");
+                return 0;
+            }
             int idx = selectTalismanFromInventory();
             if (idx == -1) {
                 return 0; // 부적 없음: 메뉴 반복
@@ -197,22 +207,20 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (useTalisman(&inventory[idx].item, enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
-                
                 // 요괴를 파티에 추가
                 Yokai newYokai = *enemy;  // enemy의 복사본 생성
                 if (addYokaiToParty(&newYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", newYokai.name);
-            printTextAndWait(buffer);
+                    printTextAndWait(buffer);
                 }
-                
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
-            itemRewardSystem();
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
+                itemRewardSystem();
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
@@ -231,6 +239,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             printParty();
             return 0;
         case BATTLE_RUN:
+            if (currentStage.stageNumber % 10 == 0) {
+                printTextAndWait("\n알 수 없는 힘이 도망치지 못하게 합니다!");
+                return 0;
+            }
             if (rand() % 2 == 0) {
                 printTextAndWait("\n도망치는데 성공했습니다!");
                 return 103; // 도망 성공
@@ -248,4 +260,14 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             return 2;
     }
     return 0;
+}
+
+int tryToEscape(void) {
+    if (rand() % 2 == 0) {
+        printTextAndWait("\n도망치는데 성공했습니다!");
+        return 103;
+    } else {
+        printTextAndWait("\n도망치는데 실패했습니다!");
+        return 0;
+    }
 } 

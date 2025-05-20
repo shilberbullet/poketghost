@@ -173,12 +173,11 @@ void printParty() {
         // 기술 목록 출력
         printText("\n기술 목록:\n");
         for (int i = 0; i < party[idx].moveCount; i++) {
-            sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
-                i+1, party[idx].moves[i].move.name, party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
+            sprintf(buffer, "%d. %s (상성: %s, 공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+                i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
         }
-        printTextAndWait("\n아무 키나 누르면 돌아갑니다...");
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
