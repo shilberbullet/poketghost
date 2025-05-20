@@ -26,7 +26,7 @@ int calculateBattleReward() {
     }
     
     return baseReward + stageBonus + randomBonus;
-}
+    }
 
 int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
@@ -76,7 +76,7 @@ int selectPartyYokai() {
     printText("0. 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
-        sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d)\n", i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense);
+        sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense, party[i].speed);
         printText(buffer);
     }
     printText("선택 (번호): ");
@@ -211,16 +211,16 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 Yokai newYokai = *enemy;  // enemy의 복사본 생성
                 if (addYokaiToParty(&newYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", newYokai.name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
-                if (inventory[idx].count == 1) {
-                    for (int i = idx; i < inventoryCount - 1; i++)
-                        inventory[i] = inventory[i + 1];
-                    inventoryCount--;
-                } else {
-                    inventory[idx].count--;
-                }
-                itemRewardSystem();
+            if (inventory[idx].count == 1) {
+                for (int i = idx; i < inventoryCount - 1; i++)
+                    inventory[i] = inventory[i + 1];
+                inventoryCount--;
+            } else {
+                inventory[idx].count--;
+            }
+            itemRewardSystem();
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
