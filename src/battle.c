@@ -119,7 +119,21 @@ void itemRewardSystem() {
     
     // 처음 호출될 때만 랜덤 아이템 생성
     if (!isInitialized) {
-    getRandomItems(candidates, 3);
+        // 중복 제거를 위해 반복
+        int valid = 0;
+        while (!valid) {
+            getRandomItems(candidates, 3);
+            valid = 1;
+            for (int i = 0; i < 3; i++) {
+                for (int j = i + 1; j < 3; j++) {
+                    if (strcmp(candidates[i].name, candidates[j].name) == 0) {
+                        valid = 0;
+                        break;
+                    }
+                }
+                if (!valid) break;
+            }
+        }
         isInitialized = 1;
     }
     
