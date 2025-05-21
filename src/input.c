@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
+#include <ctype.h>
 #include <stdlib.h>
-#include <string.h>
 #include "input.h"
 
 void clearInputBuffer() {
@@ -10,53 +10,44 @@ void clearInputBuffer() {
     }
 }
 
-int getIntInput(int min, int max) {
-    int input;
-    char buffer[256];
+int getIntInput() {
+    char input[256];
+    int number;
+    int i = 0;
+    int isValid = 1;
     
-    while (1) {
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-            return -1;
-        }
-        
-        // 입력 버퍼에서 개행문자 제거
-        buffer[strcspn(buffer, "\n")] = 0;
-        
-        // 입력이 숫자인지 확인
-        int isValid = 1;
-        for (int i = 0; buffer[i] != '\0'; i++) {
-            if (buffer[i] < '0' || buffer[i] > '9') {
-                isValid = 0;
-                break;
-            }
-        }
-        
-        if (!isValid) {
-            printf("숫자만 입력해주세요.\n");
-            continue;
-        }
-        
-        input = atoi(buffer);
-        
-        if (input >= min && input <= max) {
-            return input;
-        }
-        printf("%d에서 %d 사이의 숫자를 입력해주세요.\n", min, max);
-    }
-}
-
-void getStringInput(char* buffer, int maxLength) {
-    if (fgets(buffer, maxLength, stdin) == NULL) {
-        buffer[0] = '\0';
-        return;
+    // 입력 받기
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        return -1;
     }
     
-    // 입력 버퍼에서 개행문자 제거
-    buffer[strcspn(buffer, "\n")] = 0;
+    // 입력된 문자열이 비어있는지 확인
+    if (input[0] == '\n') {
+        return -1;
+    }
     
-    // 입력 버퍼 정리
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    // 모든 문자가 숫자인지 확인
+    while (input[i] != '\n' && input[i] != '\0') {
+        if (!isdigit(input[i])) {
+            isValid = 0;
+            break;
+        }
+        i++;
+    }
+    
+    // 숫자가 아닌 문자가 있거나 입력이 비어있는 경우
+    if (!isValid || i == 0) {
+        printf("\n숫자만 입력해주세요.\n");
+        return -1;
+    }
+    
+    // 문자열을 숫자로 변환
+    number = atoi(input);
+    
+    // 입력 버퍼 비우기
+    clearInputBuffer();
+    
+    return number;
 }
 
 void waitForEnter() {
