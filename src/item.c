@@ -100,13 +100,24 @@ void addItemToInventory(const Item* item) {
     // 이미 있는 아이템인지 확인
     for (int i = 0; i < inventoryCount; i++) {
         if (strcmp(inventory[i].item.name, item->name) == 0) {
+            // 작두는 최대 5개까지만 보유 가능
+            if (strcmp(item->name, "작두") == 0 && inventory[i].count >= 5) {
+                printTextAndWait("\n작두는 최대 5개까지만 보유할 수 있습니다!");
+                return;
+            }
             inventory[i].count++;
             return;
         }
     }
-
     // 새로운 아이템 추가
     if (inventoryCount < INVENTORY_MAX) {
+        // 작두는 최대 5개까지만 보유 가능
+        if (strcmp(item->name, "작두") == 0) {
+            if (1 > 5) {
+                printTextAndWait("\n작두는 최대 5개까지만 보유할 수 있습니다!");
+                return;
+            }
+        }
         inventory[inventoryCount].item = *item;
         inventory[inventoryCount].count = 1;
         inventoryCount++;
