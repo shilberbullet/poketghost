@@ -175,7 +175,7 @@ void printParty() {
                 i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-        }
+    }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
