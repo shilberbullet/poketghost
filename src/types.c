@@ -9,4 +9,13 @@ const char* typeToString(YokaiType type) {
         case TYPE_EVIL_SPIRIT: return "악귀";
         default: return "알 수 없음";
     }
+}
+
+const char* gradeToString(MoveGrade grade) {
+    switch (grade) {
+        case MOVE_BASIC: return "초급";
+        case MOVE_MEDIUM: return "중급";
+        case MOVE_ADVANCED: return "고급";
+        default: return "알 수 없음";
+    }
 } 

@@ -10,13 +10,26 @@ extern YokaiType parseType(const char* typeStr);
 Move moveList[MAX_MOVES_TOTAL];
 int moveListCount = 0;
 
+// 현재 로드 중인 기술 등급을 추적하는 변수
+static MoveGrade currentGrade = MOVE_BASIC;
+
 void loadMovesFromFile(const char* filename) {
     moveListCount = 0;
     FILE* file = fopen(filename, "r");
     if (!file) return;
     char line[256];
     while (fgets(line, sizeof(line), file)) {
-        if (line[0] == '#' || line[0] == '\n') continue;
+        if (line[0] == '#' || line[0] == '\n') {
+            // 주석 라인에서 등급 확인
+            if (strstr(line, "초급 기술")) {
+                currentGrade = MOVE_BASIC;
+            } else if (strstr(line, "중급 기술")) {
+                currentGrade = MOVE_MEDIUM;
+            } else if (strstr(line, "고급 기술")) {
+                currentGrade = MOVE_ADVANCED;
+            }
+            continue;
+        }
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
         char* power = strtok(NULL, ",");
@@ -30,6 +43,7 @@ void loadMovesFromFile(const char* filename) {
             moveList[moveListCount].accuracy = atoi(acc);
             moveList[moveListCount].pp = atoi(pp);
             strncpy(moveList[moveListCount].description, desc, 255);
+            moveList[moveListCount].grade = currentGrade;
             moveListCount++;
         }
     }
@@ -45,6 +59,7 @@ Move* findMoveByName(const char* name) {
 
 void printMoveInfo(const Move* move) {
     printf("\n=== %s ===\n", move->name);
+    printf("등급: %s\n", gradeToString(move->grade));
     printf("공격력: %d\n", move->power);
     printf("명중률: %d%%\n", move->accuracy);
     printf("설명: %s\n", move->description);
