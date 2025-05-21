@@ -39,9 +39,24 @@ void initGame() {
 }
 
 void addMoney(int amount) {
-    player.money += amount;
+    // 작두 효과 적용
+    int jakduCount = 0;
+    for (int i = 0; i < inventoryCount; i++) {
+        if (strcmp(inventory[i].item.name, "작두") == 0) {
+            jakduCount = inventory[i].count;
+            if (jakduCount > 5) jakduCount = 5;
+            break;
+        }
+    }
+    int bonus = (amount * 10 * jakduCount) / 100;
+    int total = amount + bonus;
+    player.money += total;
     char buffer[128];
-    sprintf(buffer, "\n%d전을 획득했습니다! (현재 보유: %d전)\n", amount, player.money);
+    if (jakduCount > 0) {
+        sprintf(buffer, "\n%d전을 획득했습니다! (작두 보너스 +%d%%, 총 %d전, 현재 보유: %d전)\n", amount, jakduCount*10, total, player.money);
+    } else {
+        sprintf(buffer, "\n%d전을 획득했습니다! (현재 보유: %d전)\n", amount, player.money);
+    }
     printText(buffer);
 }
 
