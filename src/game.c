@@ -17,6 +17,23 @@ void initGame() {
     if (!gameState.isLoadedGame) {
         player.money = 0;  // 초기 전을 0으로 설정
         inventoryCount = 0;  // 인벤토리 초기화
+        
+        // 아이템 데이터 로드
+        loadItemsFromFile("data/items.txt");
+        
+        // 낡은 부적 5개 추가
+        Item* oldTalisman = NULL;
+        for (int i = 0; i < itemListCount; i++) {
+            if (strcmp(itemList[i].name, "낡은부적") == 0) {
+                oldTalisman = &itemList[i];
+                break;
+            }
+        }
+        if (oldTalisman) {
+            for (int i = 0; i < 5; i++) {
+                addItemToInventory(oldTalisman);
+            }
+        }
     }
     // 기본 요괴 추가 코드 삭제 (initParty에서 처리)
 }

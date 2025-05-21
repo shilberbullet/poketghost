@@ -151,7 +151,7 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
             catchRate = 0.5f;
             break;
         case ITEM_SUPERRARE:
-            catchRate = 0.8f;
+            catchRate = 1.0f;  // 100% 확률로 수정
             break;
         default:
             catchRate = 0.3f;
