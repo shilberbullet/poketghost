@@ -149,15 +149,6 @@ Yokai* findYokaiByName(const char* name) {
     return NULL;
 }
 
-// 레벨에 따른 능력치 보정 함수
-void adjustStatsByLevel(Yokai* yokai) {
-    float levelMultiplier = 1.0f + (yokai->level - 1) * 0.1f; // 레벨당 10% 증가
-    yokai->attack = (int)(yokai->attack * levelMultiplier);
-    yokai->defense = (int)(yokai->defense * levelMultiplier);
-    yokai->hp = (int)(yokai->hp * levelMultiplier);
-    yokai->speed = (int)(yokai->speed * levelMultiplier);
-}
-
 // 스테이지 번호에 따른 레벨 범위 계산 함수
 void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
     // 기본 레벨 범위: 스테이지 번호 ± 2
@@ -179,7 +170,6 @@ Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
     y.level = level;
-    adjustStatsByLevel(&y);
     assignRandomMoves(&y);
     return y;
 }
@@ -189,7 +179,6 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.level = level;
-    adjustStatsByLevel(&y);
     assignRandomMoves(&y);
     return y;
 }
