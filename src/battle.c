@@ -211,7 +211,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 Yokai* baseYokai = findYokaiByName(enemy->name);
                 if (baseYokai && addYokaiToParty(baseYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", baseYokai->name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
             if (inventory[idx].count == 1) {
                 for (int i = idx; i < inventoryCount - 1; i++)
