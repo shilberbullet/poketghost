@@ -44,7 +44,6 @@ Yokai createRandomYokai();
 Yokai createRandomBossYokai();
 void printYokaiInfo(const Yokai* yokai);
 float getTypeEffectiveness(YokaiType attacker, YokaiType defender);
-void adjustStatsByLevel(Yokai* yokai);
 void calculateLevelRange(int stage, int* minLevel, int* maxLevel);
 Yokai createRandomYokaiWithLevel(int level);
 Yokai createRandomBossYokaiWithLevel(int level);

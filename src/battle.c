@@ -208,10 +208,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
                 // 요괴를 파티에 추가
-                Yokai newYokai = *enemy;  // enemy의 복사본 생성
-                if (addYokaiToParty(&newYokai)) {
-                    sprintf(buffer, "\n%s가 동료가 되었습니다!", newYokai.name);
-            printTextAndWait(buffer);
+                Yokai* baseYokai = findYokaiByName(enemy->name);
+                if (baseYokai && addYokaiToParty(baseYokai)) {
+                    sprintf(buffer, "\n%s가 동료가 되었습니다!", baseYokai->name);
+                    printTextAndWait(buffer);
                 }
             if (inventory[idx].count == 1) {
                 for (int i = idx; i < inventoryCount - 1; i++)

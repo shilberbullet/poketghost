@@ -4,9 +4,8 @@
 #include "move.h"
 #include "text.h"
 
-const char* typeNames[] = {
-    "악귀", "원귀", "괴수형", "인간형", "동물형"
-};
+extern const char* typeNames[];
+extern YokaiType parseType(const char* typeStr);
 
 Move moveList[MAX_MOVES_TOTAL];
 int moveListCount = 0;
@@ -49,11 +48,4 @@ void printMoveInfo(const Move* move) {
     printf("공격력: %d\n", move->power);
     printf("명중률: %d%%\n", move->accuracy);
     printf("설명: %s\n", move->description);
-}
-
-YokaiType parseType(const char* typeStr) {
-    for (int i = 0; i < TYPE_COUNT; i++) {
-        if (strcmp(typeStr, typeNames[i]) == 0) return (YokaiType)i;
-    }
-    return TYPE_EVIL_SPIRIT;
 } 

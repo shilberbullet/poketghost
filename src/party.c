@@ -34,8 +34,6 @@ void initParty() {
         for (int i = 0; i < dokkaebi->learnableMoveCount; i++) {
             party[0].learnableMoves[i] = dokkaebi->learnableMoves[i];
         }
-        
-        adjustStatsByLevel(&party[0]);  // 레벨에 따른 능력치 보정
         assignRandomMoves(&party[0]);   // 랜덤 기술 할당
         partyCount = 1;
     }
@@ -118,8 +116,6 @@ int addYokaiToParty(const Yokai* yokai) {
     for (int i = 0; i < yokai->learnableMoveCount; i++) {
         party[partyCount].learnableMoves[i] = yokai->learnableMoves[i];
     }
-    
-    adjustStatsByLevel(&party[partyCount]);  // 레벨에 따른 능력치 보정
     assignRandomMoves(&party[partyCount]);   // 랜덤 기술 할당
     partyCount++;
     return 1;
