@@ -112,10 +112,12 @@ int selectMove(const Yokai* yokai) {
     return idx;
 }
 
-// 아이템 선택 함수
+// 아이템 보상 시스템
 void itemRewardSystem() {
     static Item candidates[3];  // static으로 선언하여 함수 호출 간에도 값이 유지되도록 함
     static int isInitialized = 0;  // 아이템이 초기화되었는지 확인하는 플래그
+    static int resetCost = 100;  // 초기화 비용 (기본 100전)
+    static int resetCount = 0;  // 현재 스테이지에서 초기화한 횟수
     
     // 처음 호출될 때만 랜덤 아이템 생성
     if (!isInitialized) {
@@ -145,13 +147,40 @@ void itemRewardSystem() {
             candidates[i].desc);
         printText(buffer);
     }
+    char resetBuffer[128];
+    sprintf(resetBuffer, "4. 아이템 목록 초기화 (%d전)\n", resetCost);
+    printText(resetBuffer);
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
+    
+    if (idx == 3) {  // 아이템 목록 초기화 선택
+        if (player.money >= resetCost) {
+            player.money -= resetCost;
+            char buffer[128];
+            sprintf(buffer, "\n%d전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: %d)\n", resetCost, player.money);
+            printText(buffer);
+            
+            // 초기화 비용 증가
+            resetCost *= 2;
+            resetCount++;
+            
+            // 아이템 목록 초기화
+            isInitialized = 0;
+            itemRewardSystem();
+            return;
+        } else {
+            printTextAndWait("\n전이 부족합니다!");
+            itemRewardSystem();
+            return;
+        }
+    }
+    
     if (idx < 0 || idx >= 3) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         itemRewardSystem();
         return;
     }
+    
     addItemToInventory(&candidates[idx]);
     char buffer[128];
     sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
@@ -159,6 +188,18 @@ void itemRewardSystem() {
     
     // 보상 선택이 완료되면 초기화 플래그를 리셋
     isInitialized = 0;
+    
+    // 스테이지가 변경될 때 초기화 비용 리셋
+    if (currentStage.stageNumber % 10 == 0) {
+        // 10스테이지가 끝날 때 누적된 비용을 저장
+        static int accumulatedCost = 0;
+        accumulatedCost += resetCost;
+        resetCost = 100;  // 기본 비용으로 리셋
+        resetCount = 0;
+    } else {
+        resetCost = 100;  // 다음 스테이지에서 기본 비용으로 리셋
+        resetCount = 0;
+    }
 }
 
 // 부적 아이템 선택 함수
