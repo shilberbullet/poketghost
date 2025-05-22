@@ -105,6 +105,11 @@ void addItemToInventory(const Item* item) {
                 printTextAndWait("\n작두는 최대 5개까지만 보유할 수 있습니다!");
                 return;
             }
+            // 무당방울은 최대 5개까지만 보유 가능
+            if (strcmp(item->name, "무당방울") == 0 && inventory[i].count >= 5) {
+                printTextAndWait("\n무당방울은 최대 5개까지만 보유할 수 있습니다!");
+                return;
+            }
             inventory[i].count++;
             return;
         }
@@ -115,6 +120,13 @@ void addItemToInventory(const Item* item) {
         if (strcmp(item->name, "작두") == 0) {
             if (1 > 5) {
                 printTextAndWait("\n작두는 최대 5개까지만 보유할 수 있습니다!");
+                return;
+            }
+        }
+        // 무당방울은 최대 5개까지만 보유 가능
+        if (strcmp(item->name, "무당방울") == 0) {
+            if (1 > 5) {
+                printTextAndWait("\n무당방울은 최대 5개까지만 보유할 수 있습니다!");
                 return;
             }
         }
