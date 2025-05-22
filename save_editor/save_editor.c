@@ -349,12 +349,16 @@ void loadItemsFromFile() {
             item->desc) == 4) {
             
             // 등급 문자열을 enum으로 변환
-            if (strcmp(gradeStr, "일반") == 0) item->grade = ITEM_COMMON;
-            else if (strcmp(gradeStr, "희귀") == 0) item->grade = ITEM_RARE;
-            else if (strcmp(gradeStr, "초희귀") == 0) item->grade = ITEM_SUPERRARE;
+            if (strcmp(gradeStr, "일반") == 0 || strcmp(gradeStr, "COMMON") == 0) item->grade = ITEM_COMMON;
+            else if (strcmp(gradeStr, "희귀") == 0 || strcmp(gradeStr, "RARE") == 0) item->grade = ITEM_RARE;
+            else if (strcmp(gradeStr, "초희귀") == 0 || strcmp(gradeStr, "SUPERRARE") == 0) item->grade = ITEM_SUPERRARE;
             
             // 타입 문자열을 enum으로 변환
-            if (strcmp(typeStr, "회복형") == 0) item->type = ITEM_HEAL;
+            if (strcmp(typeStr, "HEAL") == 0) item->type = ITEM_HEAL;
+            else if (strcmp(typeStr, "TALISMAN") == 0) item->type = ITEM_TALISMAN;
+            else if (strcmp(typeStr, "PLAYER") == 0) item->type = ITEM_PLAYER;
+            else if (strcmp(typeStr, "YOKAI") == 0) item->type = ITEM_YOKAI;
+            else if (strcmp(typeStr, "회복형") == 0) item->type = ITEM_HEAL;
             else if (strcmp(typeStr, "부적형") == 0) item->type = ITEM_TALISMAN;
             else if (strcmp(typeStr, "플레이어") == 0) item->type = ITEM_PLAYER;
             else if (strcmp(typeStr, "요괴") == 0) item->type = ITEM_YOKAI;
