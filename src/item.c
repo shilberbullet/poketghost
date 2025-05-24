@@ -198,4 +198,10 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
         printf("포획 실패...\n");
         return false;
     }
+}
+
+// 무당방울 보너스 계산 함수
+int calculateMudangBonus(int amount, int mudangCount) {
+    if (mudangCount > 5) mudangCount = 5;
+    return (amount * 10 * mudangCount) / 100;
 } 
