@@ -9,16 +9,18 @@
 #include "party.h"
 #include "savefile.h"
 
-void showMainMenu() {
+void showGameMenu(void) {
     int choice;
     
-    while (gameState.isRunning) {
-        system("cls");  // 화면 지우기
-        printText("=== 포켓요괴 ===\n\n");
-        printText("1. 새 게임 시작\n");
-        printText("2. 이어하기\n");
-        printText("3. 게임 설정\n");
-        printText("4. 종료\n\n");
+    while (1) {
+        system("cls");
+        printText("=== 게임 메뉴 ===\n\n");
+        printText("1. 파티 관리\n");
+        printText("2. 아이템 사용\n");
+        printText("3. 맵 보기\n");
+        printText("4. 게임 저장\n");
+        printText("5. 설정\n");
+        printText("6. 게임 종료\n\n");
         printText("숫자를 입력하세요: ");
         
         choice = getIntInput();
@@ -27,56 +29,38 @@ void showMainMenu() {
             continue;
         }
         
-        handleMenuChoice(choice);
+        handleGameMenuChoice(choice);
     }
 }
 
-void handleMenuChoice(int choice) {
+void handleGameMenuChoice(int choice) {
     switch (choice) {
         case 1:
-            startNewGame();
+            showPartyMenu();
             break;
         case 2:
-            loadGame();
+            showItemMenu();
             break;
         case 3:
-            showSettings();
+            showMap();
             break;
         case 4:
+            saveGame();
+            break;
+        case 5:
+            // showSettings(); 함수 완전히 삭제
+            break;
+        case 6:
             gameState.isRunning = 0;
             printTextAndWait("\n게임을 종료합니다.");
             exit(0);
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 1-4 사이의 숫자를 입력하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 1-6 사이의 숫자를 입력하세요.");
             break;
     }
 }
 
-void startNewGame() {
-    initGame(); // 게임 상태 초기화
-    initStage();
-    initParty();
-    while (gameState.isRunning) {
-        showStageInfo();
-        showBattleInterface();
-    }
-}
-
-void loadGame() {
-    if (loadGameData()) {
-        gameState.isLoadedGame = 1;
-        initGame(); // 게임 상태 초기화
-        printTextAndWait("\n저장된 게임을 불러왔습니다!");
-        while (gameState.isRunning) {
-            showStageInfo();
-            showBattleInterface();
-        }
-    } else {
-        printTextAndWait("\n저장된 게임 데이터가 없습니다.");
-    }
-}
-
-void showSettings() {
-    showSettingsMenu();
-} 
+void showPartyMenu(void) {}
+void showItemMenu(void) {}
+void showMap(void) {} 

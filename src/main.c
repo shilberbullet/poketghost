@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "game.h"
-#include "menu.h"
+#include "main_menu.h"
 #include "input.h"
 #include "settings.h"
 #include "move.h"
