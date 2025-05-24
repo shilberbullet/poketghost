@@ -1,14 +1,21 @@
 #ifndef STAGE_H
 #define STAGE_H
 
-#include "types.h"
+#define REGION_NAME_MAX 32
 
-#define TERRAIN_COUNT 5
+typedef enum {
+    TERRAIN_MOUNTAIN,
+    TERRAIN_RIVER,
+    TERRAIN_SEA,
+    TERRAIN_FIELD,
+    TERRAIN_VILLAGE,
+    TERRAIN_COUNT
+} TerrainType;
 
 typedef struct {
     int stageNumber;
-    char region[32];
-    int terrain;
+    char region[REGION_NAME_MAX];
+    TerrainType terrain;
     int hour;
 } StageInfo;
 
@@ -18,7 +25,5 @@ void initStage();
 void nextStage();
 void showStageInfo();
 void showBattleInterface();
-void resetAllYokaiPP();
-void clearStage();
 
 #endif // STAGE_H 
