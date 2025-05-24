@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define MAX_MOVES_TOTAL 50  // 전체 기술 개수 제한
+#define MAX_MOVES_TOTAL 32
 
 // 기술 구조체 (yokai.h에 이미 정의됨)
 // typedef struct { ... } Move;
