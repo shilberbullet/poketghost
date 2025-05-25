@@ -8,6 +8,7 @@
 #include "battle.h"
 #include "savefile.h"
 #include "party.h"
+#include "yokai.h"
 
 // 지역 이름 배열 (10개씩 그룹화)
 const char* regions[] = {
@@ -32,12 +33,43 @@ const char* terrainNames[] = {
 // 전역 스테이지 정보
 StageInfo currentStage = {0};
 
-void initStage() {
-    srand(time(NULL));
-    currentStage.stageNumber = 1;
-    currentStage.hour = 0;
-    strcpy(currentStage.region, regions[0]);
-    currentStage.terrain = rand() % TERRAIN_COUNT;
+void initStage(StageInfo* stage, int stageNumber) {
+    stage->stageNumber = stageNumber;
+    stage->isBossStage = (stageNumber % 10 == 0);
+    
+    // 레벨 범위 계산
+    calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);
+    
+    // 보스 스테이지일 경우 적 수를 1로, 일반 스테이지는 3-5마리
+    stage->enemyCount = stage->isBossStage ? 1 : (rand() % 3 + 3);
+    
+    // 적 요괴 생성
+    generateStageEnemies(stage);
+}
+
+void generateStageEnemies(StageInfo* stage) {
+    for (int i = 0; i < stage->enemyCount; i++) {
+        int level = stage->minLevel + (rand() % (stage->maxLevel - stage->minLevel + 1));
+        
+        if (stage->isBossStage) {
+            stage->enemies[i] = createRandomBossYokaiWithLevel(level);
+        } else {
+            stage->enemies[i] = createRandomYokaiWithLevel(level);
+        }
+    }
+}
+
+void printStageInfo(const StageInfo* stage) {
+    printf("\n=== 스테이지 %d ===\n", stage->stageNumber);
+    printf("스테이지 유형: %s\n", stage->isBossStage ? "보스 스테이지" : "일반 스테이지");
+    printf("적 요괴 수: %d\n", stage->enemyCount);
+    printf("레벨 범위: %d-%d\n", stage->minLevel, stage->maxLevel);
+    
+    printf("\n등장 요괴:\n");
+    for (int i = 0; i < stage->enemyCount; i++) {
+        printf("%d. ", i + 1);
+        printYokaiInfo(&stage->enemies[i]);
+    }
 }
 
 void nextStage() {

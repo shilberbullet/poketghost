@@ -4,10 +4,12 @@
 #include "game.h"
 #include "input.h"
 #include "settings.h"
+#include "settings_ui.h"
 #include "text.h"
 #include "stage.h"
 #include "party.h"
 #include "savefile.h"
+#include "exit.h"
 
 void showMainMenu(void) {
     int choice;
@@ -43,9 +45,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
             showSettings();
             break;
         case MAIN_MENU_EXIT:
-            gameState.isRunning = 0;
-            printTextAndWait("\n게임을 종료합니다.");
-            exit(0);
+            exitGame();
             break;
         default:
             printTextAndWait("\n잘못된 선택입니다. 1-4 사이의 숫자를 입력하세요.");
@@ -55,7 +55,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
 
 void startNewGame(void) {
     initGame(); // 게임 상태 초기화
-    initStage();
+    initStage(&currentStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
     while (gameState.isRunning) {
         showStageInfo();
@@ -80,4 +80,6 @@ void loadGame(void) {
 void showSettings(void) {
     // 기존 설정 메뉴 표시 함수 호출
     showSettingsMenu();
-} 
+}
+
+// 게임 종료 함수 삭제 
