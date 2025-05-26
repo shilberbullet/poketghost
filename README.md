@@ -201,7 +201,7 @@ git clone https://github.com/shilberbullet/poketghost.git .
 ### 3. 컴파일 및 실행
 1. 소스 코드 컴파일
 ```bash
-gcc -o poketghost src/main.c src/menu.c src/game.c src/input.c src/settings.c src/text.c src/stage.c src/yokai.c src/move.c src/battle.c src/party.c src/savefile.c src/item.c -I./include -I./src
+gcc src/*.c -Iinclude -o poketghost.exegcc src/*.c -Iinclude -o poketghost.exe
 ```
 
 2. 게임 실행
