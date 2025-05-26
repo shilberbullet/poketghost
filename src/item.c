@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "item.h"
-#include "text.h"
 #include "yokai.h"
+#include "text.h"
+#include "input.h"
+#include "game.h"
 
 // 아이템 목록
 Item itemList[ITEM_LIST_MAX];

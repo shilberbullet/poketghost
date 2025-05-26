@@ -24,4 +24,7 @@ void releaseYokai(int index);
 // 파티가 가득 찼을 때의 처리
 int handleFullParty(const Yokai* newYokai);
 
+// 모든 요괴의 PP 초기화
+void resetAllYokaiPP();
+
 #endif // PARTY_H 

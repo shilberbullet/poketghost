@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "party.h"
 #include "yokai.h"
 #include "move.h"
 #include "text.h"
 #include "input.h"
+#include "game.h"
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -175,9 +177,17 @@ void printParty() {
                 i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-    }
+        }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
+    }
+}
+
+void resetAllYokaiPP() {
+    for (int i = 0; i < partyCount; i++) {
+        for (int j = 0; j < party[i].moveCount; j++) {
+            party[i].moves[j].currentPP = party[i].moves[j].move.pp;
+        }
     }
 } 

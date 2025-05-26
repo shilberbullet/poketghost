@@ -12,16 +12,4 @@ extern GameSettings gameSettings;
 // 설정 초기화 함수
 void initSettings();
 
-// 설정 메뉴 표시 함수
-void showSettingsMenu();
-
-// 텍스트 속도 설정 함수
-void setTextSpeed();
-
-// 설정 파일 저장 함수
-void saveSettings();
-
-// 설정 파일 불러오기 함수
-void loadSettings();
-
 #endif // SETTINGS_H 
