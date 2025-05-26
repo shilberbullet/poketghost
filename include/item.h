@@ -7,6 +7,8 @@
 #include <stdbool.h>
 #include "yokai.h"
 
+struct Yokai;
+
 #define ITEM_NAME_MAX 32
 #define ITEM_DESC_MAX 128
 #define ITEM_LIST_MAX 32

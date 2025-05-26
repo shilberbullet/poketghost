@@ -12,9 +12,11 @@ void initGame() {
     // 게임 상태 초기화
     gameState.isRunning = 1;
     gameState.currentStage = 1;
+    gameState.currentTime = 0;  // 시간 초기화
     
     // 이어하기가 아닌 경우에만 플레이어 초기화
     if (!gameState.isLoadedGame) {
+        gameState.isNewGame = 1;  // 새 게임 플래그 설정
         player.money = 0;  // 초기 전을 0으로 설정
         inventoryCount = 0;  // 인벤토리 초기화
         

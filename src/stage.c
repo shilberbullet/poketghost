@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "stage.h"
+#include "stage_types.h"
+#include "normal_stage.h"
+#include "boss_stage.h"
 #include "text.h"
 #include "input.h"
 #include "battle.h"
@@ -34,61 +36,31 @@ const char* terrainNames[] = {
 StageInfo currentStage = {0};
 
 void initStage(StageInfo* stage, int stageNumber) {
-    stage->stageNumber = stageNumber;
-    stage->isBossStage = (stageNumber % 10 == 0);
-    
-    // 레벨 범위 계산
-    calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);
-    
-    // 보스 스테이지일 경우 적 수를 1로, 일반 스테이지는 3-5마리
-    stage->enemyCount = stage->isBossStage ? 1 : (rand() % 3 + 3);
-    
-    // 적 요괴 생성
-    generateStageEnemies(stage);
-}
-
-void generateStageEnemies(StageInfo* stage) {
-    for (int i = 0; i < stage->enemyCount; i++) {
-        int level = stage->minLevel + (rand() % (stage->maxLevel - stage->minLevel + 1));
-        
-        if (stage->isBossStage) {
-            stage->enemies[i] = createRandomBossYokaiWithLevel(level);
-        } else {
-            stage->enemies[i] = createRandomYokaiWithLevel(level);
-        }
+    if (stageNumber % 10 == 0) {
+        initBossStage(stage, stageNumber);
+    } else {
+        initNormalStage(stage, stageNumber);
     }
-}
-
-void printStageInfo(const StageInfo* stage) {
-    printf("\n=== 스테이지 %d ===\n", stage->stageNumber);
-    printf("스테이지 유형: %s\n", stage->isBossStage ? "보스 스테이지" : "일반 스테이지");
-    printf("적 요괴 수: %d\n", stage->enemyCount);
-    printf("레벨 범위: %d-%d\n", stage->minLevel, stage->maxLevel);
     
-    printf("\n등장 요괴:\n");
-    for (int i = 0; i < stage->enemyCount; i++) {
-        printf("%d. ", i + 1);
-        printYokaiInfo(&stage->enemies[i]);
-    }
+    // 랜덤 지형 설정
+    stage->terrain = rand() % TERRAIN_COUNT;
 }
 
 void nextStage() {
     currentStage.stageNumber++;
     currentStage.hour = (currentStage.hour + 1) % 24;
-    
-    // 10개 스테이지마다 지역 변경
-    size_t regionIndex = (currentStage.stageNumber - 1) / 10;
-    if (regionIndex < sizeof(regions) / sizeof(regions[0])) {
-        strcpy(currentStage.region, regions[regionIndex]);
-    }
-    
-    // 랜덤 지형 설정
     currentStage.terrain = rand() % TERRAIN_COUNT;
     
     // 5의 배수 스테이지 완료 시 자동 저장
     if ((currentStage.stageNumber - 1) % 5 == 0) {
         saveGame();
+        char buffer[128];
+        sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", currentStage.stageNumber - 1);
+        printTextAndWait(buffer);
     }
+    
+    // 새로운 스테이지 초기화 (hour, terrain은 유지)
+    initStage(&currentStage, currentStage.stageNumber);
 }
 
 void showStageInfo() {
@@ -113,26 +85,6 @@ void showStageInfo() {
     printText(buffer);
 }
 
-void resetAllYokaiPP() {
-    for (int i = 0; i < partyCount; i++) {
-        for (int j = 0; j < party[i].moveCount; j++) {
-            party[i].moves[j].currentPP = party[i].moves[j].move.pp;
-        }
-    }
-}
-
-void clearStage() {
-    // ... 기존 코드 ...
-    
-    // 10의 배수 스테이지 클리어 시 기술 PP 초기화
-    if (currentStage.stageNumber % 10 == 0) {
-        resetAllYokaiPP();
-        printTextAndWait("\n모든 동료 요괴의 기술 PP가 초기화되었습니다!");
-    }
-    
-    // ... 기존 코드 ...
-}
-
 void showBattleInterface() {
     int minLevel, maxLevel;
     calculateLevelRange(currentStage.stageNumber, &minLevel, &maxLevel);
@@ -142,10 +94,10 @@ void showBattleInterface() {
     if (gameState.isLoadedGame) {
         enemy = currentEnemy;
         gameState.isLoadedGame = 0; // 한 번만 사용
-    } else if (currentStage.stageNumber % 10 == 0) {
-        enemy = createRandomBossYokaiWithLevel(randomLevel);
+    } else if (currentStage.isBossStage) {
+        enemy = currentStage.enemies[0];
     } else {
-        enemy = createRandomYokaiWithLevel(randomLevel);
+        enemy = currentStage.enemies[rand() % currentStage.enemyCount];
     }
 
     char buffer[256];
@@ -154,15 +106,13 @@ void showBattleInterface() {
 
     int battleResult = startBattle(&enemy);
 
-    // 보스 스테이지 처리 (10의 배수 스테이지)
-    if (currentStage.stageNumber % 10 == 0) {
+    if (currentStage.isBossStage) {
         if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
-            clearStage();
+            handleBossStageClear();
             nextStage();
         }
-        // 패배하거나 도망친 경우는 다음 스테이지로 진행하지 않음
     } else {
-        // 일반 스테이지는 항상 다음으로 진행
+        handleNormalStageClear();
         nextStage();
     }
 } 
