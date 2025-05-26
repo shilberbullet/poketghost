@@ -14,6 +14,7 @@
 #include "item.h"
 #include "move.h"
 #include "reward.h"  // 새로 추가
+#include "escape.h"  // 도망치기 시스템 추가
 
 // 현재 전투 중인 상대 요괴
 Yokai currentEnemy;
@@ -166,15 +167,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 Yokai* baseYokai = findYokaiByName(enemy->name);
                 if (baseYokai && addYokaiToParty(baseYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", baseYokai->name);
-            printTextAndWait(buffer);
+                    printTextAndWait(buffer);
                 }
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
@@ -193,17 +194,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             printParty();
             return 0;
         case BATTLE_RUN:
-            if (currentStage.stageNumber % 10 == 0) {
-                printTextAndWait("\n알 수 없는 힘이 도망치지 못하게 합니다!");
-                return 0;
-            }
-            if (rand() % 2 == 0) {
-                printTextAndWait("\n도망치는데 성공했습니다!");
-                return 103; // 도망 성공
-            } else {
-                printTextAndWait("\n도망치는데 실패했습니다!");
-                return 0;
-            }
+            return tryToEscape();  // 도망치기 시스템 사용
         case BATTLE_CHECK_INVENTORY:
             printInventory();
             return 0;
@@ -214,14 +205,4 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             return 2;
     }
     return 0;
-}
-
-int tryToEscape(void) {
-    if (rand() % 2 == 0) {
-        printTextAndWait("\n도망치는데 성공했습니다!");
-        return 103;
-    } else {
-        printTextAndWait("\n도망치는데 실패했습니다!");
-        return 0;
-    }
 } 
