@@ -42,6 +42,12 @@ void initStage(StageInfo* stage, int stageNumber) {
         initNormalStage(stage, stageNumber);
     }
     
+    // 새 게임일 경우 시간을 0으로 초기화
+    if (gameState.isNewGame) {
+        stage->hour = 0;
+        gameState.isNewGame = 0;  // 플래그 초기화
+    }
+    
     // 랜덤 지형 설정
     stage->terrain = rand() % TERRAIN_COUNT;
 }
