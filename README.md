@@ -11,43 +11,90 @@
 ```
 poketghost/
 ├── src/                    # 소스 코드
-│   ├── main.c             # 메인 게임 로직
-│   ├── menu.c             # 메뉴 시스템
-│   ├── game.c             # 게임 상태 관리
-│   ├── input.c            # 입력 처리
-│   ├── settings.c         # 게임 설정
-│   ├── text.c             # 텍스트 출력
-│   ├── stage.c            # 스테이지 관리
-│   ├── yokai.c            # 요괴 시스템
-│   ├── move.c             # 기술 시스템
-│   ├── battle.c           # 전투 시스템
-│   ├── party.c            # 파티 관리
-│   ├── savefile.c         # 저장/불러오기
-│   └── item.c             # 아이템 시스템
+│   ├── core/              # 코어 시스템
+│   │   ├── game.c        # 게임 상태 관리
+│   │   ├── types.c       # 공통 데이터 타입
+│   │   ├── input.c       # 입력 처리
+│   │   └── text.c        # 텍스트 출력
+│   │
+│   ├── battle/           # 전투 시스템
+│   │   ├── battle.c      # 전투 로직
+│   │   ├── move.c        # 기술 시스템
+│   │   ├── escape.c      # 도망 시스템
+│   │   └── reward.c      # 보상 시스템
+│   │
+│   ├── yokai/            # 요괴 시스템
+│   │   ├── yokai.c       # 요괴 기본 시스템
+│   │   └── party.c       # 파티 관리
+│   │
+│   ├── stage/            # 스테이지 시스템
+│   │   ├── stage.c       # 스테이지 기본
+│   │   ├── normal_stage.c # 일반 스테이지
+│   │   └── boss_stage.c  # 보스 스테이지
+│   │
+│   ├── item/             # 아이템 시스템
+│   │   └── item.c        # 아이템 관리
+│   │
+│   ├── system/           # 시스템
+│   │   ├── savefile.c    # 저장/로드
+│   │   ├── settings.c    # 게임 설정
+│   │   ├── settings_ui.c # 설정 UI
+│   │   ├── settings_file.c # 설정 파일
+│   │   ├── menu.c        # 메뉴 시스템
+│   │   └── main_menu.c   # 메인 메뉴
+│   │
+│   └── main.c            # 메인 진입점
+│
 ├── include/               # 헤더 파일
-│   ├── menu.h
-│   ├── game.h
-│   ├── input.h
-│   ├── settings.h
-│   ├── text.h
-│   ├── stage.h
-│   ├── yokai.h
-│   ├── move.h
-│   ├── battle.h
-│   ├── party.h
-│   ├── savefile.h
-│   └── item.h
+│   ├── core/             # 코어 헤더
+│   ├── battle/           # 전투 헤더
+│   ├── yokai/            # 요괴 헤더
+│   ├── stage/            # 스테이지 헤더
+│   ├── item/             # 아이템 헤더
+│   └── system/           # 시스템 헤더
+│
 ├── data/                  # 게임 데이터 파일
 │   ├── move.txt          # 기술 데이터
 │   ├── yokai.txt         # 요괴 데이터
 │   └── items.txt         # 아이템 데이터
+│
 ├── save_editor/          # 세이브 파일 에디터
 │   ├── save_editor.c     # 에디터 소스 코드
 │   ├── yokai.txt         # 요괴 목록
 │   ├── items.txt         # 아이템 목록
 │   └── moves.txt         # 기술 목록
+│
 └── README.md             # 프로젝트 설명
 ```
+
+## 모듈화 계획
+
+### 1. 코어 모듈 (`core/`)
+- 게임 상태 관리
+- 공통 데이터 타입
+- 입력/출력 처리
+
+### 2. 전투 모듈 (`battle/`)
+- 전투 핵심 로직
+- 기술 시스템
+- 도망/보상 시스템
+
+### 3. 요괴 모듈 (`yokai/`)
+- 요괴 기본 시스템
+- 파티 관리
+
+### 4. 스테이지 모듈 (`stage/`)
+- 스테이지 기본
+- 일반/보스 스테이지
+
+### 5. 아이템 모듈 (`item/`)
+- 아이템 기본
+- 인벤토리 관리
+
+### 6. 시스템 모듈 (`system/`)
+- 저장/로드
+- 설정
+- 메뉴
 
 ## 개발자
 
@@ -146,20 +193,6 @@ poketghost/
   - 인벤토리 아이템
   - 게임 설정
 
-## 주요 기능
-
-- **요괴 수집**: 다양한 한국 전통 요괴를 수집하고 육성
-- **전투 시스템**: 턴제 전투 시스템으로 요괴들과 전투
-- **아이템 시스템**: 
-  - 부적, 회복 아이템 등 다양한 아이템 사용
-  - 일반 아이템 최대 99개 보유 가능
-  - 특수 아이템(작두, 무당방울) 최대 5개 보유 가능
-  - 아이템 리스트 초기화 기능 (전 아이템 사용)
-  - 초기화 비용: 100전부터 시작, 스테이지별 2배 증가
-  - 10스테이지마다 초기화 비용 리셋
-- **스테이지 진행**: 다양한 지역과 지형에서 진행되는 스테이지
-- **저장 시스템**: 게임 진행 상황 저장 및 불러오기
-
 ## 기술 스택
 
 - C 언어
@@ -199,14 +232,12 @@ git clone https://github.com/shilberbullet/poketghost.git .
 ```
 
 ### 3. 컴파일 및 실행
-1. 소스 코드 컴파일
 ```bash
-gcc -o poketghost src/main.c src/menu.c src/game.c src/input.c src/settings.c src/text.c src/stage.c src/yokai.c src/move.c src/battle.c src/party.c src/savefile.c src/item.c -I./include -I./src
-```
+# 소스 코드 컴파일
+gcc src/*.c -Iinclude -o poketghost.exe
 
-2. 게임 실행
-```bash
-poketghost
+# 게임 실행
+poketghost.exe
 ```
 
 ## 게임 조작
