@@ -21,29 +21,33 @@ int calculateBattleReward() {
     return baseReward + stageBonus + randomBonus;
 }
 
+// 초기화 비용 계산 함수
+static int calculateResetCost(int stageNumber) {
+    int baseCost = 100;  // 기본 비용
+    
+    // 1-10 스테이지: 100전
+    // 11-20 스테이지: 200전
+    if (stageNumber <= 10) {
+        return baseCost;
+    } else {
+        return baseCost * 2;
+    }
+}
+
 // getRandomItems는 item.c의 것을 사용
 
 // 아이템 보상 시스템
 void itemRewardSystem() {
     static Item candidates[3];  // static으로 선언하여 함수 호출 간에도 값이 유지되도록 함
     static int isInitialized = 0;  // 아이템이 초기화되었는지 확인하는 플래그
-    static int resetCost = 100;  // 초기화 비용 (기본 100전)
     static int resetCount = 0;  // 현재 스테이지에서 초기화한 횟수
-    static int lastStageNumber = 0;  // 마지막으로 처리한 스테이지 번호
-    static int baseResetCost = 100;  // 기본 초기화 비용
     
-    // 스테이지가 변경되었을 때 초기화 비용 리셋
-    if (lastStageNumber != currentStage.stageNumber) {
-        // 10스테이지 완료 시 기본 초기화 비용 증가
-        if (currentStage.stageNumber % 10 == 0) {
-            baseResetCost *= 2;  // 기본 비용 2배 증가
-            char buffer[128];
-            sprintf(buffer, "\n10스테이지 완료! 아이템 초기화 기본 비용이 %d전으로 증가했습니다.\n", baseResetCost);
-            printTextAndWait(buffer);
-        }
-        resetCost = baseResetCost;  // 현재 스테이지의 초기화 비용 설정
-        resetCount = 0;   // 초기화 횟수 리셋
-        lastStageNumber = currentStage.stageNumber;
+    // 현재 스테이지 번호에 따른 초기화 비용 계산
+    int resetCost = calculateResetCost(currentStage.stageNumber);
+    
+    // 초기화 횟수에 따른 추가 비용 계산
+    for (int i = 0; i < resetCount; i++) {
+        resetCost *= 2;
     }
     
     // 처음 호출될 때만 랜덤 아이템 생성
@@ -87,8 +91,7 @@ void itemRewardSystem() {
             sprintf(buffer, "\n%d전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: %d)\n", resetCost, player.money);
             printText(buffer);
             
-            // 초기화 비용 증가
-            resetCost *= 2;
+            // 초기화 횟수 증가
             resetCount++;
             
             // 아이템 목록 초기화
@@ -109,10 +112,15 @@ void itemRewardSystem() {
     }
     
     addItemToInventory(&candidates[idx]);
-    char buffer[128];
-    sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
-    printTextAndWait(buffer);
+    
+    // 회복형 아이템이 아닌 경우에만 획득 메시지 출력
+    if (candidates[idx].type != ITEM_HEAL) {
+        char buffer[128];
+        sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
+        printTextAndWait(buffer);
+    }
     
     // 보상 선택이 완료되면 초기화 플래그를 리셋
     isInitialized = 0;
+    resetCount = 0;  // 초기화 횟수도 리셋
 } 

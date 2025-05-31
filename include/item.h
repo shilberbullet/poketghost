@@ -11,7 +11,6 @@ struct Yokai;
 
 #define ITEM_NAME_MAX 32
 #define ITEM_DESC_MAX 128
-#define ITEM_LIST_MAX 32
 #define INVENTORY_MAX 20
 
 // 아이템 등급
@@ -43,13 +42,20 @@ typedef struct {
     int count;
 } InventoryItem;
 
-// 전체 아이템 목록
-extern Item itemList[ITEM_LIST_MAX];
+// 전체 아이템 목록 (동적 배열)
+extern Item* itemList;
 extern int itemListCount;
+extern int itemListCapacity;
 
 // 인벤토리
 extern InventoryItem inventory[INVENTORY_MAX];
 extern int inventoryCount;
+
+// 아이템 시스템 초기화
+void initItemSystem();
+
+// 아이템 시스템 정리
+void cleanupItemSystem();
 
 // 아이템 데이터 파일 로드
 void loadItemsFromFile(const char* filename);
