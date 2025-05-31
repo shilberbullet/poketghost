@@ -167,15 +167,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 Yokai* baseYokai = findYokaiByName(enemy->name);
                 if (baseYokai && addYokaiToParty(baseYokai)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", baseYokai->name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
-                if (inventory[idx].count == 1) {
-                    for (int i = idx; i < inventoryCount - 1; i++)
-                        inventory[i] = inventory[i + 1];
-                    inventoryCount--;
-                } else {
-                    inventory[idx].count--;
-                }
+            if (inventory[idx].count == 1) {
+                for (int i = idx; i < inventoryCount - 1; i++)
+                    inventory[i] = inventory[i + 1];
+                inventoryCount--;
+            } else {
+                inventory[idx].count--;
+            }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);

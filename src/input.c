@@ -54,4 +54,17 @@ void waitForEnter() {
     // 메시지 출력 없이 엔터 대기만
     clearInputBuffer();
     getchar();
+}
+
+int getNumberInput(int min, int max) {
+    int num;
+    while (1) {
+        printf("선택 (%d-%d): ", min, max);
+        num = getIntInput();
+        if (num >= min && num <= max) {
+            return num;
+        } else {
+            printf("\n%d부터 %d 사이의 숫자를 입력하세요.\n", min, max);
+        }
+    }
 } 

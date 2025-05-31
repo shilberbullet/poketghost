@@ -6,14 +6,52 @@
 #include "text.h"
 #include "input.h"
 #include "game.h"
+#include "heal_system.h"
+#include "sikhye_system.h"
 
-// 아이템 목록
-Item itemList[ITEM_LIST_MAX];
+#define INITIAL_ITEM_CAPACITY 32
+
+// 아이템 목록 (동적 배열)
+Item* itemList = NULL;
 int itemListCount = 0;
+int itemListCapacity = 0;
 
 // 인벤토리
 InventoryItem inventory[INVENTORY_MAX];
 int inventoryCount = 0;
+
+// 아이템 시스템 초기화
+void initItemSystem() {
+    itemList = (Item*)malloc(INITIAL_ITEM_CAPACITY * sizeof(Item));
+    if (itemList == NULL) {
+        printf("아이템 시스템 초기화 실패: 메모리 할당 오류\n");
+        exit(1);
+    }
+    itemListCapacity = INITIAL_ITEM_CAPACITY;
+    itemListCount = 0;
+}
+
+// 아이템 시스템 정리
+void cleanupItemSystem() {
+    if (itemList != NULL) {
+        free(itemList);
+        itemList = NULL;
+    }
+    itemListCount = 0;
+    itemListCapacity = 0;
+}
+
+// 아이템 목록 크기 확장
+static void expandItemList() {
+    int newCapacity = itemListCapacity * 2;
+    Item* newList = (Item*)realloc(itemList, newCapacity * sizeof(Item));
+    if (newList == NULL) {
+        printf("아이템 목록 확장 실패: 메모리 할당 오류\n");
+        return;
+    }
+    itemList = newList;
+    itemListCapacity = newCapacity;
+}
 
 // 문자열을 ItemGrade로 변환
 ItemGrade stringToGrade(const char* str) {
@@ -43,9 +81,14 @@ void loadItemsFromFile(const char* filename) {
     char line[256];
     itemListCount = 0;
 
-    while (fgets(line, sizeof(line), file) && itemListCount < ITEM_LIST_MAX) {
+    while (fgets(line, sizeof(line), file)) {
         // 주석이나 빈 줄 무시
         if (line[0] == '#' || line[0] == '\n') continue;
+
+        // 아이템 목록이 가득 찼다면 확장
+        if (itemListCount >= itemListCapacity) {
+            expandItemList();
+        }
 
         char name[ITEM_NAME_MAX];
         char gradeStr[32];
@@ -82,7 +125,11 @@ void getRandomItems(Item* outItems, int count) {
 
         // 해당 등급의 아이템 중 랜덤 선택
         int validItems = 0;
-        int validIndices[ITEM_LIST_MAX];
+        int* validIndices = (int*)malloc(itemListCount * sizeof(int));
+        if (validIndices == NULL) {
+            printf("메모리 할당 실패\n");
+            return;
+        }
         
         for (int j = 0; j < itemListCount; j++) {
             if (itemList[j].grade == targetGrade) {
@@ -94,11 +141,30 @@ void getRandomItems(Item* outItems, int count) {
             int selectedIndex = validIndices[rand() % validItems];
             outItems[i] = itemList[selectedIndex];
         }
+        
+        free(validIndices);
     }
 }
 
 // 인벤토리에 아이템 추가
 void addItemToInventory(const Item* item) {
+    // 회복형 아이템은 즉시 사용
+    if (item->type == ITEM_HEAL) {
+        Yokai* targetYokai = selectYokaiToHeal();
+        if (targetYokai != NULL) {
+            // 식혜류 아이템 처리
+            if (strcmp(item->name, "미지근한 식혜") == 0 ||
+                strcmp(item->name, "시원한 식혜") == 0 ||
+                strcmp(item->name, "맛있는 식혜") == 0) {
+                useSikhyeItem(item->name, targetYokai);
+            }
+            else {
+                healYokai(targetYokai);  // 기존 회복 처리
+            }
+        }
+        return;
+    }
+
     // 이미 있는 아이템인지 확인
     for (int i = 0; i < inventoryCount; i++) {
         if (strcmp(inventory[i].item.name, item->name) == 0) {
@@ -121,6 +187,7 @@ void addItemToInventory(const Item* item) {
             return;
         }
     }
+
     // 새로운 아이템 추가
     if (inventoryCount < INVENTORY_MAX) {
         // 작두는 최대 5개까지만 보유 가능

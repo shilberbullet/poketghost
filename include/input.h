@@ -10,4 +10,7 @@ int getIntInput();
 // 엔터키를 기다리는 함수
 void waitForEnter();
 
+// 범위 내 정수 입력을 받는 함수
+int getNumberInput(int min, int max);
+
 #endif // INPUT_H 
