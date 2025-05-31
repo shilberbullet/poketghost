@@ -33,7 +33,8 @@ poketghost/
 │   │   └── boss_stage.c  # 보스 스테이지
 │   │
 │   ├── item/             # 아이템 시스템
-│   │   └── item.c        # 아이템 관리
+│   │   ├── item.c        # 아이템 관리
+│   │   └── sikhye_system.c # 식혜 시스템
 │   │
 │   ├── system/           # 시스템
 │   │   ├── savefile.c    # 저장/로드
@@ -51,6 +52,7 @@ poketghost/
 │   ├── yokai/            # 요괴 헤더
 │   ├── stage/            # 스테이지 헤더
 │   ├── item/             # 아이템 헤더
+│   │   └── sikhye_system.h # 식혜 시스템 헤더
 │   └── system/           # 시스템 헤더
 │
 ├── data/                  # 게임 데이터 파일
@@ -238,7 +240,7 @@ git clone https://github.com/shilberbullet/poketghost.git .
 ### 3. 컴파일 및 실행
 ```bash
 # 소스 코드 컴파일
-gcc src/*.c -Iinclude -o poketghost.exe
+gcc -o poketghost.exe src/*.c -I include
 
 # 게임 실행
 poketghost.exe
@@ -445,7 +447,7 @@ include/
 1. gcc가 설치되어 있어야 합니다.
 2. 아래 명령어로 빌드할 수 있습니다.
 
-```
+```bash
 gcc -o poketghost.exe src/*.c -I include
 ```
 
