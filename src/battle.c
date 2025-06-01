@@ -68,7 +68,7 @@ int selectPartyYokai() {
     printText("0. 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[128];
-        sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense, party[i].speed);
+        sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].stamina, party[i].attack, party[i].defense, party[i].speed);
         printText(buffer);
     }
     printText("선택 (번호): ");

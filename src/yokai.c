@@ -83,11 +83,11 @@ void loadYokaiFromFile(const char* filename) {
         char* type = strtok(NULL, ",");
         char* attack = strtok(NULL, ",");
         char* defense = strtok(NULL, ",");
-        char* hp = strtok(NULL, ",");
+        char* stamina = strtok(NULL, ",");
         char* speed = strtok(NULL, ",");
         char* desc = strtok(NULL, ""); // 남은 전체를 desc로
         
-        if (name && type && attack && defense && hp && speed && desc && moves) {
+        if (name && type && attack && defense && stamina && speed && desc && moves) {
             Yokai* y;
             if (!isBoss && yokaiListCount < MAX_YOKAI) {
                 y = &yokaiList[yokaiListCount++];
@@ -102,7 +102,7 @@ void loadYokaiFromFile(const char* filename) {
             y->type = parseType(type);
             y->attack = atoi(attack);
             y->defense = atoi(defense);
-            y->hp = atoi(hp);
+            y->stamina = atoi(stamina);
             y->speed = atoi(speed);
             
             // 도감 설명 복사 전에 버퍼 초기화
@@ -194,7 +194,7 @@ Yokai createRandomBossYokai() {
 
 void printYokaiInfo(const Yokai* yokai) {
     printf("\n=== %s Lv.%d ===\n", yokai->name, yokai->level);
-    printf("체력: %d\n", yokai->hp);
+    printf("체력: %d\n", yokai->stamina);
     printf("공격력: %d\n", yokai->attack);
     printf("방어력: %d\n", yokai->defense);
     printf("스피드: %d\n", yokai->speed);

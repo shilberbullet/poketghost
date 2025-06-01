@@ -1,4 +1,4 @@
- #include <stdio.h>
+#include <stdio.h>
 #include "heal_system.h"
 #include "text.h"
 #include "input.h"
@@ -31,7 +31,7 @@ Yokai* selectYokaiToHeal() {
         sprintf(buffer, "%d. %s (HP: %d)\n", 
             i + 1,
             party[i].name,
-            party[i].hp);
+            party[i].stamina);
         printText(buffer);
     }
     
