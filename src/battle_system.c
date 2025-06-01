@@ -3,6 +3,7 @@
 #include "battle_system.h"
 #include "text.h"
 #include "hp_system.h"
+#include "battle.h"  // currentEnemy 변수를 위해 추가
 
 void initBattleSystem() {
     // 향후 전투 시스템 초기화 코드가 들어갈 자리
@@ -108,6 +109,11 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
             defender->currentHP = 0;
             defender->status = YOKAI_FAINTED;  // 기절 상태로 변경
         }
+        // 상대 요괴의 HP 업데이트
+        if (defender == &currentEnemy) {
+            currentEnemy.currentHP = defender->currentHP;
+            currentEnemy.status = defender->status;
+        }
     }
     
     // 데미지 메시지 출력
@@ -150,6 +156,10 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     if (defender->currentHP <= 0) {
         defender->currentHP = 0;
         defender->status = YOKAI_FAINTED;  // 기절 상태로 변경
+        if (defender == &currentEnemy) {
+            currentEnemy.currentHP = 0;
+            currentEnemy.status = YOKAI_FAINTED;
+        }
         return 1;  // 승리
     }
     
