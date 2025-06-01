@@ -73,16 +73,43 @@ void itemRewardSystem() {
     printText("\n전투 보상! 아이템을 하나 선택하세요:\n");
     for (int i = 0; i < 3; i++) {
         char buffer[256];
-        sprintf(buffer, "%d. %s [%s] - %s\n", i+1, candidates[i].name,
-            candidates[i].grade == ITEM_COMMON ? "일반" : candidates[i].grade == ITEM_RARE ? "희귀" : "초희귀",
+        // 등급에 따른 색상 설정
+        const char* colorCode;
+        switch (candidates[i].grade) {
+            case ITEM_COMMON:
+                colorCode = "\033[0m";  // 기본색 (흰색)
+                break;
+            case ITEM_RARE:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case ITEM_SUPERRARE:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            default:
+                colorCode = "\033[0m";
+        }
+        
+        sprintf(buffer, "%d. %s%s [%s]\033[0m - %s\n", i+1, 
+            colorCode,
+            candidates[i].name,
+            candidates[i].grade == ITEM_COMMON ? "일반" : 
+            candidates[i].grade == ITEM_RARE ? "희귀" : "초희귀",
             candidates[i].desc);
         printText(buffer);
     }
     char resetBuffer[128];
     sprintf(resetBuffer, "4. 아이템 목록 초기화 (%d전)\n", resetCost);
     printText(resetBuffer);
+    printText("5. 아이템을 받지 않고 넘어간다\n");
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
+    
+    if (idx == 4) {  // 아이템을 받지 않고 넘어가기 선택
+        printTextAndWait("\n아이템을 받지 않고 넘어갑니다.");
+        isInitialized = 0;
+        resetCount = 0;
+        return;
+    }
     
     if (idx == 3) {  // 아이템 목록 초기화 선택
         if (player.money >= resetCost) {
