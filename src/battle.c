@@ -123,7 +123,7 @@ int showBattleMenu(const Yokai* enemy) {
     if (choice >= 1 && choice <= 6) {
         return handleBattleChoice((BattleChoice)choice, (Yokai*)enemy);
     } else {
-        printTextAndWait("\n잘못된 선택입니다. 1-6 사이의 숫자를 입력해주세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         return 0;
     }
 }
