@@ -227,8 +227,25 @@ void printInventory() {
     printText("\n=== 인벤토리 ===\n");
     for (int i = 0; i < inventoryCount; i++) {
         char buffer[256];
-        sprintf(buffer, "%d. %s [%s] x%d\n    %s\n", 
+        // 등급에 따른 색상 설정
+        const char* colorCode;
+        switch (inventory[i].item.grade) {
+            case ITEM_COMMON:
+                colorCode = "\033[0m";  // 기본색 (흰색)
+                break;
+            case ITEM_RARE:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case ITEM_SUPERRARE:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            default:
+                colorCode = "\033[0m";
+        }
+        
+        sprintf(buffer, "%d. %s%s [%s]\033[0m x%d\n    %s\n", 
             i+1, 
+            colorCode,
             inventory[i].item.name,
             inventory[i].item.grade == ITEM_COMMON ? "일반" : 
             inventory[i].item.grade == ITEM_RARE ? "희귀" : "초희귀",

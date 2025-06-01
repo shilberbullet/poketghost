@@ -15,6 +15,7 @@
 #include "move.h"
 #include "reward.h"  // 새로 추가
 #include "escape.h"  // 도망치기 시스템 추가
+#include "hp_system.h"  // HP 시스템 헤더 추가
 
 // 현재 전투 중인 상대 요괴
 Yokai currentEnemy;
@@ -23,7 +24,27 @@ int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy;
     
-    // 등장 메시지 출력 삭제
+    // HP 바 출력
+    float maxHP = calculateHP(enemy);
+    float currentHP = enemy->currentHP;
+    float hpPercentage = (currentHP / maxHP) * 100.0f;
+    int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+    
+    char buffer[256];
+    sprintf(buffer, "%sHP[", enemy->name);
+    printText(buffer);
+    printText("\033[92m"); // 연두색 시작
+    for (int i = 0; i < HP_BAR_LENGTH; i++) {
+        if (i < filledLength) {
+            printText("█");
+        } else {
+            printText("░");
+        }
+    }
+    printText("\033[0m"); // 색상 초기화
+    sprintf(buffer, "] %.1f/%.1f\n", currentHP, maxHP);
+    printText(buffer);
+    
     while (1) {
         int done = showBattleMenu(enemy);
         if (done == 101 || done == 102) {
@@ -67,8 +88,9 @@ int selectPartyYokai() {
     printText("\n동료 요괴를 선택하세요:\n");
     printText("0. 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
-        char buffer[128];
-        sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].stamina, party[i].attack, party[i].defense, party[i].speed);
+        char buffer[256];
+        float maxHP = party[i].stamina * (1.0f + (party[i].level * party[i].level) / 100.0f);
+        sprintf(buffer, "%d. %s (HP: %.1f/%.1f, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].currentHP, maxHP, party[i].attack, party[i].defense, party[i].speed);
         printText(buffer);
     }
     printText("선택 (번호): ");

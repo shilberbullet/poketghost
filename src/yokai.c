@@ -170,6 +170,7 @@ Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
     y.level = level;
+    y.currentHP = y.stamina * (1.0f + (level * level) / 100.0f);  // HP 초기화
     assignRandomMoves(&y);
     return y;
 }
@@ -179,6 +180,7 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.level = level;
+    y.currentHP = y.stamina * (1.0f + (level * level) / 100.0f);  // HP 초기화
     assignRandomMoves(&y);
     return y;
 }
@@ -209,4 +211,6 @@ void printYokaiInfo(const Yokai* yokai) {
 
 float getTypeEffectiveness(YokaiType attacker, YokaiType defender) {
     return typeEffectivenessTable[attacker][defender];
-} 
+}
+
+// initParty와 addYokaiToParty 함수는 party.c로 이동 

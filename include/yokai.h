@@ -25,6 +25,7 @@ typedef struct {
     int defense;        // 방어력
     int stamina;         // 체력 종족값
     int speed;         // 스피드
+    float currentHP;    // 현재 HP
     YokaiType type;    // 상성
     char desc[128];    // 도감설명
     MoveInstance moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술

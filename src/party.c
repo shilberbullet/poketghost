@@ -26,6 +26,7 @@ void initParty() {
         memset(&party[0], 0, sizeof(Yokai)); // 구조체 전체를 0으로 초기화
         party[0] = *dokkaebi;  // 기본 정보 복사
         party[0].level = 1;    // 초기 레벨 1로 설정
+        party[0].currentHP = party[0].stamina * (1.0f + (party[0].level * party[0].level) / 100.0f);  // HP 초기화
         
         // 도감 설명 명시적 복사
         strncpy(party[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
@@ -108,6 +109,7 @@ int addYokaiToParty(const Yokai* yokai) {
     memset(&party[partyCount], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
     party[partyCount] = *yokai;  // 기본 정보 복사
     party[partyCount].level = 1;  // 새로 잡은 요괴도 레벨 1로 시작
+    party[partyCount].currentHP = party[partyCount].stamina * (1.0f + (party[partyCount].level * party[partyCount].level) / 100.0f);  // HP 초기화
     
     // 도감 설명 명시적 복사
     strncpy(party[partyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
@@ -140,12 +142,14 @@ void printParty() {
     
     if (choice > 0 && choice <= partyCount) {
         int idx = choice - 1;
-        char buffer[2048];  // 버퍼 크기를 2048로 증가
+        char buffer[2048];
         
         // 기본 정보 출력
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
         printText(buffer);
-        sprintf(buffer, "체력: %d\n", party[idx].stamina);
+        sprintf(buffer, "체력 종족값: %d\n", party[idx].stamina);
+        printText(buffer);
+        sprintf(buffer, "현재 HP: %.1f\n", party[idx].currentHP);
         printText(buffer);
         sprintf(buffer, "공격력: %d\n", party[idx].attack);
         printText(buffer);
@@ -174,10 +178,11 @@ void printParty() {
         printText("\n기술 목록:\n");
         for (int i = 0; i < party[idx].moveCount; i++) {
             sprintf(buffer, "%d. %s (상성: %s, 공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
-                i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
+                i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), 
+                party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-    }
+        }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
