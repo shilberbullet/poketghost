@@ -91,7 +91,7 @@ int startBattle(const Yokai* enemy) {
     
     turnCount = 0; // 전투 시작 시 턴 카운트 초기화
     while (1) {
-        int done = showBattleMenu(enemy);
+        int done = showBattleMenu(&currentEnemy);
         if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
@@ -121,7 +121,7 @@ int showBattleMenu(const Yokai* enemy) {
     
     choice = getIntInput();
     if (choice >= 1 && choice <= 6) {
-        return handleBattleChoice((BattleChoice)choice, (Yokai*)enemy);
+        return handleBattleChoice((BattleChoice)choice, &currentEnemy);
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         return 0;
@@ -319,15 +319,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
-            printTextAndWait(buffer);
+                    printTextAndWait(buffer);
                 }
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
