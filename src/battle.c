@@ -22,6 +22,10 @@
 // 현재 전투 중인 상대 요괴
 Yokai currentEnemy;
 
+// 전역 또는 static 변수로 턴 카운트 선언
+static int turnCount = 0;
+static int lastYokaiIdx = 0;  // 전역 변수로 선언
+
 int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy;
@@ -67,7 +71,7 @@ int startBattle(const Yokai* enemy) {
     
     // HP 바만 출력 (이름은 이미 출력했으므로 생략)
     printText("HP[");
-    printText("\033[92m"); // 연두색 시작
+    printText("\033[1;32m"); // 굵은 짙은 녹색으로 변경
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");
@@ -79,6 +83,7 @@ int startBattle(const Yokai* enemy) {
     sprintf(buffer, "] %.1f/%.1f\n", currentHP, maxHP);
     printText(buffer);
     
+    turnCount = 0; // 전투 시작 시 턴 카운트 초기화
     while (1) {
         int done = showBattleMenu(enemy);
         if (done == 101 || done == 102) {
@@ -174,7 +179,35 @@ int selectMove(const Yokai* yokai) {
     printText("\n사용할 기술을 선택하세요:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         char buffer[128];
-        sprintf(buffer, "%d. %s (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", i+1, yokai->moves[i].move.name, yokai->moves[i].move.power, yokai->moves[i].move.accuracy, yokai->moves[i].currentPP, yokai->moves[i].move.pp);
+        const char* colorCode;
+        switch (yokai->moves[i].move.type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+        sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+            i+1, 
+            colorCode,
+            yokai->moves[i].move.name,
+            colorCode,
+            yokai->moves[i].move.power, 
+            yokai->moves[i].move.accuracy, 
+            yokai->moves[i].currentPP, 
+            yokai->moves[i].move.pp);
         printText(buffer);
     }
     printText("선택 (번호): ");
@@ -224,25 +257,30 @@ int selectTalismanFromInventory() {
 int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
     switch (choice) {
         case BATTLE_FIGHT: {
-            int yokaiIdx = selectPartyYokai();
-            if (yokaiIdx == -1) {
-                return 0; // 뒤로 돌아가기
+            int yokaiIdx;
+            if (turnCount == 0) {
+                yokaiIdx = selectPartyYokai();
+                if (yokaiIdx == -1) {
+                    return 0; // 뒤로 돌아가기
+                }
+            } else {
+                // 첫 턴 이후에는 이전에 선택한 요괴를 자동 사용
+                yokaiIdx = lastYokaiIdx;
             }
             int moveIdx = selectMove(&party[yokaiIdx]);
-            // PP 감소
             party[yokaiIdx].moves[moveIdx].currentPP--;
-            
-            // 전투 실행
-            int result = executeBattle(&party[yokaiIdx], enemy, moveIdx);
-            
-            // 전투 결과 처리
+            int result = executeTurnBattle(&party[yokaiIdx], enemy, moveIdx);
             handleBattleResult(&party[yokaiIdx], enemy, result);
-            
-            // 전투 승리 시 경험치 획득
-            int exp = calculateBattleExp(enemy);
-            gainExp(&party[yokaiIdx], exp);
-            
-            return 101; // BATTLE_FIGHT 성공
+            turnCount++;
+            lastYokaiIdx = yokaiIdx;
+            if (result == 1) {
+                int exp = calculateBattleExp(enemy);
+                gainExp(&party[yokaiIdx], exp);
+                return 101;
+            } else if (result == -1) {
+                return 104;
+            }
+            return 0;
         }
         case BATTLE_TALISMAN: {
             if (currentStage.stageNumber % 10 == 0) {
@@ -280,6 +318,52 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 } else {
                     inventory[idx].count--;
                 }
+                
+                // 부적 실패 시 동료 요괴 선택
+                int yokaiIdx = selectPartyYokai();
+                if (yokaiIdx == -1) {
+                    return 0; // 뒤로 돌아가기
+                }
+                lastYokaiIdx = yokaiIdx;  // 전역 변수 사용
+                
+                // 상대 요괴의 랜덤 기술 선택
+                int enemyMoveIdx = rand() % enemy->moveCount;
+                
+                // 상대 요괴의 공격만 실행 (플레이어는 공격하지 않음)
+                float damage = calculateDamage(enemy, &party[yokaiIdx], &enemy->moves[enemyMoveIdx].move);
+                party[yokaiIdx].currentHP -= damage;
+                
+                // 데미지 메시지 출력
+                sprintf(buffer, "\n%s의 %s 공격!\n", enemy->name, enemy->moves[enemyMoveIdx].move.name);
+                printText(buffer);
+                sprintf(buffer, "%s는 %.1f의 데미지를 입었다!\n", party[yokaiIdx].name, damage);
+                printText(buffer);
+                
+                // HP 바 업데이트
+                float maxHP = calculateHP(&party[yokaiIdx]);
+                float hpPercentage = (party[yokaiIdx].currentHP / maxHP) * 100.0f;
+                int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+                
+                printText("HP[");
+                printText("\033[1;32m");
+                for (int i = 0; i < HP_BAR_LENGTH; i++) {
+                    if (i < filledLength) {
+                        printText("█");
+                    } else {
+                        printText("░");
+                    }
+                }
+                printText("\033[0m");
+                sprintf(buffer, "] %.1f/%.1f\n", party[yokaiIdx].currentHP, maxHP);
+                printText(buffer);
+                
+                // 전투 결과 확인
+                if (party[yokaiIdx].currentHP <= 0) {
+                    printTextAndWait("\n전투에서 패배했습니다...");
+                    return 104; // 전투 패배
+                }
+                
+                turnCount++;  // 부적 실패 시에도 턴 카운트 증가
                 return 0; // 전투 계속
             }
         }
