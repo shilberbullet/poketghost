@@ -12,6 +12,9 @@ int calculateBattleReward(void);
 // 아이템 보상 시스템
 void itemRewardSystem(void);
 
+// 새 게임 시작 시 static 변수 초기화 함수
+void resetItemRewardSystem(void);
+
 // 랜덤 아이템 생성 (내부용)
 void getRandomItems(Item* items, int count);
 

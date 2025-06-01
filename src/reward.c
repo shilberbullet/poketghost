@@ -7,6 +7,12 @@
 #include "item.h"
 #include "game.h"
 
+// static 변수들을 전역 변수로 이동
+Item candidates[3];
+int isInitialized = 0;
+int resetCount = 0;
+int lastStageNumber = -1;
+
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
     int baseReward = 100;  // 기본 보상
@@ -51,10 +57,10 @@ const char* getGradeName(ItemGrade grade) {
 
 // 아이템 보상 시스템
 void itemRewardSystem() {
-    static Item candidates[3];  // static으로 선언하여 함수 호출 간에도 값이 유지되도록 함
-    static int isInitialized = 0;  // 아이템이 초기화되었는지 확인하는 플래그
-    static int resetCount = 0;  // 현재 스테이지에서 초기화한 횟수
-    static int lastStageNumber = -1;  // 이전 스테이지 번호 저장
+    // static Item candidates[3];
+    // static int isInitialized = 0;
+    // static int resetCount = 0;
+    // static int lastStageNumber = -1;
 
     // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
     if (lastStageNumber != currentStage.stageNumber) {
@@ -92,7 +98,6 @@ void itemRewardSystem() {
     }
     
     printText("\n=== 아이템 보상 ===\n");
-    printText("0. 뒤로 가기\n");
     for (int i = 0; i < 3; i++) {
         char buffer[256];
         const char* colorCode;
@@ -117,7 +122,8 @@ void itemRewardSystem() {
         printText(buffer);
     }
     char resetBuffer[128];
-    printText("\033[94m4. 아이템 목록 초기화 (200전)\033[0m\n");  // 밝은 파랑
+    sprintf(resetBuffer, "\033[94m4. 아이템 목록 초기화 (%d전)\033[0m\n", resetCost);  // 하드코딩된 200전 대신 resetCost 사용
+    printText(resetBuffer);
     printText("\033[95m5. 아이템을 받지 않고 넘어간다\033[0m\n");  // 밝은 보라
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
@@ -168,4 +174,11 @@ void itemRewardSystem() {
     // 보상 선택이 완료되면 초기화 플래그를 리셋
     isInitialized = 0;
     resetCount = 0;  // 초기화 횟수도 리셋
+}
+
+// 새 게임 시작 시 호출할 초기화 함수
+void resetItemRewardSystem(void) {
+    resetCount = 0;
+    isInitialized = 0;
+    lastStageNumber = -1;
 } 

@@ -56,7 +56,7 @@ void handleGameMenuChoice(int choice) {
             exit(0);
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 1-6 사이의 숫자를 입력하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 숫자를 입력하세요.");
             break;
     }
 }

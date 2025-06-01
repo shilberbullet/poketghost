@@ -253,7 +253,7 @@ void printInventory() {
             inventory[i].item.desc);
         printText(buffer);
     }
-    printTextAndWait("\n");
+    printText("\n선택하세요: ");
 }
 
 // 부적 사용 함수
@@ -262,22 +262,35 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
         printf("이 아이템은 부적이 아닙니다!\n");
         return false;
     }
-    // 부적 등급에 따라 포획 확률 결정
-    float catchRate = 0.0f;
+
+    // 현재 HP 비율 계산
+    float maxHP = targetYokai->stamina * (1.0f + (targetYokai->level * targetYokai->level) / 100.0f);
+    float hpRatio = targetYokai->currentHP / maxHP;
+    
+    // HP 비율에 따른 포획률 보정 (HP가 낮을수록 포획률 증가)
+    float hpBonus = 1.0f - hpRatio;  // HP가 0%일 때 1.0, 100%일 때 0.0
+    
+    // 부적 등급에 따른 기본 포획률
+    float baseCatchRate = 0.0f;
     switch (item->grade) {
         case ITEM_COMMON:
-            catchRate = 0.3f;
+            baseCatchRate = 0.3f;
             break;
         case ITEM_RARE:
-            catchRate = 0.5f;
+            baseCatchRate = 0.5f;
             break;
         case ITEM_SUPERRARE:
-            catchRate = 1.0f;  // 100% 확률로 수정
+            baseCatchRate = 0.8f;  // 100%에서 80%로 수정
             break;
         default:
-            catchRate = 0.3f;
+            baseCatchRate = 0.3f;
     }
-    if ((float)rand() / RAND_MAX < catchRate) {
+    
+    // 최종 포획률 계산 (기본 포획률 + HP 보너스)
+    float finalCatchRate = baseCatchRate + (hpBonus * 0.5f);  // HP 보너스는 최대 50%까지
+    
+    // 포획 시도
+    if ((float)rand() / RAND_MAX < finalCatchRate) {
         printf("포획 성공!\n");
         return true;
     } else {
