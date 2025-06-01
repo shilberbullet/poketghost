@@ -40,6 +40,13 @@ void printHPBar(const Yokai* yokai) {
     printText(buffer);
     
     printText("[");
+    if (hpPercentage <= 20.0f) {
+        printText("\033[31m"); // 빨간색
+    } else if (hpPercentage <= 50.0f) {
+        printText("\033[33m"); // 노란색
+    } else {
+        printText("\033[1;32m"); // 초록색
+    }
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");
@@ -47,7 +54,7 @@ void printHPBar(const Yokai* yokai) {
             printText("░");
         }
     }
-    printText("] ");
+    printText("\033[0m");
     
     // HP 상태 출력
     sprintf(buffer, "(%s)\n", getHPStatus(yokai));

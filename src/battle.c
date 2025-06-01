@@ -71,7 +71,13 @@ int startBattle(const Yokai* enemy) {
     
     // HP 바만 출력 (이름은 이미 출력했으므로 생략)
     printText("HP[");
-    printText("\033[1;32m"); // 굵은 짙은 녹색으로 변경
+    if (hpPercentage <= 20.0f) {
+        printText("\033[31m"); // 빨간색
+    } else if (hpPercentage <= 50.0f) {
+        printText("\033[33m"); // 노란색
+    } else {
+        printText("\033[1;32m"); // 초록색
+    }
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");
@@ -260,8 +266,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             int yokaiIdx;
             if (turnCount == 0) {
                 yokaiIdx = selectPartyYokai();
-                if (yokaiIdx == -1) {
-                    return 0; // 뒤로 돌아가기
+            if (yokaiIdx == -1) {
+                return 0; // 뒤로 돌아가기
                 }
             } else {
                 // 첫 턴 이후에는 이전에 선택한 요괴를 자동 사용
@@ -298,15 +304,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
-                if (inventory[idx].count == 1) {
-                    for (int i = idx; i < inventoryCount - 1; i++)
-                        inventory[i] = inventory[i + 1];
-                    inventoryCount--;
-                } else {
-                    inventory[idx].count--;
-                }
+            if (inventory[idx].count == 1) {
+                for (int i = idx; i < inventoryCount - 1; i++)
+                    inventory[i] = inventory[i + 1];
+                inventoryCount--;
+            } else {
+                inventory[idx].count--;
+            }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
@@ -345,7 +351,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
                 
                 printText("HP[");
-                printText("\033[1;32m");
+                if (hpPercentage <= 20.0f) {
+                    printText("\033[31m"); // 빨간색
+                } else if (hpPercentage <= 50.0f) {
+                    printText("\033[33m"); // 노란색
+                } else {
+                    printText("\033[1;32m"); // 초록색
+                }
                 for (int i = 0; i < HP_BAR_LENGTH; i++) {
                     if (i < filledLength) {
                         printText("█");
