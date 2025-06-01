@@ -158,14 +158,18 @@ int selectPartyYokai() {
                 colorCode = "\033[0m";   // 기본색
         }
         
-        sprintf(buffer, "%d. %s %s[%s]\033[0m Lv.%d (HP: %.1f/%.1f)\n", 
+        // 기절 상태 표시
+        const char* statusText = party[i].status == YOKAI_FAINTED ? " [기절]" : "";
+        
+        sprintf(buffer, "%d. %s %s[%s]\033[0m Lv.%d (HP: %.1f/%.1f)%s\n", 
             i+1, 
             party[i].name,
             colorCode,
             typeToString(party[i].type),
             party[i].level,
             party[i].currentHP,
-            maxHP);
+            maxHP,
+            statusText);
         printText(buffer);
     }
     printText("선택 (번호): ");
@@ -175,6 +179,10 @@ int selectPartyYokai() {
     }
     if (idx < 0 || idx >= partyCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        return selectPartyYokai();
+    }
+    if (party[idx].status == YOKAI_FAINTED) {
+        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다!");
         return selectPartyYokai();
     }
     return idx;
@@ -266,12 +274,19 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             int yokaiIdx;
             if (turnCount == 0) {
                 yokaiIdx = selectPartyYokai();
-            if (yokaiIdx == -1) {
-                return 0; // 뒤로 돌아가기
+                if (yokaiIdx == -1) {
+                    return 0; // 뒤로 돌아가기
                 }
             } else {
                 // 첫 턴 이후에는 이전에 선택한 요괴를 자동 사용
                 yokaiIdx = lastYokaiIdx;
+                if (party[yokaiIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                    yokaiIdx = selectPartyYokai();
+                    if (yokaiIdx == -1) {
+                        return 0; // 뒤로 돌아가기
+                    }
+                }
             }
             int moveIdx = selectMove(&party[yokaiIdx]);
             party[yokaiIdx].moves[moveIdx].currentPP--;
