@@ -77,7 +77,7 @@ void setTextSpeed() {
             case 6:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 숫자를 입력해주세요.");
+                printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
                 break;
         }
     }
