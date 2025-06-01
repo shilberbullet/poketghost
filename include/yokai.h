@@ -23,7 +23,7 @@ typedef struct {
     int level;         // 레벨
     int attack;         // 공격력
     int defense;        // 방어력
-    int hp;            // 체력
+    int stamina;         // 체력 종족값
     int speed;         // 스피드
     YokaiType type;    // 상성
     char desc[128];    // 도감설명

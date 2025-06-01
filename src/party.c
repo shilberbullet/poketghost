@@ -73,7 +73,7 @@ int handleFullParty(const Yokai* newYokai) {
             for (int i = 0; i < partyCount; i++) {
                 char buffer[128];
                 sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d)\n", 
-                    i+1, party[i].name, party[i].hp, party[i].attack, party[i].defense);
+                    i+1, party[i].name, party[i].stamina, party[i].attack, party[i].defense);
                 printText(buffer);
             }
             printText("0. 뒤로 돌아간다\n");
@@ -145,7 +145,7 @@ void printParty() {
         // 기본 정보 출력
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
         printText(buffer);
-        sprintf(buffer, "체력: %d\n", party[idx].hp);
+        sprintf(buffer, "체력: %d\n", party[idx].stamina);
         printText(buffer);
         sprintf(buffer, "공격력: %d\n", party[idx].attack);
         printText(buffer);

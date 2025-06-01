@@ -96,7 +96,7 @@ typedef struct {
 typedef struct {
     char name[32];
     int level;
-    int hp;
+    int stamina;
     int attack;
     int defense;
     int speed;
@@ -229,7 +229,7 @@ void printParty(const SaveData* saveData) {
                 saveData->party[i].level,
                 typeToString(saveData->party[i].type));
             printf("   HP: %d, 공격: %d, 방어: %d, 속도: %d\n",
-                saveData->party[i].hp,
+                saveData->party[i].stamina,
                 saveData->party[i].attack,
                 saveData->party[i].defense,
                 saveData->party[i].speed);
@@ -288,7 +288,7 @@ void loadYokaiFromFile() {
             typeStr,
             &yokai->attack,
             &yokai->defense,
-            &yokai->hp,
+            &yokai->stamina,
             &yokai->speed,
             yokai->desc,
             skills) == 8) {
@@ -439,7 +439,7 @@ int selectYokai() {
             yokaiList[i].name,
             typeToString(yokaiList[i].type));
         printf("   HP: %d, 공격: %d, 방어: %d, 속도: %d\n",
-            yokaiList[i].hp,
+            yokaiList[i].stamina,
             yokaiList[i].attack,
             yokaiList[i].defense,
             yokaiList[i].speed);
