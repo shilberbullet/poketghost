@@ -7,6 +7,7 @@
 #include "text.h"
 #include "input.h"
 #include "game.h"
+#include "exp_system.h"
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -25,7 +26,7 @@ void initParty() {
     if (dokkaebi) {
         memset(&party[0], 0, sizeof(Yokai)); // 구조체 전체를 0으로 초기화
         party[0] = *dokkaebi;  // 기본 정보 복사
-        party[0].level = 1;    // 초기 레벨 1로 설정
+        party[0].level = 5;    // 초기 레벨 5로 설정
         party[0].currentHP = party[0].stamina * (1.0f + (party[0].level * party[0].level) / 100.0f);  // HP 초기화
         
         // 도감 설명 명시적 복사
@@ -106,9 +107,9 @@ int addYokaiToParty(const Yokai* yokai) {
     if (partyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
     }
-    memset(&party[partyCount], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
+    
+    // 요괴 정보 직접 복사
     party[partyCount] = *yokai;  // 기본 정보 복사
-    party[partyCount].level = 1;  // 새로 잡은 요괴도 레벨 1로 시작
     party[partyCount].currentHP = party[partyCount].stamina * (1.0f + (party[partyCount].level * party[partyCount].level) / 100.0f);  // HP 초기화
     
     // 도감 설명 명시적 복사
@@ -158,6 +159,11 @@ void printParty() {
         sprintf(buffer, "스피드: %d\n", party[idx].speed);
         printText(buffer);
         sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
+        printText(buffer);
+        
+        // 경험치 정보 출력
+        int requiredExp = calculateRequiredExp(party[idx].level);
+        sprintf(buffer, "경험치: %d/%d\n", party[idx].exp, requiredExp);
         printText(buffer);
         
         // 도감 설명을 별도로 출력
