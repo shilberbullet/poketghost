@@ -6,7 +6,7 @@
 #include "move.h"
 
 #define MAX_MOVES 4
-#define MAX_LEARNABLE_MOVES 12
+#define MAX_LEARNABLE_MOVES 10
 #define YOKAI_NAME_MAX 32
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
@@ -21,12 +21,14 @@ extern const char* typeDescriptions[];
 typedef struct {
     char name[YOKAI_NAME_MAX];
     int level;         // 레벨
+    int exp;           // 경험치 필드
     int attack;         // 공격력
     int defense;        // 방어력
     int stamina;         // 체력 종족값
     int speed;         // 스피드
     float currentHP;    // 현재 HP
     YokaiType type;    // 상성
+    YokaiStatus status; // 상태
     char desc[128];    // 도감설명
     MoveInstance moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수

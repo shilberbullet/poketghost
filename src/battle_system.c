@@ -98,10 +98,16 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     // 데미지 적용
     if (defender == attacker) {
         attacker->currentHP -= damage;
-        if (attacker->currentHP < 0) attacker->currentHP = 0;  // HP가 0 미만이 되지 않도록
+        if (attacker->currentHP < 0) {
+            attacker->currentHP = 0;
+            attacker->status = YOKAI_FAINTED;  // 기절 상태로 변경
+        }
     } else {
         defender->currentHP -= damage;
-        if (defender->currentHP < 0) defender->currentHP = 0;  // HP가 0 미만이 되지 않도록
+        if (defender->currentHP < 0) {
+            defender->currentHP = 0;
+            defender->status = YOKAI_FAINTED;  // 기절 상태로 변경
+        }
     }
     
     // 데미지 메시지 출력
@@ -143,6 +149,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     // 전투 결과 체크
     if (defender->currentHP <= 0) {
         defender->currentHP = 0;
+        defender->status = YOKAI_FAINTED;  // 기절 상태로 변경
         return 1;  // 승리
     }
     
