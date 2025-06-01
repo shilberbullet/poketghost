@@ -16,6 +16,8 @@
 #include "reward.h"  // 새로 추가
 #include "escape.h"  // 도망치기 시스템 추가
 #include "hp_system.h"  // HP 시스템 헤더 추가
+#include "exp_system.h"  // 경험치 시스템 헤더 추가
+#include "battle_system.h"  // 새로 추가
 
 // 현재 전투 중인 상대 요괴
 Yokai currentEnemy;
@@ -24,15 +26,47 @@ int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy;
     
+    // 타입에 따른 색상 설정
+    const char* colorCode;
+    switch (enemy->type) {
+        case TYPE_EVIL_SPIRIT:
+            colorCode = "\033[31m";  // 빨간색
+            break;
+        case TYPE_GHOST:
+            colorCode = "\033[35m";  // 보라색
+            break;
+        case TYPE_MONSTER:
+            colorCode = "\033[33m";  // 노란색
+            break;
+        case TYPE_HUMAN:
+            colorCode = "\033[36m";  // 청록색
+            break;
+        case TYPE_ANIMAL:
+            colorCode = "\033[32m";  // 초록색
+            break;
+        default:
+            colorCode = "\033[0m";   // 기본색
+    }
+    
+    // 보스 스테이지인 경우 파란색으로 표시
+    char buffer[256];
+    if (currentStage.stageNumber % 10 == 0) {
+        sprintf(buffer, "\033[34m%s %s[%s]\033[0m Lv.%d (이)가 싸움을 걸어왔다!\n", 
+            enemy->name, colorCode, typeToString(enemy->type), enemy->level);
+    } else {
+        sprintf(buffer, "%s %s[%s]\033[0m Lv.%d (이)가 싸움을 걸어왔다!\n", 
+            enemy->name, colorCode, typeToString(enemy->type), enemy->level);
+    }
+    printText(buffer);
+    
     // HP 바 출력
     float maxHP = calculateHP(enemy);
     float currentHP = enemy->currentHP;
     float hpPercentage = (currentHP / maxHP) * 100.0f;
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
-    char buffer[256];
-    sprintf(buffer, "%sHP[", enemy->name);
-    printText(buffer);
+    // HP 바만 출력 (이름은 이미 출력했으므로 생략)
+    printText("HP[");
     printText("\033[92m"); // 연두색 시작
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
@@ -90,7 +124,37 @@ int selectPartyYokai() {
     for (int i = 0; i < partyCount; i++) {
         char buffer[256];
         float maxHP = party[i].stamina * (1.0f + (party[i].level * party[i].level) / 100.0f);
-        sprintf(buffer, "%d. %s (HP: %.1f/%.1f, 공격력: %d, 방어력: %d, 스피드: %d)\n", i+1, party[i].name, party[i].currentHP, maxHP, party[i].attack, party[i].defense, party[i].speed);
+        
+        // 타입에 따른 색상 설정
+        const char* colorCode;
+        switch (party[i].type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+        
+        sprintf(buffer, "%d. %s %s[%s]\033[0m Lv.%d (HP: %.1f/%.1f)\n", 
+            i+1, 
+            party[i].name,
+            colorCode,
+            typeToString(party[i].type),
+            party[i].level,
+            party[i].currentHP,
+            maxHP);
         printText(buffer);
     }
     printText("선택 (번호): ");
@@ -167,9 +231,17 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             int moveIdx = selectMove(&party[yokaiIdx]);
             // PP 감소
             party[yokaiIdx].moves[moveIdx].currentPP--;
-            char buffer[256];
-            sprintf(buffer, "\n%s가 %s 기술을 사용했다! (전투 로직은 추후 구현)\n", party[yokaiIdx].name, party[yokaiIdx].moves[moveIdx].move.name);
-            printTextAndWait(buffer);
+            
+            // 전투 실행
+            int result = executeBattle(&party[yokaiIdx], enemy, moveIdx);
+            
+            // 전투 결과 처리
+            handleBattleResult(&party[yokaiIdx], enemy, result);
+            
+            // 전투 승리 시 경험치 획득
+            int exp = calculateBattleExp(enemy);
+            gainExp(&party[yokaiIdx], exp);
+            
             return 101; // BATTLE_FIGHT 성공
         }
         case BATTLE_TALISMAN: {
@@ -185,19 +257,18 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (useTalisman(&inventory[idx].item, enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
-                // 요괴를 파티에 추가
-                Yokai* baseYokai = findYokaiByName(enemy->name);
-                if (baseYokai && addYokaiToParty(baseYokai)) {
-                    sprintf(buffer, "\n%s가 동료가 되었습니다!", baseYokai->name);
-            printTextAndWait(buffer);
+                // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
+                if (addYokaiToParty(enemy)) {
+                    sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
+                    printTextAndWait(buffer);
                 }
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
