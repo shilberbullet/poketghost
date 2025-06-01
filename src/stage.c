@@ -84,7 +84,8 @@ void showStageInfo() {
     sprintf(buffer, "지형: %s\n", terrainNames[currentStage.terrain]);
     printText(buffer);
     
-    sprintf(buffer, "시간: %02d시\n", currentStage.hour);
+    int hour = (currentStage.stageNumber - 1) % 24;
+    sprintf(buffer, "시간: %02d시\n", hour);
     printText(buffer);
     
     sprintf(buffer, "보유 전: %d전\n\n", player.money);
@@ -105,10 +106,6 @@ void showBattleInterface() {
     } else {
         enemy = currentStage.enemies[rand() % currentStage.enemyCount];
     }
-
-    char buffer[256];
-    sprintf(buffer, "%s Lv.%d (이)가 싸움을 걸어왔다!\n", enemy.name, enemy.level);
-    printText(buffer);
 
     int battleResult = startBattle(&enemy);
 

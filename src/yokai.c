@@ -52,10 +52,12 @@ static const float typeEffectivenessTable[TYPE_COUNT][TYPE_COUNT] = {
 };
 
 YokaiType parseType(const char* typeStr) {
-    for (int i = 0; i < TYPE_COUNT; i++) {
-        if (strcmp(typeStr, typeNames[i]) == 0) return (YokaiType)i;
-    }
-    return TYPE_EVIL_SPIRIT;
+    if (strcmp(typeStr, "EVIL_SPIRIT") == 0) return TYPE_EVIL_SPIRIT;
+    if (strcmp(typeStr, "GHOST") == 0) return TYPE_GHOST;
+    if (strcmp(typeStr, "MONSTER") == 0) return TYPE_MONSTER;
+    if (strcmp(typeStr, "HUMAN") == 0) return TYPE_HUMAN;
+    if (strcmp(typeStr, "ANIMAL") == 0) return TYPE_ANIMAL;
+    return TYPE_EVIL_SPIRIT;  // 기본값
 }
 
 void loadYokaiFromFile(const char* filename) {
@@ -207,10 +209,6 @@ void printYokaiInfo(const Yokai* yokai) {
         printf("%d. %s\n", i + 1, yokai->moves[i].move.name);
     }
     printf("\n");
-}
-
-float getTypeEffectiveness(YokaiType attacker, YokaiType defender) {
-    return typeEffectivenessTable[attacker][defender];
 }
 
 // initParty와 addYokaiToParty 함수는 party.c로 이동 

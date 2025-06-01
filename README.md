@@ -195,7 +195,7 @@ git clone https://github.com/shilberbullet/poketghost.git .
 ### 3. 컴파일 및 실행
 ```bash
 # 소스 코드 컴파일
-gcc -o poketghost.exe src/*.c -I include
+gcc -o poketghost.exe src/*.c -I include -lm
 
 # 게임 실행
 poketghost.exe

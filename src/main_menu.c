@@ -10,6 +10,7 @@
 #include "party.h"
 #include "savefile.h"
 #include "exit.h"
+#include "reward.h"
 
 void showMainMenu(void) {
     int choice;
@@ -48,7 +49,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
             exitGame();
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 1-4 사이의 숫자를 입력하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 숫자를 입력하세요.");
             break;
     }
 }
@@ -56,6 +57,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
 void startNewGame(void) {
     gameState.isNewGame = 1;  // 새 게임 플래그 설정
     gameState.isLoadedGame = 0;  // 이어하기 플래그 해제
+    resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
     initGame(); // 게임 상태 초기화
     initStage(&currentStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
