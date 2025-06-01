@@ -36,12 +36,33 @@ static int calculateResetCost(int stageNumber) {
 
 // getRandomItems는 item.c의 것을 사용
 
+const char* getGradeName(ItemGrade grade) {
+    switch (grade) {
+        case ITEM_COMMON:
+            return "일반";
+        case ITEM_RARE:
+            return "희귀";
+        case ITEM_SUPERRARE:
+            return "초희귀";
+        default:
+            return "알 수 없음";
+    }
+}
+
 // 아이템 보상 시스템
 void itemRewardSystem() {
     static Item candidates[3];  // static으로 선언하여 함수 호출 간에도 값이 유지되도록 함
     static int isInitialized = 0;  // 아이템이 초기화되었는지 확인하는 플래그
     static int resetCount = 0;  // 현재 스테이지에서 초기화한 횟수
-    
+    static int lastStageNumber = -1;  // 이전 스테이지 번호 저장
+
+    // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
+    if (lastStageNumber != currentStage.stageNumber) {
+        resetCount = 0;
+        isInitialized = 0;
+        lastStageNumber = currentStage.stageNumber;
+    }
+
     // 현재 스테이지 번호에 따른 초기화 비용 계산
     int resetCost = calculateResetCost(currentStage.stageNumber);
     
@@ -70,10 +91,10 @@ void itemRewardSystem() {
         isInitialized = 1;
     }
     
-    printText("\n전투 보상! 아이템을 하나 선택하세요:\n");
+    printText("\n=== 아이템 보상 ===\n");
+    printText("0. 뒤로 가기\n");
     for (int i = 0; i < 3; i++) {
         char buffer[256];
-        // 등급에 따른 색상 설정
         const char* colorCode;
         switch (candidates[i].grade) {
             case ITEM_COMMON:
@@ -88,19 +109,16 @@ void itemRewardSystem() {
             default:
                 colorCode = "\033[0m";
         }
-        
         sprintf(buffer, "%d. %s%s [%s]\033[0m - %s\n", i+1, 
             colorCode,
             candidates[i].name,
-            candidates[i].grade == ITEM_COMMON ? "일반" : 
-            candidates[i].grade == ITEM_RARE ? "희귀" : "초희귀",
+            getGradeName(candidates[i].grade),
             candidates[i].desc);
         printText(buffer);
     }
     char resetBuffer[128];
-    sprintf(resetBuffer, "4. 아이템 목록 초기화 (%d전)\n", resetCost);
-    printText(resetBuffer);
-    printText("5. 아이템을 받지 않고 넘어간다\n");
+    printText("\033[94m4. 아이템 목록 초기화 (200전)\033[0m\n");  // 밝은 파랑
+    printText("\033[95m5. 아이템을 받지 않고 넘어간다\033[0m\n");  // 밝은 보라
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
     
