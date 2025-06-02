@@ -8,6 +8,7 @@
 #include "game.h"
 #include "heal_system.h"
 #include "sikhye_system.h"
+#include "reward.h"
 
 #define INITIAL_ITEM_CAPACITY 32
 
@@ -160,7 +161,13 @@ void addItemToInventory(const Item* item) {
                 useSikhyeItem(item->name, targetYokai);
             }
             else {
-                healYokai(targetYokai);  // HP 회복 처리
+                int healResult = healYokai(targetYokai);  // HP 회복 처리
+                if (healResult == -1) {
+                    currentItem = NULL;
+                    printText("\n다시 아이템을 선택하세요.\n");
+                    itemRewardSystem();  // 아이템 선택 메뉴로 돌아가기
+                    return;
+                }
             }
         }
         currentItem = NULL;  // 아이템 사용 후 초기화

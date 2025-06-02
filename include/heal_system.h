@@ -14,7 +14,7 @@ void initHealSystem();
 void cleanupHealSystem();
 
 // 요괴 회복 처리
-void healYokai(Yokai* targetYokai);
+int healYokai(Yokai* targetYokai);
 
 // 회복 가능한 요괴 목록 표시 및 선택
 Yokai* selectYokaiToHeal();

@@ -19,10 +19,10 @@ void cleanupHealSystem() {
 }
 
 // 요괴 HP 회복 함수
-void healYokai(Yokai* targetYokai) {
+int healYokai(Yokai* targetYokai) {
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
-        return;
+        return -1;
     }
     
     // 최대 HP 계산
@@ -39,7 +39,7 @@ void healYokai(Yokai* targetYokai) {
     } else if (strcmp(currentItem->name, "탕국") == 0) {
         if (targetYokai->status != YOKAI_FAINTED) {
             printTextAndWait("\n탕국은 기절한 요괴에게만 사용할 수 있습니다!");
-            return;
+            return -1;
         }
         targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
         healAmount = maxHP * 0.5f;  // 50% 회복
@@ -47,14 +47,14 @@ void healYokai(Yokai* targetYokai) {
     } else if (strcmp(currentItem->name, "막걸리") == 0) {
         if (targetYokai->status != YOKAI_FAINTED) {
             printTextAndWait("\n막걸리는 기절한 요괴에게만 사용할 수 있습니다!");
-            return;
+            return -1;
         }
         targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
         healAmount = maxHP;  // 100% 회복
         printTextAndWait("\n기절 상태가 해제되었습니다!");
     } else {
         printTextAndWait("\n알 수 없는 회복 아이템입니다.");
-        return;
+        return -1;
     }
     
     // HP 회복 적용
@@ -67,6 +67,7 @@ void healYokai(Yokai* targetYokai) {
     sprintf(buffer, "\n%s의 HP가 %.0f에서 %.0f로 회복되었습니다!", 
         targetYokai->name, oldHP, targetYokai->currentHP);
     printTextAndWait(buffer);
+    return 0;
 }
 
 // 회복할 요괴 선택 함수
