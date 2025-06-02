@@ -172,7 +172,8 @@ Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
     y.level = level;
-    y.currentHP = y.stamina * (1.0f + (level * level) / 100.0f);  // HP 초기화
+    float hp = y.stamina * (1.0f + (level * level) / 100.0f) * 0.1f;
+    y.currentHP = (float)((int)hp);  // HP 초기화 (소수점 버림)
     assignRandomMoves(&y);
     return y;
 }
@@ -182,7 +183,8 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.level = level;
-    y.currentHP = y.stamina * (1.0f + (level * level) / 100.0f);  // HP 초기화
+    float hp = y.stamina * (1.0f + (level * level) / 100.0f) * 0.1f;
+    y.currentHP = (float)((int)hp);  // HP 초기화 (소수점 버림)
     assignRandomMoves(&y);
     return y;
 }
