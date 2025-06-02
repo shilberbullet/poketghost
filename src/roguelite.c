@@ -1,4 +1,6 @@
+// 표준 입출력 함수를 위한 헤더
 #include <stdio.h>
+// 메모리 할당, 문자열 처리, Sleep 함수 사용을 위한 헤더
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>  // Sleep 함수를 위해 추가

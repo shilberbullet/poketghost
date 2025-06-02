@@ -8,10 +8,10 @@
 #include "game.h"
 
 // static 변수들을 전역 변수로 이동
-Item candidates[3];
-int isInitialized = 0;
-int resetCount = 0;
-int lastStageNumber = -1;
+Item candidates[3];  // 보상 후보 아이템 배열
+int isInitialized = 0;  // 아이템 후보 초기화 여부
+int resetCount = 0;     // 아이템 목록 초기화 횟수
+int lastStageNumber = -1; // 마지막 스테이지 번호
 
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
@@ -42,6 +42,7 @@ static int calculateResetCost(int stageNumber) {
 
 // getRandomItems는 item.c의 것을 사용
 
+// 아이템 등급을 한글로 반환하는 함수
 const char* getGradeName(ItemGrade grade) {
     switch (grade) {
         case ITEM_COMMON:
@@ -57,11 +58,6 @@ const char* getGradeName(ItemGrade grade) {
 
 // 아이템 보상 시스템
 void itemRewardSystem() {
-    // static Item candidates[3];
-    // static int isInitialized = 0;
-    // static int resetCount = 0;
-    // static int lastStageNumber = -1;
-
     // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
     if (lastStageNumber != currentStage.stageNumber) {
         resetCount = 0;

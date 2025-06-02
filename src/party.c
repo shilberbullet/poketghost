@@ -13,20 +13,22 @@
 #define YOKAI_DESC_MAX 256
 #endif
 
-// assignRandomMoves 함수 선언
+// 랜덤 기술 할당 함수 선언
 void assignRandomMoves(Yokai* y);
 
-Yokai party[MAX_PARTY_SIZE];
-int partyCount = 0;
+// 파티 요괴 배열과 개수
+Yokai party[MAX_PARTY_SIZE];  // 파티 요괴 배열
+int partyCount = 0;           // 현재 파티 요괴 수
 
+// 파티 초기화 함수
 void initParty() {
     partyCount = 0;
     // 도깨비 요괴를 파일에서 불러와 추가
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
-        memset(&party[0], 0, sizeof(Yokai)); // 구조체 전체를 0으로 초기화
-        party[0] = *dokkaebi;  // 기본 정보 복사
-        party[0].level = 5;    // 초기 레벨 5로 설정
+        memset(&party[0], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
+        party[0] = *dokkaebi;                 // 기본 정보 복사
+        party[0].level = 5;                   // 초기 레벨 5로 설정
         party[0].currentHP = calculateHP(&party[0]);  // HP 초기화
         
         // 도감 설명 명시적 복사
@@ -103,6 +105,7 @@ int handleFullParty(const Yokai* newYokai) {
     return 0;
 }
 
+// 파티에 새로운 요괴 추가 함수
 int addYokaiToParty(const Yokai* yokai) {
     if (partyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
@@ -126,6 +129,7 @@ int addYokaiToParty(const Yokai* yokai) {
     return 1;
 }
 
+// 파티 요괴 목록 출력 함수
 void printParty() {
     printText("\n=== 동료 요괴 목록 ===\n");
     printText("[0] 뒤로 가기\n");
@@ -188,13 +192,14 @@ void printParty() {
                 party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-    }
+        }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();
     }
 }
 
+// 모든 요괴의 PP를 초기화하는 함수
 void resetAllYokaiPP() {
     for (int i = 0; i < partyCount; i++) {
         for (int j = 0; j < party[i].moveCount; j++) {

@@ -189,11 +189,12 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     return y;
 }
 
-// 기존 함수들을 레벨을 고려하도록 수정
+// 기본 레벨(1)로 랜덤 요괴 생성하는 함수
 Yokai createRandomYokai() {
     return createRandomYokaiWithLevel(1);
 }
 
+// 기본 레벨(1)로 랜덤 보스 요괴 생성하는 함수
 Yokai createRandomBossYokai() {
     return createRandomBossYokaiWithLevel(1);
 }

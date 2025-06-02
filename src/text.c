@@ -1,32 +1,39 @@
+// 표준 입출력 함수를 위한 헤더
 #include <stdio.h>
+// Windows API 함수를 위한 헤더
 #include <windows.h>
+// 콘솔 입력 함수를 위한 헤더
 #include <conio.h>
+// 텍스트 출력 관련 함수와 구조체 정의
 #include "text.h"
+// 설정 관련 함수와 구조체 정의
 #include "settings.h"
+// 입력 처리 관련 함수
 #include "input.h"
 
 // 텍스트 출력 속도에 따른 대기 시간 계산 (밀리초)
 int getTextDelay() {
     switch (gameSettings.textSpeed) {
-        case 1: return 25;   // 매우 느림
-        case 2: return 15;   // 느림
-        case 3: return 10;   // 보통
-        case 4: return 5;    // 빠름
-        case 5: return 2;    // 매우 빠름
-        default: return 10;  // 기본값: 보통
+        case 1: return 15;   // 매우 느림 (15ms)
+        case 2: return 10;   // 느림 (10ms)
+        case 3: return 5;    // 보통 (5ms)
+        case 4: return 2;    // 빠름 (2ms)
+        case 5: return 1;    // 매우 빠름 (1ms)
+        default: return 5;   // 기본값: 보통 (5ms)
     }
 }
 
+// 텍스트를 한 글자씩 출력하는 함수
 void printText(const char* text) {
-    int delay = getTextDelay();
+    int delay = getTextDelay();  // 현재 설정된 텍스트 속도에 따른 대기 시간 계산
     
     // 출력 시작 전 입력 버퍼 초기화
     clearInputBuffer();
     
     for (int i = 0; text[i] != '\0'; i++) {
-        printf("%c", text[i]);
-        fflush(stdout);  // 버퍼 즉시 출력
-        Sleep(delay);    // 설정된 시간만큼 대기
+        printf("%c", text[i]);   // 한 글자씩 출력
+        fflush(stdout);          // 버퍼 즉시 출력
+        Sleep(delay);            // 설정된 시간만큼 대기
         
         // 출력 중 입력이 들어오면 무시
         while (_kbhit()) {
@@ -38,8 +45,9 @@ void printText(const char* text) {
     clearInputBuffer();
 }
 
+// 텍스트를 출력하고 1초 대기 후 자동으로 넘어가는 함수
 void printTextAndWait(const char* text) {
-    printText(text);
-    Sleep(1000);  // 1초 대기 후 자동으로 넘어감
-    printf("\n");
+    printText(text);     // 텍스트 출력
+    Sleep(1000);         // 1초 대기
+    printf("\n");        // 줄바꿈
 } 

@@ -5,11 +5,13 @@
 #include "hp_system.h"
 #include "battle.h"  // currentEnemy 변수를 위해 추가
 
+// 전투 시스템 초기화 함수
 void initBattleSystem() {
     // 향후 전투 시스템 초기화 코드가 들어갈 자리
 }
 
-// 상성 시스템 구현
+// 상성 시스템 구현 함수
+// 공격 기술의 타입과 방어자의 타입에 따른 데미지 배율을 반환
 float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
     // 상성 관계 정의
     switch (moveType) {
@@ -38,11 +40,16 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
 }
 
 // 데미지 계산 함수
+// 공격자, 방어자, 사용 기술에 따른 데미지를 계산
 float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* move) {
+    // 기본 데미지 계산: 공격력 * 기술 위력 * 레벨 보정
     float baseDamage = (float)attacker->attack * move->power * (attacker->level / 10.0f + 1);
+    // 방어력 보정
     float defenseFactor = defender->defense + 100.0f;
+    // 타입 상성 적용
     float typeEffectiveness = getTypeEffectiveness(move->type, defender->type);
     
+    // 최종 데미지 계산
     float damage = (baseDamage / defenseFactor) * typeEffectiveness;
     
     // 랜덤 요소 추가 (0.85 ~ 1.0)
@@ -57,7 +64,9 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
 }
 
 // 전투 실행 함수
+// 공격자와 방어자 간의 전투를 실행하고 결과를 반환
 int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
+    // 사용할 기술 정보 가져오기
     const Move* move = &attacker->moves[moveIndex].move;
     
     // 기술의 상성에 따른 색상 설정
@@ -82,7 +91,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
             colorCode = "\033[0m";   // 기본색
     }
     
-    // 기술 사용 메시지 (상성 색상 적용)
+    // 기술 사용 메시지 출력 (상성 색상 적용)
     char buffer[256];
     sprintf(buffer, "\n%s의 ", attacker->name);
     printText(buffer);
@@ -97,10 +106,10 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         return 0;
     }
     
-    // 데미지 계산 및 적용 (상대 요괴도 동일한 함수 사용)
+    // 데미지 계산 및 적용
     float damage = calculateDamage(attacker, defender, move);
     
-    // 데미지 적용
+    // 데미지 적용 및 상태 업데이트
     if (defender == attacker) {
         attacker->currentHP -= damage;
         if (attacker->currentHP < 0) {
@@ -132,12 +141,13 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         printText("\n효과가 별로인 것 같다...");
     }
     
-    // HP 바 업데이트
+    // HP 바 업데이트 및 출력
     float maxHP = calculateHP(defender);
     float hpPercentage = (defender->currentHP / maxHP) * 100.0f;
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
     printText("\nHP[");
+    // HP 상태에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
         printText("\033[31m"); // 빨간색
     } else if (hpPercentage <= 50.0f) {
@@ -146,7 +156,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         printText("\033[1;32m"); // 초록색
     }
     
-    // HP 바 채우기
+    // HP 바 시각화
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");
@@ -173,6 +183,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
 }
 
 // 턴제 전투 실행 함수
+// 플레이어와 적 요괴 간의 턴제 전투를 실행
 int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex) {
     // 스피드에 따른 선공 결정
     int playerFirst = playerYokai->speed >= enemyYokai->speed;
@@ -203,6 +214,7 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
 }
 
 // 전투 결과 처리 함수
+// 전투 결과에 따른 메시지 출력
 void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
     if (result == 1) {
         char buffer[256];

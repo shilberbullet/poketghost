@@ -8,9 +8,10 @@
 #include "savefile.h"
 #include "hp_system.h"
 
+// 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
-    stage->stageNumber = stageNumber;
-    stage->isBossStage = true;
+    stage->stageNumber = stageNumber;      // 스테이지 번호 설정
+    stage->isBossStage = true;             // 보스 스테이지 플래그 설정
     // stage->hour = 0;  // 시간 초기화 제거
     
     // 지역 초기화
@@ -29,11 +30,13 @@ void initBossStage(StageInfo* stage, int stageNumber) {
     generateBossStageEnemies(stage);
 }
 
+// 보스 스테이지 적 요괴 생성 함수
 void generateBossStageEnemies(StageInfo* stage) {
     int level = stage->minLevel + (rand() % (stage->maxLevel - stage->minLevel + 1));
     stage->enemies[0] = createRandomBossYokaiWithLevel(level);
 }
 
+// 보스 스테이지 클리어 처리 함수
 void handleBossStageClear(void) {
     // 보스 스테이지 클리어 시 처리
     resetAllYokaiPP();
