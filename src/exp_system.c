@@ -28,13 +28,20 @@ int calculateBattleExp(const Yokai* enemy) {
     }
     
     // 레벨 차이 보정: 플레이어 요괴와 적 요괴의 레벨 차이에 따라 경험치 증감
-    // (플레이어 요괴 포인터를 추가로 받아야 하지만, 기존 인터페이스를 유지하기 위해 전역 party[0] 사용)
     extern Yokai party[];
     extern int partyCount;
     int playerLevel = partyCount > 0 ? party[0].level : 1;
     int levelDiff = enemy->level - playerLevel;
-    float ratio = 1.0f + (levelDiff * 0.2f); // 레벨 차이 1당 20% 증감
-    if (ratio < 0.1f) ratio = 0.1f; // 최소 10%
+    float ratio;
+    
+    if (levelDiff > 0) {
+        // 플레이어 레벨이 낮을 때: 레벨 차이당 20% 증가 (최대 200%)
+        ratio = 1.0f + (levelDiff * 0.2f);
+        if (ratio > 3.0f) ratio = 3.0f;
+    } else {
+        // 플레이어 레벨이 높을 때: 기본 경험치 유지
+        ratio = 1.0f;
+    }
     
     // 랜덤 보너스: ±20%
     float randomBonus = 0.8f + (rand() % 41) / 100.0f;
