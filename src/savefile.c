@@ -158,4 +158,8 @@ int loadGameData() {
     fclose(file);
     gameState.isLoadedGame = 1; // 이어하기 플래그 설정
     return 1;
+}
+
+void removeSaveFile() {
+    remove(SAVE_FILE);
 } 

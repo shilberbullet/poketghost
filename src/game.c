@@ -3,6 +3,7 @@
 #include "text.h"
 #include "party.h"
 #include "item.h"
+#include "roguelite.h"
 
 // 전역 게임 상태 초기화
 GameState gameState = {0};
@@ -66,4 +67,32 @@ void showMoney() {
     char buffer[128];
     sprintf(buffer, "\n현재 보유 전: %d전\n", player.money);
     printText(buffer);
+}
+
+// 게임 상태 초기화 함수
+void resetGameState() {
+    gameState.isRunning = 1;
+    gameState.currentStage = 1;
+    gameState.currentTime = 0;
+    gameState.isNewGame = 1;
+    gameState.isLoadedGame = 0;
+    player.money = 0;
+    inventoryCount = 0;
+    
+    // 아이템 데이터 다시 로드
+    loadItemsFromFile("data/items.txt");
+    
+    // 낡은 부적 5개 다시 추가
+    Item* oldTalisman = NULL;
+    for (int i = 0; i < itemListCount; i++) {
+        if (strcmp(itemList[i].name, "낡은부적") == 0) {
+            oldTalisman = &itemList[i];
+            break;
+        }
+    }
+    if (oldTalisman) {
+        for (int i = 0; i < 5; i++) {
+            addItemToInventory(oldTalisman);
+        }
+    }
 } 

@@ -37,7 +37,7 @@ void printHPBar(const Yokai* yokai) {
     
     // HP 바 출력
     char buffer[256];
-    sprintf(buffer, "\n%s의 HP: %.1f/%.1f\n", yokai->name, currentHP, maxHP);
+    sprintf(buffer, "\n%s의 HP: %.0f/%.0f\n", yokai->name, currentHP, maxHP);
     printText(buffer);
     
     printText("[");
@@ -48,6 +48,8 @@ void printHPBar(const Yokai* yokai) {
     } else {
         printText("\033[1;32m"); // 초록색
     }
+    
+    // HP 바 채우기
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");
@@ -56,8 +58,9 @@ void printHPBar(const Yokai* yokai) {
         }
     }
     printText("\033[0m");
+    printText("]");
     
     // HP 상태 출력
-    sprintf(buffer, "(%s)\n", getHPStatus(yokai));
+    sprintf(buffer, " (%s)\n", getHPStatus(yokai));
     printText(buffer);
 } 

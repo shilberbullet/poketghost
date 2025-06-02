@@ -145,6 +145,8 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     } else {
         printText("\033[1;32m"); // 초록색
     }
+    
+    // HP 바 채우기
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
             printText("█");

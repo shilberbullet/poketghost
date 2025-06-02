@@ -34,21 +34,21 @@ void healYokai(Yokai* targetYokai) {
     } else if (strcmp(currentItem->name, "나물") == 0) {
         healAmount = maxHP * 0.5f;  // 50% 회복
     } else if (strcmp(currentItem->name, "탕국") == 0) {
-        if (targetYokai->status == YOKAI_FAINTED) {
-            targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
-            healAmount = maxHP * 0.5f;  // 50% 회복
-            printTextAndWait("\n기절 상태가 해제되었습니다!");
-        } else {
-            healAmount = maxHP * 0.5f;  // 50% 회복
+        if (targetYokai->status != YOKAI_FAINTED) {
+            printTextAndWait("\n탕국은 기절한 요괴에게만 사용할 수 있습니다!");
+            return;
         }
+        targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
+        healAmount = maxHP * 0.5f;  // 50% 회복
+        printTextAndWait("\n기절 상태가 해제되었습니다!");
     } else if (strcmp(currentItem->name, "막걸리") == 0) {
-        if (targetYokai->status == YOKAI_FAINTED) {
-            targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
-            healAmount = maxHP;  // 100% 회복
-            printTextAndWait("\n기절 상태가 해제되었습니다!");
-        } else {
-            healAmount = maxHP;  // 100% 회복
+        if (targetYokai->status != YOKAI_FAINTED) {
+            printTextAndWait("\n막걸리는 기절한 요괴에게만 사용할 수 있습니다!");
+            return;
         }
+        targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
+        healAmount = maxHP;  // 100% 회복
+        printTextAndWait("\n기절 상태가 해제되었습니다!");
     } else {
         printTextAndWait("\n알 수 없는 회복 아이템입니다.");
         return;

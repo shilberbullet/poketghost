@@ -32,4 +32,10 @@ int tryToEscape(void);
 extern int turnCount;
 extern int lastYokaiIdx;
 
+int handleFaintedYokai(int faintedIdx);
+
+int selectPartyYokai();
+int selectMove(const Yokai* yokai);
+int selectTalismanFromInventory();
+
 #endif // BATTLE_H 
