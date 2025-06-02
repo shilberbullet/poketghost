@@ -150,6 +150,7 @@ void getRandomItems(Item* outItems, int count) {
 void addItemToInventory(const Item* item) {
     // 회복형 아이템은 즉시 사용
     if (item->type == ITEM_HEAL) {
+        currentItem = item;  // 현재 사용할 아이템 설정
         Yokai* targetYokai = selectYokaiToHeal();
         if (targetYokai != NULL) {
             // 식혜류 아이템 처리
@@ -159,9 +160,10 @@ void addItemToInventory(const Item* item) {
                 useSikhyeItem(item->name, targetYokai);
             }
             else {
-                healYokai(targetYokai);  // 기존 회복 처리
+                healYokai(targetYokai);  // HP 회복 처리
             }
         }
+        currentItem = NULL;  // 아이템 사용 후 초기화
         return;
     }
 

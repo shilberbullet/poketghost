@@ -3,6 +3,10 @@
 #include "text.h"
 #include "input.h"
 #include "party.h"
+#include "hp_system.h"
+
+// 현재 사용 중인 아이템
+const Item* currentItem = NULL;
 
 void initHealSystem() {
     // 향후 구현 예정
@@ -18,8 +22,48 @@ void healYokai(Yokai* targetYokai) {
         return;
     }
     
-    printTextAndWait("\n회복 시스템 구현중...");
-    // 향후 실제 회복 로직 구현 예정
+    // 최대 HP 계산
+    float maxHP = calculateHP(targetYokai);
+    float oldHP = targetYokai->currentHP;
+    float healAmount;
+    char buffer[256];
+    
+    // 아이템 이름에 따른 회복량 설정
+    if (strcmp(currentItem->name, "제삿밥") == 0) {
+        healAmount = maxHP * 0.3f;  // 30% 회복
+    } else if (strcmp(currentItem->name, "나물") == 0) {
+        healAmount = maxHP * 0.5f;  // 50% 회복
+    } else if (strcmp(currentItem->name, "탕국") == 0) {
+        if (targetYokai->status == YOKAI_FAINTED) {
+            targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
+            healAmount = maxHP * 0.5f;  // 50% 회복
+            printTextAndWait("\n기절 상태가 해제되었습니다!");
+        } else {
+            healAmount = maxHP * 0.5f;  // 50% 회복
+        }
+    } else if (strcmp(currentItem->name, "막걸리") == 0) {
+        if (targetYokai->status == YOKAI_FAINTED) {
+            targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
+            healAmount = maxHP;  // 100% 회복
+            printTextAndWait("\n기절 상태가 해제되었습니다!");
+        } else {
+            healAmount = maxHP;  // 100% 회복
+        }
+    } else {
+        printTextAndWait("\n알 수 없는 회복 아이템입니다.");
+        return;
+    }
+    
+    // HP 회복 적용
+    targetYokai->currentHP += healAmount;
+    if (targetYokai->currentHP > maxHP) {
+        targetYokai->currentHP = maxHP;
+    }
+    
+    // 회복 메시지 출력
+    sprintf(buffer, "\n%s의 HP가 %.0f에서 %.0f로 회복되었습니다!", 
+        targetYokai->name, oldHP, targetYokai->currentHP);
+    printTextAndWait(buffer);
 }
 
 Yokai* selectYokaiToHeal() {
@@ -28,10 +72,12 @@ Yokai* selectYokaiToHeal() {
     // 파티의 요괴 목록 표시
     for (int i = 0; i < partyCount; i++) {
         char buffer[256];
-        sprintf(buffer, "%d. %s (HP: %d)\n", 
+        float maxHP = calculateHP(&party[i]);
+        sprintf(buffer, "%d. %s (HP: %.0f/%.0f)\n", 
             i + 1,
             party[i].name,
-            party[i].stamina);
+            party[i].currentHP,
+            maxHP);
         printText(buffer);
     }
     

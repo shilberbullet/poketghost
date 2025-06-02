@@ -11,6 +11,7 @@
 #include "savefile.h"
 #include "party.h"
 #include "yokai.h"
+#include "game.h"
 
 // 지역 이름 배열 (10개씩 그룹화)
 const char* regions[] = {
@@ -54,6 +55,7 @@ void initStage(StageInfo* stage, int stageNumber) {
 
 void nextStage() {
     currentStage.stageNumber++;
+    turnCount = 0;  // 턴 카운트 초기화
     currentStage.hour = (currentStage.hour + 1) % 24;
     currentStage.terrain = rand() % TERRAIN_COUNT;
     
