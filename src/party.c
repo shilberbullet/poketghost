@@ -27,7 +27,7 @@ void initParty() {
         memset(&party[0], 0, sizeof(Yokai)); // 구조체 전체를 0으로 초기화
         party[0] = *dokkaebi;  // 기본 정보 복사
         party[0].level = 5;    // 초기 레벨 5로 설정
-        party[0].currentHP = party[0].stamina * (1.0f + (party[0].level * party[0].level) / 100.0f);  // HP 초기화
+        party[0].currentHP = calculateHP(&party[0]);  // HP 초기화
         
         // 도감 설명 명시적 복사
         strncpy(party[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
@@ -110,7 +110,7 @@ int addYokaiToParty(const Yokai* yokai) {
     
     // 요괴 정보 직접 복사
     party[partyCount] = *yokai;  // 기본 정보 복사
-    party[partyCount].currentHP = party[partyCount].stamina * (1.0f + (party[partyCount].level * party[partyCount].level) / 100.0f);  // HP 초기화
+    party[partyCount].currentHP = calculateHP(&party[partyCount]);  // HP 초기화
     
     // 도감 설명 명시적 복사
     strncpy(party[partyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
@@ -188,7 +188,7 @@ void printParty() {
                 party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
-        }
+    }
     } else {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         printParty();

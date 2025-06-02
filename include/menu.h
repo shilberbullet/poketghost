@@ -16,4 +16,7 @@ void showItemMenu(void);
 // 맵 표시 함수
 void showMap(void);
 
+// 메인 메뉴 표시 함수
+void showMainMenu();
+
 #endif // MENU_H 

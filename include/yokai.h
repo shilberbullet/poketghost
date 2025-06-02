@@ -51,6 +51,9 @@ extern int bossYokaiListCount;
 void loadYokaiFromFile(const char* filename);
 Yokai* findYokaiByName(const char* name);
 
+// HP 계산 함수
+float calculateHP(const Yokai* yokai);
+
 // 랜덤 요괴 생성 함수
 Yokai createRandomYokai();
 
