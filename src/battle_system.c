@@ -49,6 +49,9 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     float randomFactor = 0.85f + (float)(rand() % 16) / 100.0f;
     damage *= randomFactor;
     
+    // 데미지 2배 증가
+    damage *= 2.0f;
+    
     return damage;
 }
 
@@ -117,7 +120,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     }
     
     // 데미지 메시지 출력
-    sprintf(buffer, "\n%s에게 %.1f의 데미지를 입혔다!", defender->name, damage);
+    sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, damage);
     printText(buffer);
     
     // 상성 메시지 출력
@@ -149,7 +152,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         }
     }
     printText("\033[0m");
-    sprintf(buffer, "] %.1f/%.1f\n", defender->currentHP, maxHP);
+    sprintf(buffer, "] %.0f/%.0f\n", defender->currentHP, maxHP);
     printText(buffer);
     
     // 전투 결과 체크

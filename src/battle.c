@@ -23,8 +23,8 @@
 Yokai currentEnemy;
 
 // 전역 또는 static 변수로 턴 카운트 선언
-static int turnCount = 0;
-static int lastYokaiIdx = 0;  // 전역 변수로 선언
+int turnCount = 0;
+int lastYokaiIdx = 0;  // 전역 변수로 선언
 
 int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
@@ -86,7 +86,7 @@ int startBattle(const Yokai* enemy) {
         }
     }
     printText("\033[0m"); // 색상 초기화
-    sprintf(buffer, "] %.1f/%.1f\n", currentHP, maxHP);
+    sprintf(buffer, "] %.0f/%.0f\n", currentHP, maxHP);
     printText(buffer);
     
     turnCount = 0; // 전투 시작 시 턴 카운트 초기화
@@ -161,7 +161,7 @@ int selectPartyYokai() {
         // 기절 상태 표시
         const char* statusText = party[i].status == YOKAI_FAINTED ? " [기절]" : "";
         
-        sprintf(buffer, "%d. %s %s[%s]\033[0m Lv.%d (HP: %.1f/%.1f)%s\n", 
+        sprintf(buffer, "%d. %s %s[%s]\033[0m Lv.%d (HP: %.0f/%.0f)%s\n", 
             i+1, 
             party[i].name,
             colorCode,
@@ -340,12 +340,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     inventory[idx].count--;
                 }
                 
-                // 부적 실패 시 동료 요괴 선택
-                int yokaiIdx = selectPartyYokai();
-                if (yokaiIdx == -1) {
-                    return 0; // 뒤로 돌아가기
+                // 부적 실패 시 이전에 선택한 요괴 사용
+                int yokaiIdx = lastYokaiIdx;
+                if (party[yokaiIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                    yokaiIdx = selectPartyYokai();
+                    if (yokaiIdx == -1) {
+                        return 0; // 뒤로 돌아가기
+                    }
                 }
-                lastYokaiIdx = yokaiIdx;  // 전역 변수 사용
                 
                 // 상대 요괴의 랜덤 기술 선택
                 int enemyMoveIdx = rand() % enemy->moveCount;
@@ -357,7 +360,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 // 데미지 메시지 출력
                 sprintf(buffer, "\n%s의 %s 공격!\n", enemy->name, enemy->moves[enemyMoveIdx].move.name);
                 printText(buffer);
-                sprintf(buffer, "%s는 %.1f의 데미지를 입었다!\n", party[yokaiIdx].name, damage);
+                sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[yokaiIdx].name, damage);
                 printText(buffer);
                 
                 // HP 바 업데이트
@@ -381,7 +384,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                 }
                 printText("\033[0m");
-                sprintf(buffer, "] %.1f/%.1f\n", party[yokaiIdx].currentHP, maxHP);
+                sprintf(buffer, "] %.0f/%.0f\n", party[yokaiIdx].currentHP, maxHP);
                 printText(buffer);
                 
                 // 전투 결과 확인
@@ -391,7 +394,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 
                 turnCount++;  // 부적 실패 시에도 턴 카운트 증가
-                return 0; // 전투 계속
+                // 기술 선택 없이 바로 턴 종료 (메뉴로 돌아감)
+                return 0;
             }
         }
         case BATTLE_CHECK_PARTY:

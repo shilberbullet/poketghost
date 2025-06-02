@@ -2,7 +2,10 @@
 #define HEAL_SYSTEM_H
 
 #include "yokai.h"
-#include "move.h"
+#include "item.h"
+
+// 현재 사용 중인 아이템
+extern const Item* currentItem;
 
 // 회복 시스템 초기화
 void initHealSystem();

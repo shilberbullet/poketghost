@@ -28,4 +28,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy);
 
 int tryToEscape(void);
 
+// 전역 변수 선언
+extern int turnCount;
+extern int lastYokaiIdx;
+
 #endif // BATTLE_H 
