@@ -50,10 +50,7 @@ int handleFaintedYokai(int faintedIdx) {
     
     printTextAndWait("\n다른 요괴를 선택하세요.");
     int newIdx = selectPartyYokai();
-    if (newIdx == -1) {
-        return -1; // 뒤로 돌아가기
-    }
-    return newIdx;
+    return newIdx;  // 뒤로가기 옵션 제거
 }
 
 int startBattle(const Yokai* enemy) {
@@ -161,7 +158,6 @@ int showBattleMenu(const Yokai* enemy) {
 // 동료 요괴 선택 함수
 int selectPartyYokai() {
     printText("\n동료 요괴를 선택하세요:\n");
-    printText("0. 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
         char buffer[256];
         float maxHP = calculateHP(&party[i]);
@@ -204,9 +200,6 @@ int selectPartyYokai() {
     }
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
-    if (idx == -1) {
-        return -1; // 뒤로 가기
-    }
     if (idx < 0 || idx >= partyCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
         return selectPartyYokai();
