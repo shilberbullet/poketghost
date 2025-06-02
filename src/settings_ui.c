@@ -1,3 +1,4 @@
+// 표준 입출력, 설정 관련 헤더
 #include <stdio.h>
 #include <stdlib.h>
 #include "settings.h"
@@ -6,6 +7,7 @@
 #include "input.h"
 #include "text.h"
 
+// 설정 메뉴를 표시하는 함수
 void showSettingsMenu() {
     int choice;
     
@@ -35,6 +37,7 @@ void showSettingsMenu() {
     }
 }
 
+// 텍스트 출력 속도 설정 함수
 void setTextSpeed() {
     int choice;
     

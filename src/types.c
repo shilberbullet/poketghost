@@ -1,5 +1,7 @@
+// 타입 관련 함수와 상수 정의 헤더
 #include "types.h"
 
+// 요괴 타입을 문자열로 변환하는 함수
 const char* typeToString(YokaiType type) {
     switch (type) {
         case TYPE_MONSTER: return "괴수형";
@@ -11,6 +13,7 @@ const char* typeToString(YokaiType type) {
     }
 }
 
+// 기술 등급을 문자열로 변환하는 함수
 const char* gradeToString(MoveGrade grade) {
     switch (grade) {
         case MOVE_BASIC: return "초급";

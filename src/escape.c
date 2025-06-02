@@ -1,9 +1,11 @@
+// 표준 입출력 함수를 위한 헤더
 #include <stdio.h>
+// 메모리 할당을 위한 헤더
 #include <stdlib.h>
 #include "escape.h"
 #include "text.h"
 
-// 보스 스테이지에서 도망치기 가능 여부 확인
+// 보스 스테이지에서 도망치기 가능 여부 확인 함수
 int canEscapeFromStage(void) {
     // 10의 배수 스테이지(보스 스테이지)에서는 도망칠 수 없음
     if (currentStage.stageNumber % 10 == 0) {

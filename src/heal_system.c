@@ -8,14 +8,17 @@
 // 현재 사용 중인 아이템
 const Item* currentItem = NULL;
 
+// 회복 시스템 초기화 함수
 void initHealSystem() {
     // 향후 구현 예정
 }
 
+// 회복 시스템 정리 함수
 void cleanupHealSystem() {
     // 향후 구현 예정
 }
 
+// 요괴 HP 회복 함수
 void healYokai(Yokai* targetYokai) {
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
@@ -66,6 +69,7 @@ void healYokai(Yokai* targetYokai) {
     printTextAndWait(buffer);
 }
 
+// 회복할 요괴 선택 함수
 Yokai* selectYokaiToHeal() {
     printText("\n=== 회복할 요괴 선택 ===\n");
     
@@ -114,7 +118,7 @@ int selectMoveToHeal(Yokai* targetYokai) {
     return choice - 1;
 }
 
-// 단일 기술 PP 회복 처리
+// 단일 기술 PP 회복 처리 함수
 void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
     if (targetYokai == NULL || moveIndex < 0 || moveIndex >= targetYokai->moveCount) {
         printTextAndWait("\n잘못된 기술 선택입니다.");
@@ -143,7 +147,7 @@ void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
     printTextAndWait(buffer);
 }
 
-// 모든 기술 PP 회복 처리
+// 모든 기술 PP 회복 처리 함수
 void healAllMovesPP(Yokai* targetYokai) {
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
@@ -159,7 +163,7 @@ void healAllMovesPP(Yokai* targetYokai) {
     printTextAndWait(buffer);
 }
 
-// 기술 PP 회복 처리
+// 기술 PP 회복 처리 함수
 void healMovePP(Yokai* targetYokai, int ppAmount) {
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");

@@ -12,8 +12,9 @@
 
 #define SAVE_FILE "data/save.dat"
 
+// 게임 저장 함수
 void saveGame() {
-    FILE* file = fopen(SAVE_FILE, "wb");
+    FILE* file = fopen(SAVE_FILE, "wb");  // 바이너리 쓰기 모드로 파일 열기
     if (!file) return;
     
     // 스테이지 정보 저장
@@ -85,8 +86,9 @@ void saveGame() {
     fclose(file);
 }
 
+// 게임 데이터 불러오기 함수
 int loadGameData() {
-    FILE* file = fopen(SAVE_FILE, "rb");
+    FILE* file = fopen(SAVE_FILE, "rb");  // 바이너리 읽기 모드로 파일 열기
     if (!file) return 0;
     
     // 스테이지 정보 불러오기
@@ -160,6 +162,7 @@ int loadGameData() {
     return 1;
 }
 
+// 저장 파일 삭제 함수
 void removeSaveFile() {
     remove(SAVE_FILE);
 } 

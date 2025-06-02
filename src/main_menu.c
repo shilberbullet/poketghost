@@ -1,3 +1,4 @@
+// 표준 입출력, 게임 및 메뉴 관련 헤더
 #include <stdio.h>
 #include <stdlib.h>
 #include "main_menu.h"
@@ -12,6 +13,7 @@
 #include "exit.h"
 #include "reward.h"
 
+// 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
     int choice;
     
@@ -34,6 +36,7 @@ void showMainMenu(void) {
     }
 }
 
+// 메인 메뉴 선택을 처리하는 함수
 void handleMainMenuChoice(MainMenuOption choice) {
     switch (choice) {
         case MAIN_MENU_NEW_GAME:
@@ -54,6 +57,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
     }
 }
 
+// 새 게임 시작 함수
 void startNewGame(void) {
     gameState.isNewGame = 1;  // 새 게임 플래그 설정
     gameState.isLoadedGame = 0;  // 이어하기 플래그 해제
@@ -67,6 +71,7 @@ void startNewGame(void) {
     }
 }
 
+// 저장된 게임 불러오기 함수
 void loadGame(void) {
     if (loadGameData()) {
         gameState.isLoadedGame = 1;
@@ -81,9 +86,10 @@ void loadGame(void) {
     }
 }
 
+// 설정 메뉴 표시 함수
 void showSettings(void) {
     // 기존 설정 메뉴 표시 함수 호출
     showSettingsMenu();
 }
 
-// 게임 종료 함수 삭제 
+// 게임 종료 함수는 exit.c에서 관리 
