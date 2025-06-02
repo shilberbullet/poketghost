@@ -49,10 +49,11 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     float randomFactor = 0.85f + (float)(rand() % 16) / 100.0f;
     damage *= randomFactor;
     
-    // 데미지 2배 증가
-    damage *= 2.0f;
+    // 데미지를 10%로 감소
+    damage *= 0.1f;
     
-    return damage;
+    // 소수점 버림
+    return (float)((int)damage);
 }
 
 // 전투 실행 함수

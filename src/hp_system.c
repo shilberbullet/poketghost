@@ -6,7 +6,8 @@
 // HP 계산 함수
 float calculateHP(const Yokai* yokai) {
     if (yokai == NULL) return 0.0f;
-    return yokai->stamina * (1.0f + (yokai->level * yokai->level) / 100.0f);
+    float hp = yokai->stamina * (1.0f + (yokai->level * yokai->level) / 100.0f) * 0.1f;
+    return (float)((int)hp); // 소수점 버림
 }
 
 // HP 상태 확인 함수
