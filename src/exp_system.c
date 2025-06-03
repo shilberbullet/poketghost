@@ -64,6 +64,8 @@ void gainExp(Yokai* yokai, int exp) {
     
     // 레벨업 체크 및 처리
     while (yokai->exp >= calculateRequiredExp(yokai->level)) {
+        int requiredExp = calculateRequiredExp(yokai->level);
+        yokai->exp -= requiredExp;  // 필요한 경험치만 차감
         levelUp(yokai);
     }
 }
@@ -73,11 +75,8 @@ void gainExp(Yokai* yokai, int exp) {
 void levelUp(Yokai* yokai) {
     char buffer[256];
     yokai->level++;  // 레벨 증가
-    yokai->exp = 0;  // 경험치 초기화
-    
     // HP 재계산
     yokai->currentHP = calculateHP(yokai);
-    
     // 레벨업 메시지 출력
     sprintf(buffer, "\n%s가 레벨 %d로 상승했습니다!\n", yokai->name, yokai->level);
     printText(buffer);
