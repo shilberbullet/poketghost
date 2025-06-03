@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "battle_system.h"
 #include "text.h"
 #include "hp_system.h"
@@ -43,7 +44,7 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
 // 공격자, 방어자, 사용 기술에 따른 데미지를 계산
 float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* move) {
     // 기본 데미지 계산: 공격력 * 기술 위력 * 레벨 보정
-    float baseDamage = (float)attacker->attack * move->power * (attacker->level / 10.0f + 1);
+    float baseDamage = (float)attacker->attack * move->power * (attacker->level / 5.0f + 1);
     // 방어력 보정
     float defenseFactor = defender->defense + 100.0f;
     // 타입 상성 적용
@@ -56,11 +57,11 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     float randomFactor = 0.85f + (float)(rand() % 16) / 100.0f;
     damage *= randomFactor;
     
-    // 데미지를 10%로 감소
-    damage *= 0.1f;
+    // 데미지를 20%로 감소
+    damage *= 0.20f;
     
-    // 소수점 버림
-    return (float)((int)damage);
+    // 소수점 올림
+    return (float)ceil(damage);
 }
 
 // 전투 실행 함수

@@ -51,7 +51,7 @@ int handleFaintedYokai(int faintedIdx) {
     printTextAndWait("\n다른 요괴를 선택하세요.");
     int newIdx = selectPartyYokai();
     return newIdx;  // 뒤로가기 옵션 제거
-}
+    }
 
 int startBattle(const Yokai* enemy) {
     // 현재 전투 중인 상대 요괴 정보 저장
@@ -321,8 +321,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     // 기절하지 않은 요괴가 있으면 즉시 교체 메뉴 표시
                     printTextAndWait("\n다른 요괴를 선택하세요.");
                     yokaiIdx = selectPartyYokai();
-                    if (yokaiIdx == -1) {
-                        return 0; // 뒤로 돌아가기
+            if (yokaiIdx == -1) {
+                return 0; // 뒤로 돌아가기
                     }
                 }
             }
@@ -385,15 +385,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
-                    printTextAndWait(buffer);
+            printTextAndWait(buffer);
                 }
-                if (inventory[idx].count == 1) {
-                    for (int i = idx; i < inventoryCount - 1; i++)
-                        inventory[i] = inventory[i + 1];
-                    inventoryCount--;
-                } else {
-                    inventory[idx].count--;
-                }
+            if (inventory[idx].count == 1) {
+                for (int i = idx; i < inventoryCount - 1; i++)
+                    inventory[i] = inventory[i + 1];
+                inventoryCount--;
+            } else {
+                inventory[idx].count--;
+            }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);

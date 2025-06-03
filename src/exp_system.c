@@ -12,15 +12,15 @@
 // 레벨업에 필요한 경험치 계산 함수
 // 레벨에 따라 필요한 경험치를 계산
 int calculateRequiredExp(int level) {
-    // 기본 공식: 100 * (level^1.5)
-    return (int)(100 * pow(level, 1.5));
+    // 기본 공식: 20 * (level^1.2)
+    return (int)(20 * pow(level, 1.2));
 }
 
 // 전투 승리 시 획득 경험치 계산 함수
 // 적 요괴의 레벨과 보스 여부에 따라 경험치를 계산
 int calculateBattleExp(const Yokai* enemy) {
-    // 기본 경험치: 적 레벨 * 50
-    int baseExp = enemy->level * 50;
+    // 기본 경험치: 적 레벨 * 80
+    int baseExp = enemy->level * 80;
     
     // 보스 요괴일 경우 2배 경험치
     if (enemy->level >= 10) {
@@ -75,9 +75,8 @@ void levelUp(Yokai* yokai) {
     yokai->level++;  // 레벨 증가
     yokai->exp = 0;  // 경험치 초기화
     
-    // HP 재계산 (10%로 감소하고 소수점 버림)
-    float hp = yokai->stamina * (1.0f + (yokai->level * yokai->level) / 100.0f) * 0.1f;
-    yokai->currentHP = (float)((int)hp);
+    // HP 재계산
+    yokai->currentHP = calculateHP(yokai);
     
     // 레벨업 메시지 출력
     sprintf(buffer, "\n%s가 레벨 %d로 상승했습니다!\n", yokai->name, yokai->level);
