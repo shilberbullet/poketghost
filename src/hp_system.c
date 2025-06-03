@@ -11,8 +11,8 @@
 // 요괴의 체력 종족값과 레벨을 기반으로 최대 HP를 계산
 float calculateHP(const Yokai* yokai) {
     if (yokai == NULL) return 0.0f;
-    // HP = 체력 종족값 * (1 + 레벨^2/100) * 0.1
-    float hp = yokai->stamina * (1.0f + (yokai->level * yokai->level) / 100.0f) * 0.1f;
+    // HP = 체력 종족값 * (1 + 레벨^2/(100 - log10(레벨+1)*10)) * 0.1
+    float hp = yokai->stamina * (1.0f + (yokai->level * yokai->level) / (100.0f - log10(yokai->level + 1) * 10)) * 0.15f;
     return (float)((int)hp); // 소수점 버림
 }
 
