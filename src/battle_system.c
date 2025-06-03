@@ -219,11 +219,15 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
 void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
     if (result == 1) {
         char buffer[256];
-        sprintf(buffer, "\n%s이(가) 쓰러졌다!", defender->name);
-        printTextAndWait(buffer);
+        if (defender->status == YOKAI_FAINTED) {
+            sprintf(buffer, "\n%s이(가) 쓰러졌다!", defender->name);
+            printTextAndWait(buffer);
+        }
     } else if (result == -1) {
         char buffer[256];
-        sprintf(buffer, "\n%s이(가) 쓰러졌다!", attacker->name);
-        printTextAndWait(buffer);
+        if (attacker->status == YOKAI_FAINTED) {
+            sprintf(buffer, "\n%s이(가) 쓰러졌다!", attacker->name);
+            printTextAndWait(buffer);
+        }
     }
 } 
