@@ -3,7 +3,8 @@
 
 // 게임 설정 구조체
 typedef struct {
-    int textSpeed;  // 텍스트 출력 속도 (1: 느림, 2: 보통, 3: 빠름)
+    int textSpeed;     // 텍스트 출력 속도 (1: 매우 느림, 2: 느림, 3: 보통, 4: 빠름, 5: 매우 빠름)
+    int textDisplayMode;  // 텍스트 출력 방식 (0: 한 글자씩, 1: 한 줄씩)
 } GameSettings;
 
 // 전역 게임 설정

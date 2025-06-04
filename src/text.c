@@ -30,15 +30,30 @@ void printText(const char* text) {
     // 출력 시작 전 입력 버퍼 초기화
     clearInputBuffer();
     
-    for (int i = 0; text[i] != '\0'; i++) {
-        printf("%c", text[i]);   // 한 글자씩 출력
-        fflush(stdout);          // 버퍼 즉시 출력
-        Sleep(delay);            // 설정된 시간만큼 대기
-        
-        // 출력 중 입력이 들어오면 무시
-        while (_kbhit()) {
-            _getch();
-        }
+    switch (gameSettings.textDisplayMode) {
+        case 0:  // 한 글자씩 출력
+            for (int i = 0; text[i] != '\0'; i++) {
+                printf("%c", text[i]);   // 한 글자씩 출력
+                fflush(stdout);          // 버퍼 즉시 출력
+                Sleep(delay);            // 설정된 시간만큼 대기
+                
+                // 출력 중 입력이 들어오면 무시
+                while (_kbhit()) {
+                    _getch();
+                }
+            }
+            break;
+            
+        case 1:  // 한 줄씩 출력
+            printf("%s", text);   // 한 줄씩 출력
+            fflush(stdout);       // 버퍼 즉시 출력
+            Sleep(delay * 50);    // 한 줄 출력 후 대기
+            break;
+            
+        case 2:  // 한 번에 출력
+            printf("%s", text);   // 한 번에 출력
+            fflush(stdout);       // 버퍼 즉시 출력
+            break;
     }
     
     // 출력 완료 후 입력 버퍼 초기화
