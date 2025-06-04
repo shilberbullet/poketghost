@@ -69,8 +69,9 @@ poketghost/
   - 전투 중 특정 조건에서 발동
   - 능력치 상승, 상태이상 회복 등 다양한 효과
 - **요괴 육성**
-  - 전투 승리 시 경험치 획득
-  - 레벨업 시 능력치 상승
+  - 전투 승리 시 경험치 획득 (기본 경험치: 레벨당 80)
+  - 레벨업 시 HP가 초기화되지 않고 증가량만큼만 추가
+  - 레벨업 시 남은 경험치 유지
   - 기술 습득 및 PP 증가
 - **최대 동료 수**
   - 기본 6마리까지 동료 요괴 보유 가능
@@ -179,12 +180,16 @@ poketghost/
 ```bash
 # 원하는 위치로 이동 (예: C 드라이브)
 cd C:\
+```
 
+```
 # 프로젝트 폴더 생성
-mkdir poketghostv2
+mkdir poketghost
+```
 
+```
 # 생성한 폴더로 이동
-cd poketghostv2
+cd poketghost
 ```
 
 3. GitHub에서 소스 코드 다운로드
@@ -196,7 +201,9 @@ git clone https://github.com/shilberbullet/poketghost.git .
 ```bash
 # 소스 코드 컴파일
 gcc -o poketghost.exe src/*.c -I include -lm
+```
 
+```
 # 게임 실행
 poketghost.exe
 ```
