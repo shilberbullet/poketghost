@@ -74,9 +74,12 @@ void gainExp(Yokai* yokai, int exp) {
 // 요괴의 레벨을 올리고 능력치를 재계산
 void levelUp(Yokai* yokai) {
     char buffer[256];
+    float oldMaxHP = calculateHP(yokai);  // 이전 최대 HP 저장
     yokai->level++;  // 레벨 증가
-    // HP 재계산
-    yokai->currentHP = calculateHP(yokai);
+    float newMaxHP = calculateHP(yokai);  // 새로운 최대 HP 계산
+    float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
+    yokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+    
     // 레벨업 메시지 출력
     sprintf(buffer, "\n%s가 레벨 %d로 상승했습니다!\n", yokai->name, yokai->level);
     printText(buffer);
