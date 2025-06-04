@@ -113,7 +113,6 @@ int addYokaiToParty(const Yokai* yokai) {
     
     // 요괴 정보 직접 복사
     party[partyCount] = *yokai;  // 기본 정보 복사
-    party[partyCount].currentHP = calculateHP(&party[partyCount]);  // HP 초기화
     
     // 도감 설명 명시적 복사
     strncpy(party[partyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
