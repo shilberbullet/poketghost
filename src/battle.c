@@ -148,18 +148,33 @@ int showBattleMenu(const Yokai* enemy) {
     printText("1. 싸운다\n");
     printText("2. 부적을 던진다\n");
     printText("3. 동료 요괴를 본다\n");
-    printText("4. 도망간다\n");
-    printText("5. 인벤토리를 본다\n");
-    printText("6. 게임을 저장하고 메뉴로 돌아간다\n\n");
-    printText("숫자를 입력하세요: ");
-    
-    choice = getIntInput();
-    if (choice >= 1 && choice <= 6) {
-        return handleBattleChoice((BattleChoice)choice, &currentEnemy);
+    if (turnCount > 0) {
+        printText("4. 동료 요괴 교체\n");
+        printText("5. 도망간다\n");
+        printText("6. 인벤토리를 본다\n");
+        printText("7. 게임을 저장하고 메뉴로 돌아간다\n\n");
+        printText("숫자를 입력하세요: ");
+        
+        choice = getIntInput();
+        if (choice >= 1 && choice <= 7) {
+            return handleBattleChoice((BattleChoice)choice, &currentEnemy);
+        }
     } else {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
-        return 0;
+        printText("4. 도망간다\n");
+        printText("5. 인벤토리를 본다\n");
+        printText("6. 게임을 저장하고 메뉴로 돌아간다\n\n");
+        printText("숫자를 입력하세요: ");
+        
+        choice = getIntInput();
+        if (choice >= 1 && choice <= 6) {
+            // 첫 턴에는 교체 옵션이 없으므로 메뉴 번호 조정
+            if (choice >= 4) choice++; // 4,5,6 -> 5,6,7
+            return handleBattleChoice((BattleChoice)choice, &currentEnemy);
+        }
     }
+    
+    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    return 0;
 }
 
 // 동료 요괴 선택 함수
@@ -309,6 +324,45 @@ int selectTalismanFromInventory() {
         return selectTalismanFromInventory();
     }
     return talismanIdx[idx];
+}
+
+// 동료 요괴 교체 함수
+int switchYokai() {
+    printText("\n교체할 동료 요괴를 선택하세요:\n");
+    for (int i = 0; i < partyCount; i++) {
+        char buffer[256];
+        float maxHP = calculateHP(&party[i]);
+        sprintf(buffer, "%d. %s Lv.%d (HP: %.0f/%.0f)\n", 
+            i+1, 
+            party[i].name, 
+            party[i].level,
+            party[i].currentHP,
+            maxHP);
+        printText(buffer);
+    }
+    printText("0. 뒤로 가기\n");
+    printText("숫자를 입력하세요: ");
+    
+    int choice = getIntInput();
+    if (choice == 0) {
+        return -1;
+    }
+    
+    if (choice > 0 && choice <= partyCount) {
+        int idx = choice - 1;
+        if (idx == lastYokaiIdx) {
+            printTextAndWait("\n이미 전투 중인 요괴입니다!");
+            return -1;
+        }
+        if (party[idx].status == YOKAI_FAINTED) {
+            printTextAndWait("\n기절한 요괴는 교체할 수 없습니다!");
+            return -1;
+        }
+        return idx;
+    }
+    
+    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    return -1;
 }
 
 int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
@@ -488,6 +542,65 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_CHECK_PARTY:
             printParty();
             return 0;
+        case BATTLE_SWITCH: {
+            int newYokaiIdx = switchYokai();
+            if (newYokaiIdx == -1) {
+                return 0;
+            }
+            
+            // 교체 메시지 출력
+            char buffer[256];
+            sprintf(buffer, "\n%s를 불러왔다!", party[newYokaiIdx].name);
+            printText(buffer);
+            
+            // 상대 요괴의 공격
+            int enemyMoveIdx = rand() % enemy->moveCount;
+            float damage = calculateDamage(enemy, &party[newYokaiIdx], &enemy->moves[enemyMoveIdx].move);
+            party[newYokaiIdx].currentHP -= damage;
+            
+            // 데미지 메시지 출력
+            sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
+            printText(buffer);
+            sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[newYokaiIdx].name, damage);
+            printText(buffer);
+            
+            // HP 바 업데이트
+            float maxHP = calculateHP(&party[newYokaiIdx]);
+            float hpPercentage = (party[newYokaiIdx].currentHP / maxHP) * 100.0f;
+            int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+            
+            sprintf(buffer, "%s HP[", party[newYokaiIdx].name);
+            printText(buffer);
+            if (hpPercentage <= 20.0f) {
+                printText("\033[31m"); // 빨간색
+            } else if (hpPercentage <= 50.0f) {
+                printText("\033[33m"); // 노란색
+            } else {
+                printText("\033[1;32m"); // 초록색
+            }
+            for (int i = 0; i < HP_BAR_LENGTH; i++) {
+                if (i < filledLength) {
+                    printText("█");
+                } else {
+                    printText("░");
+                }
+            }
+            printText("\033[0m");
+            sprintf(buffer, "] %.0f/%.0f\n", party[newYokaiIdx].currentHP, maxHP);
+            printText(buffer);
+            
+            // 전투 결과 확인
+            if (party[newYokaiIdx].currentHP <= 0) {
+                party[newYokaiIdx].status = YOKAI_FAINTED;
+                party[newYokaiIdx].currentHP = 0;
+                printTextAndWait("\n전투에서 패배했습니다...");
+                return 104; // 전투 패배
+            }
+            
+            lastYokaiIdx = newYokaiIdx;
+            turnCount++;
+            return 0;
+        }
         case BATTLE_RUN: {
             int escapeResult = tryToEscape();  // 도망치기 시스템 사용
             if (escapeResult == ESCAPE_FAIL) {
