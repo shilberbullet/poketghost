@@ -33,8 +33,16 @@ int healYokai(Yokai* targetYokai) {
     
     // 아이템 이름에 따른 회복량 설정
     if (strcmp(currentItem->name, "제삿밥") == 0) {
+        if (targetYokai->status == YOKAI_FAINTED) {
+            printTextAndWait("\n기절한 요괴에게는 제삿밥을 사용할 수 없습니다!");
+            return -1;
+        }
         healAmount = maxHP * 0.3f;  // 30% 회복
     } else if (strcmp(currentItem->name, "나물") == 0) {
+        if (targetYokai->status == YOKAI_FAINTED) {
+            printTextAndWait("\n기절한 요괴에게는 나물을 사용할 수 없습니다!");
+            return -1;
+        }
         healAmount = maxHP * 0.5f;  // 50% 회복
     } else if (strcmp(currentItem->name, "탕국") == 0) {
         if (targetYokai->status != YOKAI_FAINTED) {
@@ -64,9 +72,10 @@ int healYokai(Yokai* targetYokai) {
     }
     
     // 회복 메시지 출력
-    sprintf(buffer, "\n%s의 HP가 %.0f에서 %.0f로 회복되었습니다!", 
-        targetYokai->name, oldHP, targetYokai->currentHP);
+    sprintf(buffer, "\n%s의 HP가 %d에서 %d로 회복되었습니다!", 
+            targetYokai->name, (int)oldHP, (int)targetYokai->currentHP);
     printTextAndWait(buffer);
+    
     return 0;
 }
 
