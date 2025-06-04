@@ -6,6 +6,9 @@
 #include "hp_system.h"
 #include "battle.h"  // currentEnemy 변수를 위해 추가
 
+// 상대 요괴 이름 색상 반환 함수 extern 선언
+extern const char* getEnemyNameColorExport();
+
 // 전투 시스템 초기화 함수
 void initBattleSystem() {
     // 향후 전투 시스템 초기화 코드가 들어갈 자리
@@ -92,9 +95,15 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
             colorCode = "\033[0m";   // 기본색
     }
     
-    // 기술 사용 메시지 출력 (상성 색상 적용)
+    // 기술 사용 메시지 출력 (상대 요괴일 경우에만 이름 색상 적용)
     char buffer[256];
-    sprintf(buffer, "\n%s의 ", attacker->name);
+    if (attacker == &currentEnemy) {
+        // 상대 요괴의 경우 색상 적용
+        sprintf(buffer, "\n%s%s\033[0m의 ", getEnemyNameColorExport(), attacker->name);
+    } else {
+        // 동료 요괴의 경우 기본 색상
+        sprintf(buffer, "\n%s의 ", attacker->name);
+    }
     printText(buffer);
     printText(colorCode);
     printText(move->name);
@@ -131,7 +140,13 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     }
     
     // 데미지 메시지 출력
-    sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, damage);
+    if (defender == &currentEnemy) {
+        // 상대 요괴의 경우 색상 적용
+        sprintf(buffer, "\n%s%s\033[0m에게 %.0f의 데미지를 입혔다!", getEnemyNameColorExport(), defender->name, damage);
+    } else {
+        // 동료 요괴의 경우 기본 색상
+        sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, damage);
+    }
     printText(buffer);
     
     // 상성 메시지 출력
