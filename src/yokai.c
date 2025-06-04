@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "yokai.h"
 #include "move.h"
 
@@ -153,11 +154,16 @@ Yokai* findYokaiByName(const char* name) {
 
 // 스테이지 번호에 따른 레벨 범위 계산 함수
 void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
-    // 기본 레벨 범위: 스테이지 번호 ± 2
-    *minLevel = stage - 2;
-    *maxLevel = stage + 2;
+    // 기본 레벨 = 스테이지 번호
+    int baseLevel = stage;
     
-    // 10의 배수 스테이지는 더 높은 레벨
+    // 레벨 범위 계산 공식
+    // minLevel = baseLevel - floor(log2(stage + 1))
+    // maxLevel = baseLevel + floor(log2(stage + 1))
+    *minLevel = baseLevel - (int)floor(log2(stage + 1));
+    *maxLevel = baseLevel + (int)floor(log2(stage + 1));
+    
+    // 보스 스테이지 (10의 배수)
     if (stage % 10 == 0) {
         *minLevel += 3;
         *maxLevel += 3;
@@ -172,8 +178,7 @@ Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
     y.level = level;
-    float hp = y.stamina * (1.0f + (level * level) / 100.0f) * 0.1f;
-    y.currentHP = (float)((int)hp);  // HP 초기화 (소수점 버림)
+    y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
     assignRandomMoves(&y);
     return y;
 }
@@ -183,8 +188,7 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.level = level;
-    float hp = y.stamina * (1.0f + (level * level) / 100.0f) * 0.1f;
-    y.currentHP = (float)((int)hp);  // HP 초기화 (소수점 버림)
+    y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
     assignRandomMoves(&y);
     return y;
 }
