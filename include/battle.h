@@ -9,9 +9,10 @@ typedef enum {
     BATTLE_FIGHT = 1,
     BATTLE_TALISMAN = 2,
     BATTLE_CHECK_PARTY = 3,
-    BATTLE_RUN = 4,
-    BATTLE_CHECK_INVENTORY = 5,
-    BATTLE_SAVE_AND_EXIT = 6
+    BATTLE_SWITCH = 4,
+    BATTLE_RUN = 5,
+    BATTLE_CHECK_INVENTORY = 6,
+    BATTLE_SAVE_AND_EXIT = 7
 } BattleChoice;
 
 // 현재 전투 중인 상대 요괴
