@@ -19,6 +19,7 @@
 #include "exp_system.h"  // 경험치 시스템 헤더 추가
 #include "battle_system.h"  // 새로 추가
 #include "roguelite.h"  // 로그라이트 시스템 추가
+#include "settings.h"
 
 // 현재 전투 중인 상대 요괴
 Yokai currentEnemy;
@@ -26,6 +27,14 @@ Yokai currentEnemy;
 // 전역 또는 static 변수로 턴 카운트 선언
 int turnCount = 0;
 int lastYokaiIdx = 0;  // 전역 변수로 선언
+
+// 상대 요괴 이름 색상 반환 함수
+static const char* getEnemyNameColor() {
+    return (currentStage.stageNumber % 10 == 0) ? "\033[35m" : "\033[34m";
+}
+
+// 외부에서 사용할 수 있도록 export 함수 추가
+const char* getEnemyNameColorExport() { return getEnemyNameColor(); }
 
 // 요괴가 기절했을 때의 처리 함수
 int handleFaintedYokai(int faintedIdx) {
@@ -79,15 +88,13 @@ int startBattle(const Yokai* enemy) {
             colorCode = "\033[0m";   // 기본색
     }
     
-    // 보스 스테이지인 경우 파란색으로 표시
+    // 이름 색상 적용
+    const char* nameColor = getEnemyNameColor();
+    
+    // 요괴 등장 메시지 출력
     char buffer[256];
-    if (currentStage.stageNumber % 10 == 0) {
-        sprintf(buffer, "\033[34m%s %s[%s]\033[0m Lv.%d (이)가 싸움을 걸어왔다!\n", 
-            enemy->name, colorCode, typeToString(enemy->type), enemy->level);
-    } else {
-        sprintf(buffer, "%s %s[%s]\033[0m Lv.%d (이)가 싸움을 걸어왔다!\n", 
-            enemy->name, colorCode, typeToString(enemy->type), enemy->level);
-    }
+    sprintf(buffer, "%s%s %s[%s]\033[0m Lv.%d (이)가 싸움을 걸어왔다!\n", 
+        nameColor, enemy->name, colorCode, typeToString(enemy->type), enemy->level);
     printText(buffer);
     
     // HP 바 출력
@@ -236,7 +243,19 @@ int selectMove(const Yokai* yokai) {
             default:
                 colorCode = "\033[0m";   // 기본색
         }
-        sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+        
+        // 상성 힌트 생성
+        char typeHint[64] = "";
+        if (gameSettings.showTypeHint) {
+            float effectiveness = getTypeEffectiveness(yokai->moves[i].move.type, currentEnemy.type);
+            if (effectiveness > 1.0f) {
+                sprintf(typeHint, " \033[32m(강한 공격)\033[0m");
+            } else if (effectiveness < 1.0f) {
+                sprintf(typeHint, " \033[31m(약한 공격)\033[0m");
+            }
+        }
+        
+        sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)%s\n", 
             i+1, 
             colorCode,
             yokai->moves[i].move.name,
@@ -244,7 +263,8 @@ int selectMove(const Yokai* yokai) {
             yokai->moves[i].move.power, 
             yokai->moves[i].move.accuracy, 
             yokai->moves[i].currentPP, 
-            yokai->moves[i].move.pp);
+            yokai->moves[i].move.pp,
+            typeHint);
         printText(buffer);
     }
     printText("선택 (번호): ");
@@ -424,7 +444,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 party[yokaiIdx].currentHP -= damage;
                 
                 // 데미지 메시지 출력
-                sprintf(buffer, "\n%s의 %s 공격!\n", enemy->name, enemy->moves[enemyMoveIdx].move.name);
+                sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
                 printText(buffer);
                 sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[yokaiIdx].name, damage);
                 printText(buffer);
@@ -434,7 +454,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 float hpPercentage = (party[yokaiIdx].currentHP / maxHP) * 100.0f;
                 int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
                 
-                printText("HP[");
+                sprintf(buffer, "%s HP[", party[yokaiIdx].name);
+                printText(buffer);
                 if (hpPercentage <= 20.0f) {
                     printText("\033[31m"); // 빨간색
                 } else if (hpPercentage <= 50.0f) {
@@ -467,8 +488,69 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_CHECK_PARTY:
             printParty();
             return 0;
-        case BATTLE_RUN:
-            return tryToEscape();  // 도망치기 시스템 사용
+        case BATTLE_RUN: {
+            int escapeResult = tryToEscape();  // 도망치기 시스템 사용
+            if (escapeResult == ESCAPE_FAIL) {
+                // 도망치기 실패 시 이전에 선택한 요괴 사용
+                int yokaiIdx = lastYokaiIdx;
+                if (party[yokaiIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                    yokaiIdx = selectPartyYokai();
+                    if (yokaiIdx == -1) {
+                        return 0; // 뒤로 돌아가기
+                    }
+                }
+                
+                // 상대 요괴의 랜덤 기술 선택
+                int enemyMoveIdx = rand() % enemy->moveCount;
+                
+                // 상대 요괴의 공격만 실행 (플레이어는 공격하지 않음)
+                float damage = calculateDamage(enemy, &party[yokaiIdx], &enemy->moves[enemyMoveIdx].move);
+                party[yokaiIdx].currentHP -= damage;
+                
+                // 데미지 메시지 출력
+                char buffer[256];
+                sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
+                printText(buffer);
+                sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[yokaiIdx].name, damage);
+                printText(buffer);
+                
+                // HP 바 업데이트
+                float maxHP = calculateHP(&party[yokaiIdx]);
+                float hpPercentage = (party[yokaiIdx].currentHP / maxHP) * 100.0f;
+                int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+                
+                sprintf(buffer, "%s HP[", party[yokaiIdx].name);
+                printText(buffer);
+                if (hpPercentage <= 20.0f) {
+                    printText("\033[31m"); // 빨간색
+                } else if (hpPercentage <= 50.0f) {
+                    printText("\033[33m"); // 노란색
+                } else {
+                    printText("\033[1;32m"); // 초록색
+                }
+                for (int i = 0; i < HP_BAR_LENGTH; i++) {
+                    if (i < filledLength) {
+                        printText("█");
+            } else {
+                        printText("░");
+                    }
+                }
+                printText("\033[0m");
+                sprintf(buffer, "] %.0f/%.0f\n", party[yokaiIdx].currentHP, maxHP);
+                printText(buffer);
+                
+                // 전투 결과 확인
+                if (party[yokaiIdx].currentHP <= 0) {
+                    printTextAndWait("\n전투에서 패배했습니다...");
+                    return 104; // 전투 패배
+                }
+                
+                turnCount++;  // 도망치기 실패 시에도 턴 카운트 증가
+                return 0;
+            }
+            return escapeResult;
+            }
         case BATTLE_CHECK_INVENTORY:
             printInventory();
             return 0;

@@ -16,8 +16,10 @@ void showSettingsMenu() {
         printText("=== 게임 설정 ===\n\n");
         printText("1. 게임 출력 속도\n");
         printText("2. 텍스트 출력 방식\n");
-        printText("3. 뒤로 가기\n\n");
-        printText("선택하세요 (1-3): ");
+        printText("3. 상성 힌트 표시: ");
+        printText(gameSettings.showTypeHint ? "켬\n" : "끔\n");
+        printText("4. 뒤로 가기\n\n");
+        printText("선택하세요 (1-4): ");
         
         choice = getIntInput();
         if (choice == -1) {
@@ -33,9 +35,12 @@ void showSettingsMenu() {
                 setTextDisplayMode();
                 break;
             case 3:
+                setTypeHintDisplay();
+                break;
+            case 4:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 1-3 사이의 숫자를 입력해주세요.");
+                printTextAndWait("\n잘못된 선택입니다. 1-4 사이의 숫자를 입력해주세요.");
                 break;
         }
     }
@@ -138,5 +143,36 @@ void setTextDisplayMode() {
                 printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
                 break;
         }
+    }
+}
+
+// 상성 힌트 표시 설정 함수
+void setTypeHintDisplay() {
+    system("cls");
+    printText("=== 상성 힌트 표시 설정 ===\n\n");
+    printText("현재 상태: ");
+    printText(gameSettings.showTypeHint ? "켬\n\n" : "끔\n\n");
+    printText("1. 켬\n");
+    printText("2. 끔\n");
+    printText("3. 뒤로 가기\n\n");
+    printText("선택하세요 (1-3): ");
+    int choice = getIntInput();
+    switch (choice) {
+        case 1:
+            gameSettings.showTypeHint = 1;
+            saveSettings();
+            printTextAndWait("\n상성 힌트가 표시됩니다.");
+            break;
+        case 2:
+            gameSettings.showTypeHint = 0;
+            saveSettings();
+            printTextAndWait("\n상성 힌트가 표시되지 않습니다.");
+            break;
+        case 3:
+            return;
+        default:
+            printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+            setTypeHintDisplay();
+            break;
     }
 } 
