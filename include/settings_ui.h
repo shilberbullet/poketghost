@@ -4,7 +4,13 @@
 // 설정 메뉴 표시 함수
 void showSettingsMenu();
 
-// 텍스트 속도 설정 함수
+// 텍스트 출력 속도 설정 함수
 void setTextSpeed();
+
+// 텍스트 출력 방식 설정 함수
+void setTextDisplayMode();
+
+// 상성 힌트 표시 설정 함수
+void setTypeHintDisplay();
 
 #endif // SETTINGS_UI_H 
