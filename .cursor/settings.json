@@ -1,0 +1,37 @@
+{
+    "assistant_rules": {
+        "code_modification": {
+            "required_checks": [
+                "전체 프로젝트 파일 검토",
+                "함수 중복 정의 확인",
+                "함수 선언 누락 확인",
+                "기존 기능 삭제 여부 확인"
+            ],
+            "restrictions": [
+                "함수 중복 정의 금지",
+                "함수 선언 누락 금지",
+                "기존 기능 삭제 금지"
+            ],
+            "post_modification": {
+                "required_steps": [
+                    "실행 중인 poketghost.exe 확인",
+                    "실행 중이면 종료",
+                    "gcc로 컴파일 실행",
+                    "컴파일 오류 메시지 확인",
+                    "오류가 있으면 수정 후 재컴파일",
+                    "오류가 없을 때까지 반복"
+                ],
+                "compilation_command": "tasklist | find \"poketghost.exe\" > nul && taskkill /F /IM poketghost.exe & gcc src/*.c -o poketghost -I include"
+            }
+        },
+        "github_operations": {
+            "upload_condition": "사용자 요청 시에만 진행",
+            "required_steps": [
+                "변경사항 확인",
+                "README.md 업데이트",
+                "커밋 메시지 작성",
+                "GitHub 푸시"
+            ]
+        }
+    }
+} 

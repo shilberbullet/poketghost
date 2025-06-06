@@ -47,8 +47,8 @@ void handleRogueliteSystem() {
     printText("더 이상 싸울 수 있는 요괴가 없습니다.\n");
     printText("잠시 후 게임이 초기화됩니다...\n");
     
-    // 3초 대기
-    Sleep(3000);
+    // 1초 대기
+    Sleep(1000);
     
     // 세이브 파일 삭제
     removeSaveFile();

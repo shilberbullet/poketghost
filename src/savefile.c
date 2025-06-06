@@ -25,9 +25,9 @@ void saveGame() {
     if (!file) return;
     
     if (gameSettings.debugMode) {
-        char buffer[128];
-        sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
-        printText(buffer);
+    char buffer[128];
+    sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
+    printText(buffer);
     }
     
     // 스테이지 정보 저장
@@ -105,23 +105,23 @@ void saveGame() {
         }
     } else {
         // 수동 저장 시 현재 전투 중인 상대 요괴 정보 저장
-        fwrite(&currentEnemy.name, sizeof(char), YOKAI_NAME_MAX, file);
-        fwrite(&currentEnemy.level, sizeof(int), 1, file);
-        fwrite(&currentEnemy.exp, sizeof(int), 1, file);
-        fwrite(&currentEnemy.attack, sizeof(int), 1, file);
-        fwrite(&currentEnemy.defense, sizeof(int), 1, file);
-        fwrite(&currentEnemy.stamina, sizeof(int), 1, file);
-        fwrite(&currentEnemy.speed, sizeof(int), 1, file);
-        fwrite(&currentEnemy.currentHP, sizeof(float), 1, file);
-        fwrite(&currentEnemy.type, sizeof(YokaiType), 1, file);
-        fwrite(&currentEnemy.status, sizeof(YokaiStatus), 1, file);
-        fwrite(&currentEnemy.desc, sizeof(char), 128, file);
-        fwrite(&currentEnemy.moveCount, sizeof(int), 1, file);
-        
-        // 상대 요괴의 기술 정보 저장
-        for (int j = 0; j < currentEnemy.moveCount; j++) {
-            fwrite(&currentEnemy.moves[j].move, sizeof(Move), 1, file);
-            fwrite(&currentEnemy.moves[j].currentPP, sizeof(int), 1, file);
+    fwrite(&currentEnemy.name, sizeof(char), YOKAI_NAME_MAX, file);
+    fwrite(&currentEnemy.level, sizeof(int), 1, file);
+    fwrite(&currentEnemy.exp, sizeof(int), 1, file);
+    fwrite(&currentEnemy.attack, sizeof(int), 1, file);
+    fwrite(&currentEnemy.defense, sizeof(int), 1, file);
+    fwrite(&currentEnemy.stamina, sizeof(int), 1, file);
+    fwrite(&currentEnemy.speed, sizeof(int), 1, file);
+    fwrite(&currentEnemy.currentHP, sizeof(float), 1, file);
+    fwrite(&currentEnemy.type, sizeof(YokaiType), 1, file);
+    fwrite(&currentEnemy.status, sizeof(YokaiStatus), 1, file);
+    fwrite(&currentEnemy.desc, sizeof(char), 128, file);
+    fwrite(&currentEnemy.moveCount, sizeof(int), 1, file);
+    
+    // 상대 요괴의 기술 정보 저장
+    for (int j = 0; j < currentEnemy.moveCount; j++) {
+        fwrite(&currentEnemy.moves[j].move, sizeof(Move), 1, file);
+        fwrite(&currentEnemy.moves[j].currentPP, sizeof(int), 1, file);
         }
     }
     
@@ -215,9 +215,9 @@ int loadGameData() {
     fread(&turnCount, sizeof(int), 1, file);
     
     if (gameSettings.debugMode) {
-        char buffer[128];
-        sprintf(buffer, "[DEBUG] 로드 시 turnCount: %d\n", turnCount);
-        printText(buffer);
+    char buffer[128];
+    sprintf(buffer, "[DEBUG] 로드 시 turnCount: %d\n", turnCount);
+    printText(buffer);
     }
     
     // 전투에 참여한 요괴 수 불러오기

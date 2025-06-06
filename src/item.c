@@ -168,8 +168,21 @@ void addItemToInventory(const Item* item) {
             Yokai* targetYokai = selectYokaiToHeal();
             if (targetYokai != NULL) {
                 if (item->type == ITEM_HEAL) {
+                    // 곶감 아이템 처리
+                    if (strcmp(item->name, "곶감") == 0) {
+                        if (targetYokai->status == YOKAI_FAINTED) {
+                            printText("\n기절한 요괴에게는 사용할 수 없습니다.\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
+                        targetYokai->currentHP = calculateHP(targetYokai);
+                        char msg[64];
+                        snprintf(msg, sizeof(msg), "\n%s의 체력이 완전히 회복되었습니다!\n", targetYokai->name);
+                        printText(msg);
+                    }
                     // 식혜류 아이템 처리
-                    if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
+                    else if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
                         useSikhyeItem(item->name, targetYokai);
                     } else {
                         int healResult = healYokai(targetYokai);  // HP 회복 처리

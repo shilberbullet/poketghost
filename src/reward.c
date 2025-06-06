@@ -30,14 +30,14 @@ int calculateBattleReward() {
 // 초기화 비용 계산 함수
 static int calculateResetCost(int stageNumber) {
     int baseCost = 100;  // 기본 비용
+    int multiplier = 1;  // 기본 배수
     
-    // 1-10 스테이지: 100전
-    // 11-20 스테이지: 200전
-    if (stageNumber <= 10) {
-        return baseCost;
-    } else {
-        return baseCost * 2;
+    // 10스테이지마다 2배씩 증가
+    if (stageNumber > 10) {
+        multiplier = 1 << ((stageNumber - 1) / 10);  // 2의 (스테이지/10)제곱
     }
+    
+    return baseCost * multiplier;
 }
 
 // getRandomItems는 item.c의 것을 사용
