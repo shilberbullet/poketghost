@@ -8,6 +8,7 @@
 #include "input.h"
 #include "game.h"
 #include "exp_system.h"
+#include "settings.h"
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -65,7 +66,7 @@ int handleFullParty(const Yokai* newYokai) {
     printText("\n동료 요괴가 가득 찼습니다!\n");
     printText("1. 잡은 요괴를 성불시킨다\n");
     printText("2. 동료 요괴를 성불시킨다\n");
-    printText("선택하세요 (1-2): ");
+    printText("숫자를 입력하세요: ");
 
     int choice = getIntInput();
     if (choice == 1) {
@@ -73,15 +74,31 @@ int handleFullParty(const Yokai* newYokai) {
         return 0;
     } else if (choice == 2) {
         while (1) {
-            printText("\n성불시킬 동료 요괴를 선택하세요:\n");
+            printText("\n성불 시킬 동료 요괴를 선택하세요:\n");
             for (int i = 0; i < partyCount; i++) {
-                char buffer[128];
-                sprintf(buffer, "%d. %s (체력: %d, 공격력: %d, 방어력: %d)\n", 
-                    i+1, party[i].name, party[i].stamina, party[i].attack, party[i].defense);
+                char buffer[256];
+                const char* statusText = "";
+                const char* statusColor = "";
+                switch (party[i].status) {
+                    case YOKAI_NORMAL: 
+                        statusText = "정상"; 
+                        statusColor = "\033[0m";  // 기본색
+                        break;
+                    case YOKAI_FAINTED: 
+                        statusText = "기절"; 
+                        statusColor = "\033[31m";  // 빨간색
+                        break;
+                    default: 
+                        statusText = "알 수 없음"; 
+                        statusColor = "\033[0m";  // 기본색
+                        break;
+                }
+                sprintf(buffer, "%d. %s (Lv.%d, 상태: %s%s\033[0m, 체력: %d, 공격력: %d, 방어력: %d)\n", 
+                    i+1, party[i].name, party[i].level, statusColor, statusText, party[i].stamina, party[i].attack, party[i].defense);
                 printText(buffer);
             }
             printText("0. 뒤로 돌아간다\n");
-            printText("선택하세요: ");
+            printText("숫자를 입력하세요: ");
 
             int yokaiChoice = getIntInput();
             if (yokaiChoice == 0) {
@@ -133,11 +150,17 @@ void printParty() {
     printText("\n=== 동료 요괴 목록 ===\n");
     printText("[0] 뒤로 가기\n");
     for (int i = 0; i < partyCount; i++) {
-        char buffer[128];
-        sprintf(buffer, "[%d] %s Lv.%d\n", i+1, party[i].name, party[i].level);
+        char buffer[256];
+        float maxHP = calculateHP(&party[i]);
+        sprintf(buffer, "[%d] %s Lv.%d (HP: %.0f/%.0f)\n", 
+            i+1, 
+            party[i].name, 
+            party[i].level,
+            party[i].currentHP,
+            maxHP);
         printText(buffer);
     }
-    printText("\n선택하세요: ");
+    printText("\n숫자를 입력하세요: ");
     
     int choice = getIntInput();
     if (choice == 0) {
@@ -149,11 +172,12 @@ void printParty() {
         char buffer[2048];
         
         // 기본 정보 출력
+        float maxHP = calculateHP(&party[idx]);
         sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
         printText(buffer);
         sprintf(buffer, "체력 종족값: %d\n", party[idx].stamina);
         printText(buffer);
-        sprintf(buffer, "현재 HP: %.1f\n", party[idx].currentHP);
+        sprintf(buffer, "현재 HP: %.0f/%.0f\n", party[idx].currentHP, maxHP);
         printText(buffer);
         sprintf(buffer, "공격력: %d\n", party[idx].attack);
         printText(buffer);
@@ -192,9 +216,6 @@ void printParty() {
                 party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
             printText(buffer);
         }
-    } else {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
-        printParty();
     }
 }
 

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 #include "heal_system.h"
 #include "text.h"
 #include "input.h"
@@ -20,88 +21,183 @@ void cleanupHealSystem() {
 
 // 요괴 HP 회복 함수
 int healYokai(Yokai* targetYokai) {
-    if (targetYokai == NULL) {
-        printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
-        return -1;
+    if (!currentItem) return -1;
+    
+    switch (currentItem->type) {
+        case ITEM_HEAL:
+            if (!targetYokai) return -1;
+            
+            // 탕국과 막걸리는 기절한 요괴만 회복 가능
+            if (strcmp(currentItem->name, "탕국") == 0 || strcmp(currentItem->name, "막걸리") == 0) {
+                if (targetYokai->currentHP > 0) {
+                    printTextAndWait("\n이 아이템은 기절한 요괴만 회복할 수 있습니다!");
+                    return -1;
+                }
+            }
+            // 그 외 회복 아이템은 기절한 요괴를 회복할 수 없음
+            else if (targetYokai->currentHP <= 0) {
+                printTextAndWait("\n기절한 요괴는 회복할 수 없습니다!");
+                return -1;
+            }
+
+            // HP가 이미 최대인 경우
+            float maxHP = calculateHP(targetYokai);
+            if (targetYokai->currentHP >= maxHP) {
+                printTextAndWait("\n이미 체력이 최대입니다!");
+                return -1;
+            }
+            
+            if (strcmp(currentItem->name, "제삿밥") == 0) {
+                float healAmount = maxHP * 0.3f;
+                float oldHP = targetYokai->currentHP;
+                targetYokai->currentHP += healAmount;
+                if (targetYokai->currentHP > maxHP) {
+                    targetYokai->currentHP = maxHP;
+                }
+                float actualHeal = targetYokai->currentHP - oldHP;
+                char buffer[256];
+                sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
+                printText(buffer);
+                return 1;
+            }
+            else if (strcmp(currentItem->name, "나물") == 0) {
+                float healAmount = maxHP * 0.5f;
+                float oldHP = targetYokai->currentHP;
+                targetYokai->currentHP += healAmount;
+                if (targetYokai->currentHP > maxHP) {
+                    targetYokai->currentHP = maxHP;
+                }
+                float actualHeal = targetYokai->currentHP - oldHP;
+                char buffer[256];
+                sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
+                printText(buffer);
+                return 1;
+            }
+            else if (strcmp(currentItem->name, "탕국") == 0) {
+                // 탕국은 기절한 요괴만 회복 가능
+                if (targetYokai->currentHP > 0) {
+                    printTextAndWait("\n탕국은 기절한 요괴만 회복할 수 있습니다!");
+                    return -1;
+                }
+                float healAmount = maxHP * 0.7f;
+                float oldHP = targetYokai->currentHP;
+                targetYokai->currentHP += healAmount;
+                if (targetYokai->currentHP > maxHP) {
+                    targetYokai->currentHP = maxHP;
+                }
+                float actualHeal = targetYokai->currentHP - oldHP;
+                char buffer[256];
+                sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
+                printText(buffer);
+                return 1;
+            }
+            else if (strcmp(currentItem->name, "막걸리") == 0) {
+                // 막걸리는 기절한 요괴만 회복 가능
+                if (targetYokai->currentHP > 0) {
+                    printTextAndWait("\n막걸리는 기절한 요괴만 회복할 수 있습니다!");
+                    return -1;
+                }
+                float healAmount = maxHP * 0.9f;
+                float oldHP = targetYokai->currentHP;
+                targetYokai->currentHP += healAmount;
+                if (targetYokai->currentHP > maxHP) {
+                    targetYokai->currentHP = maxHP;
+                }
+                float actualHeal = targetYokai->currentHP - oldHP;
+                char buffer[256];
+                sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
+                printText(buffer);
+                return 1;
+            }
+            break;
+        case ITEM_YANGGAENG:
+            if (strcmp(currentItem->name, "이상한 양갱") == 0) {
+                printText("\n이상한 양갱을 사용합니다...\n");
+                Sleep(100);
+                
+                // 모든 동료 요괴의 레벨을 1 증가
+                for (int i = 0; i < partyCount; i++) {
+                    float oldMaxHP = calculateHP(&party[i]);
+                    int oldLevel = party[i].level;
+                    party[i].level++;
+                    float newMaxHP = calculateHP(&party[i]);
+                    float hpIncrease = newMaxHP - oldMaxHP;
+                    party[i].currentHP += hpIncrease;
+                    
+                    // 레벨업 메시지 출력
+                    char buffer[256];
+                    sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
+                        party[i].name, oldLevel, party[i].level);
+                    printText(buffer);
+                    Sleep(1000);
+                }
+                printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
+                Sleep(1000);
+                return 1;
+            } else {
+                if (!targetYokai) return -1;
+                if (useYanggaeng(currentItem, targetYokai)) {
+                    char buffer[256];
+                    sprintf(buffer, "\n%s가 %s를 먹었습니다!\n", targetYokai->name, currentItem->name);
+                    printText(buffer);
+                    return 1;
+                }
+            }
+            break;
     }
-    
-    // 최대 HP 계산
-    float maxHP = calculateHP(targetYokai);
-    float oldHP = targetYokai->currentHP;
-    float healAmount;
-    char buffer[256];
-    
-    // 아이템 이름에 따른 회복량 설정
-    if (strcmp(currentItem->name, "제삿밥") == 0) {
-        if (targetYokai->status == YOKAI_FAINTED) {
-            printTextAndWait("\n기절한 요괴에게는 제삿밥을 사용할 수 없습니다!");
-            return -1;
-        }
-        healAmount = maxHP * 0.3f;  // 30% 회복
-    } else if (strcmp(currentItem->name, "나물") == 0) {
-        if (targetYokai->status == YOKAI_FAINTED) {
-            printTextAndWait("\n기절한 요괴에게는 나물을 사용할 수 없습니다!");
-            return -1;
-        }
-        healAmount = maxHP * 0.5f;  // 50% 회복
-    } else if (strcmp(currentItem->name, "탕국") == 0) {
-        if (targetYokai->status != YOKAI_FAINTED) {
-            printTextAndWait("\n탕국은 기절한 요괴에게만 사용할 수 있습니다!");
-            return -1;
-        }
-        targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
-        healAmount = maxHP * 0.5f;  // 50% 회복
-        printTextAndWait("\n기절 상태가 해제되었습니다!");
-    } else if (strcmp(currentItem->name, "막걸리") == 0) {
-        if (targetYokai->status != YOKAI_FAINTED) {
-            printTextAndWait("\n막걸리는 기절한 요괴에게만 사용할 수 있습니다!");
-            return -1;
-        }
-        targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
-        healAmount = maxHP;  // 100% 회복
-        printTextAndWait("\n기절 상태가 해제되었습니다!");
-    } else {
-        printTextAndWait("\n알 수 없는 회복 아이템입니다.");
-        return -1;
-    }
-    
-    // HP 회복 적용
-    targetYokai->currentHP += healAmount;
-    if (targetYokai->currentHP > maxHP) {
-        targetYokai->currentHP = maxHP;
-    }
-    
-    // 회복 메시지 출력
-    sprintf(buffer, "\n%s의 HP가 %d에서 %d로 회복되었습니다!", 
-            targetYokai->name, (int)oldHP, (int)targetYokai->currentHP);
-    printTextAndWait(buffer);
-    
-    return 0;
+    return -1;
 }
 
 // 회복할 요괴 선택 함수
 Yokai* selectYokaiToHeal() {
-    printText("\n=== 회복할 요괴 선택 ===\n");
-    
-    // 파티의 요괴 목록 표시
+    // 이상한 양갱인 경우 바로 NULL 반환
+    if (currentItem && strcmp(currentItem->name, "이상한 양갱") == 0) {
+        return NULL;
+    }
+
+    // 평범한 양갱이나 고급 양갱인 경우
+    if (currentItem && (strcmp(currentItem->name, "평범한 양갱") == 0 || strcmp(currentItem->name, "고급 양갱") == 0)) {
+        printText("\n양갱을 먹을 요괴를 선택하세요:\n");
+    } else {
+        printText("\n회복할 요괴를 선택하세요:\n");
+    }
+
     for (int i = 0; i < partyCount; i++) {
         char buffer[256];
         float maxHP = calculateHP(&party[i]);
-        sprintf(buffer, "%d. %s (HP: %.0f/%.0f)\n", 
-            i + 1,
-            party[i].name,
+        
+        // 기절 상태 표시
+        const char* statusText = "";
+        const char* statusColor = "";
+        if (party[i].status == YOKAI_FAINTED) {
+            statusText = " [기절]";
+            statusColor = "\033[31m";  // 빨간색
+        }
+        
+        sprintf(buffer, "%d. %s Lv.%d (HP: %.0f/%.0f)%s%s\033[0m\n", 
+            i+1, 
+            party[i].name, 
+            party[i].level,
             party[i].currentHP,
-            maxHP);
+            maxHP,
+            statusColor,
+            statusText);
         printText(buffer);
     }
+    printText("0. 뒤로 가기\n");
+    printText("숫자를 입력하세요: ");
     
-    // 사용자 입력 받기
-    int choice = getNumberInput(1, partyCount);
-    if (choice == -1) {
+    int choice = getIntInput();
+    if (choice == 0) {
         return NULL;
     }
     
-    return &party[choice - 1];
+    if (choice > 0 && choice <= partyCount) {
+        return &party[choice - 1];
+    }
+    
+    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    return NULL;
 }
 
 // 기술 선택 함수
