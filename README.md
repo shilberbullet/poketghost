@@ -177,18 +177,18 @@ poketghost/
    - Windows 키 + R을 누르고 'cmd' 입력 후 실행
 
 2. 프로젝트 폴더 생성 및 이동
+#### 원하는 위치로 이동 (예: C 드라이브)
 ```bash
-# 원하는 위치로 이동 (예: C 드라이브)
 cd C:\
 ```
 
+#### 프로젝트 폴더 생성
 ```
-# 프로젝트 폴더 생성
 mkdir poketghost
 ```
 
+#### 생성한 폴더로 이동
 ```
-# 생성한 폴더로 이동
 cd poketghost
 ```
 
@@ -199,11 +199,11 @@ git clone https://github.com/shilberbullet/poketghost.git
 
 ### 3. 컴파일 및 실행
 
-# 소스 코드 컴파일
+#### 소스 코드 컴파일
 ```bash
 gcc -o poketghost.exe src/*.c -I include -lm
 ```
-# 게임 실행
+#### 게임 실행
 ```
 poketghost.exe
 ```
