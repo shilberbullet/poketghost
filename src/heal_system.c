@@ -86,10 +86,10 @@ int healYokai(Yokai* targetYokai) {
                     targetYokai->currentHP = maxHP;
                 }
                 float actualHeal = targetYokai->currentHP - oldHP;
-                char buffer[256];
+                    char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
-                printText(buffer);
-                return 1;
+                    printText(buffer);
+                    return 1;
             }
             else if (strcmp(currentItem->name, "막걸리") == 0) {
                 // 막걸리는 기절한 요괴만 회복 가능
@@ -104,10 +104,10 @@ int healYokai(Yokai* targetYokai) {
                     targetYokai->currentHP = maxHP;
                 }
                 float actualHeal = targetYokai->currentHP - oldHP;
-                char buffer[256];
+                    char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
-                printText(buffer);
-                return 1;
+                    printText(buffer);
+                    return 1;
             }
             break;
         case ITEM_YANGGAENG:

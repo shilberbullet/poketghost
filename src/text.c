@@ -63,5 +63,5 @@ void printText(const char* text) {
 // 텍스트를 출력하고 1초 대기 후 자동으로 넘어가는 함수
 void printTextAndWait(const char* text) {
     printText(text);     // 텍스트 출력
-    Sleep(1500);         // 1.5초 대기
+    (1500);         // 1.5초 대기
 } 
