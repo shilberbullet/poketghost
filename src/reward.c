@@ -160,8 +160,24 @@ void itemRewardSystem() {
     
     addItemToInventory(&candidates[idx]);
     
-    // 회복형 아이템이 아닌 경우에만 획득 메시지 출력
-    if (candidates[idx].type != ITEM_HEAL) {
+    // 작두나 무당방울의 경우 개수에 따라 메시지 출력 여부 결정
+    if (strcmp(candidates[idx].name, "작두") == 0 || strcmp(candidates[idx].name, "무당방울") == 0) {
+        int count = 0;
+        for (int i = 0; i < inventoryCount; i++) {
+            if (strcmp(inventory[i].item.name, candidates[idx].name) == 0) {
+                count = inventory[i].count;
+                break;
+            }
+        }
+        // 5개 미만일 때만 메시지 출력
+        if (count < 5) {
+            char buffer[128];
+            sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
+            printTextAndWait(buffer);
+        }
+    }
+    // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
+    else if (candidates[idx].type != ITEM_HEAL && candidates[idx].type != ITEM_YANGGAENG) {
         char buffer[128];
         sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
         printTextAndWait(buffer);
