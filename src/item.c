@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 #include "item.h"
 #include "yokai.h"
 #include "text.h"
@@ -9,6 +10,7 @@
 #include "heal_system.h"
 #include "sikhye_system.h"
 #include "reward.h"
+#include "party.h"
 
 #define INITIAL_ITEM_CAPACITY 32
 
@@ -68,6 +70,7 @@ ItemType stringToType(const char* str) {
     if (strcmp(str, "TALISMAN") == 0) return ITEM_TALISMAN;
     if (strcmp(str, "PLAYER") == 0) return ITEM_PLAYER;
     if (strcmp(str, "YOKAI") == 0) return ITEM_YOKAI;
+    if (strcmp(str, "YANGGAENG") == 0) return ITEM_YANGGAENG;
     return ITEM_HEAL;
 }
 
@@ -149,24 +152,42 @@ void getRandomItems(Item* outItems, int count) {
 
 // 인벤토리에 아이템 추가
 void addItemToInventory(const Item* item) {
-    // 회복형 아이템은 즉시 사용
-    if (item->type == ITEM_HEAL) {
+    // 회복형, 양갱형 아이템은 즉시 사용
+    if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG) {
         currentItem = item;  // 현재 사용할 아이템 설정
-        Yokai* targetYokai = selectYokaiToHeal();
-        if (targetYokai != NULL) {
-            // 식혜류 아이템 처리
-            if (strcmp(item->name, "미지근한 식혜") == 0 ||
-                strcmp(item->name, "시원한 식혜") == 0 ||
-                strcmp(item->name, "맛있는 식혜") == 0) {
-                useSikhyeItem(item->name, targetYokai);
+        if (item->type == ITEM_YANGGAENG && item->grade == ITEM_RARE) {
+            // 이상한 양갱은 요괴 선택 없이 바로 사용
+            int result = healYokai(NULL);  // NULL을 전달하여 모든 요괴 처리
+            currentItem = NULL;  // 아이템 사용 후 초기화
+            if (!result) {
+                printText("\n다시 아이템을 선택하세요.\n");
+                itemRewardSystem();
+                return;
             }
-            else {
-                int healResult = healYokai(targetYokai);  // HP 회복 처리
-                if (healResult == -1) {
-                    currentItem = NULL;
-                    printText("\n다시 아이템을 선택하세요.\n");
-                    itemRewardSystem();  // 아이템 선택 메뉴로 돌아가기
-                    return;
+        } else {
+            Yokai* targetYokai = selectYokaiToHeal();
+            if (targetYokai != NULL) {
+                if (item->type == ITEM_HEAL) {
+                    // 식혜류 아이템 처리
+                    if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
+                        useSikhyeItem(item->name, targetYokai);
+                    } else {
+                        int healResult = healYokai(targetYokai);  // HP 회복 처리
+                        if (healResult == -1) {
+                            currentItem = NULL;
+                            printText("\n다시 아이템을 선택하세요.\n");
+                            itemRewardSystem();  // 아이템 선택 메뉴로 돌아가기
+                            return;
+                        }
+                    }
+                } else if (item->type == ITEM_YANGGAENG) {
+                    int result = healYokai(targetYokai); // 일반/초희귀 양갱은 선택한 요괴에게 적용
+                    if (!result) {
+                        currentItem = NULL;
+                        printText("\n다시 아이템을 선택하세요.\n");
+                        itemRewardSystem();
+                        return;
+                    }
                 }
             }
         }
@@ -312,4 +333,81 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
 int calculateMudangBonus(int amount, int mudangCount) {
     if (mudangCount > 5) mudangCount = 5;
     return (amount * 10 * mudangCount) / 100;
+}
+
+// 양갱 사용 함수
+bool useYanggaeng(const Item* item, Yokai* targetYokai) {
+    if (item->type != ITEM_YANGGAENG) {
+        printf("이 아이템은 양갱이 아닙니다!\n");
+        return false;
+    }
+
+    // 양갱 등급에 따른 레벨 상승량 결정
+    int levelUp = 0;
+    switch (item->grade) {
+        case ITEM_COMMON:
+            levelUp = 1;  // 일반 양갱: 1레벨
+            break;
+        case ITEM_RARE:
+            // 희귀 양갱: 모든 동료 요괴 1레벨
+            printText("\n이상한 양갱을 사용합니다...\n");
+            Sleep(1000);
+            
+            for (int i = 0; i < partyCount; i++) {
+                float oldMaxHP = calculateHP(&party[i]);  // 이전 최대 HP 저장
+                int oldLevel = party[i].level;
+                party[i].level++;  // 레벨 증가
+                float newMaxHP = calculateHP(&party[i]);  // 새로운 최대 HP 계산
+                float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
+                party[i].currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+                
+                // 레벨업 메시지 출력
+                char buffer[256];
+                sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
+                    party[i].name, oldLevel, party[i].level);
+                printText(buffer);
+                Sleep(1000);
+            }
+            printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
+            Sleep(1000);
+            printTextAndWait("계속하려면 아무 키나 누르세요...");
+            return true;
+        case ITEM_SUPERRARE:
+            levelUp = 3;  // 고급 양갱: 3레벨
+            break;
+        default:
+            return false;
+    }
+
+    // 일반 양갱과 고급 양갱의 경우
+    if (levelUp > 0) {
+        float oldMaxHP = calculateHP(targetYokai);  // 이전 최대 HP 저장
+        int oldLevel = targetYokai->level;
+        targetYokai->level += levelUp;  // 레벨 증가
+        float newMaxHP = calculateHP(targetYokai);  // 새로운 최대 HP 계산
+        float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
+        targetYokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+        
+        // 레벨업 메시지 출력
+        char buffer[256];
+        sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
+            targetYokai->name, oldLevel, targetYokai->level);
+        printText(buffer);
+        Sleep(1000);
+        return true;
+    }
+
+    return false;
+}
+
+// 작두 아이템 개수 반환 함수
+int getJakduCount() {
+    int count = 0;
+    for (int i = 0; i < inventoryCount; i++) {
+        if (strcmp(inventory[i].item.name, "작두") == 0) {
+            count = inventory[i].count;
+            break;
+        }
+    }
+    return count;
 } 
