@@ -15,6 +15,7 @@ typedef struct {
     int currentTime;
     bool isNewGame;
     bool isLoadedGame;
+    bool isManualSave;  // 수동 저장 플래그
 } GameState;
 
 extern GameState gameState;

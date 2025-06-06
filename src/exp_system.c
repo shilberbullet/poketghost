@@ -13,7 +13,7 @@
 // 레벨에 따라 필요한 경험치를 계산
 int calculateRequiredExp(int level) {
     // 기본 공식: 20 * (level^1.2)
-    return (int)(20 * pow(level, 1.2));
+    return (int)(15 * pow(level, 1.7));
 }
 
 // 전투 승리 시 획득 경험치 계산 함수

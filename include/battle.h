@@ -1,6 +1,8 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
+#define MAX_PARTY 6
+
 #include "types.h"
 #include "yokai.h"
 
@@ -32,6 +34,8 @@ int tryToEscape(void);
 // 전역 변수 선언
 extern int turnCount;
 extern int lastYokaiIdx;
+extern int participatedIdx[MAX_PARTY];
+extern int participatedCount;
 
 int handleFaintedYokai(int faintedIdx);
 

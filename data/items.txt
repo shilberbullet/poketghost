@@ -1,18 +1,20 @@
 # 아이템 데이터 파일
 # 형식: 이름,등급,종류,효과
 # 등급: COMMON(일반), RARE(희귀), SUPERRARE(초희귀)
-# 종류: HEAL(회복), TALISMAN(부적), PLAYER(플레이어), YOKAI(요괴)
+# 종류: HEAL(회복), TALISMAN(부적), PLAYER(플레이어), YOKAI(요괴), YANGGAENG(양갱)
 
 # 일반 아이템
 낡은부적,COMMON,TALISMAN,요괴를 낮은 확률로 동료로 만들수 있다
 제삿밥,COMMON,HEAL,동료 요괴의 약간의 체력을 회복 할수있다
 미지근한 식혜,COMMON,HEAL,동료 요괴의 선택한 기술 PP를 5만큼 회복한다
+평범한 양갱,COMMON,YANGGAENG,선택한 요괴의 레벨을 1 올려준다
 
 # 희귀 아이템
 빳빳한 부적,RARE,TALISMAN,요괴를 높은 확률로 동료로 만들수 있다
 나물,RARE,HEAL,동료 요괴의 많은 체력을 회복한다
 탕국,RARE,HEAL,기절한 동료를 깨우고 체력의 반을 회복한다
 시원한 식혜,RARE,HEAL,동료 요괴의 선택한 기술 PP를 모두 회복한다
+이상한 양갱,RARE,YANGGAENG,모든 동료 요괴의 레벨을 1 올려준다
 
 # 초희귀 아이템
 신비한 부적,SUPERRARE,TALISMAN,요괴를 반드시 동료로 만들수 있다
@@ -20,6 +22,7 @@
 무당방울,SUPERRARE,PLAYER,퇴마사가 지니고 있으면 클리어 후 더 많은 돈을 얻는다
 작두,SUPERRARE,PLAYER,퇴마사가 지니고 있으면 요괴들의 공격력이 올라간다
 복숭아,SUPERRARE,YOKAI,동료 요괴가 지니고 있으면 매턴 약간의 체력을 회복한다
-맛있는 식혜,SUPERRARE,HEAL,동료 요괴의 모든 기술 PP를 모두 회복한다 
+맛있는 식혜,SUPERRARE,HEAL,동료 요괴의 모든 기술 PP를 모두 회복한다
+고급양갱,SUPERRARE,YANGGAENG,선택한 요괴의 레벨을 3 올려준다 
  
  
