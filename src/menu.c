@@ -27,7 +27,7 @@ void showGameMenu(void) {
         
         choice = getIntInput();  // 정수 입력 받기
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 숫자를 입력해주세요.");  // 잘못된 입력 처리
+            printTextAndWait("\n잘못된 입력입니다. 다시 시도하세요.");  // 잘못된 입력 처리
             continue;
         }
         

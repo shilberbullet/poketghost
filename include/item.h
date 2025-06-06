@@ -25,7 +25,8 @@ typedef enum {
     ITEM_HEAL,      // 회복형
     ITEM_TALISMAN,  // 부적형
     ITEM_PLAYER,    // 플레이어 아이템
-    ITEM_YOKAI      // 요괴 아이템
+    ITEM_YOKAI,     // 요괴 아이템
+    ITEM_YANGGAENG  // 양갱형
 } ItemType;
 
 // 아이템 구조체
@@ -69,10 +70,16 @@ void addItemToInventory(const Item* item);
 // 부적 사용 함수
 bool useTalisman(const Item* item, Yokai* targetYokai);
 
+// 양갱 사용 함수
+bool useYanggaeng(const Item* item, Yokai* targetYokai);
+
 // 무당방울 보너스 계산 함수
 int calculateMudangBonus(int amount, int mudangCount);
 
 // 인벤토리 출력 함수
 void printInventory();
+
+// 작두 아이템 개수 반환 함수
+int getJakduCount();
 
 #endif // ITEM_H 

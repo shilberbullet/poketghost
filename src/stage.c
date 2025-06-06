@@ -62,16 +62,16 @@ void nextStage() {
     currentStage.hour = (currentStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
     currentStage.terrain = rand() % TERRAIN_COUNT;     // 랜덤 지형 설정
     
-    // 5의 배수 스테이지 완료 시 자동 저장
-    if ((currentStage.stageNumber - 1) % 5 == 0) {
+    // 새로운 스테이지 초기화 (hour, terrain은 유지)
+    initStage(&currentStage, currentStage.stageNumber);
+    
+    // 5의 배수 스테이지 완료 시 자동 저장 (수동 저장이 아닌 경우에만)
+    if ((currentStage.stageNumber - 1) % 5 == 0 && !gameState.isLoadedGame && !gameState.isManualSave) {
         saveGame();
         char buffer[128];
         sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", currentStage.stageNumber - 1);
         printTextAndWait(buffer);
     }
-    
-    // 새로운 스테이지 초기화 (hour, terrain은 유지)
-    initStage(&currentStage, currentStage.stageNumber);
 }
 
 // 스테이지 정보를 표시하는 함수

@@ -5,6 +5,7 @@
 #include "text.h"
 #include "hp_system.h"
 #include "battle.h"  // currentEnemy 변수를 위해 추가
+#include "item.h" // 작두 개수 확인을 위해 추가
 
 // 상대 요괴 이름 색상 반환 함수 extern 선언
 extern const char* getEnemyNameColorExport();
@@ -47,7 +48,7 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
 // 공격자, 방어자, 사용 기술에 따른 데미지를 계산
 float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* move) {
     // 기본 데미지 계산: 공격력 * 기술 위력 * 레벨 보정
-    float baseDamage = (float)attacker->attack * move->power * (attacker->level / 5.0f + 1);
+    float baseDamage = (float)attacker->attack * move->power * (attacker->level);
     // 방어력 보정
     float defenseFactor = defender->defense + 100.0f;
     // 타입 상성 적용
@@ -55,6 +56,24 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     
     // 최종 데미지 계산
     float damage = (baseDamage / defenseFactor) * typeEffectiveness;
+    
+    // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
+    extern Yokai party[];
+    extern int partyCount;
+    for (int i = 0; i < partyCount; i++) {
+        if (attacker == &party[i]) {
+            int jakduCount = getJakduCount();
+            if (jakduCount > 0) {
+                if (jakduCount > 5) jakduCount = 5;
+                float damageMultiplier = 1.0f + 0.1f * jakduCount;
+                damage *= damageMultiplier;
+                char buffer[256];
+                sprintf(buffer, "\n작두의 힘으로 데미지가 %.0f%% 증가했습니다!\n", (damageMultiplier - 1.0f) * 100);
+                printText(buffer);
+            }
+            break;
+        }
+    }
     
     // 랜덤 요소 추가 (0.85 ~ 1.0)
     float randomFactor = 0.85f + (float)(rand() % 16) / 100.0f;
@@ -118,16 +137,22 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     
     // 데미지 계산 및 적용
     float damage = calculateDamage(attacker, defender, move);
+    float actualDamage = damage;
+    
+    // 실제 데미지가 현재 HP보다 크면 현재 HP만큼만 데미지를 입힘
+    if (actualDamage > defender->currentHP) {
+        actualDamage = defender->currentHP;
+    }
     
     // 데미지 적용 및 상태 업데이트
     if (defender == attacker) {
-        attacker->currentHP -= damage;
+        attacker->currentHP -= actualDamage;
         if (attacker->currentHP < 0) {
             attacker->currentHP = 0;
             attacker->status = YOKAI_FAINTED;  // 기절 상태로 변경
         }
     } else {
-        defender->currentHP -= damage;
+        defender->currentHP -= actualDamage;
         if (defender->currentHP < 0) {
             defender->currentHP = 0;
             defender->status = YOKAI_FAINTED;  // 기절 상태로 변경
@@ -142,10 +167,10 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     // 데미지 메시지 출력
     if (defender == &currentEnemy) {
         // 상대 요괴의 경우 색상 적용
-        sprintf(buffer, "\n%s%s\033[0m에게 %.0f의 데미지를 입혔다!", getEnemyNameColorExport(), defender->name, damage);
+        sprintf(buffer, "\n%s%s\033[0m에게 %.0f의 데미지를 입혔다!", getEnemyNameColorExport(), defender->name, actualDamage);
     } else {
         // 동료 요괴의 경우 기본 색상
-        sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, damage);
+        sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, actualDamage);
     }
     printText(buffer);
     
@@ -162,7 +187,14 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     float hpPercentage = (defender->currentHP / maxHP) * 100.0f;
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
-    printText("\nHP[");
+    if (defender == &currentEnemy) {
+        // 상대 요괴의 경우 색상 적용
+        sprintf(buffer, "\n%s%s\033[0m HP[", getEnemyNameColorExport(), defender->name);
+    } else {
+        // 동료 요괴의 경우 기본 색상
+        sprintf(buffer, "\n%s HP[", defender->name);
+    }
+    printText(buffer);
     // HP 상태에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
         printText("\033[31m"); // 빨간색

@@ -39,8 +39,4 @@ void generateNormalStageEnemies(StageInfo* stage) {
 // 일반 스테이지 클리어 처리 함수
 void handleNormalStageClear(void) {
     // 일반 스테이지 클리어 시 처리
-    // 5의 배수 스테이지 완료 시 자동 저장
-    if ((currentStage.stageNumber - 1) % 5 == 0) {
-        saveGame();
-    }
 } 

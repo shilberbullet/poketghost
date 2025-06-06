@@ -13,4 +13,7 @@ void setTextDisplayMode();
 // 상성 힌트 표시 설정 함수
 void setTypeHintDisplay();
 
+// 디버그 모드 설정 함수
+void setDebugMode();
+
 #endif // SETTINGS_UI_H 

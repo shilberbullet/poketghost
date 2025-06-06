@@ -194,17 +194,17 @@ cd poketghost
 
 3. GitHub에서 소스 코드 다운로드
 ```bash
-git clone https://github.com/shilberbullet/poketghost.git .
+git clone https://github.com/shilberbullet/poketghost.git
 ```
 
 ### 3. 컴파일 및 실행
-```bash
+
 # 소스 코드 컴파일
+```bash
 gcc -o poketghost.exe src/*.c -I include -lm
 ```
-
-```
 # 게임 실행
+```
 poketghost.exe
 ```
 
