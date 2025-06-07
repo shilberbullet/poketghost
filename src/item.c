@@ -183,8 +183,38 @@ void addItemToInventory(const Item* item) {
                     }
                     // 식혜류 아이템 처리
                     else if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
+                        if (targetYokai->status == YOKAI_FAINTED) {
+                            printText("\n기절한 요괴에게는 사용할 수 없습니다.\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
                         useSikhyeItem(item->name, targetYokai);
+                    }
+                    // 탕국과 막걸리 처리
+                    else if (strcmp(item->name, "탕국") == 0 || strcmp(item->name, "막걸리") == 0) {
+                        if (targetYokai->status != YOKAI_FAINTED) {
+                            printText("\n기절하지 않은 요괴에게는 사용할 수 없습니다.\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
+                        int healResult = healYokai(targetYokai);  // HP 회복 처리
+                        if (healResult == -1) {
+                            currentItem = NULL;
+                            printText("\n다시 아이템을 선택하세요.\n");
+                            itemRewardSystem();  // 아이템 선택 메뉴로 돌아가기
+                            return;
+                        }
+                        targetYokai->status = YOKAI_NORMAL; // 기절 상태 해제
+                        printText("\n요괴의 기절 상태가 해제되었습니다!\n");
                     } else {
+                        if (targetYokai->status == YOKAI_FAINTED) {
+                            printText("\n기절한 요괴에게는 사용할 수 없습니다.\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
                         int healResult = healYokai(targetYokai);  // HP 회복 처리
                         if (healResult == -1) {
                             currentItem = NULL;
@@ -359,7 +389,7 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
     float baseCatchRate = 0.0f;
     switch (item->grade) {
         case ITEM_COMMON:
-            baseCatchRate = 0.1f;
+            baseCatchRate = 0.15f;
             break;
         case ITEM_RARE:
             baseCatchRate = 0.3;
@@ -368,11 +398,11 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
             baseCatchRate = 1;  // 100%
             break;
         default:
-            baseCatchRate = 0.1f;
+            baseCatchRate = 0.15;
     }
     
     // 최종 포획률 계산 (기본 포획률 + HP 보너스)
-    float finalCatchRate = baseCatchRate + (hpBonus * 0.3f);  // HP 보너스는 최대 30%까지
+    float finalCatchRate = baseCatchRate + (hpBonus * 0.4f);  // HP 보너스는 최대 40%까지
     
     // 포획 시도
     if ((float)rand() / RAND_MAX < finalCatchRate) {
@@ -406,7 +436,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
         case ITEM_RARE:
             // 희귀 양갱: 모든 동료 요괴 1레벨
             printText("\n이상한 양갱을 사용합니다...\n");
-            Sleep(1000);
+            Sleep(100);
             
             for (int i = 0; i < partyCount; i++) {
                 float oldMaxHP = calculateHP(&party[i]);  // 이전 최대 HP 저장
@@ -414,7 +444,11 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
                 party[i].level++;  // 레벨 증가
                 float newMaxHP = calculateHP(&party[i]);  // 새로운 최대 HP 계산
                 float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
-                party[i].currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+                
+                // 기절 상태가 아닐 때만 현재 HP 증가
+                if (party[i].status != YOKAI_FAINTED) {
+                    party[i].currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+                }
                 
                 // 레벨업 메시지 출력
                 char buffer[256];
@@ -441,7 +475,11 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
         targetYokai->level += levelUp;  // 레벨 증가
         float newMaxHP = calculateHP(targetYokai);  // 새로운 최대 HP 계산
         float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
-        targetYokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+        
+        // 기절 상태가 아닐 때만 현재 HP 증가
+        if (targetYokai->status != YOKAI_FAINTED) {
+            targetYokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+        }
         
         // 레벨업 메시지 출력
         char buffer[256];

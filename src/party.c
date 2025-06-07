@@ -116,8 +116,12 @@ int handleFullParty(const Yokai* newYokai) {
                 return addYokaiToParty(newYokai);
             } else {
                 printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+                continue;  // 다시 선택하도록 continue 추가
             }
         }
+    } else {
+        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        return handleFullParty(newYokai); // 다시 선택 메뉴로
     }
     return 0;
 }
