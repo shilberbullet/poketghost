@@ -13,21 +13,7 @@
 #include "party.h"
 #include "yokai.h"
 #include "game.h"
-
-// 지역 이름 배열 (10개씩 그룹화)
-const char* regions[] = {
-    // 1-10 스테이지 (초보자 지역)
-    "초보자의 숲", "초보자의 언덕", "초보자의 계곡", "초보자의 호수", "초보자의 들판",
-    "초보자의 마을", "초보자의 길", "초보자의 동굴", "초보자의 강", "초보자의 산",
-    
-    // 11-20 스테이지 (숙련자 지역)
-    "숙련자의 숲", "숙련자의 언덕", "숙련자의 계곡", "숙련자의 호수", "숙련자의 들판",
-    "숙련자의 마을", "숙련자의 길", "숙련자의 동굴", "숙련자의 강", "숙련자의 산",
-    
-    // 21-30 스테이지 (전문가 지역)
-    "전문가의 숲", "전문가의 언덕", "전문가의 계곡", "전문가의 호수", "전문가의 들판",
-    "전문가의 마을", "전문가의 길", "전문가의 동굴", "전문가의 강", "전문가의 산"
-};
+#include "region.h"
 
 // 지형 이름 배열
 const char* terrainNames[] = {
@@ -62,6 +48,17 @@ void nextStage() {
     currentStage.hour = (currentStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
     currentStage.terrain = rand() % TERRAIN_COUNT;     // 랜덤 지형 설정
     
+    // 10스테이지마다 지역 변경
+    if (currentStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
+        if (moveToNextRegion()) {
+            char buffer[256];
+            sprintf(buffer, "\n%s로 이동했습니다.\n", getCurrentRegion());
+            printText(buffer);
+            displayConnectedRegions();
+            printTextAndWait("아무 키나 누르면 계속합니다...");
+        }
+    }
+    
     // 새로운 스테이지 초기화 (hour, terrain은 유지)
     initStage(&currentStage, currentStage.stageNumber);
     
@@ -77,23 +74,17 @@ void nextStage() {
 // 스테이지 정보를 표시하는 함수
 void showStageInfo() {
     char buffer[256];
-    
     system("cls");  // 화면 지우기
     printText("=== 스테이지 정보 ===\n\n");
-    
     sprintf(buffer, "스테이지: %d\n", currentStage.stageNumber);  // 스테이지 번호
     printText(buffer);
-    
-    sprintf(buffer, "지역: %s\n", currentStage.region);  // 지역 이름
+    sprintf(buffer, "지역: %s\n", getCurrentRegion());  // 현재 지역명 출력
     printText(buffer);
-    
     sprintf(buffer, "지형: %s\n", terrainNames[currentStage.terrain]);  // 지형 이름
     printText(buffer);
-    
     int hour = (currentStage.stageNumber - 1) % 24;  // 현재 시간
     sprintf(buffer, "시간: %02d시\n", hour);
     printText(buffer);
-    
     sprintf(buffer, "보유 전: %d전\n\n", player.money);  // 보유 금액
     printText(buffer);
 }

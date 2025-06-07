@@ -22,6 +22,8 @@
 #include "heal_system.h" // 회복 시스템 관련 함수와 구조체 정의
 // 식혜 시스템 관련 함수와 구조체 정의
 #include "sikhye_system.h" // 식혜 시스템 관련 함수와 구조체 정의
+// 지역 시스템 관련 함수와 구조체 정의
+#include "region.h"       // 지역 시스템 관련 함수와 구조체 정의
 
 // 메인 함수
 int main(void) {
@@ -36,6 +38,9 @@ int main(void) {
     
     // 회복 시스템을 초기화하여 게임에서 사용할 회복 기능들을 준비
     initHealSystem();
+    
+    // 지역 시스템을 초기화하여 게임에서 사용할 지역 기능들을 준비
+    initRegionSystem();
     
     // 게임에 필요한 데이터 파일들을 로드
     loadMovesFromFile("data/move.txt");     // 이동 관련 데이터 로드

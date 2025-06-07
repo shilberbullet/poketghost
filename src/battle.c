@@ -20,6 +20,7 @@
 #include "battle_system.h"  // 새로 추가
 #include "roguelite.h"  // 로그라이트 시스템 추가
 #include "settings.h"
+#include "region.h"
 
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
@@ -163,6 +164,7 @@ int startBattle(const Yokai* enemy) {
                 }
             }
             itemRewardSystem(); // 아이템 보상 창 호출
+            
             return done;  // 전투 결과 반환
         } else if (done == 103) {
             // 도망 성공: 보상 없음
