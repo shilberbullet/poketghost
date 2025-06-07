@@ -38,4 +38,7 @@ void loadRegionData(FILE* file);
 // 현재 지역의 연결된 지역 목록 표시
 void displayConnectedRegions(void);
 
+// 다음 지역으로 이동 (지도 기반)
+int moveToNextRegionWithMap(void);
+
 #endif // REGION_H 

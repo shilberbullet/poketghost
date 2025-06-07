@@ -1,5 +1,6 @@
 #include "../include/region.h"
 #include "../include/text.h"
+#include "../include/input.h"
 
 // 지역 데이터
 static Region regions[MAX_REGIONS] = {
@@ -70,6 +71,50 @@ int moveToNextRegion(void) {
     strcpy(currentRegion, regions[nextIndex].name);
     regions[nextIndex].visited = 1;
     
+    return 1;
+}
+
+// 지도 아이템 사용 시 플레이어가 직접 지역을 선택할 수 있는 함수
+int moveToNextRegionWithMap(void) {
+    int currentIndex = -1;
+    for (int i = 0; i < MAX_REGIONS; i++) {
+        if (strcmp(regions[i].name, currentRegion) == 0) {
+            currentIndex = i;
+            break;
+        }
+    }
+    if (currentIndex == -1) return 0;
+    int availableRegions[MAX_REGIONS];
+    int availableCount = 0;
+    for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
+        for (int j = 0; j < MAX_REGIONS; j++) {
+            if (strcmp(regions[currentIndex].connected[i], regions[j].name) == 0) {
+                if (!regions[j].visited) {
+                    availableRegions[availableCount++] = j;
+                }
+                break;
+            }
+        }
+    }
+    if (availableCount == 0) return 0;
+    printText("\n지도 아이템을 사용하여 다음 지역을 선택하세요:\n");
+    for (int i = 0; i < availableCount; i++) {
+        char buffer[64];
+        sprintf(buffer, "%d. %s\n", i+1, regions[availableRegions[i]].name);
+        printText(buffer);
+    }
+    printText("선택 (번호): ");
+    int choice = getIntInput() - 1;
+    if (choice < 0 || choice >= availableCount) {
+        printTextAndWait("\n잘못된 선택입니다. 랜덤으로 이동합니다.");
+        int nextIndex = availableRegions[rand() % availableCount];
+        strcpy(currentRegion, regions[nextIndex].name);
+        regions[nextIndex].visited = 1;
+        return 1;
+    }
+    int nextIndex = availableRegions[choice];
+    strcpy(currentRegion, regions[nextIndex].name);
+    regions[nextIndex].visited = 1;
     return 1;
 }
 

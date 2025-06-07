@@ -212,6 +212,16 @@ void addItemToInventory(const Item* item) {
         return;
     }
 
+    // 지도 아이템은 최대 1개만 보유 가능
+    if (strcmp(item->name, "지도") == 0) {
+        for (int i = 0; i < inventoryCount; i++) {
+            if (strcmp(inventory[i].item.name, "지도") == 0) {
+                printTextAndWait("\n지도 아이템은 최대 1개까지만 보유할 수 있습니다!");
+                return;
+            }
+        }
+    }
+
     // 이미 있는 아이템인지 확인
     for (int i = 0; i < inventoryCount; i++) {
         if (strcmp(inventory[i].item.name, item->name) == 0) {
@@ -333,20 +343,20 @@ bool useTalisman(const Item* item, Yokai* targetYokai) {
     float baseCatchRate = 0.0f;
     switch (item->grade) {
         case ITEM_COMMON:
-            baseCatchRate = 0.3f;
+            baseCatchRate = 0.1f;
             break;
         case ITEM_RARE:
-            baseCatchRate = 0.5f;
+            baseCatchRate = 0.3;
             break;
         case ITEM_SUPERRARE:
-            baseCatchRate = 0.8f;  // 100%에서 80%로 수정
+            baseCatchRate = 1;  // 100%
             break;
         default:
-            baseCatchRate = 0.3f;
+            baseCatchRate = 0.1f;
     }
     
     // 최종 포획률 계산 (기본 포획률 + HP 보너스)
-    float finalCatchRate = baseCatchRate + (hpBonus * 0.5f);  // HP 보너스는 최대 50%까지
+    float finalCatchRate = baseCatchRate + (hpBonus * 0.3f);  // HP 보너스는 최대 30%까지
     
     // 포획 시도
     if ((float)rand() / RAND_MAX < finalCatchRate) {
