@@ -12,6 +12,7 @@
 #include "savefile.h"
 #include "exit.h"
 #include "reward.h"
+#include "region.h"
 
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
@@ -62,9 +63,34 @@ void startNewGame(void) {
     gameState.isNewGame = 1;  // 새 게임 플래그 설정
     gameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
+    
+    // 시작 지역 선택
+    system("cls");
+    printText("=== 시작 지역 선택 ===\n\n");
+    printText("1. 경상도\n");
+    printText("2. 전라도\n\n");
+    printText("숫자를 입력하세요: ");
+    
+    int choice = getIntInput();
+    while (choice != 1 && choice != 2) {
+        printText("\n잘못된 입력입니다. 1 또는 2를 입력해주세요: ");
+        choice = getIntInput();
+    }
+    
+    if (!setInitialRegion(choice)) {
+        printTextAndWait("\n지역 설정에 실패했습니다.");
+        return;
+    }
+    
     initGame(); // 게임 상태 초기화
     initStage(&currentStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
+    
+    char buffer[256];
+    sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
+    printText(buffer);
+    printTextAndWait("아무 키나 누르면 계속합니다...");
+    
     while (gameState.isRunning) {
         showStageInfo();
         showBattleInterface();

@@ -7,16 +7,15 @@
 #include "yokai.h"
 #include "party.h"
 #include "savefile.h"
+#include "region.h"
 
 // 일반 스테이지 초기화 함수
 void initNormalStage(StageInfo* stage, int stageNumber) {
     stage->stageNumber = stageNumber;      // 스테이지 번호 설정
     stage->isBossStage = false;            // 일반 스테이지 플래그 설정
-    // 지역 초기화
-    size_t regionIndex = (stageNumber - 1) / 10;
-    if (regionIndex < REGION_COUNT) {
-        strcpy(stage->region, regions[regionIndex]);
-    }
+    
+    // 현재 지역 설정
+    strcpy(stage->region, getCurrentRegion());
     
     // 레벨 범위 계산
     calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);

@@ -7,6 +7,7 @@
 #include "party.h"
 #include "savefile.h"
 #include "hp_system.h"
+#include "region.h"
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
@@ -14,11 +15,8 @@ void initBossStage(StageInfo* stage, int stageNumber) {
     stage->isBossStage = true;             // 보스 스테이지 플래그 설정
     // stage->hour = 0;  // 시간 초기화 제거
     
-    // 지역 초기화
-    size_t regionIndex = (stageNumber - 1) / 10;
-    if (regionIndex < REGION_COUNT) {
-        strcpy(stage->region, regions[regionIndex]);
-    }
+    // 현재 지역 설정
+    strcpy(stage->region, getCurrentRegion());
     
     // 레벨 범위 계산
     calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);

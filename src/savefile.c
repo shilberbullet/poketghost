@@ -10,6 +10,7 @@
 #include "item.h"
 #include "battle.h"
 #include "text.h"
+#include "region.h"
 
 #define SAVE_FILE "data/save.dat"
 
@@ -137,6 +138,9 @@ void saveGame() {
     // 마지막으로 사용한 요괴 인덱스 저장
     fwrite(&lastYokaiIdx, sizeof(int), 1, file);
     
+    // 지역 데이터 저장
+    saveRegionData(file);
+    
     fclose(file);
 }
 
@@ -228,6 +232,9 @@ int loadGameData() {
     
     // 마지막으로 사용한 요괴 인덱스 불러오기
     fread(&lastYokaiIdx, sizeof(int), 1, file);
+    
+    // 지역 데이터 불러오기
+    loadRegionData(file);
     
     fclose(file);
     gameState.isLoadedGame = 1; // 이어하기 플래그 설정

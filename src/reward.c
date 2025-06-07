@@ -6,6 +6,13 @@
 #include "input.h"
 #include "item.h"
 #include "game.h"
+#include "party.h"
+#include "battle.h"
+
+// 외부 변수 선언
+extern Yokai party[];
+extern int partyCount;
+extern Yokai currentEnemy;
 
 // static 변수들을 전역 변수로 이동
 Item candidates[3];  // 보상 후보 아이템 배열
@@ -16,7 +23,7 @@ int lastStageNumber = -1; // 마지막 스테이지 번호
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
     int baseReward = 100;  // 기본 보상
-    int stageBonus = (currentStage.stageNumber / 10) * 50;  // 10스테이지마다 50전씩 증가
+    int stageBonus = (currentStage.stageNumber / 10) * 100;  // 10스테이지마다 50전씩 증가
     int randomBonus = rand() % 50;  // 0-49전 랜덤 보너스
     
     // 10의 배수 스테이지에서는 2배 보상
