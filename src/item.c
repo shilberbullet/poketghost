@@ -435,7 +435,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
             break;
         case ITEM_RARE:
             // 희귀 양갱: 모든 동료 요괴 1레벨
-            printText("\n이상한 양갱을 사용합니다...\n");
+            printText("\n 양갱을 사용합니다...\n");
             Sleep(100);
             
             for (int i = 0; i < partyCount; i++) {
@@ -455,7 +455,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
                 sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
                     party[i].name, oldLevel, party[i].level);
                 printText(buffer);
-                Sleep(1000);
+                Sleep(100);
             }
             printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
             Sleep(1000);

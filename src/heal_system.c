@@ -122,14 +122,18 @@ int healYokai(Yokai* targetYokai) {
                     party[i].level++;
                     float newMaxHP = calculateHP(&party[i]);
                     float hpIncrease = newMaxHP - oldMaxHP;
-                    party[i].currentHP += hpIncrease;
+                    
+                    // 기절 상태가 아닐 때만 현재 HP 증가
+                    if (party[i].status != YOKAI_FAINTED) {
+                        party[i].currentHP += hpIncrease;
+                    }
                     
                     // 레벨업 메시지 출력
                     char buffer[256];
                     sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
                         party[i].name, oldLevel, party[i].level);
                     printText(buffer);
-                    Sleep(1000);
+                    Sleep(100);
                 }
                 printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
                 Sleep(1000);
