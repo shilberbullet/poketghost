@@ -194,12 +194,28 @@ void addItemToInventory(const Item* item) {
                         }
                     }
                 } else if (item->type == ITEM_YANGGAENG) {
-                    int result = healYokai(targetYokai); // 일반/초희귀 양갱은 선택한 요괴에게 적용
-                    if (!result) {
-                        currentItem = NULL;
-                        printText("\n다시 아이템을 선택하세요.\n");
-                        itemRewardSystem();
-                        return;
+                    // 기절 회복 아이템 처리
+                    if (strcmp(item->name, "기절 회복 양갱") == 0) {
+                        if (targetYokai->status == YOKAI_FAINTED) {
+                            targetYokai->status = YOKAI_NORMAL;  // 기절 상태 해제
+                            targetYokai->currentHP = calculateHP(targetYokai);  // HP 회복
+                            char msg[64];
+                            snprintf(msg, sizeof(msg), "\n%s의 기절 상태가 해제되었습니다!\n", targetYokai->name);
+                            printText(msg);
+                        } else {
+                            printText("\n기절하지 않은 요괴에게는 사용할 수 없습니다.\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
+                    } else {
+                        int result = healYokai(targetYokai); // 일반/초희귀 양갱은 선택한 요괴에게 적용
+                        if (!result) {
+                            currentItem = NULL;
+                            printText("\n다시 아이템을 선택하세요.\n");
+                            itemRewardSystem();
+                            return;
+                        }
                     }
                 }
             } else {

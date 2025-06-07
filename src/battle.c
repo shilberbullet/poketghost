@@ -697,8 +697,30 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (party[newYokaiIdx].currentHP <= 0) {
                 party[newYokaiIdx].status = YOKAI_FAINTED;
                 party[newYokaiIdx].currentHP = 0;
-                printTextAndWait("\n전투에서 패배했습니다...");
-                return 104; // 전투 패배
+                
+                // 모든 요괴가 기절했는지 확인
+                bool allFainted = true;
+                for (int i = 0; i < partyCount; i++) {
+                    if (party[i].status != YOKAI_FAINTED) {
+                        allFainted = false;
+                        break;
+                    }
+                }
+                
+                if (allFainted) {
+                    handleRogueliteSystem();
+                    return 104; // 전투 패배
+                }
+                
+                // 기절하지 않은 요괴가 있으면 교체 메뉴 표시
+                printTextAndWait("\n다른 요괴를 선택하세요.");
+                newYokaiIdx = selectPartyYokai();
+                if (newYokaiIdx == -1) {
+                    return 0; // 뒤로 돌아가기
+                }
+                lastYokaiIdx = newYokaiIdx;
+                turnCount++;
+                return 0;
             }
             
             lastYokaiIdx = newYokaiIdx;

@@ -178,6 +178,7 @@ Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
     y.level = level;
+    y.status = YOKAI_NORMAL;  // 기본 상태는 정상
     y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
     assignRandomMoves(&y);
     return y;
@@ -188,6 +189,7 @@ Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.level = level;
+    y.status = YOKAI_NORMAL;  // 기본 상태는 정상
     y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
     assignRandomMoves(&y);
     return y;
@@ -219,3 +221,11 @@ void printYokaiInfo(const Yokai* yokai) {
 }
 
 // initParty와 addYokaiToParty 함수는 party.c로 이동 
+
+// 레벨업 함수
+void levelUpYokai(Yokai* yokai) {
+    yokai->level++;
+    if (yokai->status != YOKAI_FAINTED) {  // 기절 상태가 아닐 때만 HP 증가
+        yokai->currentHP = calculateHP(yokai);
+    }
+} 
