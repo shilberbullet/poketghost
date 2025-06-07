@@ -548,14 +548,17 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     inventory[idx].count--;
                 }
                 
-                // 부적 실패 시 이전에 선택한 요괴 사용
-                int yokaiIdx = lastYokaiIdx;
-                if (party[yokaiIdx].status == YOKAI_FAINTED) {
-                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                // 첫 턴이면 요괴를 선택한 후 상대 요괴의 공격을 받음
+                int yokaiIdx;
+                if (turnCount == 1) {
                     yokaiIdx = selectPartyYokai();
                     if (yokaiIdx == -1) {
                         return 0; // 뒤로 돌아가기
                     }
+                    lastYokaiIdx = yokaiIdx;
+                } else {
+                    // 첫 턴이 아니면 이전에 선택한 요괴 사용
+                    yokaiIdx = lastYokaiIdx;
                 }
                 
                 // 상대 요괴의 랜덤 기술 선택
@@ -619,14 +622,20 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                         return 104; // 전투 패배
                     }
                     
-                    // 기절하지 않은 요괴가 있으면 즉시 교체 메뉴 표시
-                    printTextAndWait("\n다른 요괴를 선택하세요.");
-                    yokaiIdx = selectPartyYokai();
-                    if (yokaiIdx == -1) {
-                        return 0; // 뒤로 돌아가기
+                    // 첫 턴이 아닐 때만 요괴 교체 메뉴 표시
+                    if (turnCount > 0) {
+                        printTextAndWait("\n다른 요괴를 선택하세요.");
+                        yokaiIdx = selectPartyYokai();
+                        if (yokaiIdx == -1) {
+                            return 0; // 뒤로 돌아가기
+                        }
+                        lastYokaiIdx = yokaiIdx;
                     }
-                    return 0;
+                    turnCount++;  // 턴 증가
+                    return 0;  // 다음 턴으로
                 }
+                turnCount++;  // 턴 증가
+                return 0;  // 다음 턴으로
             }
         }
         case BATTLE_CHECK_PARTY:

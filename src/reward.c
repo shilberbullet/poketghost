@@ -94,6 +94,15 @@ void itemRewardSystem() {
                         break;
                     }
                 }
+                // 지도 아이템 중복 방지: 이미 보유 중이면 후보에서 제외
+                if (strcmp(candidates[i].name, "지도") == 0) {
+                    for (int k = 0; k < inventoryCount; k++) {
+                        if (strcmp(inventory[k].item.name, "지도") == 0) {
+                            valid = 0;
+                            break;
+                        }
+                    }
+                }
                 if (!valid) break;
             }
         }

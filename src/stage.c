@@ -14,6 +14,7 @@
 #include "yokai.h"
 #include "game.h"
 #include "region.h"
+#include "item.h"
 
 // 지형 이름 배열
 const char* terrainNames[] = {
@@ -50,12 +51,31 @@ void nextStage() {
     
     // 10스테이지마다 지역 변경
     if (currentStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
-        if (moveToNextRegion()) {
-            char buffer[256];
-            sprintf(buffer, "\n%s로 이동했습니다.\n", getCurrentRegion());
-            printText(buffer);
-            displayConnectedRegions();
-            printTextAndWait("아무 키나 누르면 계속합니다...");
+        int hasMap = 0;
+        int mapIdx = -1;
+        for (int i = 0; i < inventoryCount; i++) {
+            if (strcmp(inventory[i].item.name, "지도") == 0 && inventory[i].count > 0) {
+                hasMap = 1;
+                mapIdx = i;
+                break;
+            }
+        }
+        if (hasMap) {
+            if (moveToNextRegionWithMap()) {
+                char buffer[256];
+                sprintf(buffer, "\n지도 아이템을 사용하여 %s로 이동했습니다.\n", getCurrentRegion());
+                printText(buffer);
+                displayConnectedRegions();
+                printTextAndWait("아무 키나 누르면 계속합니다...");
+            }
+        } else {
+            if (moveToNextRegion()) {
+                char buffer[256];
+                sprintf(buffer, "\n%s로 이동했습니다.\n", getCurrentRegion());
+                printText(buffer);
+                displayConnectedRegions();
+                printTextAndWait("아무 키나 누르면 계속합니다...");
+            }
         }
     }
     
