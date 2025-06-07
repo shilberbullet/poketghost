@@ -78,7 +78,11 @@ void levelUp(Yokai* yokai) {
     yokai->level++;  // 레벨 증가
     float newMaxHP = calculateHP(yokai);  // 새로운 최대 HP 계산
     float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
-    yokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+    
+    // 기절 상태가 아닐 때만 현재 HP 증가
+    if (yokai->status != YOKAI_FAINTED) {
+        yokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+    }
     
     // 레벨업 메시지 출력
     sprintf(buffer, "\n%s가 레벨 %d로 상승했습니다!\n", yokai->name, yokai->level);
