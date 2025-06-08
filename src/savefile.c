@@ -28,7 +28,7 @@ void saveGame() {
     if (gameSettings.debugMode) {
     char buffer[128];
     sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
-    printText(buffer);
+    printTextAndWait(buffer);
     }
     
     // 스테이지 정보 저장

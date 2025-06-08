@@ -436,7 +436,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
         case ITEM_RARE:
             // 희귀 양갱: 모든 동료 요괴 1레벨
             printText("\n 양갱을 사용합니다...\n");
-            Sleep(100);
+            (100);
             
             for (int i = 0; i < partyCount; i++) {
                 float oldMaxHP = calculateHP(&party[i]);  // 이전 최대 HP 저장
@@ -454,12 +454,9 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
                 char buffer[256];
                 sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
                     party[i].name, oldLevel, party[i].level);
-                printText(buffer);
-                Sleep(100);
+                printTextAndWait(buffer);
             }
-            printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
-            Sleep(1000);
-            printTextAndWait("계속하려면 아무 키나 누르세요...");
+            printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
             return true;
         case ITEM_SUPERRARE:
             levelUp = 3;  // 고급 양갱: 3레벨
@@ -486,7 +483,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
         sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
             targetYokai->name, oldLevel, targetYokai->level);
         printText(buffer);
-        Sleep(1000);
+        (100);
         return true;
     }
 
