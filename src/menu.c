@@ -23,11 +23,11 @@ void showGameMenu(void) {
         printText("4. 게임 저장\n");      // 게임 저장 메뉴
         printText("5. 설정\n");           // 설정 메뉴
         printText("6. 게임 종료\n\n");    // 게임 종료 메뉴
-        printText("숫자를 입력하세요: ");  // 사용자 입력 요청
+        printText("숫자를 입력해주세요: ");  // 사용자 입력 요청
         
         choice = getIntInput();  // 정수 입력 받기
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 다시 시도하세요.");  // 잘못된 입력 처리
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -59,7 +59,7 @@ void handleGameMenuChoice(int choice) {
             exit(0);  // 프로그램 종료
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");  // 잘못된 선택 처리
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");  // 잘못된 선택 처리
             break;
     }
 }

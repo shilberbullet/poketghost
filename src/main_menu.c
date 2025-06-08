@@ -25,7 +25,7 @@ void showMainMenu(void) {
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
         printText("4. 종료\n\n");
-        printText("숫자를 입력하세요: ");
+        printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
         if (choice == -1) {
@@ -53,7 +53,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
             exitGame();
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             break;
     }
 }
@@ -69,11 +69,12 @@ void startNewGame(void) {
     printText("=== 시작 지역 선택 ===\n\n");
     printText("1. 경상도\n");
     printText("2. 전라도\n\n");
-    printText("숫자를 입력하세요: ");
+    printText("숫자를 입력해주세요: ");
     
     int choice = getIntInput();
     while (choice != 1 && choice != 2) {
-        printText("\n잘못된 입력입니다. 다시 시도하세요.: ");
+        printText("\n잘못된 선택입니다. 다시 선택하세요.\n");
+        printText("숫자를 입력해주세요: ");
         choice = getIntInput();
     }
     
