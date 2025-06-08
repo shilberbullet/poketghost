@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "stage_types.h"
+#include "stage.h"
 #include "normal_stage.h"
 #include "boss_stage.h"
 #include "text.h"
