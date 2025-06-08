@@ -44,7 +44,7 @@ int getIntInput() {
     
     // 숫자가 아닌 문자가 있거나 입력이 비어있는 경우
     if (!isValid || i == 0) {
-        printf("\n숫자만 입력해주세요.\n");
+        printf("\n잘못된 선택입니다. 다시 선택하세요.\n");
         return -1;      // 유효하지 않은 입력 시 -1 반환
     }
     
@@ -73,7 +73,7 @@ int getNumberInput(int min, int max) {
         if (num >= min && num <= max) {      // 입력이 범위 내에 있으면
             return num;                      // 입력값 반환
         } else {
-            printf("\n%d부터 %d 사이의 숫자를 입력하세요.\n", min, max);  // 범위 초과 시 안내
+            printf("\n잘못된 선택입니다. 다시 선택하세요.\n");
         }
     }
-} 
+}

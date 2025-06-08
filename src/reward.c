@@ -169,7 +169,7 @@ void itemRewardSystem() {
     }
     
     if (idx < 0 || idx >= 3) {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         itemRewardSystem();
         return;
     }

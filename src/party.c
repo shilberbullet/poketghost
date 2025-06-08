@@ -66,7 +66,7 @@ int handleFullParty(const Yokai* newYokai) {
     printText("\n동료 요괴가 가득 찼습니다!\n");
     printText("1. 잡은 요괴를 성불시킨다\n");
     printText("2. 동료 요괴를 성불시킨다\n");
-    printText("숫자를 입력하세요: ");
+    printText("숫자를 입력해주세요: ");
 
     int choice = getIntInput();
     if (choice == 1) {
@@ -98,7 +98,7 @@ int handleFullParty(const Yokai* newYokai) {
                 printText(buffer);
             }
             printText("0. 뒤로 돌아간다\n");
-            printText("숫자를 입력하세요: ");
+            printText("숫자를 입력해주세요: ");
 
             int yokaiChoice = getIntInput();
             if (yokaiChoice == 0) {
@@ -115,12 +115,12 @@ int handleFullParty(const Yokai* newYokai) {
                 releaseYokai(yokaiChoice);
                 return addYokaiToParty(newYokai);
             } else {
-                printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
                 continue;  // 다시 선택하도록 continue 추가
             }
         }
     } else {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return handleFullParty(newYokai); // 다시 선택 메뉴로
     }
     return 0;
@@ -164,7 +164,7 @@ void printParty() {
             maxHP);
         printText(buffer);
     }
-    printText("\n숫자를 입력하세요: ");
+    printText("\n숫자를 입력해주세요: ");
     
     int choice = getIntInput();
     if (choice == 0) {
