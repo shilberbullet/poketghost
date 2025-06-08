@@ -112,8 +112,7 @@ int healYokai(Yokai* targetYokai) {
             break;
         case ITEM_YANGGAENG:
             if (strcmp(currentItem->name, "이상한 양갱") == 0) {
-                printText("\n이상한 양갱을 사용합니다...\n");
-                Sleep(100);
+                printTextAndWait("\n이상한 양갱을 사용합니다...\n");
                 
                 // 모든 동료 요괴의 레벨을 1 증가
                 for (int i = 0; i < partyCount; i++) {
@@ -132,11 +131,9 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                     sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
                         party[i].name, oldLevel, party[i].level);
-                    printText(buffer);
-                    Sleep(100);
+                    printTextAndWait(buffer);
                 }
-                printText("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
-                Sleep(1000);
+                printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
                 return 1;
             } else {
                 if (!targetYokai) return -1;
@@ -186,7 +183,7 @@ Yokai* selectYokaiToHeal() {
             maxHP,
             statusColor,
             statusText);
-        printText(buffer);
+        printTextAndWait(buffer);
     }
     printText("0. 뒤로 가기\n");
     printText("숫자를 입력하세요: ");

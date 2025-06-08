@@ -73,7 +73,7 @@ void startNewGame(void) {
     
     int choice = getIntInput();
     while (choice != 1 && choice != 2) {
-        printText("\n잘못된 입력입니다. 1 또는 2를 입력해주세요: ");
+        printText("\n잘못된 입력입니다. 다시 시도하세요.: ");
         choice = getIntInput();
     }
     
@@ -88,8 +88,7 @@ void startNewGame(void) {
     
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
-    printText(buffer);
-    printTextAndWait("아무 키나 누르면 계속합니다...");
+    printTextAndWait(buffer);
     
     while (gameState.isRunning) {
         showStageInfo();

@@ -2,6 +2,8 @@
 #include <stdio.h>
 // 수학 함수를 위한 헤더
 #include <math.h>
+// 문자열 처리 함수를 위한 헤더
+#include <string.h>
 // HP 시스템 관련 함수와 구조체 정의
 #include "hp_system.h"
 // 텍스트 출력 관련 함수
@@ -47,37 +49,34 @@ void printHPBar(const Yokai* yokai) {
     // HP 바 길이 계산
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
-    // HP 수치 출력
-    char buffer[256];
-    sprintf(buffer, "\n%s의 HP: %.0f/%.0f\n", yokai->name, currentHP, maxHP);
-    printText(buffer);
-    
-    // HP 바 시작
-    printText("[");
+    // HP 바 전체를 하나의 문자열로 구성
+    char buffer[512];
+    sprintf(buffer, "\n%s의 HP: %.0f/%.0f\n[", yokai->name, currentHP, maxHP);
     
     // HP 비율에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
-        printText("\033[31m"); // 빨간색 (위험)
+        strcat(buffer, "\033[31m"); // 빨간색 (위험)
     } else if (hpPercentage <= 50.0f) {
-        printText("\033[33m"); // 노란색 (주의)
+        strcat(buffer, "\033[33m"); // 노란색 (주의)
     } else {
-        printText("\033[1;32m"); // 초록색 (양호)
+        strcat(buffer, "\033[1;32m"); // 초록색 (양호)
     }
     
     // HP 바 시각화
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
-            printText("█"); // 채워진 부분
+            strcat(buffer, "█"); // 채워진 부분
         } else {
-            printText("░"); // 빈 부분
+            strcat(buffer, "░"); // 빈 부분
         }
     }
     
     // 색상 초기화 및 HP 바 종료
-    printText("\033[0m");
-    printText("]");
+    strcat(buffer, "\033[0m]");
     
-    // HP 상태 메시지 출력
-    sprintf(buffer, " (%s)\n", getHPStatus(yokai));
-    printText(buffer);
+    // HP 상태 메시지 추가
+    sprintf(buffer + strlen(buffer), " (%s)\n", getHPStatus(yokai));
+    
+    // HP 바 전체를 한 번에 출력
+    printTextAndWait(buffer);
 } 

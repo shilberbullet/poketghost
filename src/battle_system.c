@@ -115,23 +115,19 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     }
     
     // 기술 사용 메시지 출력 (상대 요괴일 경우에만 이름 색상 적용)
-    char buffer[256];
+    char buffer[512];
     if (attacker == &currentEnemy) {
         // 상대 요괴의 경우 색상 적용
-        sprintf(buffer, "\n%s%s\033[0m의 ", getEnemyNameColorExport(), attacker->name);
+        sprintf(buffer, "\n%s%s\033[0m의 %s%s\033[0m!", getEnemyNameColorExport(), attacker->name, colorCode, move->name);
     } else {
         // 동료 요괴의 경우 기본 색상
-        sprintf(buffer, "\n%s의 ", attacker->name);
+        sprintf(buffer, "\n%s의 %s%s\033[0m!", attacker->name, colorCode, move->name);
     }
-    printText(buffer);
-    printText(colorCode);
-    printText(move->name);
-    printText("\033[0m");
-    printText("!");
+    printTextAndWait(buffer);
     
     // 명중률 체크
     if ((rand() % 100) >= move->accuracy) {
-        printText("\n하지만 빗나갔다!");
+        printTextAndWait("\n하지만 빗나갔다!");
         return 0;
     }
     
@@ -172,14 +168,14 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         // 동료 요괴의 경우 기본 색상
         sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, actualDamage);
     }
-    printText(buffer);
+    printTextAndWait(buffer);
     
     // 상성 메시지 출력
     float typeEffectiveness = getTypeEffectiveness(move->type, defender->type);
     if (typeEffectiveness > 1.0f) {
-        printText("\n효과가 굉장했다!");
+        printTextAndWait("\n효과가 굉장했다!");
     } else if (typeEffectiveness < 1.0f) {
-        printText("\n효과가 별로인 것 같다...");
+        printTextAndWait("\n효과가 별로인 것 같다...");
     }
     
     // HP 바 업데이트 및 출력
@@ -187,34 +183,40 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     float hpPercentage = (defender->currentHP / maxHP) * 100.0f;
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
+    // HP 바 전체를 하나의 문자열로 구성
+    char hpBuffer[512];
     if (defender == &currentEnemy) {
         // 상대 요괴의 경우 색상 적용
-        sprintf(buffer, "\n%s%s\033[0m HP[", getEnemyNameColorExport(), defender->name);
+        sprintf(hpBuffer, "\n%s%s\033[0m HP[", getEnemyNameColorExport(), defender->name);
     } else {
         // 동료 요괴의 경우 기본 색상
-        sprintf(buffer, "\n%s HP[", defender->name);
+        sprintf(hpBuffer, "\n%s HP[", defender->name);
     }
-    printText(buffer);
-    // HP 상태에 따른 색상 설정
+    
+    // HP 비율에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
-        printText("\033[31m"); // 빨간색
+        strcat(hpBuffer, "\033[31m"); // 빨간색
     } else if (hpPercentage <= 50.0f) {
-        printText("\033[33m"); // 노란색
+        strcat(hpBuffer, "\033[33m"); // 노란색
     } else {
-        printText("\033[1;32m"); // 초록색
+        strcat(hpBuffer, "\033[1;32m"); // 초록색
     }
     
     // HP 바 시각화
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
-            printText("█");
+            strcat(hpBuffer, "█");
         } else {
-            printText("░");
+            strcat(hpBuffer, "░");
         }
     }
-    printText("\033[0m");
-    sprintf(buffer, "] %.0f/%.0f\n", defender->currentHP, maxHP);
-    printText(buffer);
+    
+    // 색상 초기화 및 HP 바 종료
+    strcat(hpBuffer, "\033[0m]");
+    sprintf(hpBuffer + strlen(hpBuffer), " %.0f/%.0f\n", defender->currentHP, maxHP);
+    
+    // HP 바 전체를 한 번에 출력
+    printTextAndWait(hpBuffer);
     
     // 전투 결과 체크
     if (defender->currentHP <= 0) {

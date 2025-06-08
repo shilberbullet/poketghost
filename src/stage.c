@@ -64,17 +64,15 @@ void nextStage() {
             if (moveToNextRegionWithMap()) {
                 char buffer[256];
                 sprintf(buffer, "\n지도 아이템을 사용하여 %s로 이동했습니다.\n", getCurrentRegion());
-                printText(buffer);
+                printTextAndWait(buffer);
                 displayConnectedRegions();
-                printTextAndWait("아무 키나 누르면 계속합니다...");
             }
         } else {
             if (moveToNextRegion()) {
                 char buffer[256];
                 sprintf(buffer, "\n%s로 이동했습니다.\n", getCurrentRegion());
-                printText(buffer);
+                printTextAndWait(buffer);
                 displayConnectedRegions();
-                printTextAndWait("아무 키나 누르면 계속합니다...");
             }
         }
     }

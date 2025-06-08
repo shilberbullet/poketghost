@@ -123,25 +123,34 @@ int startBattle(const Yokai* enemy) {
     float hpPercentage = (currentHP / maxHP) * 100.0f;
     int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
     
-    // HP 바만 출력 (이름은 이미 출력했으므로 생략)
-    printText("HP[");
+    // HP 바 전체를 하나의 문자열로 구성
+    char hpBuffer[512];
+    sprintf(hpBuffer, "HP[");
+    
+    // HP 비율에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
-        printText("\033[31m"); // 빨간색
+        strcat(hpBuffer, "\033[31m"); // 빨간색
     } else if (hpPercentage <= 50.0f) {
-        printText("\033[33m"); // 노란색
+        strcat(hpBuffer, "\033[33m"); // 노란색
     } else {
-        printText("\033[1;32m"); // 초록색
+        strcat(hpBuffer, "\033[1;32m"); // 초록색
     }
+    
+    // HP 바 시각화
     for (int i = 0; i < HP_BAR_LENGTH; i++) {
         if (i < filledLength) {
-            printText("█");
+            strcat(hpBuffer, "█");
         } else {
-            printText("░");
+            strcat(hpBuffer, "░");
         }
     }
-    printText("\033[0m"); // 색상 초기화
-    sprintf(buffer, "] %.0f/%.0f\n", currentHP, maxHP);
-    printText(buffer);
+    
+    // 색상 초기화 및 HP 바 종료
+    strcat(hpBuffer, "\033[0m]");
+    sprintf(hpBuffer + strlen(hpBuffer), " %.0f/%.0f\n", currentHP, maxHP);
+    
+    // HP 바 전체를 한 번에 출력
+    printText(hpBuffer);
     
     // 이어하기가 아닌 경우에만 초기화
     if (turnCount == 0) {  // turnCount가 0이면 새 전투 시작
@@ -572,36 +581,39 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 party[yokaiIdx].currentHP -= actualDamage;
                 
-                // 데미지 메시지 출력
-                sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
-                printText(buffer);
-                sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[yokaiIdx].name, actualDamage);
-                printText(buffer);
-                
                 // HP 바 업데이트
                 float maxHP = calculateHP(&party[yokaiIdx]);
                 float hpPercentage = (party[yokaiIdx].currentHP / maxHP) * 100.0f;
                 int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
                 
-                sprintf(buffer, "%s HP[", party[yokaiIdx].name);
-                printText(buffer);
+                // HP 바 전체를 하나의 문자열로 구성
+                char hpBuffer[512];
+                sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", party[yokaiIdx].name, party[yokaiIdx].currentHP, maxHP);
+                
+                // HP 비율에 따른 색상 설정
                 if (hpPercentage <= 20.0f) {
-                    printText("\033[31m"); // 빨간색
+                    strcat(hpBuffer, "\033[31m"); // 빨간색
                 } else if (hpPercentage <= 50.0f) {
-                    printText("\033[33m"); // 노란색
+                    strcat(hpBuffer, "\033[33m"); // 노란색
                 } else {
-                    printText("\033[1;32m"); // 초록색
+                    strcat(hpBuffer, "\033[1;32m"); // 초록색
                 }
+                
+                // HP 바 시각화
                 for (int i = 0; i < HP_BAR_LENGTH; i++) {
                     if (i < filledLength) {
-                        printText("█");
+                        strcat(hpBuffer, "█");
                     } else {
-                        printText("░");
+                        strcat(hpBuffer, "░");
                     }
                 }
-                printText("\033[0m");
-                sprintf(buffer, "] %.0f/%.0f\n", party[yokaiIdx].currentHP, maxHP);
-                printText(buffer);
+                
+                // 색상 초기화 및 HP 바 종료
+                strcat(hpBuffer, "\033[0m]");
+                sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&party[yokaiIdx]));
+                
+                // HP 바 전체를 한 번에 출력
+                printTextAndWait(hpBuffer);
                 
                 // 전투 결과 확인
                 if (party[yokaiIdx].currentHP <= 0) {
@@ -662,36 +674,39 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             }
             party[newYokaiIdx].currentHP -= actualDamage;
             
-            // 데미지 메시지 출력
-            sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
-            printText(buffer);
-            sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[newYokaiIdx].name, actualDamage);
-            printText(buffer);
-            
             // HP 바 업데이트
             float maxHP = calculateHP(&party[newYokaiIdx]);
             float hpPercentage = (party[newYokaiIdx].currentHP / maxHP) * 100.0f;
             int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
             
-            sprintf(buffer, "%s HP[", party[newYokaiIdx].name);
-            printText(buffer);
+            // HP 바 전체를 하나의 문자열로 구성
+            char hpBuffer[512];
+            sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", party[newYokaiIdx].name, party[newYokaiIdx].currentHP, maxHP);
+            
+            // HP 비율에 따른 색상 설정
             if (hpPercentage <= 20.0f) {
-                printText("\033[31m"); // 빨간색
+                strcat(hpBuffer, "\033[31m"); // 빨간색
             } else if (hpPercentage <= 50.0f) {
-                printText("\033[33m"); // 노란색
+                strcat(hpBuffer, "\033[33m"); // 노란색
             } else {
-                printText("\033[1;32m"); // 초록색
+                strcat(hpBuffer, "\033[1;32m"); // 초록색
             }
+            
+            // HP 바 시각화
             for (int i = 0; i < HP_BAR_LENGTH; i++) {
                 if (i < filledLength) {
-                    printText("█");
+                    strcat(hpBuffer, "█");
                 } else {
-                    printText("░");
+                    strcat(hpBuffer, "░");
                 }
             }
-            printText("\033[0m");
-            sprintf(buffer, "] %.0f/%.0f\n", party[newYokaiIdx].currentHP, maxHP);
-            printText(buffer);
+            
+            // 색상 초기화 및 HP 바 종료
+            strcat(hpBuffer, "\033[0m]");
+            sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&party[newYokaiIdx]));
+            
+            // HP 바 전체를 한 번에 출력
+            printTextAndWait(hpBuffer);
             
             // 전투 결과 확인
             if (party[newYokaiIdx].currentHP <= 0) {
@@ -751,37 +766,39 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 party[yokaiIdx].currentHP -= actualDamage;
                 
-                // 데미지 메시지 출력
-                char buffer[256];
-                sprintf(buffer, "\n%s%s\033[0m의 %s 공격!\n", getEnemyNameColor(), enemy->name, enemy->moves[enemyMoveIdx].move.name);
-                printText(buffer);
-                sprintf(buffer, "%s는 %.0f의 데미지를 입었다!\n", party[yokaiIdx].name, actualDamage);
-                printText(buffer);
-                
                 // HP 바 업데이트
                 float maxHP = calculateHP(&party[yokaiIdx]);
                 float hpPercentage = (party[yokaiIdx].currentHP / maxHP) * 100.0f;
                 int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
                 
-                sprintf(buffer, "%s HP[", party[yokaiIdx].name);
-                printText(buffer);
+                // HP 바 전체를 하나의 문자열로 구성
+                char hpBuffer[512];
+                sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", party[yokaiIdx].name, party[yokaiIdx].currentHP, maxHP);
+                
+                // HP 비율에 따른 색상 설정
                 if (hpPercentage <= 20.0f) {
-                    printText("\033[31m"); // 빨간색
+                    strcat(hpBuffer, "\033[31m"); // 빨간색
                 } else if (hpPercentage <= 50.0f) {
-                    printText("\033[33m"); // 노란색
+                    strcat(hpBuffer, "\033[33m"); // 노란색
                 } else {
-                    printText("\033[1;32m"); // 초록색
+                    strcat(hpBuffer, "\033[1;32m"); // 초록색
                 }
+                
+                // HP 바 시각화
                 for (int i = 0; i < HP_BAR_LENGTH; i++) {
                     if (i < filledLength) {
-                        printText("█");
+                        strcat(hpBuffer, "█");
                     } else {
-                        printText("░");
+                        strcat(hpBuffer, "░");
                     }
                 }
-                printText("\033[0m");
-                sprintf(buffer, "] %.0f/%.0f\n", party[yokaiIdx].currentHP, maxHP);
-                printText(buffer);
+                
+                // 색상 초기화 및 HP 바 종료
+                strcat(hpBuffer, "\033[0m]");
+                sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&party[yokaiIdx]));
+                
+                // HP 바 전체를 한 번에 출력
+                printTextAndWait(hpBuffer);
                 
                 // 전투 결과 확인
                 if (party[yokaiIdx].currentHP <= 0) {
