@@ -67,7 +67,6 @@
 ## 개발 정보
 - 개발자: shilberbullet
 - 버전: 1.0
-- 라이선스: MIT License
 
 ## 프로젝트 구조
 
