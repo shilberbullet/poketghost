@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
 #include "item.h"
 #include "yokai.h"
 #include "text.h"
@@ -435,8 +434,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
             break;
         case ITEM_RARE:
             // 희귀 양갱: 모든 동료 요괴 1레벨
-            printText("\n 양갱을 사용합니다...\n");
-            (100);
+            printTextAndWait("\n 양갱을 사용합니다...\n");
             
             for (int i = 0; i < partyCount; i++) {
                 float oldMaxHP = calculateHP(&party[i]);  // 이전 최대 HP 저장
@@ -482,8 +480,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
         char buffer[256];
         sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
             targetYokai->name, oldLevel, targetYokai->level);
-        printText(buffer);
-        (100);
+        printTextAndWait(buffer);
         return true;
     }
 
