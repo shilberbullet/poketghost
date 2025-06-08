@@ -186,7 +186,7 @@ Yokai* selectYokaiToHeal() {
         printTextAndWait(buffer);
     }
     printText("0. 뒤로 가기\n");
-    printText("숫자를 입력하세요: ");
+    printText("숫자를 입력해주세요: ");
     
     int choice = getIntInput();
     if (choice == 0) {
@@ -197,7 +197,7 @@ Yokai* selectYokaiToHeal() {
         return &party[choice - 1];
     }
     
-    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
     return NULL;
 }
 
