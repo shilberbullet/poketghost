@@ -203,7 +203,7 @@ int showBattleMenu(const Yokai* enemy) {
         printText("5. 도망간다\n");
         printText("6. 인벤토리를 본다\n");
         printText("7. 게임을 저장하고 메뉴로 돌아간다\n\n");
-        printText("숫자를 입력하세요: ");
+        printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
         if (choice >= 1 && choice <= 7) {
@@ -213,7 +213,7 @@ int showBattleMenu(const Yokai* enemy) {
         printText("4. 도망간다\n");
         printText("5. 인벤토리를 본다\n");
         printText("6. 게임을 저장하고 메뉴로 돌아간다\n\n");
-        printText("숫자를 입력하세요: ");
+        printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
         if (choice >= 1 && choice <= 6) {
@@ -223,7 +223,7 @@ int showBattleMenu(const Yokai* enemy) {
         }
     }
     
-    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return 0;
 }
 
@@ -279,7 +279,7 @@ int selectPartyYokai() {
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
     if (idx < 0 || idx >= partyCount) {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return selectPartyYokai();
     }
     if (party[idx].status == YOKAI_FAINTED) {
@@ -341,7 +341,7 @@ int selectMove(const Yokai* yokai) {
     printText("선택 (번호): ");
     int idx = getIntInput() - 1;
     if (idx < 0 || idx >= yokai->moveCount) {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return selectMove(yokai);
     }
     if (yokai->moves[idx].currentPP <= 0) {
@@ -371,12 +371,12 @@ int selectTalismanFromInventory() {
         sprintf(buffer, "%d. %s (보유: %d개)\n", i+1, inventory[talismanIdx[i]].item.name, inventory[talismanIdx[i]].count);
         printText(buffer);
     }
-    printText("숫자를 입력하세요: ");
+    printText("숫자를 입력해주세요: ");
     int idx = getIntInput();
     if (idx == 0) return -1;
     idx--;
     if (idx < 0 || idx >= talismanCount) {
-        printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return selectTalismanFromInventory();
     }
     return talismanIdx[idx];
@@ -408,7 +408,7 @@ int switchYokai() {
         printText(buffer);
     }
     printText("0. 뒤로 가기\n");
-    printText("숫자를 입력하세요: ");
+    printText("숫자를 입력해주세요: ");
     
     int choice = getIntInput();
     if (choice == 0) {
@@ -429,7 +429,7 @@ int switchYokai() {
         return idx;
     }
     
-    printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+    printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
     return -1;
 }
 

@@ -21,11 +21,11 @@ void showSettingsMenu() {
         printText("4. 디버그 모드: ");
         printText(gameSettings.debugMode ? "켬\n" : "끔\n");
         printText("5. 뒤로 가기\n\n");
-        printText("숫자를 입력하세요: ");
+        printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -45,7 +45,7 @@ void showSettingsMenu() {
             case 5:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -77,7 +77,7 @@ void setTextSpeed() {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -94,7 +94,7 @@ void setTextSpeed() {
             case 6:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -122,7 +122,7 @@ void setTextDisplayMode() {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -145,7 +145,7 @@ void setTextDisplayMode() {
             case 4:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -176,7 +176,7 @@ void setTypeHintDisplay() {
         case 3:
             return;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             setTypeHintDisplay();
             break;
     }
@@ -206,7 +206,7 @@ void setDebugMode() {
         case 3:
             return;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 시도하세요.");
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             setDebugMode();
             break;
     }
