@@ -29,7 +29,6 @@ typedef struct {
     int hour;
 } StageInfo;
 
-extern StageInfo currentStage;
 
 // 지역 이름 배열 선언
 extern const char* regions[REGION_COUNT];
