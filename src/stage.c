@@ -16,6 +16,8 @@
 #include "region.h"
 #include "item.h"
 #include "../core/state.h"
+#include <windows.h>
+
 
 // 지형 이름 배열
 const char* terrainNames[] = {
@@ -86,6 +88,7 @@ void nextStage() {
         char buffer[128];
         sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", gStage.stageNumber - 1);
         printTextAndWait(buffer);
+        Sleep(500);
     }
 }
 

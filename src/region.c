@@ -1,15 +1,16 @@
 #include "../include/region.h"
 #include "../include/text.h"
 #include "../include/input.h"
+#include <windows.h>
 
 // 지역 데이터
 static Region regions[MAX_REGIONS] = {
-    {"함경도", 0, 2, {"평안도", "강원도"}},
+    {"함경도", 0, 3, {"평안도", "강원도", "황해도"}},
     {"평안도", 0, 2, {"함경도", "황해도"}},
     {"황해도", 0, 3, {"평안도", "경기도", "강원도"}},
-    {"강원도", 0, 4, {"함경도", "황해도", "경기도", "경상도"}},
+    {"강원도", 0, 5, {"함경도", "황해도", "경기도", "경상도", "충청도"}},
     {"경기도", 0, 3, {"황해도", "강원도", "충청도"}},
-    {"충청도", 0, 3, {"경기도", "경상도", "전라도"}},
+    {"충청도", 0, 4, {"경기도", "경상도", "전라도", "강원도"}},
     {"경상도", 0, 3, {"강원도", "충청도", "전라도"}},
     {"전라도", 0, 2, {"충청도", "경상도"}}
 };
@@ -127,7 +128,7 @@ void displayConnectedRegions(void) {
     
     if (currentIndex == -1) return;
     
-    printText("\n연결된 지역:\n");
+    printText("\n연결된 지역:\n"); //나중에 디버그 모드로 변경
     for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
         printText(regions[currentIndex].connected[i]);
         if (i < regions[currentIndex].connectedCount - 1) {
@@ -135,6 +136,7 @@ void displayConnectedRegions(void) {
         }
     }
     printText("\n");
+    Sleep(500);
 }
 
 void saveRegionData(FILE* file) {

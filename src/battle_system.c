@@ -7,7 +7,7 @@
 #include "battle.h"  // currentEnemy 변수를 위해 추가
 #include "item.h" // 작두 개수 확인을 위해 추가
 #include "../core/state.h"
-
+#include <windows.h>
 // 상대 요괴 이름 색상 반환 함수 extern 선언
 extern const char* getEnemyNameColorExport();
 
@@ -271,12 +271,14 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
         if (defender->status == YOKAI_FAINTED) {
             sprintf(buffer, "\n%s이(가) 쓰러졌다!", defender->name);
             printTextAndWait(buffer);
+            Sleep(500);
         }
     } else if (result == -1) {
         char buffer[256];
         if (attacker->status == YOKAI_FAINTED) {
             sprintf(buffer, "\n%s이(가) 쓰러졌다!", attacker->name);
             printTextAndWait(buffer);
+            Sleep(500);
         }
     }
 } 
