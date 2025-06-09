@@ -13,6 +13,7 @@
 #include "exit.h"
 #include "reward.h"
 #include "region.h"
+#include "../core/state.h"
 
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {

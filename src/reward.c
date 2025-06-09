@@ -8,11 +8,9 @@
 #include "game.h"
 #include "party.h"
 #include "battle.h"
+#include "../core/state.h"
 
-// 외부 변수 선언
-extern Yokai party[];
-extern int partyCount;
-extern Yokai currentEnemy;
+// 필요한 전역 변수는 state 모듈에서 접근
 
 // static 변수들을 전역 변수로 이동
 Item candidates[3];  // 보상 후보 아이템 배열

@@ -5,9 +5,7 @@
 
 #define MAX_PARTY_SIZE 5
 
-// 동료 요괴 배열
-extern Yokai party[MAX_PARTY_SIZE];
-extern int partyCount;
+// 동료 요괴 배열과 개수는 state 모듈에서 관리
 
 // 동료 요괴 초기화
 void initParty();

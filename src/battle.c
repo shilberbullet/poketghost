@@ -18,6 +18,7 @@
 #include "hp_system.h"  // HP 시스템 헤더 추가
 #include "exp_system.h"  // 경험치 시스템 헤더 추가
 #include "battle_system.h"  // 새로 추가
+#include "../core/state.h"
 #include "roguelite.h"  // 로그라이트 시스템 추가
 #include "settings.h"
 #include "region.h"

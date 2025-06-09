@@ -9,6 +9,7 @@
 #include "game.h"
 #include "exp_system.h"
 #include "settings.h"
+#include "../core/state.h"
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -17,9 +18,7 @@
 // 랜덤 기술 할당 함수 선언
 void assignRandomMoves(Yokai* y);
 
-// 파티 요괴 배열과 개수
-Yokai party[MAX_PARTY_SIZE];  // 파티 요괴 배열
-int partyCount = 0;           // 현재 파티 요괴 수
+// 파티 요괴 배열과 개수는 state 모듈에서 관리
 
 // 파티 초기화 함수
 void initParty() {

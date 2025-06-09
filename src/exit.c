@@ -4,6 +4,7 @@
 #include "game.h"
 #include "text.h"
 #include "exit.h"
+#include "../core/state.h"
  
 // 게임 종료 함수
 void exitGame() {

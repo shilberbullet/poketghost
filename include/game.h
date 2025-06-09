@@ -18,8 +18,6 @@ typedef struct {
     bool isManualSave;  // 수동 저장 플래그
 } GameState;
 
-extern GameState gameState;
-extern Player player;
 
 void initGame(void);
 void addMoney(int amount);

@@ -9,6 +9,7 @@
 #include "stage.h"
 #include "party.h"
 #include "savefile.h"
+#include "../core/state.h"
 
 // 게임 메뉴를 표시하는 함수
 void showGameMenu(void) {

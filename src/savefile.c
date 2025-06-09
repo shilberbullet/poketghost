@@ -11,6 +11,7 @@
 #include "battle.h"
 #include "text.h"
 #include "region.h"
+#include "../core/state.h"
 
 #define SAVE_FILE "data/save.dat"
 

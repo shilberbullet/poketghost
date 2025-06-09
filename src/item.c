@@ -10,6 +10,7 @@
 #include "sikhye_system.h"
 #include "reward.h"
 #include "party.h"
+#include "../core/state.h"
 
 #define INITIAL_ITEM_CAPACITY 32
 
