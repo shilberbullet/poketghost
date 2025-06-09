@@ -13,19 +13,20 @@
 #include "menu.h"  // 메인 메뉴를 위해 추가
 #include "main.h"  // main 함수를 위해 추가
 #include "savefile.h" // 세이브 파일 삭제를 위해 추가
+#include "../core/state.h"
 
 // 모든 요괴가 기절했는지 확인하는 함수
 bool areAllYokaiFainted() {
     // HP와 상태 동기화
-    for (int i = 0; i < partyCount; i++) {
-        if (party[i].currentHP > 0) {
-            party[i].status = YOKAI_NORMAL;
+    for (int i = 0; i < gPartyCount; i++) {
+        if (gParty[i].currentHP > 0) {
+            gParty[i].status = YOKAI_NORMAL;
         } else {
-            party[i].status = YOKAI_FAINTED;
+            gParty[i].status = YOKAI_FAINTED;
         }
     }
-    for (int i = 0; i < partyCount; i++) {
-        if (party[i].status != YOKAI_FAINTED) {
+    for (int i = 0; i < gPartyCount; i++) {
+        if (gParty[i].status != YOKAI_FAINTED) {
             return false;
         }
     }
@@ -56,6 +57,6 @@ void handleRogueliteSystem() {
     printTextAndWait("새로운 모험을 시작하세요!\n");
     
     // 초기화면으로 이동
-    gameState.isRunning = 0;  // 게임 루프 종료
+    gGameState.isRunning = 0;  // 게임 루프 종료
     main();  // 초기화면으로 이동
 } 

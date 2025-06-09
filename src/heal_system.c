@@ -5,6 +5,7 @@
 #include "input.h"
 #include "party.h"
 #include "hp_system.h"
+#include "../core/state.h"
 
 // 현재 사용 중인 아이템
 const Item* currentItem = NULL;
@@ -115,22 +116,22 @@ int healYokai(Yokai* targetYokai) {
                 printTextAndWait("\n이상한 양갱을 사용합니다...\n");
                 
                 // 모든 동료 요괴의 레벨을 1 증가
-                for (int i = 0; i < partyCount; i++) {
-                    float oldMaxHP = calculateHP(&party[i]);
-                    int oldLevel = party[i].level;
-                    party[i].level++;
-                    float newMaxHP = calculateHP(&party[i]);
+                for (int i = 0; i < gPartyCount; i++) {
+                    float oldMaxHP = calculateHP(&gParty[i]);
+                    int oldLevel = gParty[i].level;
+                    gParty[i].level++;
+                    float newMaxHP = calculateHP(&gParty[i]);
                     float hpIncrease = newMaxHP - oldMaxHP;
                     
                     // 기절 상태가 아닐 때만 현재 HP 증가
-                    if (party[i].status != YOKAI_FAINTED) {
-                        party[i].currentHP += hpIncrease;
+                    if (gParty[i].status != YOKAI_FAINTED) {
+                        gParty[i].currentHP += hpIncrease;
                     }
                     
                     // 레벨업 메시지 출력
                     char buffer[256];
                     sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
-                        party[i].name, oldLevel, party[i].level);
+                        gParty[i].name, oldLevel, gParty[i].level);
                     printTextAndWait(buffer);
                 }
                 printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
@@ -163,23 +164,23 @@ Yokai* selectYokaiToHeal() {
         printText("\n회복할 요괴를 선택하세요:\n");
     }
 
-    for (int i = 0; i < partyCount; i++) {
+    for (int i = 0; i < gPartyCount; i++) {
         char buffer[256];
-        float maxHP = calculateHP(&party[i]);
+        float maxHP = calculateHP(&gParty[i]);
         
         // 기절 상태 표시
         const char* statusText = "";
         const char* statusColor = "";
-        if (party[i].status == YOKAI_FAINTED) {
+        if (gParty[i].status == YOKAI_FAINTED) {
             statusText = " [기절]";
             statusColor = "\033[31m";  // 빨간색
         }
         
         sprintf(buffer, "%d. %s Lv.%d (HP: %.0f/%.0f)%s%s\033[0m\n", 
             i+1, 
-            party[i].name, 
-            party[i].level,
-            party[i].currentHP,
+            gParty[i].name, 
+            gParty[i].level,
+            gParty[i].currentHP,
             maxHP,
             statusColor,
             statusText);
@@ -193,8 +194,8 @@ Yokai* selectYokaiToHeal() {
         return NULL;
     }
     
-    if (choice > 0 && choice <= partyCount) {
-        return &party[choice - 1];
+    if (choice > 0 && choice <= gPartyCount) {
+        return &gParty[choice - 1];
     }
     
     printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");

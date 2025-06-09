@@ -249,16 +249,21 @@ mkdir poketghost
 cd poketghost
 ```
 
-3. GitHub에서 소스 코드 다운로드
+#### GitHub 저장소 클론
+```
+git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management
+```
+
+#### 최신 코드 가져오기:
 ```bash
-git clone https://github.com/shilberbullet/poketghost.git
+git pull origin codex/refactor-global-state-management
 ```
 
 ### 3. 컴파일 및 실행
 
 #### 소스 코드 컴파일
 ```bash
-gcc -o poketghost.exe src/*.c -I include -lm
+gcc -o poketghost.exe src/*.c core/state.c -I include -I core -lm
 ```
 #### 게임 실행
 ```

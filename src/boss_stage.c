@@ -8,6 +8,7 @@
 #include "savefile.h"
 #include "hp_system.h"
 #include "region.h"
+#include "../core/state.h"
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
@@ -41,10 +42,10 @@ void handleBossStageClear(void) {
     printTextAndWait("\n모든 동료 요괴의 기술 PP가 초기화되었습니다!");
     
     // 모든 동료 요괴의 HP와 상태 회복
-    for (int i = 0; i < partyCount; i++) {
-        float maxHP = calculateHP(&party[i]);
-        party[i].currentHP = maxHP;
-        party[i].status = YOKAI_NORMAL;
+    for (int i = 0; i < gPartyCount; i++) {
+        float maxHP = calculateHP(&gParty[i]);
+        gParty[i].currentHP = maxHP;
+        gParty[i].status = YOKAI_NORMAL;
     }
     printTextAndWait("\n모든 동료 요괴의 HP와 상태가 회복되었습니다!");
     

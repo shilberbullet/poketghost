@@ -13,12 +13,13 @@
 #include "exit.h"
 #include "reward.h"
 #include "region.h"
+#include "../core/state.h"
 
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
     int choice;
     
-    while (gameState.isRunning) {
+    while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
         printText("=== 포켓요괴 ===\n\n");
         printText("1. 새 게임 시작\n");
@@ -60,8 +61,8 @@ void handleMainMenuChoice(MainMenuOption choice) {
 
 // 새 게임 시작 함수
 void startNewGame(void) {
-    gameState.isNewGame = 1;  // 새 게임 플래그 설정
-    gameState.isLoadedGame = 0;  // 이어하기 플래그 해제
+    gGameState.isNewGame = 1;  // 새 게임 플래그 설정
+    gGameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
     
     // 시작 지역 선택
@@ -84,14 +85,14 @@ void startNewGame(void) {
     }
     
     initGame(); // 게임 상태 초기화
-    initStage(&currentStage, 1);  // 첫 번째 스테이지로 시작
+    initStage(&gStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
     
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
     printTextAndWait(buffer);
     
-    while (gameState.isRunning) {
+    while (gGameState.isRunning) {
         showStageInfo();
         showBattleInterface();
     }
@@ -100,10 +101,10 @@ void startNewGame(void) {
 // 저장된 게임 불러오기 함수
 void loadGame(void) {
     if (loadGameData()) {
-        gameState.isLoadedGame = 1;
+        gGameState.isLoadedGame = 1;
         initGame(); // 게임 상태 초기화
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
-        while (gameState.isRunning) {
+        while (gGameState.isRunning) {
             showStageInfo();
             showBattleInterface();
         }

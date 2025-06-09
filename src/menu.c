@@ -9,6 +9,7 @@
 #include "stage.h"
 #include "party.h"
 #include "savefile.h"
+#include "../core/state.h"
 
 // 게임 메뉴를 표시하는 함수
 void showGameMenu(void) {
@@ -54,7 +55,7 @@ void handleGameMenuChoice(int choice) {
             // showSettings(); 함수 완전히 삭제
             break;
         case 6:
-            gameState.isRunning = 0;  // 게임 실행 상태 종료
+            gGameState.isRunning = 0;  // 게임 실행 상태 종료
             printTextAndWait("\n게임을 종료합니다.");  // 종료 메시지 출력
             exit(0);  // 프로그램 종료
             break;
