@@ -746,13 +746,23 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_RUN: {
             int escapeResult = tryToEscape();  // 도망치기 시스템 사용
             if (escapeResult == ESCAPE_FAIL) {
-                // 도망치기 실패 시 이전에 선택한 요괴 사용
-                int yokaiIdx = lastYokaiIdx;
-                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
-                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                // 도망치기 실패 시 첫 턴이면 요괴 선택
+                int yokaiIdx;
+                if (turnCount == 0) {
+                    printTextAndWait("\n공격을 받을 요괴를 선택하세요.");
                     yokaiIdx = selectPartyYokai();
                     if (yokaiIdx == -1) {
                         return 0; // 뒤로 돌아가기
+                    }
+                } else {
+                    // 첫 턴이 아니면 이전에 선택한 요괴 사용
+                    yokaiIdx = lastYokaiIdx;
+                    if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                        printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                        yokaiIdx = selectPartyYokai();
+                        if (yokaiIdx == -1) {
+                            return 0; // 뒤로 돌아가기
+                        }
                     }
                 }
                 
