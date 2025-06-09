@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "escape.h"
 #include "text.h"
+#include "../core/state.h"
 
 // 보스 스테이지에서 도망치기 가능 여부 확인 함수
 int canEscapeFromStage(void) {
