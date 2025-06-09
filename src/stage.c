@@ -33,9 +33,9 @@ void initStage(StageInfo* stage, int stageNumber) {
     }
     
     // 새 게임일 경우 시간을 0으로 초기화
-    if (gameState.isNewGame) {
+    if (gGameState.isNewGame) {
         stage->hour = 0;
-        gameState.isNewGame = 0;  // 플래그 초기화
+        gGameState.isNewGame = 0;  // 플래그 초기화
     }
     
     // 랜덤 지형 설정
@@ -44,13 +44,13 @@ void initStage(StageInfo* stage, int stageNumber) {
 
 // 다음 스테이지로 진행하는 함수
 void nextStage() {
-    currentStage.stageNumber++;  // 스테이지 번호 증가
+    gStage.stageNumber++;  // 스테이지 번호 증가
     turnCount = 0;              // 턴 카운트 초기화
-    currentStage.hour = (currentStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
-    currentStage.terrain = rand() % TERRAIN_COUNT;     // 랜덤 지형 설정
+    gStage.hour = (gStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
+    gStage.terrain = rand() % TERRAIN_COUNT;     // 랜덤 지형 설정
     
     // 10스테이지마다 지역 변경
-    if (currentStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
+    if (gStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
         int hasMap = 0;
         int mapIdx = -1;
         for (int i = 0; i < inventoryCount; i++) {
@@ -78,13 +78,13 @@ void nextStage() {
     }
     
     // 새로운 스테이지 초기화 (hour, terrain은 유지)
-    initStage(&currentStage, currentStage.stageNumber);
+    initStage(&gStage, gStage.stageNumber);
     
     // 5의 배수 스테이지 완료 시 자동 저장 (수동 저장이 아닌 경우에만)
-    if ((currentStage.stageNumber - 1) % 5 == 0 && !gameState.isLoadedGame && !gameState.isManualSave) {
+    if ((gStage.stageNumber - 1) % 5 == 0 && !gGameState.isLoadedGame && !gGameState.isManualSave) {
         saveGame();
         char buffer[128];
-        sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", currentStage.stageNumber - 1);
+        sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", gStage.stageNumber - 1);
         printTextAndWait(buffer);
     }
 }
@@ -94,38 +94,38 @@ void showStageInfo() {
     char buffer[256];
     system("cls");  // 화면 지우기
     printText("=== 스테이지 정보 ===\n\n");
-    sprintf(buffer, "스테이지: %d\n", currentStage.stageNumber);  // 스테이지 번호
+    sprintf(buffer, "스테이지: %d\n", gStage.stageNumber);  // 스테이지 번호
     printText(buffer);
     sprintf(buffer, "지역: %s\n", getCurrentRegion());  // 현재 지역명 출력
     printText(buffer);
-    sprintf(buffer, "지형: %s\n", terrainNames[currentStage.terrain]);  // 지형 이름
+    sprintf(buffer, "지형: %s\n", terrainNames[gStage.terrain]);  // 지형 이름
     printText(buffer);
-    int hour = (currentStage.stageNumber - 1) % 24;  // 현재 시간
+    int hour = (gStage.stageNumber - 1) % 24;  // 현재 시간
     sprintf(buffer, "시간: %02d시\n", hour);
     printText(buffer);
-    sprintf(buffer, "보유 전: %d전\n\n", player.money);  // 보유 금액
+    sprintf(buffer, "보유 전: %d전\n\n", gPlayer.money);  // 보유 금액
     printText(buffer);
 }
 
 // 전투 인터페이스를 표시하고 전투를 시작하는 함수
 void showBattleInterface() {
     int minLevel, maxLevel;
-    calculateLevelRange(currentStage.stageNumber, &minLevel, &maxLevel);  // 레벨 범위 계산
+    calculateLevelRange(gStage.stageNumber, &minLevel, &maxLevel);  // 레벨 범위 계산
     int randomLevel = minLevel + rand() % (maxLevel - minLevel + 1);      // 랜덤 레벨 선택
 
     Yokai enemy;
-    if (gameState.isLoadedGame) {
+    if (gGameState.isLoadedGame) {
         enemy = currentEnemy;  // 이어하기 시 저장된 적 요괴 사용
-        gameState.isLoadedGame = 0;  // 플래그 초기화
-    } else if (currentStage.isBossStage) {
-        enemy = currentStage.enemies[0];  // 보스 스테이지의 경우 첫 번째 적 요괴 사용
+        gGameState.isLoadedGame = 0;  // 플래그 초기화
+    } else if (gStage.isBossStage) {
+        enemy = gStage.enemies[0];  // 보스 스테이지의 경우 첫 번째 적 요괴 사용
     } else {
-        enemy = currentStage.enemies[rand() % currentStage.enemyCount];  // 랜덤 적 요괴 선택
+        enemy = gStage.enemies[rand() % gStage.enemyCount];  // 랜덤 적 요괴 선택
     }
 
     int battleResult = startBattle(&enemy);  // 전투 시작
 
-    if (currentStage.isBossStage) {
+    if (gStage.isBossStage) {
         if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
             handleBossStageClear();  // 보스 스테이지 클리어 처리
             nextStage();             // 다음 스테이지로 진행

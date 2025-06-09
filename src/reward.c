@@ -21,11 +21,11 @@ int lastStageNumber = -1; // 마지막 스테이지 번호
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
     int baseReward = 100;  // 기본 보상
-    int stageBonus = (currentStage.stageNumber / 10) * 100;  // 10스테이지마다 50전씩 증가
+    int stageBonus = (gStage.stageNumber / 10) * 100;  // 10스테이지마다 50전씩 증가
     int randomBonus = rand() % 50;  // 0-49전 랜덤 보너스
     
     // 10의 배수 스테이지에서는 2배 보상
-    if (currentStage.stageNumber % 10 == 0) {
+    if (gStage.stageNumber % 10 == 0) {
         return (baseReward + stageBonus + randomBonus) * 2;
     }
     
@@ -64,14 +64,14 @@ const char* getGradeName(ItemGrade grade) {
 // 아이템 보상 시스템
 void itemRewardSystem() {
     // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
-    if (lastStageNumber != currentStage.stageNumber) {
+    if (lastStageNumber != gStage.stageNumber) {
         resetCount = 0;
         isInitialized = 0;
-        lastStageNumber = currentStage.stageNumber;
+        lastStageNumber = gStage.stageNumber;
     }
 
     // 현재 스테이지 번호에 따른 초기화 비용 계산
-    int resetCost = calculateResetCost(currentStage.stageNumber);
+    int resetCost = calculateResetCost(gStage.stageNumber);
     
     // 초기화 횟수에 따른 추가 비용 계산
     for (int i = 0; i < resetCount; i++) {
@@ -146,10 +146,10 @@ void itemRewardSystem() {
     }
     
     if (idx == 3) {  // 아이템 목록 초기화 선택
-        if (player.money >= resetCost) {
-            player.money -= resetCost;
+        if (gPlayer.money >= resetCost) {
+            gPlayer.money -= resetCost;
             char buffer[128];
-            sprintf(buffer, "\n%d전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: %d)\n", resetCost, player.money);
+            sprintf(buffer, "\n%d전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: %d)\n", resetCost, gPlayer.money);
             printText(buffer);
             
             // 초기화 횟수 증가

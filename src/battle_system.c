@@ -60,8 +60,8 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     
     // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
     // 파티 정보는 state 모듈에서 접근
-    for (int i = 0; i < partyCount; i++) {
-        if (attacker == &party[i]) {
+    for (int i = 0; i < gPartyCount; i++) {
+        if (attacker == &gParty[i]) {
             int jakduCount = getJakduCount();
             if (jakduCount > 0) {
                 if (jakduCount > 5) jakduCount = 5;

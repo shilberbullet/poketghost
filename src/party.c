@@ -22,43 +22,43 @@ void assignRandomMoves(Yokai* y);
 
 // 파티 초기화 함수
 void initParty() {
-    partyCount = 0;
+    gPartyCount = 0;
     // 도깨비 요괴를 파일에서 불러와 추가
     Yokai* dokkaebi = findYokaiByName("도깨비");
     if (dokkaebi) {
-        memset(&party[0], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
-        party[0] = *dokkaebi;                 // 기본 정보 복사
-        party[0].level = 5;                   // 초기 레벨 5로 설정
-        party[0].currentHP = calculateHP(&party[0]);  // HP 초기화
+        memset(&gParty[0], 0, sizeof(Yokai));  // 구조체 전체를 0으로 초기화
+        gParty[0] = *dokkaebi;                 // 기본 정보 복사
+        gParty[0].level = 5;                   // 초기 레벨 5로 설정
+        gParty[0].currentHP = calculateHP(&gParty[0]);  // HP 초기화
         
         // 도감 설명 명시적 복사
-        strncpy(party[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
-        party[0].desc[YOKAI_DESC_MAX - 1] = '\0';
+        strncpy(gParty[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
+        gParty[0].desc[YOKAI_DESC_MAX - 1] = '\0';
         
         // learnableMoves 복사
-        party[0].learnableMoveCount = dokkaebi->learnableMoveCount;
+        gParty[0].learnableMoveCount = dokkaebi->learnableMoveCount;
         for (int i = 0; i < dokkaebi->learnableMoveCount; i++) {
-            party[0].learnableMoves[i] = dokkaebi->learnableMoves[i];
+            gParty[0].learnableMoves[i] = dokkaebi->learnableMoves[i];
         }
-        assignRandomMoves(&party[0]);   // 랜덤 기술 할당
-        partyCount = 1;
+        assignRandomMoves(&gParty[0]);   // 랜덤 기술 할당
+        gPartyCount = 1;
     }
 }
 
 // 요괴 성불 처리 함수
 void releaseYokai(int index) {
-    if (index < 0 || index >= partyCount) return;
+    if (index < 0 || index >= gPartyCount) return;
     
     // 선택된 요괴를 배열에서 제거하고 나머지 요괴들을 앞으로 이동
-    for (int i = index; i < partyCount - 1; i++) {
-        party[i] = party[i + 1];
+    for (int i = index; i < gPartyCount - 1; i++) {
+        gParty[i] = gParty[i + 1];
     }
-    partyCount--;
+    gPartyCount--;
 }
 
 // 새로운 요괴를 잡았을 때 파티가 가득 찼을 경우의 처리
 int handleFullParty(const Yokai* newYokai) {
-    if (partyCount < MAX_PARTY_SIZE) {
+    if (gPartyCount < MAX_PARTY_SIZE) {
         return addYokaiToParty(newYokai);
     }
 
@@ -74,11 +74,11 @@ int handleFullParty(const Yokai* newYokai) {
     } else if (choice == 2) {
         while (1) {
             printText("\n성불 시킬 동료 요괴를 선택하세요:\n");
-            for (int i = 0; i < partyCount; i++) {
+            for (int i = 0; i < gPartyCount; i++) {
                 char buffer[256];
                 const char* statusText = "";
                 const char* statusColor = "";
-                switch (party[i].status) {
+                switch (gParty[i].status) {
                     case YOKAI_NORMAL: 
                         statusText = "정상"; 
                         statusColor = "\033[0m";  // 기본색
@@ -93,7 +93,7 @@ int handleFullParty(const Yokai* newYokai) {
                         break;
                 }
                 sprintf(buffer, "%d. %s (Lv.%d, 상태: %s%s\033[0m, 체력: %d, 공격력: %d, 방어력: %d)\n", 
-                    i+1, party[i].name, party[i].level, statusColor, statusText, party[i].stamina, party[i].attack, party[i].defense);
+                    i+1, gParty[i].name, gParty[i].level, statusColor, statusText, gParty[i].stamina, gParty[i].attack, gParty[i].defense);
                 printText(buffer);
             }
             printText("0. 뒤로 돌아간다\n");
@@ -105,9 +105,9 @@ int handleFullParty(const Yokai* newYokai) {
             }
             yokaiChoice--; // 0-based index로 변환
 
-            if (yokaiChoice >= 0 && yokaiChoice < partyCount) {
+            if (yokaiChoice >= 0 && yokaiChoice < gPartyCount) {
                 char buffer[128];
-                sprintf(buffer, "\n%s를 성불시켰습니다.", party[yokaiChoice].name);
+                sprintf(buffer, "\n%s를 성불시켰습니다.", gParty[yokaiChoice].name);
                 printTextAndWait(buffer);
                 
                 // 선택된 요괴를 성불시키고 새로운 요괴 추가
@@ -127,24 +127,24 @@ int handleFullParty(const Yokai* newYokai) {
 
 // 파티에 새로운 요괴 추가 함수
 int addYokaiToParty(const Yokai* yokai) {
-    if (partyCount >= MAX_PARTY_SIZE) {
+    if (gPartyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
     }
     
     // 요괴 정보 직접 복사
-    party[partyCount] = *yokai;  // 기본 정보 복사
+    gParty[gPartyCount] = *yokai;  // 기본 정보 복사
     
     // 도감 설명 명시적 복사
-    strncpy(party[partyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
-    party[partyCount].desc[YOKAI_DESC_MAX - 1] = '\0';
+    strncpy(gParty[gPartyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
+    gParty[gPartyCount].desc[YOKAI_DESC_MAX - 1] = '\0';
     
     // learnableMoves 복사
-    party[partyCount].learnableMoveCount = yokai->learnableMoveCount;
+    gParty[gPartyCount].learnableMoveCount = yokai->learnableMoveCount;
     for (int i = 0; i < yokai->learnableMoveCount; i++) {
-        party[partyCount].learnableMoves[i] = yokai->learnableMoves[i];
+        gParty[gPartyCount].learnableMoves[i] = yokai->learnableMoves[i];
     }
-    assignRandomMoves(&party[partyCount]);   // 랜덤 기술 할당
-    partyCount++;
+    assignRandomMoves(&gParty[gPartyCount]);   // 랜덤 기술 할당
+    gPartyCount++;
     return 1;
 }
 
@@ -152,14 +152,14 @@ int addYokaiToParty(const Yokai* yokai) {
 void printParty() {
     printText("\n=== 동료 요괴 목록 ===\n");
     printText("[0] 뒤로 가기\n");
-    for (int i = 0; i < partyCount; i++) {
+    for (int i = 0; i < gPartyCount; i++) {
         char buffer[256];
-        float maxHP = calculateHP(&party[i]);
+        float maxHP = calculateHP(&gParty[i]);
         sprintf(buffer, "[%d] %s Lv.%d (HP: %.0f/%.0f)\n", 
             i+1, 
-            party[i].name, 
-            party[i].level,
-            party[i].currentHP,
+            gParty[i].name, 
+            gParty[i].level,
+            gParty[i].currentHP,
             maxHP);
         printText(buffer);
     }
@@ -170,35 +170,35 @@ void printParty() {
         return;
     }
     
-    if (choice > 0 && choice <= partyCount) {
+    if (choice > 0 && choice <= gPartyCount) {
         int idx = choice - 1;
         char buffer[2048];
         
         // 기본 정보 출력
-        float maxHP = calculateHP(&party[idx]);
-        sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", party[idx].name, party[idx].level);
+        float maxHP = calculateHP(&gParty[idx]);
+        sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", gParty[idx].name, gParty[idx].level);
         printText(buffer);
-        sprintf(buffer, "체력 종족값: %d\n", party[idx].stamina);
+        sprintf(buffer, "체력 종족값: %d\n", gParty[idx].stamina);
         printText(buffer);
-        sprintf(buffer, "현재 HP: %.0f/%.0f\n", party[idx].currentHP, maxHP);
+        sprintf(buffer, "현재 HP: %.0f/%.0f\n", gParty[idx].currentHP, maxHP);
         printText(buffer);
-        sprintf(buffer, "공격력: %d\n", party[idx].attack);
+        sprintf(buffer, "공격력: %d\n", gParty[idx].attack);
         printText(buffer);
-        sprintf(buffer, "방어력: %d\n", party[idx].defense);
+        sprintf(buffer, "방어력: %d\n", gParty[idx].defense);
         printText(buffer);
-        sprintf(buffer, "스피드: %d\n", party[idx].speed);
+        sprintf(buffer, "스피드: %d\n", gParty[idx].speed);
         printText(buffer);
-        sprintf(buffer, "상성: %s\n", typeNames[party[idx].type]);
+        sprintf(buffer, "상성: %s\n", typeNames[gParty[idx].type]);
         printText(buffer);
         
         // 경험치 정보 출력
-        int requiredExp = calculateRequiredExp(party[idx].level);
-        sprintf(buffer, "경험치: %d/%d\n", party[idx].exp, requiredExp);
+        int requiredExp = calculateRequiredExp(gParty[idx].level);
+        sprintf(buffer, "경험치: %d/%d\n", gParty[idx].exp, requiredExp);
         printText(buffer);
         
         // 도감 설명을 별도로 출력
         printText("\n도감설명:\n");
-        char* desc = party[idx].desc;
+        char* desc = gParty[idx].desc;
         while (*desc) {
             char temp[256];
             int i = 0;
@@ -212,11 +212,11 @@ void printParty() {
         
         // 기술 목록 출력
         printText("\n기술 목록:\n");
-        for (int i = 0; i < party[idx].moveCount; i++) {
+        for (int i = 0; i < gParty[idx].moveCount; i++) {
             sprintf(buffer, "%d. %s (상성: %s, 공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
-                i+1, party[idx].moves[i].move.name, typeToString(party[idx].moves[i].move.type), 
-                party[idx].moves[i].move.power, party[idx].moves[i].move.accuracy,
-                party[idx].moves[i].currentPP, party[idx].moves[i].move.pp);
+                i+1, gParty[idx].moves[i].move.name, typeToString(gParty[idx].moves[i].move.type), 
+                gParty[idx].moves[i].move.power, gParty[idx].moves[i].move.accuracy,
+                gParty[idx].moves[i].currentPP, gParty[idx].moves[i].move.pp);
             printText(buffer);
         }
     }
@@ -224,9 +224,9 @@ void printParty() {
 
 // 모든 요괴의 PP를 초기화하는 함수
 void resetAllYokaiPP() {
-    for (int i = 0; i < partyCount; i++) {
-        for (int j = 0; j < party[i].moveCount; j++) {
-            party[i].moves[j].currentPP = party[i].moves[j].move.pp;
+    for (int i = 0; i < gPartyCount; i++) {
+        for (int j = 0; j < gParty[i].moveCount; j++) {
+            gParty[i].moves[j].currentPP = gParty[i].moves[j].move.pp;
         }
     }
 } 
