@@ -1,47 +1,4 @@
-# 포켓몬 고스트 게임
-
-## 설치 방법
-
-1. 저장소 클론:
-```bash
-git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management
-cd poketghost
-```
-
-2. 최신 코드 가져오기:
-```bash
-git pull origin codex/refactor-global-state-management
-```
-
-3. 컴파일 및 실행:
-```bash
-gcc -o poketghosttest main.c
-./poketghosttest
-```
-
-## 게임 설명
-
-이 게임은 포켓몬 고스트를 모티브로 한 텍스트 기반 RPG 게임입니다.
-
-### 주요 기능
-- 요괴 수집 및 육성
-- 전투 시스템
-- 도망가기 기능
-- 요괴 진화 시스템
-
-### 게임 조작
-- 1: 전투
-- 2: 도망가기
-- 3: 요괴 선택
-- 4: 게임 종료
-
-## 최근 업데이트
-- 도망가기 실패 시 요괴 선택 기능 추가
-- 전투 시스템 개선
-- 요괴 진화 시스템 추가
-
-## 라이선스
-MIT License
+# 포켓요괴 (PoketGhost)
 
 ## 게임 소개
 포켓요괴는 한국의 전통 요괴들을 수집하고 육성하는 턴제 RPG 게임입니다. 플레이어는 요괴들을 모아 전투를 벌이고, 아이템을 사용하여 요괴를 회복시키며, 다양한 스테이지를 클리어해 나가는 모험을 즐길 수 있습니다.
