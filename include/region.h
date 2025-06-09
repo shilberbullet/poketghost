@@ -7,7 +7,7 @@
 #include <time.h>
 
 #define MAX_REGIONS 8
-#define MAX_CONNECTED 4
+#define MAX_CONNECTED 5
 #define REGION_NAME_LENGTH 20
 
 typedef struct {
