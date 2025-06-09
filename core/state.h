@@ -19,11 +19,11 @@ Yokai* getParty();
 int* getPartyCountPtr();
 void setPartyCount(int count);
 
-// 매크로로 기존 전역 변수 이름을 제공
-#define gameState (*getGameState())
-#define player (*getPlayer())
-#define currentStage (*getCurrentStage())
-#define party (getParty())
-#define partyCount (*getPartyCountPtr())
+// 전역 상태 접근을 위한 편의 매크로
+#define gGameState   (*getGameState())
+#define gPlayer      (*getPlayer())
+#define gStage       (*getCurrentStage())
+#define gParty       (getParty())
+#define gPartyCount  (*getPartyCountPtr())
 
 #endif // STATE_H

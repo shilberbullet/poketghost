@@ -30,7 +30,7 @@ int calculateBattleExp(const Yokai* enemy) {
     
     // 레벨 차이 보정: 플레이어 요괴와 적 요괴의 레벨 차이에 따라 경험치 증감
     // 파티 정보는 state 모듈에서 접근
-    int playerLevel = partyCount > 0 ? party[0].level : 1;
+    int playerLevel = gPartyCount > 0 ? gParty[0].level : 1;
     int levelDiff = enemy->level - playerLevel;
     float ratio;
     

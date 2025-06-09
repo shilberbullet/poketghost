@@ -437,22 +437,22 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
             // 희귀 양갱: 모든 동료 요괴 1레벨
             printTextAndWait("\n 양갱을 사용합니다...\n");
             
-            for (int i = 0; i < partyCount; i++) {
-                float oldMaxHP = calculateHP(&party[i]);  // 이전 최대 HP 저장
-                int oldLevel = party[i].level;
-                party[i].level++;  // 레벨 증가
-                float newMaxHP = calculateHP(&party[i]);  // 새로운 최대 HP 계산
+            for (int i = 0; i < gPartyCount; i++) {
+                float oldMaxHP = calculateHP(&gParty[i]);  // 이전 최대 HP 저장
+                int oldLevel = gParty[i].level;
+                gParty[i].level++;  // 레벨 증가
+                float newMaxHP = calculateHP(&gParty[i]);  // 새로운 최대 HP 계산
                 float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
                 
                 // 기절 상태가 아닐 때만 현재 HP 증가
-                if (party[i].status != YOKAI_FAINTED) {
-                    party[i].currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+                if (gParty[i].status != YOKAI_FAINTED) {
+                    gParty[i].currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
                 }
                 
                 // 레벨업 메시지 출력
                 char buffer[256];
                 sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
-                    party[i].name, oldLevel, party[i].level);
+                    gParty[i].name, oldLevel, gParty[i].level);
                 printTextAndWait(buffer);
             }
             printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");

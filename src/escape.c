@@ -8,7 +8,7 @@
 // 보스 스테이지에서 도망치기 가능 여부 확인 함수
 int canEscapeFromStage(void) {
     // 10의 배수 스테이지(보스 스테이지)에서는 도망칠 수 없음
-    if (currentStage.stageNumber % 10 == 0) {
+    if (gStage.stageNumber % 10 == 0) {
         printTextAndWait("\n알 수 없는 힘이 도망치지 못하게 합니다!");
         return 0;
     }
