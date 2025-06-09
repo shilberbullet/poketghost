@@ -251,7 +251,7 @@ cd poketghost
 
 #### GitHub 저장소 클론
 ```
-git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management .
+git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management
 ```
 
 ### 3. 컴파일 및 실행
