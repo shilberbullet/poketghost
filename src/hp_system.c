@@ -22,18 +22,11 @@ float calculateHP(const Yokai* yokai) {
 // HP 상태 확인 함수
 // 현재 HP 비율에 따라 상태 메시지를 반환
 const char* getHPStatus(const Yokai* yokai) {
-    if (yokai == NULL) return "알 수 없음";
-    
-    // 최대 HP와 현재 HP 비율 계산
-    float maxHP = calculateHP(yokai);
-    float currentHP = yokai->currentHP;
-    float hpPercentage = (currentHP / maxHP) * 100.0f;
-    
-    // HP 비율에 따른 상태 메시지 반환
-    if (hpPercentage >= 80.0f) return "상태 양호";
-    if (hpPercentage >= 50.0f) return "주의 필요";
-    if (hpPercentage >= 20.0f) return "위험";
-    return "매우 위험";
+    // 기절 상태일 때만 "기절" 반환, 그 외에는 빈 문자열 반환
+    if (yokai->status == YOKAI_FAINTED) {
+        return "기절";
+    }
+    return "";
 }
 
 // HP 바 출력 함수

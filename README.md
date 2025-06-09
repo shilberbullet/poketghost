@@ -254,6 +254,11 @@ cd poketghost
 git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management
 ```
 
+### 최신 코드 가져오기:
+```bash
+git pull origin main
+```
+
 ### 3. 컴파일 및 실행
 
 #### 소스 코드 컴파일

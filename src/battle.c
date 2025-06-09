@@ -126,7 +126,7 @@ int startBattle(const Yokai* enemy) {
     
     // HP 바 전체를 하나의 문자열로 구성
     char hpBuffer[512];
-    sprintf(hpBuffer, "HP[");
+    sprintf(hpBuffer, "%s HP[", enemy->name);
     
     // HP 비율에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
@@ -147,11 +147,16 @@ int startBattle(const Yokai* enemy) {
     }
     
     // 색상 초기화 및 HP 바 종료
-    strcat(hpBuffer, "\033[0m]");
-    sprintf(hpBuffer + strlen(hpBuffer), " %.0f/%.0f\n", currentHP, maxHP);
+    char tempBuffer[256];
+    sprintf(tempBuffer, "\033[0m] %.0f/%.0f", enemy->currentHP, maxHP);
+    strcat(hpBuffer, tempBuffer);
+    if (enemy->status == YOKAI_FAINTED) {
+        strcat(hpBuffer, " (기절)");
+    }
+    strcat(hpBuffer, "\n");
     
     // HP 바 전체를 한 번에 출력
-    printText(hpBuffer);
+    printTextAndWait(hpBuffer);
     
     // 이어하기가 아닌 경우에만 초기화
     if (turnCount == 0) {  // turnCount가 0이면 새 전투 시작
@@ -582,6 +587,36 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 gParty[yokaiIdx].currentHP -= actualDamage;
                 
+                // 기술 이름 출력
+                char moveMsg[256];
+                const char* colorCode;
+                switch (enemy->type) {
+                    case TYPE_EVIL_SPIRIT:
+                        colorCode = "\033[31m";  // 빨간색
+                        break;
+                    case TYPE_GHOST:
+                        colorCode = "\033[35m";  // 보라색
+                        break;
+                    case TYPE_MONSTER:
+                        colorCode = "\033[33m";  // 노란색
+                        break;
+                    case TYPE_HUMAN:
+                        colorCode = "\033[36m";  // 청록색
+                        break;
+                    case TYPE_ANIMAL:
+                        colorCode = "\033[32m";  // 초록색
+                        break;
+                    default:
+                        colorCode = "\033[0m";   // 기본색
+                }
+                sprintf(moveMsg, "\n%s%s\033[0m의 %s%s\033[0m!\n", getEnemyNameColorExport(), enemy->name, colorCode, enemy->moves[enemyMoveIdx].move.name);
+                printTextAndWait(moveMsg);
+                
+                // 데미지 메시지 출력
+                char damageMsg[256];
+                sprintf(damageMsg, "%s에게 %.0f의 데미지를 입혔다!\n", gParty[yokaiIdx].name, actualDamage);
+                printTextAndWait(damageMsg);
+                
                 // HP 바 업데이트
                 float maxHP = calculateHP(&gParty[yokaiIdx]);
                 float hpPercentage = (gParty[yokaiIdx].currentHP / maxHP) * 100.0f;
@@ -589,7 +624,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 // HP 바 전체를 하나의 문자열로 구성
                 char hpBuffer[512];
-                sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", gParty[yokaiIdx].name, gParty[yokaiIdx].currentHP, maxHP);
+                sprintf(hpBuffer, "%s HP[", gParty[yokaiIdx].name);
                 
                 // HP 비율에 따른 색상 설정
                 if (hpPercentage <= 20.0f) {
@@ -610,8 +645,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 
                 // 색상 초기화 및 HP 바 종료
-                strcat(hpBuffer, "\033[0m]");
-                sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&gParty[yokaiIdx]));
+                char tempBuffer[256];
+                sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
+                strcat(hpBuffer, tempBuffer);
+                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                    strcat(hpBuffer, " (기절)");
+                }
+                strcat(hpBuffer, "\n");
                 
                 // HP 바 전체를 한 번에 출력
                 printTextAndWait(hpBuffer);
@@ -675,6 +715,36 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             }
             gParty[newYokaiIdx].currentHP -= actualDamage;
             
+            // 기술 이름 출력
+            char moveMsg[256];
+            const char* colorCode;
+            switch (enemy->type) {
+                case TYPE_EVIL_SPIRIT:
+                    colorCode = "\033[31m";  // 빨간색
+                    break;
+                case TYPE_GHOST:
+                    colorCode = "\033[35m";  // 보라색
+                    break;
+                case TYPE_MONSTER:
+                    colorCode = "\033[33m";  // 노란색
+                    break;
+                case TYPE_HUMAN:
+                    colorCode = "\033[36m";  // 청록색
+                    break;
+                case TYPE_ANIMAL:
+                    colorCode = "\033[32m";  // 초록색
+                    break;
+                default:
+                    colorCode = "\033[0m";   // 기본색
+            }
+            sprintf(moveMsg, "\n%s%s\033[0m의 %s%s\033[0m!\n", getEnemyNameColorExport(), enemy->name, colorCode, enemy->moves[enemyMoveIdx].move.name);
+            printTextAndWait(moveMsg);
+            
+            // 데미지 메시지 출력
+            char damageMsg[256];
+            sprintf(damageMsg, "%s에게 %.0f의 데미지를 입혔다!\n", gParty[newYokaiIdx].name, actualDamage);
+            printTextAndWait(damageMsg);
+            
             // HP 바 업데이트
             float maxHP = calculateHP(&gParty[newYokaiIdx]);
             float hpPercentage = (gParty[newYokaiIdx].currentHP / maxHP) * 100.0f;
@@ -682,7 +752,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             
             // HP 바 전체를 하나의 문자열로 구성
             char hpBuffer[512];
-            sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", gParty[newYokaiIdx].name, gParty[newYokaiIdx].currentHP, maxHP);
+            sprintf(hpBuffer, "%s HP[", gParty[newYokaiIdx].name);
             
             // HP 비율에 따른 색상 설정
             if (hpPercentage <= 20.0f) {
@@ -703,8 +773,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             }
             
             // 색상 초기화 및 HP 바 종료
-            strcat(hpBuffer, "\033[0m]");
-            sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&gParty[newYokaiIdx]));
+            char tempBuffer[256];
+            sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[newYokaiIdx].currentHP, maxHP);
+            strcat(hpBuffer, tempBuffer);
+            if (gParty[newYokaiIdx].status == YOKAI_FAINTED) {
+                strcat(hpBuffer, " (기절)");
+            }
+            strcat(hpBuffer, "\n");
             
             // HP 바 전체를 한 번에 출력
             printTextAndWait(hpBuffer);
@@ -777,6 +852,36 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 gParty[yokaiIdx].currentHP -= actualDamage;
                 
+                // 기술 이름 출력
+                char moveMsg[256];
+                const char* colorCode;
+                switch (enemy->type) {
+                    case TYPE_EVIL_SPIRIT:
+                        colorCode = "\033[31m";  // 빨간색
+                        break;
+                    case TYPE_GHOST:
+                        colorCode = "\033[35m";  // 보라색
+                        break;
+                    case TYPE_MONSTER:
+                        colorCode = "\033[33m";  // 노란색
+                        break;
+                    case TYPE_HUMAN:
+                        colorCode = "\033[36m";  // 청록색
+                        break;
+                    case TYPE_ANIMAL:
+                        colorCode = "\033[32m";  // 초록색
+                        break;
+                    default:
+                        colorCode = "\033[0m";   // 기본색
+                }
+                sprintf(moveMsg, "\n%s%s\033[0m의 %s%s\033[0m!\n", getEnemyNameColorExport(), enemy->name, colorCode, enemy->moves[enemyMoveIdx].move.name);
+                printTextAndWait(moveMsg);
+                
+                // 데미지 메시지 출력
+                char damageMsg[256];
+                sprintf(damageMsg, "%s에게 %.0f의 데미지를 입혔다!\n", gParty[yokaiIdx].name, actualDamage);
+                printTextAndWait(damageMsg);
+                
                 // HP 바 업데이트
                 float maxHP = calculateHP(&gParty[yokaiIdx]);
                 float hpPercentage = (gParty[yokaiIdx].currentHP / maxHP) * 100.0f;
@@ -784,7 +889,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 // HP 바 전체를 하나의 문자열로 구성
                 char hpBuffer[512];
-                sprintf(hpBuffer, "\n%s의 HP: %.0f/%.0f\n[", gParty[yokaiIdx].name, gParty[yokaiIdx].currentHP, maxHP);
+                sprintf(hpBuffer, "%s HP[", gParty[yokaiIdx].name);
                 
                 // HP 비율에 따른 색상 설정
                 if (hpPercentage <= 20.0f) {
@@ -805,8 +910,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 
                 // 색상 초기화 및 HP 바 종료
-                strcat(hpBuffer, "\033[0m]");
-                sprintf(hpBuffer + strlen(hpBuffer), " (%s)\n", getHPStatus(&gParty[yokaiIdx]));
+                char tempBuffer[256];
+                sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
+                strcat(hpBuffer, tempBuffer);
+                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                    strcat(hpBuffer, " (기절)");
+                }
+                strcat(hpBuffer, "\n");
                 
                 // HP 바 전체를 한 번에 출력
                 printTextAndWait(hpBuffer);
