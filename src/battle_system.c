@@ -6,6 +6,7 @@
 #include "hp_system.h"
 #include "battle.h"  // currentEnemy 변수를 위해 추가
 #include "item.h" // 작두 개수 확인을 위해 추가
+#include "../core/state.h"
 
 // 상대 요괴 이름 색상 반환 함수 extern 선언
 extern const char* getEnemyNameColorExport();
@@ -58,10 +59,9 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     float damage = (baseDamage / defenseFactor) * typeEffectiveness;
     
     // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
-    extern Yokai party[];
-    extern int partyCount;
-    for (int i = 0; i < partyCount; i++) {
-        if (attacker == &party[i]) {
+    // 파티 정보는 state 모듈에서 접근
+    for (int i = 0; i < gPartyCount; i++) {
+        if (attacker == &gParty[i]) {
             int jakduCount = getJakduCount();
             if (jakduCount > 0) {
                 if (jakduCount > 5) jakduCount = 5;

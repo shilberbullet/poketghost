@@ -3,7 +3,7 @@
 
 #include "stage_types.h"
 
-extern StageInfo currentStage;
+// 현재 스테이지 정보는 state 모듈에서 관리
 
 void initStage(StageInfo* stage, int stageNumber);
 void generateStageEnemies(StageInfo* stage);

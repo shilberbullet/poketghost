@@ -4,10 +4,11 @@
 #include "game.h"
 #include "text.h"
 #include "exit.h"
+#include "../core/state.h"
  
 // 게임 종료 함수
 void exitGame() {
-    gameState.isRunning = 0;  // 게임 루프 종료
+    gGameState.isRunning = 0;  // 게임 루프 종료
     printTextAndWait("\n게임을 종료합니다.");
     exit(0);  // 프로그램 종료
 } 
