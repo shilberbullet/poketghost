@@ -13,6 +13,7 @@
 #include "menu.h"  // 메인 메뉴를 위해 추가
 #include "main.h"  // main 함수를 위해 추가
 #include "savefile.h" // 세이브 파일 삭제를 위해 추가
+#include "../core/state.h"
 
 // 모든 요괴가 기절했는지 확인하는 함수
 bool areAllYokaiFainted() {

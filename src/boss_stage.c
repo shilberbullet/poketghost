@@ -8,6 +8,7 @@
 #include "savefile.h"
 #include "hp_system.h"
 #include "region.h"
+#include "../core/state.h"
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {

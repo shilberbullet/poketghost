@@ -15,14 +15,14 @@
 #include "game.h"
 #include "region.h"
 #include "item.h"
+#include "../core/state.h"
 
 // 지형 이름 배열
 const char* terrainNames[] = {
     "산", "강", "바다", "논", "마을"
 };
 
-// 전역 스테이지 정보
-StageInfo currentStage = {0};
+// 스테이지 정보는 state 모듈에서 관리
 
 // 스테이지 초기화 함수
 void initStage(StageInfo* stage, int stageNumber) {

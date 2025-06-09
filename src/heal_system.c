@@ -5,6 +5,7 @@
 #include "input.h"
 #include "party.h"
 #include "hp_system.h"
+#include "../core/state.h"
 
 // 현재 사용 중인 아이템
 const Item* currentItem = NULL;

@@ -8,6 +8,7 @@
 #include "exp_system.h"
 // 텍스트 출력 관련 함수
 #include "text.h"
+#include "../core/state.h"
 
 // 레벨업에 필요한 경험치 계산 함수
 // 레벨에 따라 필요한 경험치를 계산
@@ -28,8 +29,7 @@ int calculateBattleExp(const Yokai* enemy) {
     }
     
     // 레벨 차이 보정: 플레이어 요괴와 적 요괴의 레벨 차이에 따라 경험치 증감
-    extern Yokai party[];
-    extern int partyCount;
+    // 파티 정보는 state 모듈에서 접근
     int playerLevel = partyCount > 0 ? party[0].level : 1;
     int levelDiff = enemy->level - playerLevel;
     float ratio;

@@ -10,10 +10,9 @@
 #include "item.h"
 // 로그라이트 시스템 관련 함수
 #include "roguelite.h"
+#include "../core/state.h"
 
-// 전역 게임 상태와 플레이어 정보를 초기화
-GameState gameState = {0};  // 게임 상태 구조체 초기화
-Player player = {0};        // 플레이어 정보 구조체 초기화
+// 전역 게임 상태와 플레이어 정보는 state 모듈에서 관리
  
 // 게임 초기화 함수
 void initGame() {
