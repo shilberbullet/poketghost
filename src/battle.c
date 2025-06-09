@@ -803,6 +803,22 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 // 전투 결과 확인
                 if (gParty[yokaiIdx].currentHP <= 0) {
+                    gParty[yokaiIdx].status = YOKAI_FAINTED;
+                    gParty[yokaiIdx].currentHP = 0;
+
+                    // 모든 요괴가 기절했는지 확인
+                    bool allFainted = true;
+                    for (int i = 0; i < gPartyCount; i++) {
+                        if (gParty[i].status != YOKAI_FAINTED) {
+                            allFainted = false;
+                            break;
+                        }
+                    }
+                    if (allFainted) {
+                        handleRogueliteSystem();
+                        return 104; // 전투 패배
+                    }
+
                     printTextAndWait("\n전투에서 패배했습니다...");
                     return 104; // 전투 패배
                 }
