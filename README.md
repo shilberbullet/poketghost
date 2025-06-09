@@ -249,9 +249,9 @@ mkdir poketghost
 cd poketghost
 ```
 
-3. GitHub에서 소스 코드 다운로드
-```bash
-git clone https://github.com/shilberbullet/poketghost.git
+#### GitHub 저장소 클론
+```
+git clone https://github.com/shilberbullet/poketghost.git -b codex/refactor-global-state-management .
 ```
 
 ### 3. 컴파일 및 실행
