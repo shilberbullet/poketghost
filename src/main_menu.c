@@ -14,7 +14,7 @@
 #include "reward.h"
 #include "region.h"
 #include "../core/state.h"
-
+#include <windows.h>
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
     int choice;
@@ -91,7 +91,7 @@ void startNewGame(void) {
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
     printTextAndWait(buffer);
-    
+    Sleep(500);
     while (gGameState.isRunning) {
         showStageInfo();
         showBattleInterface();

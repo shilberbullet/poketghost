@@ -9,6 +9,7 @@
 #include "party.h"
 #include "battle.h"
 #include "../core/state.h"
+#include <windows.h>
 
 // 필요한 전역 변수는 state 모듈에서 접근
 
@@ -188,6 +189,7 @@ void itemRewardSystem() {
             char buffer[128];
             sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
             printTextAndWait(buffer);
+            Sleep(500); // 0.5초 대기
         }
     }
     // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
@@ -195,6 +197,7 @@ void itemRewardSystem() {
         char buffer[128];
         sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
         printTextAndWait(buffer);
+        Sleep(500); // 0.5초 대기
     }
     
     // 보상 선택이 완료되면 초기화 플래그를 리셋
