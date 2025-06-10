@@ -22,7 +22,7 @@
 #include "roguelite.h"  // 로그라이트 시스템 추가
 #include "settings.h"
 #include "region.h"
-
+#include <windows.h>
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
 // 현재 전투 중인 상대 요괴
@@ -57,6 +57,7 @@ int handleFaintedYokai(int faintedIdx) {
     char buffer[256];
     sprintf(buffer, "\n%s(이)가 쓰러졌다!\n", gParty[faintedIdx].name);
     printText(buffer);
+    Sleep(500);
     
     // 다른 기절하지 않은 요괴가 있는지 확인
     bool hasActiveYokai = false;
@@ -70,12 +71,22 @@ int handleFaintedYokai(int faintedIdx) {
     if (!hasActiveYokai) {
         // 모든 요괴가 기절한 경우 즉시 로그라이트 시스템 실행
         handleRogueliteSystem();
-        return -2; // 전투 패배
+        return 104; // 전투 패배 (101, 102, 103, 104 중 하나로 통일)
     }
     
-    printTextAndWait("\n다른 요괴를 선택하세요.");
+    // 도망가기 실패 후 요괴가 기절한 경우에도 즉시 동료 요괴 선택 메뉴 표시
     int newIdx = selectPartyYokai();
-    return newIdx;  // 뒤로가기 옵션 제거
+    
+    // 선택된 요괴가 기절한 경우 다시 선택하도록 함
+    while (gParty[newIdx].status == YOKAI_FAINTED) {
+        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+        newIdx = selectPartyYokai();
+        if (newIdx == -1) {
+            return 0; // 뒤로 돌아가기
+        }
+    }
+    
+    return newIdx;
 }
 
 int startBattle(const Yokai* enemy) {
@@ -126,7 +137,7 @@ int startBattle(const Yokai* enemy) {
     
     // HP 바 전체를 하나의 문자열로 구성
     char hpBuffer[512];
-    sprintf(hpBuffer, "%s HP[", enemy->name);
+    sprintf(hpBuffer, "%s%s\033[0m HP[", nameColor, enemy->name);
     
     // HP 비율에 따른 색상 설정
     if (hpPercentage <= 20.0f) {
@@ -472,10 +483,18 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                     
                     // 기절하지 않은 요괴가 있으면 즉시 교체 메뉴 표시
-                    printTextAndWait("\n다른 요괴를 선택하세요.");
                     yokaiIdx = selectPartyYokai();
                     if (yokaiIdx == -1) {
                         return 0; // 뒤로 돌아가기
+                    }
+                    
+                    // 선택된 요괴가 기절한 경우 다시 선택하도록 함
+                    while (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                        yokaiIdx = selectPartyYokai();
+                        if (yokaiIdx == -1) {
+                            return 0; // 뒤로 돌아가기
+                        }
                     }
                 }
             }
@@ -507,12 +526,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     return 104; // 전투 패배
                 }
                 
-                // 기절하지 않은 요괴가 있으면 즉시 교체 메뉴 표시
-                printTextAndWait("\n다른 요괴를 선택하세요.");
-                yokaiIdx = selectPartyYokai();
-                if (yokaiIdx == -1) {
-                    return 0; // 뒤로 돌아가기
+                // 남은 동료가 있으면 즉시 교체 메뉴
+                int newIdx = selectPartyYokai();
+                while (gParty[newIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                    newIdx = selectPartyYokai();
                 }
+                lastYokaiIdx = newIdx;
+                turnCount++;
+                return 0;
             }
             
             handleBattleResult(&gParty[yokaiIdx], enemy, result);
@@ -529,6 +551,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_TALISMAN: {
             if (gStage.stageNumber % 10 == 0) {
                 printTextAndWait("\n알 수 없는 힘이 부적을 던질 수 없게 합니다!");
+                Sleep(500);
                 return 0;
             }
             int idx = selectTalismanFromInventory();
@@ -543,6 +566,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
             printTextAndWait(buffer);
+            Sleep(500);
                 }
             if (inventory[idx].count == 1) {
                 for (int i = idx; i < inventoryCount - 1; i++)
@@ -555,6 +579,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
                 printTextAndWait(buffer);
+                Sleep(500);
                 if (inventory[idx].count == 1) {
                     for (int i = idx; i < inventoryCount - 1; i++)
                         inventory[i] = inventory[i + 1];
@@ -585,81 +610,43 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 if (actualDamage > gParty[yokaiIdx].currentHP) {
                     actualDamage = gParty[yokaiIdx].currentHP;
                 }
+                
                 gParty[yokaiIdx].currentHP -= actualDamage;
                 
-                // 기술 이름 출력
-                char moveMsg[256];
-                const char* colorCode;
-                switch (enemy->type) {
-                    case TYPE_EVIL_SPIRIT:
-                        colorCode = "\033[31m";  // 빨간색
-                        break;
-                    case TYPE_GHOST:
-                        colorCode = "\033[35m";  // 보라색
-                        break;
-                    case TYPE_MONSTER:
-                        colorCode = "\033[33m";  // 노란색
-                        break;
-                    case TYPE_HUMAN:
-                        colorCode = "\033[36m";  // 청록색
-                        break;
-                    case TYPE_ANIMAL:
-                        colorCode = "\033[32m";  // 초록색
-                        break;
-                    default:
-                        colorCode = "\033[0m";   // 기본색
-                }
-                sprintf(moveMsg, "\n%s%s\033[0m의 %s%s\033[0m!\n", getEnemyNameColorExport(), enemy->name, colorCode, enemy->moves[enemyMoveIdx].move.name);
-                printTextAndWait(moveMsg);
-                
                 // 데미지 메시지 출력
-                char damageMsg[256];
-                sprintf(damageMsg, "%s에게 %.0f의 데미지를 입혔다!\n", gParty[yokaiIdx].name, actualDamage);
-                printTextAndWait(damageMsg);
+                char buffer[256];
+                sprintf(buffer, "\n%s에게 %.0f의 데미지를 입었다!", gParty[yokaiIdx].name, actualDamage);
+                printTextAndWait(buffer);
                 
                 // HP 바 업데이트
                 float maxHP = calculateHP(&gParty[yokaiIdx]);
                 float hpPercentage = (gParty[yokaiIdx].currentHP / maxHP) * 100.0f;
                 int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
                 
-                // HP 바 전체를 하나의 문자열로 구성
-                char hpBuffer[512];
-                sprintf(hpBuffer, "%s HP[", gParty[yokaiIdx].name);
-                
-                // HP 비율에 따른 색상 설정
+                sprintf(buffer, "\n%s HP[", gParty[yokaiIdx].name);
                 if (hpPercentage <= 20.0f) {
-                    strcat(hpBuffer, "\033[31m"); // 빨간색
+                    strcat(buffer, "\033[31m");
                 } else if (hpPercentage <= 50.0f) {
-                    strcat(hpBuffer, "\033[33m"); // 노란색
+                    strcat(buffer, "\033[33m");
                 } else {
-                    strcat(hpBuffer, "\033[1;32m"); // 초록색
+                    strcat(buffer, "\033[1;32m");
                 }
                 
-                // HP 바 시각화
                 for (int i = 0; i < HP_BAR_LENGTH; i++) {
                     if (i < filledLength) {
-                        strcat(hpBuffer, "█");
+                        strcat(buffer, "█");
                     } else {
-                        strcat(hpBuffer, "░");
+                        strcat(buffer, "░");
                     }
                 }
                 
-                // 색상 초기화 및 HP 바 종료
-                char tempBuffer[256];
-                sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
-                strcat(hpBuffer, tempBuffer);
-                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
-                    strcat(hpBuffer, " (기절)");
-                }
-                strcat(hpBuffer, "\n");
+                sprintf(buffer + strlen(buffer), "\033[0m] %.0f/%.0f\n", gParty[yokaiIdx].currentHP, maxHP);
+                printTextAndWait(buffer);
                 
-                // HP 바 전체를 한 번에 출력
-                printTextAndWait(hpBuffer);
-                
-                // 전투 결과 확인
+                // 요괴가 기절했는지 확인
                 if (gParty[yokaiIdx].currentHP <= 0) {
-                    gParty[yokaiIdx].status = YOKAI_FAINTED;
                     gParty[yokaiIdx].currentHP = 0;
+                    gParty[yokaiIdx].status = YOKAI_FAINTED;
                     
                     // 모든 요괴가 기절했는지 확인
                     bool allFainted = true;
@@ -675,20 +662,20 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                         return 104; // 전투 패배
                     }
                     
-                    // 첫 턴이 아닐 때만 요괴 교체 메뉴 표시
-                    if (turnCount > 0) {
-                        printTextAndWait("\n다른 요괴를 선택하세요.");
-                        yokaiIdx = selectPartyYokai();
-                        if (yokaiIdx == -1) {
-                            return 0; // 뒤로 돌아가기
-                        }
-                        lastYokaiIdx = yokaiIdx;
+                    // 남은 동료가 있으면 즉시 교체 메뉴
+                    int newIdx = selectPartyYokai();
+                    while (gParty[newIdx].status == YOKAI_FAINTED) {
+                        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                        newIdx = selectPartyYokai();
                     }
-                    turnCount++;  // 턴 증가
-                    return 0;  // 다음 턴으로
+                    lastYokaiIdx = newIdx;
+                    turnCount++;
+                    return 0;
                 }
-                turnCount++;  // 턴 증가
-                return 0;  // 다음 턴으로
+                
+                turnCount++;
+                lastYokaiIdx = yokaiIdx;
+                return 0;
             }
         }
         case BATTLE_CHECK_PARTY:
@@ -803,13 +790,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     return 104; // 전투 패배
                 }
                 
-                // 기절하지 않은 요괴가 있으면 교체 메뉴 표시
-                printTextAndWait("\n다른 요괴를 선택하세요.");
-                newYokaiIdx = selectPartyYokai();
-                if (newYokaiIdx == -1) {
-                    return 0; // 뒤로 돌아가기
+                // 남은 동료가 있으면 즉시 교체 메뉴
+                int newIdx = selectPartyYokai();
+                while (gParty[newIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                    newIdx = selectPartyYokai();
                 }
-                lastYokaiIdx = newYokaiIdx;
+                lastYokaiIdx = newIdx;
                 turnCount++;
                 return 0;
             }
@@ -936,11 +923,19 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                     if (allFainted) {
                         handleRogueliteSystem();
+                        printTextAndWait("\n전투에서 패배했습니다...");
                         return 104; // 전투 패배
                     }
 
-                    printTextAndWait("\n전투에서 패배했습니다...");
-                    return 104; // 전투 패배
+                    // 남은 동료가 있으면 즉시 교체 메뉴
+                    int newIdx = selectPartyYokai();
+                    while (gParty[newIdx].status == YOKAI_FAINTED) {
+                        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                        newIdx = selectPartyYokai();
+                    }
+                    lastYokaiIdx = newIdx;
+                    turnCount++;
+                    return 0;
                 }
                 
                 turnCount++;  // 도망치기 실패 시에도 턴 카운트 증가
