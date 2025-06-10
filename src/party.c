@@ -10,7 +10,7 @@
 #include "exp_system.h"
 #include "settings.h"
 #include "../core/state.h"
-
+#include <windows.h>
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
 #endif
@@ -70,6 +70,7 @@ int handleFullParty(const Yokai* newYokai) {
     int choice = getIntInput();
     if (choice == 1) {
         printTextAndWait("\n잡은 요괴를 성불시켰습니다.");
+        Sleep(500);
         return 0;
     } else if (choice == 2) {
         while (1) {
