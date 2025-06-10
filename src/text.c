@@ -14,10 +14,10 @@
 // 텍스트 출력 속도에 따른 대기 시간 계산 (밀리초)
 int getTextDelay() {
     switch (gameSettings.textSpeed) {
-        case 1: return 15;   // 매우 느림 (15ms)
-        case 2: return 10;   // 느림 (10ms)
-        case 3: return 5;    // 보통 (5ms)
-        case 4: return 2;    // 빠름 (2ms)
+        case 1: return 15;   // 매우 느림 (10ms)
+        case 2: return 10;   // 느림 (5ms)
+        case 3: return 5;    // 보통 (3ms)
+        case 4: return 2.5;    // 빠름 (2ms)
         case 5: return 1;    // 매우 빠름 (1ms)
         default: return 5;   // 기본값: 보통 (5ms)
     }
@@ -47,7 +47,7 @@ void printText(const char* text) {
         case 1:  // 한 줄씩 출력
             printf("%s", text);   // 한 줄씩 출력
             fflush(stdout);       // 버퍼 즉시 출력
-            Sleep(delay * 30);    // 한 줄 출력 후 대기
+            Sleep(delay*10);    // 한 줄 출력 후 대기
             break;
             
         case 2:  // 한 번에 출력
@@ -71,8 +71,5 @@ void printTextAndWait(const char* text) {
 // 텍스트 속도에 비례한 sleep 함수 (base=500이면 매우 빠름)
 void fastSleep(int base) {
     int delay = getTextDelay();
-    // 매우 빠르게(5)일 때는 base 그대로 사용, 그 외에는 속도에 비례
-    int ms = (delay == 1) ? base : (base * delay) / 5;
-    if (ms < 1) ms = 1;
-    Sleep(ms);
-} 
+    Sleep(delay*180);
+}
