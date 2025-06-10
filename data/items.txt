@@ -24,7 +24,7 @@
 작두,SUPERRARE,PLAYER,퇴마사가 지니고 있으면 요괴들의 공격력이 올라간다
 복숭아,SUPERRARE,YOKAI,동료 요괴가 지니고 있으면 매턴 약간의 체력을 회복한다
 맛있는 식혜,SUPERRARE,HEAL,동료 요괴의 모든 기술 PP를 모두 회복한다
-고급양갱,SUPERRARE,YANGGAENG,선택한 요괴의 레벨을 3 올려준다
+고급양갱,SUPERRARE,YANGGAENG,선택한 요괴의 레벨을 3 올려준다 
 곶감,SUPERRARE,HEAL,동료 요괴의 모든 체력을 회복한다 
  
  

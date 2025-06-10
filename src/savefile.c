@@ -12,7 +12,7 @@
 #include "text.h"
 #include "region.h"
 #include "../core/state.h"
-
+#include <windows.h>
 #define SAVE_FILE "data/save.dat"
 
 // battle.c에서 선언된 변수들을 extern으로 선언
@@ -30,6 +30,7 @@ void saveGame() {
     char buffer[128];
     sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
     printTextAndWait(buffer);
+    Sleep(500);
     }
     
     // 스테이지 정보 저장

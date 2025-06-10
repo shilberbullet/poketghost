@@ -819,11 +819,11 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 } else {
                     // 첫 턴이 아니면 이전에 선택한 요괴 사용
                     yokaiIdx = lastYokaiIdx;
-                    if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
-                        printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
-                        yokaiIdx = selectPartyYokai();
-                        if (yokaiIdx == -1) {
-                            return 0; // 뒤로 돌아가기
+                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                    printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                    yokaiIdx = selectPartyYokai();
+                    if (yokaiIdx == -1) {
+                        return 0; // 뒤로 돌아가기
                         }
                     }
                 }
@@ -950,6 +950,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             gGameState.isManualSave = true;  // 수동 저장 플래그 설정
             saveGame();
             printTextAndWait("\n게임이 저장되었습니다. 메뉴로 돌아갑니다.");
+            Sleep(500);
             gGameState.isRunning = 0;
             return 2;
     }

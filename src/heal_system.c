@@ -59,6 +59,7 @@ int healYokai(Yokai* targetYokai) {
                 char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                 printText(buffer);
+                Sleep(500); // 0.5초 대기
                 return 1;
             }
             else if (strcmp(currentItem->name, "나물") == 0) {
@@ -72,6 +73,7 @@ int healYokai(Yokai* targetYokai) {
                 char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                 printText(buffer);
+                Sleep(500); // 0.5초 대기
                 return 1;
             }
             else if (strcmp(currentItem->name, "탕국") == 0) {
@@ -90,6 +92,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                     printText(buffer);
+                    Sleep(500); // 0.5초 대기
                     return 1;
             }
             else if (strcmp(currentItem->name, "막걸리") == 0) {
@@ -108,6 +111,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                     printText(buffer);
+                    Sleep(500); // 0.5초 대기
                     return 1;
             }
             break;
@@ -135,6 +139,7 @@ int healYokai(Yokai* targetYokai) {
                     printTextAndWait(buffer);
                 }
                 printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
+                Sleep(500); // 0.5초 대기
                 return 1;
             } else {
                 if (!targetYokai) return -1;
@@ -142,6 +147,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                     sprintf(buffer, "\n%s가 %s를 먹었습니다!\n", targetYokai->name, currentItem->name);
                     printText(buffer);
+                    Sleep(500); // 0.5초 대기
                     return 1;
                 }
             }
@@ -253,6 +259,7 @@ void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
         oldPP,
         move->currentPP);
     printTextAndWait(buffer);
+    Sleep(500);
 }
 
 // 모든 기술 PP 회복 처리 함수
@@ -269,6 +276,7 @@ void healAllMovesPP(Yokai* targetYokai) {
     char buffer[256];
     sprintf(buffer, "\n%s의 모든 기술 PP가 회복되었습니다!", targetYokai->name);
     printTextAndWait(buffer);
+    Sleep(500);
 }
 
 // 기술 PP 회복 처리 함수

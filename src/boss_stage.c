@@ -9,6 +9,7 @@
 #include "hp_system.h"
 #include "region.h"
 #include "../core/state.h"
+#include <windows.h>
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
@@ -48,6 +49,6 @@ void handleBossStageClear(void) {
         gParty[i].status = YOKAI_NORMAL;
     }
     printTextAndWait("\n모든 동료 요괴의 HP와 상태가 회복되었습니다!");
-    
+    Sleep(500);
     saveGame();
 } 
