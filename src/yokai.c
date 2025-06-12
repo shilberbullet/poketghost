@@ -139,9 +139,12 @@ void assignRandomMoves(Yokai* y) {
         int tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp;
     }
     y->moveCount = (y->learnableMoveCount < MAX_MOVES) ? y->learnableMoveCount : MAX_MOVES;
+    y->learnedMoveCount = 0;  // 배운 기술 개수 초기화
     for (int i = 0; i < y->moveCount; i++) {
         y->moves[i].move = y->learnableMoves[idx[i]];
         y->moves[i].currentPP = y->learnableMoves[idx[i]].pp;
+        // 배운 기술 목록에 추가
+        y->learnedMoves[y->learnedMoveCount++] = y->learnableMoves[idx[i]];
     }
 }
 
