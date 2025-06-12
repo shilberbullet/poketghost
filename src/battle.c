@@ -57,7 +57,7 @@ int handleFaintedYokai(int faintedIdx) {
     char buffer[256];
     sprintf(buffer, "\n%s(이)가 쓰러졌다!\n", gParty[faintedIdx].name);
     printText(buffer);
-    Sleep(500);
+    fastSleep(500);
     
     // 다른 기절하지 않은 요괴가 있는지 확인
     bool hasActiveYokai = false;
@@ -93,7 +93,8 @@ int startBattle(const Yokai* enemy) {
     if (gameSettings.debugMode) {
         char debugbuf[128];
         sprintf(debugbuf, "[DEBUG] startBattle 진입 - isLoadedGame: %d, turnCount: %d\n", gGameState.isLoadedGame, turnCount);
-        printText(debugbuf);
+        printTextAndWait(debugbuf);
+        fastSleep(500);
     }
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy;
@@ -208,7 +209,7 @@ int showBattleMenu(const Yokai* enemy) {
     if (gameSettings.debugMode) {
         char buffer[128];
         sprintf(buffer, "\n[DEBUG] 현재 턴: %d, 마지막 요괴 인덱스: %d\n", turnCount, lastYokaiIdx);
-        printText(buffer);
+        printTextAndWait(buffer);
     }
     
     printText("\n무엇을 하시겠습니까?\n");
@@ -454,7 +455,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
     if (gameSettings.debugMode) {
         char buffer[128];
         sprintf(buffer, "\n[DEBUG] handleBattleChoice 진입 - 현재 턴: %d, 마지막 요괴 인덱스: %d\n", turnCount, lastYokaiIdx);
-        printText(buffer);
+        printTextAndWait(buffer);
     }
     
     switch (choice) {
@@ -504,7 +505,6 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (moveIdx == -1) {
                 return 0; // 뒤로 돌아가기
             }
-            gParty[yokaiIdx].moves[moveIdx].currentPP--;
             int result = executeTurnBattle(&gParty[yokaiIdx], enemy, moveIdx);
             
             // 전투 결과 처리 전에 요괴가 기절했는지 확인
@@ -551,7 +551,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_TALISMAN: {
             if (gStage.stageNumber % 10 == 0) {
                 printTextAndWait("\n알 수 없는 힘이 부적을 던질 수 없게 합니다!");
-                Sleep(500);
+                fastSleep(500);
                 return 0;
             }
             int idx = selectTalismanFromInventory();
@@ -566,7 +566,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
             printTextAndWait(buffer);
-            Sleep(500);
+            fastSleep(500);
                 }
             if (inventory[idx].count == 1) {
                 for (int i = idx; i < inventoryCount - 1; i++)
@@ -579,7 +579,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
                 printTextAndWait(buffer);
-                Sleep(500);
+                fastSleep(500);
                 if (inventory[idx].count == 1) {
                     for (int i = idx; i < inventoryCount - 1; i++)
                         inventory[i] = inventory[i + 1];
@@ -950,7 +950,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             gGameState.isManualSave = true;  // 수동 저장 플래그 설정
             saveGame();
             printTextAndWait("\n게임이 저장되었습니다. 메뉴로 돌아갑니다.");
-            Sleep(500);
+            fastSleep(500);
             gGameState.isRunning = 0;
             return 2;
     }
