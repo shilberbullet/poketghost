@@ -136,7 +136,7 @@ void displayConnectedRegions(void) {
         }
     }
     printText("\n");
-    Sleep(500);
+    fastSleep(500);
 }
 
 void saveRegionData(FILE* file) {

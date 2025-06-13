@@ -47,7 +47,7 @@ void handleRogueliteSystem() {
     printText("\n모든 요괴가 기절했습니다!\n");
     printText("더 이상 싸울 수 있는 요괴가 없습니다.\n");
     printTextAndWait("잠시 후 게임이 초기화됩니다...\n");
-    Sleep(500);
+    fastSleep(500);
     // 세이브 파일 삭제
     removeSaveFile();
     // 게임 상태 초기화
@@ -55,7 +55,7 @@ void handleRogueliteSystem() {
     
     printText("\n게임이 초기화되었습니다.\n");
     printTextAndWait("새로운 모험을 시작하세요!\n");
-    Sleep(500);
+    fastSleep(500);
     // 초기화면으로 이동
     gGameState.isRunning = 0;  // 게임 루프 종료
     main();  // 초기화면으로 이동

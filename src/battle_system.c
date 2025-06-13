@@ -92,6 +92,9 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     // 사용할 기술 정보 가져오기
     const Move* move = &attacker->moves[moveIndex].move;
     
+    // PP 감소
+    attacker->moves[moveIndex].currentPP--;
+    
     // 기술의 상성에 따른 색상 설정
     const char* colorCode;
     switch (move->type) {
@@ -128,6 +131,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     // 명중률 체크
     if ((rand() % 100) >= move->accuracy) {
         printTextAndWait("\n하지만 빗나갔다!");
+        fastSleep(500);
         return 0;
     }
     
@@ -169,6 +173,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, actualDamage);
     }
     printTextAndWait(buffer);
+    
     
     // 상성 메시지 출력
     float typeEffectiveness = getTypeEffectiveness(move->type, defender->type);
@@ -217,6 +222,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     
     // HP 바 전체를 한 번에 출력
     printTextAndWait(hpBuffer);
+    fastSleep(500);
     
     // 전투 결과 체크
     if (defender->currentHP <= 0) {
@@ -271,14 +277,14 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
         if (defender->status == YOKAI_FAINTED) {
             sprintf(buffer, "\n%s이(가) 쓰러졌다!", defender->name);
             printTextAndWait(buffer);
-            Sleep(500);
+            fastSleep(500);
         }
     } else if (result == -1) {
         char buffer[256];
         if (attacker->status == YOKAI_FAINTED) {
             sprintf(buffer, "\n%s이(가) 쓰러졌다!", attacker->name);
             printTextAndWait(buffer);
-            Sleep(500);
+            fastSleep(500);
         }
     }
 } 

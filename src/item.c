@@ -180,8 +180,8 @@ void addItemToInventory(const Item* item) {
                         targetYokai->currentHP = calculateHP(targetYokai);
                         char msg[64];
                         snprintf(msg, sizeof(msg), "\n%s의 체력이 완전히 회복되었습니다!\n", targetYokai->name);
-                        printText(msg);
-                        Sleep(500);
+                        printTextAndWait(msg);
+                        fastSleep(500);
                     }
                     // 식혜류 아이템 처리
                     else if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
@@ -458,7 +458,7 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
                 printTextAndWait(buffer);
             }
             printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
-            Sleep(500); // 1초 대기
+            fastSleep(500); 
             return true;
         case ITEM_SUPERRARE:
             levelUp = 3;  // 고급 양갱: 3레벨

@@ -91,7 +91,7 @@ void startNewGame(void) {
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
     printTextAndWait(buffer);
-    Sleep(500);
+    fastSleep(500);
     while (gGameState.isRunning) {
         showStageInfo();
         showBattleInterface();

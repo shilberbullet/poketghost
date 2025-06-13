@@ -9,6 +9,8 @@
 // 텍스트 출력 관련 함수
 #include "text.h"
 #include "../core/state.h"
+#include "yokai.h"
+#include "move_learning.h"
 
 // 레벨업에 필요한 경험치 계산 함수
 // 레벨에 따라 필요한 경험치를 계산
@@ -87,4 +89,9 @@ void levelUp(Yokai* yokai) {
     // 레벨업 메시지 출력
     sprintf(buffer, "\n%s가 레벨 %d로 상승했습니다!\n", yokai->name, yokai->level);
     printText(buffer);
+    
+    // 기술 학습 시도
+    if (tryLearnNewMove(yokai)) {
+        printText("\n새로운 기술을 배웠습니다!\n");
+    }
 } 

@@ -49,6 +49,6 @@ void handleBossStageClear(void) {
         gParty[i].status = YOKAI_NORMAL;
     }
     printTextAndWait("\n모든 동료 요괴의 HP와 상태가 회복되었습니다!");
-    Sleep(500);
+    fastSleep(500);
     saveGame();
 } 

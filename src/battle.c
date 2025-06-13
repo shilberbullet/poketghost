@@ -456,6 +456,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         char buffer[128];
         sprintf(buffer, "\n[DEBUG] handleBattleChoice 진입 - 현재 턴: %d, 마지막 요괴 인덱스: %d\n", turnCount, lastYokaiIdx);
         printTextAndWait(buffer);
+        fastSleep(500);
     }
     
     switch (choice) {
@@ -787,7 +788,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 if (allFainted) {
                     handleRogueliteSystem();
-                    return 104; // 전투 패배
+                return 104; // 전투 패배
                 }
                 
                 // 남은 동료가 있으면 즉시 교체 메뉴
@@ -923,8 +924,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                     if (allFainted) {
                         handleRogueliteSystem();
-                        printTextAndWait("\n전투에서 패배했습니다...");
-                        return 104; // 전투 패배
+                    printTextAndWait("\n전투에서 패배했습니다...");
+                    return 104; // 전투 패배
                     }
 
                     // 남은 동료가 있으면 즉시 교체 메뉴
