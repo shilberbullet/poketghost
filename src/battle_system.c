@@ -49,7 +49,7 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
 // 공격자, 방어자, 사용 기술에 따른 데미지를 계산
 float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* move) {
     // 기본 데미지 계산: 공격력 * 기술 위력 * 레벨 보정
-    float baseDamage = (float)attacker->attack * move->power * (1.0f + (attacker->level * 0.1f));
+    float baseDamage = (float)attacker->attack * move->power * (1.0f + (attacker->level * 1.2f));
     // 방어력 보정
     float defenseFactor = defender->defense + 100.0f;
     // 타입 상성 적용
