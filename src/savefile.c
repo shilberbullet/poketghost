@@ -30,7 +30,7 @@ void saveGame() {
     char buffer[128];
     sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
     printTextAndWait(buffer);
-    Sleep(500);
+    fastSleep(500);
     }
     
     // 스테이지 정보 저장
@@ -55,16 +55,16 @@ void saveGame() {
         fwrite(&gParty[i].desc, sizeof(char), 128, file);
         fwrite(&gParty[i].moveCount, sizeof(int), 1, file);
         
-        // 요괴의 기술 정보 저장
+        // 현재 배운 기술 정보 저장
         for (int j = 0; j < gParty[i].moveCount; j++) {
             fwrite(&gParty[i].moves[j].move, sizeof(Move), 1, file);
             fwrite(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
         }
         
-        // 배울 수 있는 기술 정보 저장
-        fwrite(&gParty[i].learnableMoveCount, sizeof(int), 1, file);
-        for (int j = 0; j < gParty[i].learnableMoveCount; j++) {
-            fwrite(&gParty[i].learnableMoves[j], sizeof(Move), 1, file);
+        // 배운 기술 목록 저장
+        fwrite(&gParty[i].learnedMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].learnedMoveCount; j++) {
+            fwrite(&gParty[i].learnedMoves[j], sizeof(Move), 1, file);
         }
     }
     
@@ -173,16 +173,16 @@ int loadGameData() {
         fread(&gParty[i].desc, sizeof(char), 128, file);
         fread(&gParty[i].moveCount, sizeof(int), 1, file);
         
-        // 요괴의 기술 정보 불러오기
+        // 현재 배운 기술 정보 불러오기
         for (int j = 0; j < gParty[i].moveCount; j++) {
             fread(&gParty[i].moves[j].move, sizeof(Move), 1, file);
             fread(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
         }
         
-        // 배울 수 있는 기술 정보 불러오기
-        fread(&gParty[i].learnableMoveCount, sizeof(int), 1, file);
-        for (int j = 0; j < gParty[i].learnableMoveCount; j++) {
-            fread(&gParty[i].learnableMoves[j], sizeof(Move), 1, file);
+        // 배운 기술 목록 불러오기
+        fread(&gParty[i].learnedMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].learnedMoveCount; j++) {
+            fread(&gParty[i].learnedMoves[j], sizeof(Move), 1, file);
         }
     }
     
@@ -223,7 +223,8 @@ int loadGameData() {
     if (gameSettings.debugMode) {
     char buffer[128];
     sprintf(buffer, "[DEBUG] 로드 시 turnCount: %d\n", turnCount);
-    printText(buffer);
+    printTextAndWait(buffer);
+    fastSleep(500);
     }
     
     // 전투에 참여한 요괴 수 불러오기

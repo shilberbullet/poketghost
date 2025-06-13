@@ -189,7 +189,7 @@ void itemRewardSystem() {
             char buffer[128];
             sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
             printTextAndWait(buffer);
-            Sleep(500); // 0.5초 대기
+            fastSleep(500);
         }
     }
     // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
@@ -197,7 +197,7 @@ void itemRewardSystem() {
         char buffer[128];
         sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
         printTextAndWait(buffer);
-        Sleep(500); // 0.5초 대기
+        fastSleep(500);
     }
     
     // 보상 선택이 완료되면 초기화 플래그를 리셋

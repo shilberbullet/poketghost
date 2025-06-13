@@ -88,7 +88,7 @@ void nextStage() {
         char buffer[128];
         sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", gStage.stageNumber - 1);
         printTextAndWait(buffer);
-        Sleep(500);
+        fastSleep(500);
     }
 }
 

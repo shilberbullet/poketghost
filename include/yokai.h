@@ -10,6 +10,7 @@
 #define YOKAI_NAME_MAX 32
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
+#define YOKAI_DESC_MAX 128
 
 // 상성 이름 배열
 extern const char* typeNames[];
@@ -29,11 +30,15 @@ typedef struct {
     float currentHP;    // 현재 HP
     YokaiType type;    // 상성
     YokaiStatus status; // 상태
-    char desc[128];    // 도감설명
+    char desc[YOKAI_DESC_MAX];    // 도감설명
     MoveInstance moves[MAX_MOVES];  // 실제 전투/동료가 가진 기술
     int moveCount;     // 현재 배운 기술 수
     Move learnableMoves[MAX_LEARNABLE_MOVES]; // 배울 수 있는 기술 목록
     int learnableMoveCount;
+    Move learnedMoves[MAX_LEARNABLE_MOVES];  // 배운 기술 목록
+    int learnedMoveCount;                    // 배운 기술 개수
+    int forgottenMoveCount;  // 잊은 기술 개수
+    Move forgottenMoves[MAX_LEARNABLE_MOVES];  // 잊은 기술 목록
 } Yokai;
 
 // 요괴 이름 배열

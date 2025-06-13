@@ -59,7 +59,7 @@ int healYokai(Yokai* targetYokai) {
                 char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                 printText(buffer);
-                Sleep(500); // 0.5초 대기
+                fastSleep(500);
                 return 1;
             }
             else if (strcmp(currentItem->name, "나물") == 0) {
@@ -73,7 +73,7 @@ int healYokai(Yokai* targetYokai) {
                 char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                 printText(buffer);
-                Sleep(500); // 0.5초 대기
+                fastSleep(500);
                 return 1;
             }
             else if (strcmp(currentItem->name, "탕국") == 0) {
@@ -92,7 +92,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                     printText(buffer);
-                    Sleep(500); // 0.5초 대기
+                    fastSleep(500);
                     return 1;
             }
             else if (strcmp(currentItem->name, "막걸리") == 0) {
@@ -111,7 +111,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                 sprintf(buffer, "\n%s의 체력이 %.0f 회복되었습니다!\n", targetYokai->name, actualHeal);
                     printText(buffer);
-                    Sleep(500); // 0.5초 대기
+                    fastSleep(500);
                     return 1;
             }
             break;
@@ -139,7 +139,7 @@ int healYokai(Yokai* targetYokai) {
                     printTextAndWait(buffer);
                 }
                 printTextAndWait("\n모든 동료 요괴의 레벨이 상승했습니다!\n");
-                Sleep(500); // 0.5초 대기
+                fastSleep(500);
                 return 1;
             } else {
                 if (!targetYokai) return -1;
@@ -147,7 +147,7 @@ int healYokai(Yokai* targetYokai) {
                     char buffer[256];
                     sprintf(buffer, "\n%s가 %s를 먹었습니다!\n", targetYokai->name, currentItem->name);
                     printText(buffer);
-                    Sleep(500); // 0.5초 대기
+                    fastSleep(500);
                     return 1;
                 }
             }
@@ -222,13 +222,18 @@ int selectMoveToHeal(Yokai* targetYokai) {
             targetYokai->moves[i].move.pp);
         printText(buffer);
     }
+    printText("0. 뒤로 가기\n");
+    printText("선택 (번호): ");
     
     // 사용자 입력 받기
-    int choice = getNumberInput(1, targetYokai->moveCount);
-    if (choice == -1) {
-        return -1;
+    int choice = getIntInput();
+    if (choice == 0) {
+        return -1; // 뒤로 가기
     }
-    
+    if (choice < 1 || choice > targetYokai->moveCount) {
+        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+        return selectMoveToHeal(targetYokai);
+    }
     return choice - 1;
 }
 
@@ -259,7 +264,7 @@ void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
         oldPP,
         move->currentPP);
     printTextAndWait(buffer);
-    Sleep(500);
+    fastSleep(500);
 }
 
 // 모든 기술 PP 회복 처리 함수
@@ -276,7 +281,7 @@ void healAllMovesPP(Yokai* targetYokai) {
     char buffer[256];
     sprintf(buffer, "\n%s의 모든 기술 PP가 회복되었습니다!", targetYokai->name);
     printTextAndWait(buffer);
-    Sleep(500);
+    fastSleep(500);
 }
 
 // 기술 PP 회복 처리 함수
@@ -287,6 +292,14 @@ void healMovePP(Yokai* targetYokai, int ppAmount) {
     }
     
     int moveIndex = selectMoveToHeal(targetYokai);
+    if (moveIndex == -1) {
+        // 기술 선택에서 뒤로가기를 선택한 경우: 요괴 선택창으로 복귀
+        Yokai* newTarget = selectYokaiToHeal();
+        if (newTarget != NULL) {
+            healMovePP(newTarget, ppAmount);
+        }
+        return;
+    }
     if (moveIndex != -1) {
         healSingleMovePP(targetYokai, moveIndex, ppAmount);
     }

@@ -70,7 +70,7 @@ int handleFullParty(const Yokai* newYokai) {
     int choice = getIntInput();
     if (choice == 1) {
         printTextAndWait("\n잡은 요괴를 성불시켰습니다.");
-        Sleep(500);
+        fastSleep(500);
         return 0;
     } else if (choice == 2) {
         while (1) {
@@ -144,7 +144,16 @@ int addYokaiToParty(const Yokai* yokai) {
     for (int i = 0; i < yokai->learnableMoveCount; i++) {
         gParty[gPartyCount].learnableMoves[i] = yokai->learnableMoves[i];
     }
-    assignRandomMoves(&gParty[gPartyCount]);   // 랜덤 기술 할당
+
+    // 현재 가지고 있는 기술과 PP 복사
+    gParty[gPartyCount].moveCount = yokai->moveCount;
+    for (int i = 0; i < yokai->moveCount; i++) {
+        gParty[gPartyCount].moves[i].move = yokai->moves[i].move;
+        gParty[gPartyCount].moves[i].currentPP = yokai->moves[i].currentPP;
+        // 배운 기술 목록에도 추가
+        gParty[gPartyCount].learnedMoves[gParty[gPartyCount].learnedMoveCount++] = yokai->moves[i].move;
+    }
+
     gPartyCount++;
     return 1;
 }

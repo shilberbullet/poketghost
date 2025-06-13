@@ -10,4 +10,6 @@ void printTextAndWait(const char* text);
 // 텍스트 출력 속도에 따른 대기 시간 계산 함수
 int getTextDelay();
 
+void fastSleep(int base);
+
 #endif // TEXT_H 

@@ -47,7 +47,7 @@ void printText(const char* text) {
         case 1:  // 한 줄씩 출력
             printf("%s", text);   // 한 줄씩 출력
             fflush(stdout);       // 버퍼 즉시 출력
-            Sleep(delay*10);    // 한 줄 출력 후 대기
+            Sleep(delay*15);    // 한 줄 출력 후 대기
             break;
             
         case 2:  // 한 번에 출력
