@@ -6,6 +6,7 @@
 #include "party.h"
 #include "hp_system.h"
 #include "../core/state.h"
+#include "reward.h"
 
 // 현재 사용 중인 아이템
 const Item* currentItem = NULL;
@@ -38,6 +39,7 @@ int healYokai(Yokai* targetYokai) {
             // 그 외 회복 아이템은 기절한 요괴를 회복할 수 없음
             else if (targetYokai->currentHP <= 0) {
                 printTextAndWait("\n기절한 요괴는 회복할 수 없습니다!");
+                fastSleep(500);
                 return -1;
             }
 
@@ -297,6 +299,9 @@ void healMovePP(Yokai* targetYokai, int ppAmount) {
         Yokai* newTarget = selectYokaiToHeal();
         if (newTarget != NULL) {
             healMovePP(newTarget, ppAmount);
+        } else {
+            // 요괴 선택창에서 뒤로가기를 선택한 경우: 아이템 보상창으로 복귀
+            itemRewardSystem();
         }
         return;
     }
