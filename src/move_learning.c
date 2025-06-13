@@ -129,35 +129,39 @@ bool tryLearnNewMove(Yokai* yokai) {
         return false;
     }
 
+    // 랜덤으로 1개의 기술만 선택
+    int randomIndex = rand() % availableCount;
+    Move selectedMove = availableMoves[randomIndex];
+
     while (1) {
-        // 배울 수 있는 기술 목록 출력
-        printText("\n=== 배울 수 있는 기술 목록 ===\n");
-        for (int i = 0; i < availableCount; i++) {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
-                availableMoves[i].type == TYPE_EVIL_SPIRIT ? 12 :  // 빨강
-                availableMoves[i].type == TYPE_GHOST ? 11 :        // 하늘색
-                availableMoves[i].type == TYPE_MONSTER ? 14 :      // 노랑
-                availableMoves[i].type == TYPE_HUMAN ? 10 :        // 초록
-                13);                                               // 분홍
-            
-            printf("%d. %s", i + 1, availableMoves[i].name);
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 흰색으로 복귀
-            printf(" (공격력: %d, 명중률: %d%%, PP: %d)\n", 
-                availableMoves[i].power,
-                availableMoves[i].accuracy,
-                availableMoves[i].pp
-            );
-        }
+        // 선택된 기술 출력
+        printText("\n=== 배울 수 있는 기술 ===\n");
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
+            selectedMove.type == TYPE_EVIL_SPIRIT ? 12 :  // 빨강
+            selectedMove.type == TYPE_GHOST ? 11 :        // 하늘색
+            selectedMove.type == TYPE_MONSTER ? 14 :      // 노랑
+            selectedMove.type == TYPE_HUMAN ? 10 :        // 초록
+            13);                                          // 분홍
+        
+        printf("1. %s", selectedMove.name);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 흰색으로 복귀
+        printf(" (공격력: %d, 명중률: %d%%, PP: %d)\n", 
+            selectedMove.power,
+            selectedMove.accuracy,
+            selectedMove.pp
+        );
         printText("0. 기술을 배우지 않는다\n");
 
         // 사용자 선택
-        int choice = getIntInput(0, availableCount);
+        int choice = getIntInput(0, 1);
         if (choice == 0) {
-            printText("\n기술을 배우지 않기로 했습니다.\n");
+            // 기술을 배우지 않기로 했을 때, 해당 기술을 잊은 기술 목록에 추가
+            yokai->forgottenMoves[yokai->forgottenMoveCount++] = selectedMove;
+            char buffer[256];
+            sprintf(buffer, "\n%s를 배우지 않았습니다. (나중에 다시 배울 수 있습니다)\n", selectedMove.name);
+            printText(buffer);
             return false;
         }
-
-        Move selectedMove = availableMoves[choice - 1];
 
         // 기술 습득 확률 계산
         if (calculateLearningChance(yokai)) {

@@ -165,6 +165,8 @@ void addItemToInventory(const Item* item) {
                 itemRewardSystem();
                 return;
             }
+            // 아이템 사용 성공 시 다음 스테이지로 진행
+            return;
         } else {
             Yokai* targetYokai = selectYokaiToHeal();
             if (targetYokai != NULL) {
@@ -182,6 +184,9 @@ void addItemToInventory(const Item* item) {
                         snprintf(msg, sizeof(msg), "\n%s의 체력이 완전히 회복되었습니다!\n", targetYokai->name);
                         printTextAndWait(msg);
                         fastSleep(500);
+                        // 아이템 사용 성공 시 다음 스테이지로 진행
+                        currentItem = NULL;
+                        return;
                     }
                     // 식혜류 아이템 처리
                     else if (strcmp(item->name, "미지근한 식혜") == 0 || strcmp(item->name, "시원한 식혜") == 0 || strcmp(item->name, "맛있는 식혜") == 0) {
@@ -192,11 +197,15 @@ void addItemToInventory(const Item* item) {
                             return;
                         }
                         useSikhyeItem(item->name, targetYokai);
+                        // 아이템 사용 성공 시 다음 스테이지로 진행
+                        currentItem = NULL;
+                        return;
                     }
                     // 탕국과 막걸리 처리
                     else if (strcmp(item->name, "탕국") == 0 || strcmp(item->name, "막걸리") == 0) {
                         if (targetYokai->status != YOKAI_FAINTED) {
                             printText("\n기절하지 않은 요괴에게는 사용할 수 없습니다.\n");
+                            fastSleep(500);
                             currentItem = NULL;
                             itemRewardSystem();
                             return;
@@ -210,6 +219,9 @@ void addItemToInventory(const Item* item) {
                         }
                         targetYokai->status = YOKAI_NORMAL; // 기절 상태 해제
                         printText("\n요괴의 기절 상태가 해제되었습니다!\n");
+                        // 아이템 사용 성공 시 다음 스테이지로 진행
+                        currentItem = NULL;
+                        return;
                     } else {
                         if (targetYokai->status == YOKAI_FAINTED) {
                             printText("\n기절한 요괴에게는 사용할 수 없습니다.\n");
@@ -224,6 +236,9 @@ void addItemToInventory(const Item* item) {
                             itemRewardSystem();  // 아이템 선택 메뉴로 돌아가기
                             return;
                         }
+                        // 아이템 사용 성공 시 다음 스테이지로 진행
+                        currentItem = NULL;
+                        return;
                     }
                 } else if (item->type == ITEM_YANGGAENG) {
                     // 기절 회복 아이템 처리
@@ -234,8 +249,12 @@ void addItemToInventory(const Item* item) {
                             char msg[64];
                             snprintf(msg, sizeof(msg), "\n%s의 기절 상태가 해제되었습니다!\n", targetYokai->name);
                             printText(msg);
+                            // 아이템 사용 성공 시 다음 스테이지로 진행
+                            currentItem = NULL;
+                            return;
                         } else {
                             printText("\n기절하지 않은 요괴에게는 사용할 수 없습니다.\n");
+                            fastSleep(500);
                             currentItem = NULL;
                             itemRewardSystem();
                             return;
@@ -248,6 +267,9 @@ void addItemToInventory(const Item* item) {
                             itemRewardSystem();
                             return;
                         }
+                        // 아이템 사용 성공 시 다음 스테이지로 진행
+                        currentItem = NULL;
+                        return;
                     }
                 }
             } else {

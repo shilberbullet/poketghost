@@ -26,7 +26,7 @@ alwaysApply: true
                     "오류가 있으면 수정 후 재컴파일",
                     "오류가 없을 때까지 반복"
                 ],
-                "compilation_command": "tasklist | find "poketghost.exe" > nul && taskkill /F /IM poketghost.exe & gcc -o poketghost.exe src/*.c core/state.c -I include -I core -lm"
+                "tasklist | find "poketghost.exe" > nul && taskkill /F /IM poketghost.exe & gcc -o poketghost.exe src/*.c core/state.c -I include -I core -lm"
             }
         },
         "github_operations": {

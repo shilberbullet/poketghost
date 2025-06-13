@@ -302,6 +302,7 @@ int selectPartyYokai() {
     }
     if (gParty[idx].status == YOKAI_FAINTED) {
         printTextAndWait("\n기절한 요괴는 선택할 수 없습니다!");
+        fastSleep(500);
         return selectPartyYokai();
     }
     return idx;
@@ -440,7 +441,7 @@ int switchYokai() {
             return -1;
         }
         if (gParty[idx].status == YOKAI_FAINTED) {
-            printTextAndWait("\n기절한 요괴는 교체할 수 없습니다!");
+            printTextAndWait("\n기절한 요괴는 선선택할 수 없습니다!");
             return -1;
         }
         addParticipatedIdx(idx);  // 교체된 요괴의 인덱스 추가
@@ -643,6 +644,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 sprintf(buffer + strlen(buffer), "\033[0m] %.0f/%.0f\n", gParty[yokaiIdx].currentHP, maxHP);
                 printTextAndWait(buffer);
+                fastSleep(500);
                 
                 // 요괴가 기절했는지 확인
                 if (gParty[yokaiIdx].currentHP <= 0) {
@@ -822,6 +824,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     yokaiIdx = lastYokaiIdx;
                 if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
                     printTextAndWait("\n기절한 요괴는 더 이상 싸울 수 없습니다!");
+                    fastSleep(500);
                     yokaiIdx = selectPartyYokai();
                     if (yokaiIdx == -1) {
                         return 0; // 뒤로 돌아가기

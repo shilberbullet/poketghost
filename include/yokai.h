@@ -6,7 +6,7 @@
 #include "move.h"
 
 #define MAX_MOVES 4
-#define MAX_LEARNABLE_MOVES 10
+#define MAX_LEARNABLE_MOVES 50
 #define YOKAI_NAME_MAX 32
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
