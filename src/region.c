@@ -1,6 +1,7 @@
 #include "../include/region.h"
 #include "../include/text.h"
 #include "../include/input.h"
+#include "../include/settings.h"
 #include <windows.h>
 
 // 지역 데이터
@@ -128,15 +129,18 @@ void displayConnectedRegions(void) {
     
     if (currentIndex == -1) return;
     
-    printText("\n연결된 지역:\n"); //나중에 디버그 모드로 변경
-    for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
-        printText(regions[currentIndex].connected[i]);
-        if (i < regions[currentIndex].connectedCount - 1) {
-            printText(", ");
+    // 연결된 지역 표시 (디버그 모드에서만)
+    if (gameSettings.debugMode) {
+        printText("\n연결된 지역:\n");
+        for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
+            printText(regions[currentIndex].connected[i]);
+            if (i < regions[currentIndex].connectedCount - 1) {
+                printText(", ");
+            }
         }
+        fastSleep(500);
+        printText("\n");
     }
-    printText("\n");
-    fastSleep(500);
 }
 
 void saveRegionData(FILE* file) {
