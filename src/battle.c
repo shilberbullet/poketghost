@@ -32,8 +32,10 @@ Yokai currentEnemy;
 int turnCount = 0;
 int lastYokaiIdx = 0;  // 전역 변수로 선언
 
-// 전투 참여 요괴 인덱스 추적용 배열 및 카운트
+// 전투 참여 요괴 인덱스, 이름, 레벨 추적용 배열 및 카운트
 int participatedIdx[MAX_PARTY];
+char participatedName[MAX_PARTY][32];
+int participatedLevel[MAX_PARTY];
 int participatedCount = 0;
 
 // 참여 요괴 인덱스 추가 함수(중복 방지)
@@ -41,7 +43,11 @@ static void addParticipatedIdx(int idx) {
     for (int i = 0; i < participatedCount; i++) {
         if (participatedIdx[i] == idx) return;
     }
-    participatedIdx[participatedCount++] = idx;
+    participatedIdx[participatedCount] = idx;
+    strncpy(participatedName[participatedCount], gParty[idx].name, 31);
+    participatedName[participatedCount][31] = '\0';
+    participatedLevel[participatedCount] = gParty[idx].level;
+    participatedCount++;
 }
 
 // 상대 요괴 이름 색상 반환 함수
@@ -186,7 +192,10 @@ int startBattle(const Yokai* enemy) {
             int exp = calculateBattleExp(&currentEnemy);
             for (int i = 0; i < participatedCount; i++) {
                 int idx = participatedIdx[i];
-                if (gParty[idx].status != YOKAI_FAINTED) {
+                // 이름과 레벨이 모두 일치하는 경우에만 경험치 지급
+                if (gParty[idx].status != YOKAI_FAINTED && gParty[idx].status != YOKAI_RELEASED &&
+                    strcmp(gParty[idx].name, participatedName[i]) == 0 &&
+                    gParty[idx].level == participatedLevel[i]) {
                     gainExp(&gParty[idx], exp);
                 }
             }

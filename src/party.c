@@ -49,11 +49,8 @@ void initParty() {
 void releaseYokai(int index) {
     if (index < 0 || index >= gPartyCount) return;
     
-    // 선택된 요괴를 배열에서 제거하고 나머지 요괴들을 앞으로 이동
-    for (int i = index; i < gPartyCount - 1; i++) {
-        gParty[i] = gParty[i + 1];
-    }
-    gPartyCount--;
+    // 요괴를 성불 상태로 설정
+    gParty[index].status = YOKAI_RELEASED;
 }
 
 // 새로운 요괴를 잡았을 때 파티가 가득 찼을 경우의 처리
@@ -128,12 +125,48 @@ int handleFullParty(const Yokai* newYokai) {
 
 // 파티에 새로운 요괴 추가 함수
 int addYokaiToParty(const Yokai* yokai) {
+    // 성불된 요괴의 자리를 찾아서 재사용
+    int releasedSlot = -1;
+    for (int i = 0; i < gPartyCount; i++) {
+        if (gParty[i].status == YOKAI_RELEASED) {
+            releasedSlot = i;
+            break;
+        }
+    }
+
+    if (releasedSlot != -1) {
+        // 성불된 요괴의 자리에 새로운 요괴 추가
+        gParty[releasedSlot] = *yokai;
+        gParty[releasedSlot].status = YOKAI_NORMAL;  // 상태를 정상으로 설정
+        
+        // 도감 설명 명시적 복사
+        strncpy(gParty[releasedSlot].desc, yokai->desc, YOKAI_DESC_MAX - 1);
+        gParty[releasedSlot].desc[YOKAI_DESC_MAX - 1] = '\0';
+        
+        // learnableMoves 복사
+        gParty[releasedSlot].learnableMoveCount = yokai->learnableMoveCount;
+        for (int i = 0; i < yokai->learnableMoveCount; i++) {
+            gParty[releasedSlot].learnableMoves[i] = yokai->learnableMoves[i];
+        }
+
+        // 현재 가지고 있는 기술과 PP 복사
+        gParty[releasedSlot].moveCount = yokai->moveCount;
+        for (int i = 0; i < yokai->moveCount; i++) {
+            gParty[releasedSlot].moves[i].move = yokai->moves[i].move;
+            gParty[releasedSlot].moves[i].currentPP = yokai->moves[i].currentPP;
+            // 배운 기술 목록에도 추가
+            gParty[releasedSlot].learnedMoves[gParty[releasedSlot].learnedMoveCount++] = yokai->moves[i].move;
+        }
+        return 1;
+    }
+
     if (gPartyCount >= MAX_PARTY_SIZE) {
         return handleFullParty(yokai);
     }
     
     // 요괴 정보 직접 복사
     gParty[gPartyCount] = *yokai;  // 기본 정보 복사
+    gParty[gPartyCount].status = YOKAI_NORMAL;  // 상태를 정상으로 설정
     
     // 도감 설명 명시적 복사
     strncpy(gParty[gPartyCount].desc, yokai->desc, YOKAI_DESC_MAX - 1);
