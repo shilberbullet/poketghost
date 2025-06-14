@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <windows.h>  // SYSTEMTIME 구조체를 위해 추가
 #include "yokai.h"
 #include "move.h"
 
@@ -51,6 +52,29 @@ static const float typeEffectivenessTable[TYPE_COUNT][TYPE_COUNT] = {
     // 동물형 -> [악귀, 원귀, 괴수형, 인간형, 동물형]
     {1.0f, 2.0f, 1.0f, 2.0f, 1.0f}
 };
+
+// 전역 변수로 다음 ID 값 저장
+static unsigned long long nextYokaiId = 1;
+
+// ID 생성 함수
+static unsigned long long generateYokaiId() {
+    // 현재 시간을 밀리초 단위로 가져옴
+    SYSTEMTIME st;
+    GetSystemTime(&st);
+    
+    // 시간 기반 ID 생성 (년월일시분초밀리초)
+    unsigned long long timeBasedId = 
+        (unsigned long long)st.wYear * 10000000000000ULL +
+        (unsigned long long)st.wMonth * 100000000000ULL +
+        (unsigned long long)st.wDay * 1000000000ULL +
+        (unsigned long long)st.wHour * 10000000ULL +
+        (unsigned long long)st.wMinute * 100000ULL +
+        (unsigned long long)st.wSecond * 1000ULL +
+        (unsigned long long)st.wMilliseconds;
+    
+    // 전역 카운터와 조합하여 고유성 보장
+    return timeBasedId + (nextYokaiId++);
+}
 
 YokaiType parseType(const char* typeStr) {
     if (strcmp(typeStr, "EVIL_SPIRIT") == 0) return TYPE_EVIL_SPIRIT;
@@ -168,8 +192,8 @@ void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
     
     // 보스 스테이지 (10의 배수)
     if (stage % 10 == 0) {
-        *minLevel += 3;
-        *maxLevel += 3;
+        *minLevel += 2;
+        *maxLevel += 2;
     }
     
     // 최소 레벨은 1
@@ -180,6 +204,7 @@ void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
 Yokai createRandomYokaiWithLevel(int level) {
     int idx = rand() % yokaiListCount;
     Yokai y = yokaiList[idx];
+    y.id = generateYokaiId();  // 고유 ID 부여
     y.level = level;
     y.status = YOKAI_NORMAL;  // 기본 상태는 정상
     y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
@@ -191,6 +216,7 @@ Yokai createRandomYokaiWithLevel(int level) {
 Yokai createRandomBossYokaiWithLevel(int level) {
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
+    y.id = generateYokaiId();  // 고유 ID 부여
     y.level = level;
     y.status = YOKAI_NORMAL;  // 기본 상태는 정상
     y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
