@@ -241,8 +241,16 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
 // 턴제 전투 실행 함수
 // 플레이어와 적 요괴 간의 턴제 전투를 실행
 int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex) {
-    // 스피드에 따른 선공 결정
-    int playerFirst = playerYokai->speed >= enemyYokai->speed;
+    // 레벨 차이에 따른 스피드 보정 계산
+    int levelDiff = playerYokai->level - enemyYokai->level;
+    float speedMultiplier = 1.0f + (levelDiff * 0.05f);  // 레벨 차이당 5% 보정
+    
+    // 보정된 스피드 계산
+    float playerAdjustedSpeed = playerYokai->speed * speedMultiplier;
+    float enemyAdjustedSpeed = enemyYokai->speed * (1.0f / speedMultiplier);
+    
+    // 스피드에 따른 선공 결정 (보정된 스피드 사용)
+    int playerFirst = playerAdjustedSpeed >= enemyAdjustedSpeed;
     
     // 선공 요괴의 공격
     Yokai* firstAttacker = playerFirst ? playerYokai : enemyYokai;
