@@ -20,6 +20,7 @@ extern const char* typeDescriptions[];
 
 // 요괴 구조체
 typedef struct {
+    unsigned long long id;  // 요괴의 고유 ID
     char name[YOKAI_NAME_MAX];
     int level;         // 레벨
     int exp;           // 경험치 필드
