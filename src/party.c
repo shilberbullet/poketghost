@@ -49,8 +49,34 @@ void initParty() {
 void releaseYokai(int index) {
     if (index < 0 || index >= gPartyCount) return;
     
-    // 요괴를 성불 상태로 설정
+    // 요괴의 상성에 따른 색상 코드 설정
+    const char* colorCode;
+    switch (gParty[index].type) {
+        case TYPE_EVIL_SPIRIT:
+            colorCode = "\033[31m";  // 빨간색
+            break;
+        case TYPE_GHOST:
+            colorCode = "\033[35m";  // 보라색
+            break;
+        case TYPE_MONSTER:
+            colorCode = "\033[33m";  // 노란색
+            break;
+        case TYPE_HUMAN:
+            colorCode = "\033[36m";  // 청록색
+            break;
+        case TYPE_ANIMAL:
+            colorCode = "\033[32m";  // 초록색
+            break;
+        default:
+            colorCode = "\033[0m";   // 기본색
+    }
+    
+    // 요괴를 성불 상태로 설정하고 메시지 출력
     gParty[index].status = YOKAI_RELEASED;
+    char buffer[256];
+    sprintf(buffer, "\n%s%s\033[0m(%s)이(가) 성불했습니다.\n", 
+        colorCode, gParty[index].name, typeNames[gParty[index].type]);
+    printText(buffer);
 }
 
 // 새로운 요괴를 잡았을 때 파티가 가득 찼을 경우의 처리
@@ -74,24 +100,55 @@ int handleFullParty(const Yokai* newYokai) {
             printText("\n성불 시킬 동료 요괴를 선택하세요:\n");
             for (int i = 0; i < gPartyCount; i++) {
                 char buffer[256];
+                // 타입에 따른 색상 설정
+                const char* colorCode;
+                switch (gParty[i].type) {
+                    case TYPE_EVIL_SPIRIT:
+                        colorCode = "\033[31m";  // 빨간색
+                        break;
+                    case TYPE_GHOST:
+                        colorCode = "\033[35m";  // 보라색
+                        break;
+                    case TYPE_MONSTER:
+                        colorCode = "\033[33m";  // 노란색
+                        break;
+                    case TYPE_HUMAN:
+                        colorCode = "\033[36m";  // 청록색
+                        break;
+                    case TYPE_ANIMAL:
+                        colorCode = "\033[32m";  // 초록색
+                        break;
+                    default:
+                        colorCode = "\033[0m";   // 기본색
+                }
+                // 상태 표시
                 const char* statusText = "";
                 const char* statusColor = "";
                 switch (gParty[i].status) {
                     case YOKAI_NORMAL: 
                         statusText = "정상"; 
-                        statusColor = "\033[0m";  // 기본색
+                        statusColor = "\033[0m";
                         break;
                     case YOKAI_FAINTED: 
                         statusText = "기절"; 
-                        statusColor = "\033[31m";  // 빨간색
+                        statusColor = "\033[31m";
                         break;
                     default: 
                         statusText = "알 수 없음"; 
-                        statusColor = "\033[0m";  // 기본색
+                        statusColor = "\033[0m";
                         break;
                 }
-                sprintf(buffer, "%d. %s (Lv.%d, 상태: %s%s\033[0m, 체력: %d, 공격력: %d, 방어력: %d)\n", 
-                    i+1, gParty[i].name, gParty[i].level, statusColor, statusText, gParty[i].stamina, gParty[i].attack, gParty[i].defense);
+                sprintf(buffer, "%d. %s (%s%s\033[0m, Lv.%d, 상태: %s%s\033[0m, 체력: %d, 공격력: %d, 방어력: %d)\n",
+                    i+1,
+                    gParty[i].name,
+                    colorCode,
+                    typeToString(gParty[i].type),
+                    gParty[i].level,
+                    statusColor,
+                    statusText,
+                    gParty[i].stamina,
+                    gParty[i].attack,
+                    gParty[i].defense);
                 printText(buffer);
             }
             printText("0. 뒤로 돌아간다\n");
