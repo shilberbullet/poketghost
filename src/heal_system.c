@@ -217,9 +217,32 @@ int selectMoveToHeal(Yokai* targetYokai) {
     // 기술 목록 표시
     for (int i = 0; i < targetYokai->moveCount; i++) {
         char buffer[256];
-        sprintf(buffer, "%d. %s (PP: %d/%d)\n", 
+        const char* colorCode;
+        switch (targetYokai->moves[i].move.type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+        
+        sprintf(buffer, "%d. %s%s%s\033[0m (PP: %d/%d)\n", 
             i + 1,
+            colorCode,
             targetYokai->moves[i].move.name,
+            colorCode,
             targetYokai->moves[i].currentPP,
             targetYokai->moves[i].move.pp);
         printText(buffer);
