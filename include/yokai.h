@@ -11,6 +11,7 @@
 #define MAX_YOKAI 32
 #define MAX_BOSS_YOKAI 8
 #define YOKAI_DESC_MAX 128
+#define MAX_PARADOX_YOKAI 16
 
 // 상성 이름 배열
 extern const char* typeNames[];
@@ -54,6 +55,9 @@ extern int yokaiListCount;
 extern Yokai bossYokaiList[MAX_BOSS_YOKAI];
 extern int bossYokaiListCount;
 
+extern Yokai paradoxYokaiList[MAX_PARADOX_YOKAI];
+extern int paradoxYokaiListCount;
+
 void loadYokaiFromFile(const char* filename);
 Yokai* findYokaiByName(const char* name);
 
@@ -80,5 +84,8 @@ Yokai createRandomYokaiWithLevel(int level);
 
 // 랜덤 보스 요괴 생성 함수 (레벨 지정)
 Yokai createRandomBossYokaiWithLevel(int level);
+
+// 랜덤 패러독스 요괴 생성 함수 (레벨 지정)
+Yokai createRandomParadoxYokaiWithLevel(int level);
 
 #endif // YOKAI_H 

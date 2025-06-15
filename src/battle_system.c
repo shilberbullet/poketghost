@@ -97,24 +97,28 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     
     // 기술의 상성에 따른 색상 설정
     const char* colorCode;
-    switch (move->type) {
-        case TYPE_EVIL_SPIRIT:
-            colorCode = "\033[31m";  // 빨간색
-            break;
-        case TYPE_GHOST:
-            colorCode = "\033[35m";  // 보라색
-            break;
-        case TYPE_MONSTER:
-            colorCode = "\033[33m";  // 노란색
-            break;
-        case TYPE_HUMAN:
-            colorCode = "\033[36m";  // 청록색
-            break;
-        case TYPE_ANIMAL:
-            colorCode = "\033[32m";  // 초록색
-            break;
-        default:
-            colorCode = "\033[0m";   // 기본색
+    if (move->type >= TYPE_EVIL_SPIRIT && move->type <= TYPE_ANIMAL) {
+        switch (move->type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+    } else {
+        colorCode = "\033[0m";   // 잘못된 타입일 경우 기본색
     }
     
     // 기술 사용 메시지 출력 (상대 요괴일 경우에만 이름 색상 적용)
