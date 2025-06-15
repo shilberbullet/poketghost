@@ -122,10 +122,7 @@ void enterFinalStage(void) {
         printText("\n아직 모든 지역을 방문하지 않았습니다.\n");
         return;
     }
-    printText("\n=== 이계의 심연으로 진입합니다 ===\n");
-    printText("모든 지역을 방문한 당신은 이제 이계의 심연에 도달했습니다.\n");
-    printText("이곳에서 최종 전투가 시작됩니다!\n");
-    fastSleep(2000);
+       fastSleep(2000);
     startFinalStageSequence(gStage.stageNumber);  // 현재 스테이지 번호 사용
 }
 
