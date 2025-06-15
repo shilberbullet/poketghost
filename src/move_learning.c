@@ -37,7 +37,7 @@ bool canLearnNewMove(const Yokai* yokai) {
                     if (yokai->level >= 10 && yokai->level <= 30) return true;
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30 && yokai->level <= 50) return true;
+                    if (yokai->level >= 30 && yokai->level <= 60) return true;
                     break;
             }
         }
@@ -47,28 +47,48 @@ bool canLearnNewMove(const Yokai* yokai) {
 
 // 기술 학습 확률 계산 (레벨에 따라 10% 확률)
 bool calculateLearningChance(const Yokai* yokai) {
-    return (rand() % 100) < 100; // 10% 확률
+    return true;  // 항상 true를 반환하여 100% 확률로 기술 학습
 }
 
 // 기술 목록 출력
 void printAvailableMoves(const Yokai* yokai) {
-    printf("\n=== %s의 기술 목록 ===\n", yokai->name);
+    char buffer[256];
+    sprintf(buffer, "\n=== %s의 기술 목록 ===\n", yokai->name);
+    printTextAndWait(buffer);
+    
     for (int i = 0; i < yokai->moveCount; i++) {
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
-            yokai->moves[i].move.type == TYPE_EVIL_SPIRIT ? 12 :  // 빨강
-            yokai->moves[i].move.type == TYPE_GHOST ? 11 :        // 하늘색
-            yokai->moves[i].move.type == TYPE_MONSTER ? 14 :      // 노랑
-            yokai->moves[i].move.type == TYPE_HUMAN ? 10 :        // 초록
-            13);                                                   // 분홍
+        const char* colorCode;
+        switch (yokai->moves[i].move.type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
         
-        printf("%d. %s", i + 1, yokai->moves[i].move.name);
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 흰색으로 복귀
-        printf(" (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+        sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+            i + 1,
+            colorCode,
+            yokai->moves[i].move.name,
+            colorCode,
             yokai->moves[i].move.power,
             yokai->moves[i].move.accuracy,
             yokai->moves[i].currentPP,
             yokai->moves[i].move.pp
         );
+        printTextAndWait(buffer);
     }
     printf("0. 뒤로가기\n\n");
 }
@@ -112,12 +132,12 @@ bool tryLearnNewMove(Yokai* yokai) {
                     }
                     break;
                 case MOVE_MEDIUM:
-                    if (yokai->level >= 10 && yokai->level <= 20) {
+                    if (yokai->level >= 10 && yokai->level <= 30) {
                         availableMoves[availableCount++] = move;
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 20 && yokai->level <= 30) {
+                    if (yokai->level >= 30 && yokai->level <= 60) {
                         availableMoves[availableCount++] = move;
                     }
                     break;
@@ -136,20 +156,37 @@ bool tryLearnNewMove(Yokai* yokai) {
     while (1) {
         // 선택된 기술 출력
         printText("\n=== 배울 수 있는 기술 ===\n");
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
-            selectedMove.type == TYPE_EVIL_SPIRIT ? 12 :  // 빨강
-            selectedMove.type == TYPE_GHOST ? 11 :        // 하늘색
-            selectedMove.type == TYPE_MONSTER ? 14 :      // 노랑
-            selectedMove.type == TYPE_HUMAN ? 10 :        // 초록
-            13);                                          // 분홍
+        const char* colorCode;
+        switch (selectedMove.type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
         
-        printf("1. %s", selectedMove.name);
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 흰색으로 복귀
-        printf(" (공격력: %d, 명중률: %d%%, PP: %d)\n", 
+        char buffer[256];
+        sprintf(buffer, "1. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d)\n", 
+            colorCode,
+            selectedMove.name,
+            colorCode,
             selectedMove.power,
             selectedMove.accuracy,
             selectedMove.pp
         );
+        printText(buffer);
         printText("0. 기술을 배우지 않는다\n");
 
         // 사용자 선택

@@ -41,4 +41,7 @@ void displayConnectedRegions(void);
 // 다음 지역으로 이동 (지도 기반)
 int moveToNextRegionWithMap(void);
 
+// 모든 지역 방문 여부 확인
+int isAllRegionsVisited(void);
+
 #endif // REGION_H 

@@ -17,7 +17,8 @@ typedef enum {
 // 요괴 상태 정의
 typedef enum {
     YOKAI_NORMAL,     // 정상
-    YOKAI_FAINTED     // 기절
+    YOKAI_FAINTED,    // 기절
+    YOKAI_RELEASED    // 성불
 } YokaiStatus;
 
 // 기술 등급 정의

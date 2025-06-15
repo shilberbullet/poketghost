@@ -3,6 +3,7 @@
 #include "../include/input.h"
 #include "../include/settings.h"
 #include <windows.h>
+#include <stdbool.h>  // bool 타입을 위해 추가
 
 // 지역 데이터
 static Region regions[MAX_REGIONS] = {
@@ -58,7 +59,7 @@ int moveToNextRegion(void) {
     for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
         for (int j = 0; j < MAX_REGIONS; j++) {
             if (strcmp(regions[currentIndex].connected[i], regions[j].name) == 0) {
-                if (!regions[j].visited) {
+                if (!regions[j].visited) {  // 방문하지 않은 지역만 추가
                     availableRegions[availableCount++] = j;
                 }
                 break;
@@ -66,7 +67,30 @@ int moveToNextRegion(void) {
         }
     }
     
-    if (availableCount == 0) return 0;
+    if (availableCount == 0) {
+        // 방문하지 않은 지역 찾기
+        int unvisitedRegions[MAX_REGIONS];
+        int unvisitedCount = 0;
+        
+        for (int i = 0; i < MAX_REGIONS; i++) {
+            if (!regions[i].visited) {
+                unvisitedRegions[unvisitedCount++] = i;
+            }
+        }
+        
+        if (unvisitedCount > 0) {
+            printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n");
+            printText("방문하지 않은 랜덤한 지역으로 이동합니다.\n");
+            fastSleep(1000);
+            
+            // 랜덤으로 방문하지 않은 지역 선택
+            int nextIndex = unvisitedRegions[rand() % unvisitedCount];
+            strcpy(currentRegion, regions[nextIndex].name);
+            regions[nextIndex].visited = 1;
+            return 1;
+        }
+        return 0;
+    }
     
     // 랜덤으로 다음 지역 선택
     int nextIndex = availableRegions[rand() % availableCount];
@@ -86,19 +110,71 @@ int moveToNextRegionWithMap(void) {
         }
     }
     if (currentIndex == -1) return 0;
+    
+    // 인접한 지역 중 방문하지 않은 지역 찾기
     int availableRegions[MAX_REGIONS];
     int availableCount = 0;
+    
+    // 현재 지역과 연결된 모든 지역 확인
     for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
+        const char* connectedRegion = regions[currentIndex].connected[i];
         for (int j = 0; j < MAX_REGIONS; j++) {
-            if (strcmp(regions[currentIndex].connected[i], regions[j].name) == 0) {
-                if (!regions[j].visited) {
-                    availableRegions[availableCount++] = j;
+            if (strcmp(regions[j].name, connectedRegion) == 0) {
+                if (!regions[j].visited) {  // 방문하지 않은 지역만 추가
+                    // 중복 체크
+                    bool isDuplicate = false;
+                    for (int k = 0; k < availableCount; k++) {
+                        if (availableRegions[k] == j) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        availableRegions[availableCount++] = j;
+                    }
                 }
                 break;
             }
         }
     }
-    if (availableCount == 0) return 0;
+    
+    if (availableCount == 0) {
+        // 방문하지 않은 지역 찾기
+        int unvisitedRegions[MAX_REGIONS];
+        int unvisitedCount = 0;
+        
+        for (int i = 0; i < MAX_REGIONS; i++) {
+            if (!regions[i].visited) {
+                unvisitedRegions[unvisitedCount++] = i;
+            }
+        }
+        
+        if (unvisitedCount > 0) {
+            printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n");
+            printText("방문하지 않은 지역 중 하나를 선택하세요:\n");
+            
+            for (int i = 0; i < unvisitedCount; i++) {
+                char buffer[64];
+                sprintf(buffer, "%d. %s\n", i+1, regions[unvisitedRegions[i]].name);
+                printTextAndWait(buffer);
+            }
+            
+            printText("선택 (번호): ");
+            int choice = getIntInput() - 1;
+            while (choice < 0 || choice >= unvisitedCount) {
+                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.\n");
+                printText("선택 (번호): ");
+                choice = getIntInput() - 1;
+            }
+            
+            int nextIndex = unvisitedRegions[choice];
+            strcpy(currentRegion, regions[nextIndex].name);
+            regions[nextIndex].visited = 1;
+            return 1;
+        }
+        return 0;
+    }
+    
     printText("\n지도 아이템을 사용하여 다음 지역을 선택하세요:\n");
     for (int i = 0; i < availableCount; i++) {
         char buffer[64];
@@ -165,4 +241,12 @@ void loadRegionData(FILE* file) {
     for (int i = 0; i < MAX_REGIONS; i++) {
         fread(&regions[i].visited, sizeof(int), 1, file);
     }
+}
+
+// 모든 지역 방문 여부 확인
+int isAllRegionsVisited(void) {
+    for (int i = 0; i < MAX_REGIONS; i++) {
+        if (!regions[i].visited) return 0;
+    }
+    return 1;
 } 

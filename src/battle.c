@@ -197,6 +197,14 @@ int startBattle(const Yokai* enemy) {
             }
             itemRewardSystem(); // 아이템 보상 창 호출
             
+            // 함경도 보스 스테이지 완료 후 모든 지역 방문 확인
+            if (strcmp(getCurrentRegion(), "함경도") == 0 && gStage.stageNumber % 10 == 0) {
+                if (isAllRegionsVisited()) {
+                    // 모든 지역을 방문한 경우 final stage 로직 실행
+                    return 103;  // final stage 로직 실행
+                }
+            }
+            
             return done;  // 전투 결과 반환
         } else if (done == 103) {
             // 도망 성공: 보상 없음

@@ -10,6 +10,7 @@
 #include "region.h"
 #include "../core/state.h"
 #include <windows.h>
+#include "finalstage.h"
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
@@ -37,11 +38,11 @@ void generateBossStageEnemies(StageInfo* stage) {
 }
 
 // 보스 스테이지 클리어 처리 함수
-void handleBossStageClear(void) {
+// 반환값: 1 = finalstage 진입 조건 충족, 0 = 일반 보스 클리어
+int handleBossStageClear(void) {
     // 보스 스테이지 클리어 시 처리
     resetAllYokaiPP();
     printTextAndWait("\n모든 동료 요괴의 기술 PP가 초기화되었습니다!");
-    
     // 모든 동료 요괴의 HP와 상태 회복
     for (int i = 0; i < gPartyCount; i++) {
         float maxHP = calculateHP(&gParty[i]);
@@ -51,4 +52,9 @@ void handleBossStageClear(void) {
     printTextAndWait("\n모든 동료 요괴의 HP와 상태가 회복되었습니다!");
     fastSleep(500);
     saveGame();
+    // 모든 지역 방문 + 함경도에서 클리어 시 finalstage 진입
+    if (isAllRegionsVisited() && strcmp(getCurrentRegion(), "함경도") == 0) {
+        return 1;
+    }
+    return 0;
 } 
