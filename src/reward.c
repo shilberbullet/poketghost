@@ -87,6 +87,11 @@ void itemRewardSystem() {
             getRandomItems(candidates, 3);
             valid = 1;
             for (int i = 0; i < 3; i++) {
+                // 보스 스테이지에서는 회복형 아이템만 제외
+                if (gStage.isBossStage && candidates[i].type == ITEM_HEAL) {
+                    valid = 0;
+                    break;
+                }
                 for (int j = i + 1; j < 3; j++) {
                     if (strcmp(candidates[i].name, candidates[j].name) == 0) {
                         valid = 0;
