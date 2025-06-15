@@ -74,8 +74,10 @@ void releaseYokai(int index) {
     // 요괴를 성불 상태로 설정하고 메시지 출력
     gParty[index].status = YOKAI_RELEASED;
     char buffer[256];
-    sprintf(buffer, "\n%s%s\033[0m(%s)이(가) 성불했습니다.\n", 
-        colorCode, gParty[index].name, typeNames[gParty[index].type]);
+    sprintf(buffer, "\n%s (%s%s\033[0m)(이)가 성불했습니다.\n", 
+        gParty[index].name,
+        colorCode,
+        typeNames[gParty[index].type]);
     printText(buffer);
 }
 
@@ -100,6 +102,7 @@ int handleFullParty(const Yokai* newYokai) {
             printText("\n성불 시킬 동료 요괴를 선택하세요:\n");
             for (int i = 0; i < gPartyCount; i++) {
                 char buffer[256];
+                float maxHP = calculateHP(&gParty[i]);
                 // 타입에 따른 색상 설정
                 const char* colorCode;
                 switch (gParty[i].type) {
@@ -138,15 +141,16 @@ int handleFullParty(const Yokai* newYokai) {
                         statusColor = "\033[0m";
                         break;
                 }
-                sprintf(buffer, "%d. %s (%s%s\033[0m, Lv.%d, 상태: %s%s\033[0m, 체력: %d, 공격력: %d, 방어력: %d)\n",
+                sprintf(buffer, "%d. %s (%s%s\033[0m, Lv.%d, HP: %.0f/%.0f, 상태: %s%s\033[0m, 공격력: %d, 방어력: %d)\n",
                     i+1,
                     gParty[i].name,
                     colorCode,
                     typeToString(gParty[i].type),
                     gParty[i].level,
+                    gParty[i].currentHP,
+                    maxHP,
                     statusColor,
                     statusText,
-                    gParty[i].stamina,
                     gParty[i].attack,
                     gParty[i].defense);
                 printText(buffer);
@@ -310,14 +314,126 @@ void printParty() {
             printText("\n");
         }
         
-        // 기술 목록 출력
+        // 현재 배운 기술 목록 출력
         printText("\n기술 목록:\n");
         for (int i = 0; i < gParty[idx].moveCount; i++) {
-            sprintf(buffer, "%d. %s (상성: %s, 공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
-                i+1, gParty[idx].moves[i].move.name, typeToString(gParty[idx].moves[i].move.type), 
-                gParty[idx].moves[i].move.power, gParty[idx].moves[i].move.accuracy,
-                gParty[idx].moves[i].currentPP, gParty[idx].moves[i].move.pp);
+            const char* colorCode;
+            switch (gParty[idx].moves[i].move.type) {
+                case TYPE_EVIL_SPIRIT:
+                    colorCode = "\033[31m";  // 빨간색
+                    break;
+                case TYPE_GHOST:
+                    colorCode = "\033[35m";  // 보라색
+                    break;
+                case TYPE_MONSTER:
+                    colorCode = "\033[33m";  // 노란색
+                    break;
+                case TYPE_HUMAN:
+                    colorCode = "\033[36m";  // 청록색
+                    break;
+                case TYPE_ANIMAL:
+                    colorCode = "\033[32m";  // 초록색
+                    break;
+                default:
+                    colorCode = "\033[0m";   // 기본색
+            }
+            sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
+                i+1, 
+                colorCode,
+                gParty[idx].moves[i].move.name,
+                colorCode,
+                gParty[idx].moves[i].move.power,
+                gParty[idx].moves[i].move.accuracy,
+                gParty[idx].moves[i].currentPP,
+                gParty[idx].moves[i].move.pp);
             printText(buffer);
+        }
+
+        // 디버그 모드일 때 추가 정보 출력
+        if (gameSettings.debugMode) {
+            char debugBuffer[256];
+            sprintf(debugBuffer, "\n[DEBUG] 디버그 모드 활성화됨 (gameSettings.debugMode = %d)\n", gameSettings.debugMode);
+            printText(debugBuffer);
+
+            // 배울 수 있는 기술 목록 출력
+            printText("\n배울 수 있는 기술 목록:\n");
+            sprintf(debugBuffer, "[DEBUG] learnableMoveCount: %d\n", gParty[idx].learnableMoveCount);
+            printText(debugBuffer);
+            
+            for (int i = 0; i < gParty[idx].learnableMoveCount; i++) {
+                const char* colorCode;
+                switch (gParty[idx].learnableMoves[i].type) {
+                    case TYPE_EVIL_SPIRIT:
+                        colorCode = "\033[31m";  // 빨간색
+                        break;
+                    case TYPE_GHOST:
+                        colorCode = "\033[35m";  // 보라색
+                        break;
+                    case TYPE_MONSTER:
+                        colorCode = "\033[33m";  // 노란색
+                        break;
+                    case TYPE_HUMAN:
+                        colorCode = "\033[36m";  // 청록색
+                        break;
+                    case TYPE_ANIMAL:
+                        colorCode = "\033[32m";  // 초록색
+                        break;
+                    default:
+                        colorCode = "\033[0m";   // 기본색
+                }
+                sprintf(buffer, "%d. %s%s%s\033[0m (등급: %s, 공격력: %d, 명중률: %d%%, PP: %d)\n", 
+                    i+1,
+                    colorCode,
+                    gParty[idx].learnableMoves[i].name,
+                    colorCode,
+                    gParty[idx].learnableMoves[i].grade == MOVE_BASIC ? "기본" :
+                    gParty[idx].learnableMoves[i].grade == MOVE_MEDIUM ? "중급" : "고급",
+                    gParty[idx].learnableMoves[i].power,
+                    gParty[idx].learnableMoves[i].accuracy,
+                    gParty[idx].learnableMoves[i].pp);
+                printText(buffer);
+            }
+
+            // 잊은 기술 목록 출력
+            sprintf(debugBuffer, "\n[DEBUG] forgottenMoveCount: %d\n", gParty[idx].forgottenMoveCount);
+            printText(debugBuffer);
+            
+            if (gParty[idx].forgottenMoveCount > 0) {
+                printText("\n잊은 기술 목록:\n");
+                for (int i = 0; i < gParty[idx].forgottenMoveCount; i++) {
+                    const char* colorCode;
+                    switch (gParty[idx].forgottenMoves[i].type) {
+                        case TYPE_EVIL_SPIRIT:
+                            colorCode = "\033[31m";  // 빨간색
+                            break;
+                        case TYPE_GHOST:
+                            colorCode = "\033[35m";  // 보라색
+                            break;
+                        case TYPE_MONSTER:
+                            colorCode = "\033[33m";  // 노란색
+                            break;
+                        case TYPE_HUMAN:
+                            colorCode = "\033[36m";  // 청록색
+                            break;
+                        case TYPE_ANIMAL:
+                            colorCode = "\033[32m";  // 초록색
+                            break;
+                        default:
+                            colorCode = "\033[0m";   // 기본색
+                    }
+                    sprintf(buffer, "%d. %s%s%s\033[0m (등급: %s, 공격력: %d, 명중률: %d%%, PP: %d)\n", 
+                        i+1,
+                        colorCode,
+                        gParty[idx].forgottenMoves[i].name,
+                        colorCode,
+                        gParty[idx].forgottenMoves[i].grade == MOVE_BASIC ? "기본" :
+                        gParty[idx].forgottenMoves[i].grade == MOVE_MEDIUM ? "중급" : "고급",
+                        gParty[idx].forgottenMoves[i].power,
+                        gParty[idx].forgottenMoves[i].accuracy,
+                        gParty[idx].forgottenMoves[i].pp);
+                    printText(buffer);
+                }
+            }
         }
     }
 }

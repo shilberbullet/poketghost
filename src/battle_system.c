@@ -283,14 +283,14 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
     if (result == 1) {
         char buffer[256];
         if (defender->status == YOKAI_FAINTED) {
-            sprintf(buffer, "\n%s이(가) 쓰러졌다!", defender->name);
+            sprintf(buffer, "\n%s(이)가 쓰러졌다!", defender->name);
             printTextAndWait(buffer);
             fastSleep(500);
         }
     } else if (result == -1) {
         char buffer[256];
         if (attacker->status == YOKAI_FAINTED) {
-            sprintf(buffer, "\n%s이(가) 쓰러졌다!", attacker->name);
+            sprintf(buffer, "\n%s(이)가 쓰러졌다!", attacker->name);
             printTextAndWait(buffer);
             fastSleep(500);
         }

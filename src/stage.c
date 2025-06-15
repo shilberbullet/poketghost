@@ -17,6 +17,7 @@
 #include "item.h"
 #include "../core/state.h"
 #include <windows.h>
+#include "finalstage.h"
 
 
 // 지형 이름 배열
