@@ -54,6 +54,12 @@ void nextStage() {
     
     // 10스테이지마다 지역 변경
     if (gStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
+        // 모든 지역을 방문했는지 확인
+        if (isAllRegionsVisited()) {
+            enterFinalStage();
+            return;
+        }
+
         int hasMap = 0;
         int mapIdx = -1;
         for (int i = 0; i < inventoryCount; i++) {
@@ -132,7 +138,7 @@ void showBattleInterface() {
     if (gStage.isBossStage) {
         if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
             handleBossStageClear();  // 보스 스테이지 클리어 처리
-            nextStage();             // 다음 스테이지로 진행
+            nextStage();  // 다음 스테이지로 진행
         }
     } else {
         handleNormalStageClear();  // 일반 스테이지 클리어 처리

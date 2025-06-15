@@ -5,6 +5,7 @@
 
 #include "types.h"
 #include "yokai.h"
+#include "stage.h"
 
 // 전투 메뉴 선택지
 typedef enum {
@@ -42,5 +43,11 @@ int handleFaintedYokai(int faintedIdx);
 int selectPartyYokai();
 int selectMove(const Yokai* yokai);
 int selectTalismanFromInventory();
+
+// 요괴 교체 함수
+int switchYokai();
+
+// 데미지 메시지 출력 함수
+void printDamageMessage(Yokai* attacker, Yokai* defender, int damage);
 
 #endif // BATTLE_H 

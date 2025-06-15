@@ -23,6 +23,7 @@
 #include "settings.h"
 #include "region.h"
 #include <windows.h>
+#include "finalstage.h" // 추가: finalstage 진입 함수 사용을 위해
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
 // 현재 전투 중인 상대 요괴
@@ -199,10 +200,7 @@ int startBattle(const Yokai* enemy) {
             
             // 함경도 보스 스테이지 완료 후 모든 지역 방문 확인
             if (strcmp(getCurrentRegion(), "함경도") == 0 && gStage.stageNumber % 10 == 0) {
-                if (isAllRegionsVisited()) {
-                    // 모든 지역을 방문한 경우 final stage 로직 실행
-                    return 103;  // final stage 로직 실행
-                }
+                // 파이널 스테이지 진입 조건 체크 제거
             }
             
             return done;  // 전투 결과 반환
@@ -564,6 +562,19 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             return 0;
         }
         case BATTLE_TALISMAN: {
+            // 패러독스 요괴 및 최종보스 포획 불가 처리
+            const char* uncatchable[] = {
+                "이계의 망령", "차원 파수꾼", "심연의 그림자", "운명의 조각자",
+                "시간의 파편", "공허의 사도", "붕괴의 인도자", "경계의 방랑자", "환영의 군주", "차원의 군주"
+            };
+            int uncatchableCount = 10;
+            for (int i = 0; i < uncatchableCount; i++) {
+                if (strcmp(enemy->name, uncatchable[i]) == 0) {
+                    printTextAndWait("\n이 요괴는 포획할 수 없습니다!\n");
+                    fastSleep(700);
+                    return 0;
+                }
+            }
             if (gStage.stageNumber % 10 == 0) {
                 printTextAndWait("\n알 수 없는 힘이 부적을 던질 수 없게 합니다!");
                 fastSleep(500);

@@ -16,6 +16,10 @@ int yokaiListCount = 0;
 Yokai bossYokaiList[MAX_BOSS_YOKAI];
 int bossYokaiListCount = 0;
 
+#define MAX_PARADOX_YOKAI 16
+Yokai paradoxYokaiList[MAX_PARADOX_YOKAI];
+int paradoxYokaiListCount = 0;
+
 // 요괴 이름 배열
 const char* yokaiNames[] = {
     "구미호", "도깨비", "오니", "텐구", "카파",
@@ -88,42 +92,39 @@ YokaiType parseType(const char* typeStr) {
 void loadYokaiFromFile(const char* filename) {
     yokaiListCount = 0;
     bossYokaiListCount = 0;
+    paradoxYokaiListCount = 0;
     FILE* file = fopen(filename, "r");
     if (!file) return;
-    char line[32768];  // 한글 인코딩을 고려하여 버퍼 크기를 더 크게 증가
+    char line[32768];
     int isBoss = 0;
+    int isParadox = 0;
     while (fgets(line, sizeof(line), file)) {
-        if (strstr(line, "# 보스 요괴")) { isBoss = 1; continue; }
+        if (strstr(line, "# 보스 요괴")) { isBoss = 1; isParadox = 0; continue; }
+        if (strstr(line, "# 패러독스 요괴")) { isParadox = 1; isBoss = 0; continue; }
         if (line[0] == '#' || line[0] == '\n') continue;
-        
-        // 줄바꿈 문자 제거
         line[strcspn(line, "\n")] = 0;
-        
-        // 마지막 쉼표 위치 찾기
         char* last_comma = strrchr(line, ',');
         if (!last_comma) continue;
         char* moves = last_comma + 1;
-        *last_comma = '\0'; // desc와 moves 분리
-        
-        // 앞에서부터 차례로 파싱
+        *last_comma = '\0';
         char* name = strtok(line, ",");
         char* type = strtok(NULL, ",");
         char* attack = strtok(NULL, ",");
         char* defense = strtok(NULL, ",");
         char* stamina = strtok(NULL, ",");
         char* speed = strtok(NULL, ",");
-        char* desc = strtok(NULL, ""); // 남은 전체를 desc로
-        
+        char* desc = strtok(NULL, "");
         if (name && type && attack && defense && stamina && speed && desc && moves) {
             Yokai* y;
-            if (!isBoss && yokaiListCount < MAX_YOKAI) {
+            if (isParadox && paradoxYokaiListCount < MAX_PARADOX_YOKAI) {
+                y = &paradoxYokaiList[paradoxYokaiListCount++];
+            } else if (!isBoss && yokaiListCount < MAX_YOKAI) {
                 y = &yokaiList[yokaiListCount++];
             } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
                 y = &bossYokaiList[bossYokaiListCount++];
             } else {
                 continue;
             }
-            
             strncpy(y->name, name, YOKAI_NAME_MAX - 1);
             y->name[YOKAI_NAME_MAX - 1] = '\0';
             y->type = parseType(type);
@@ -131,21 +132,44 @@ void loadYokaiFromFile(const char* filename) {
             y->defense = atoi(defense);
             y->stamina = atoi(stamina);
             y->speed = atoi(speed);
-            
-            // 도감 설명 복사 전에 버퍼 초기화
             memset(y->desc, 0, YOKAI_DESC_MAX);
             strncpy(y->desc, desc, YOKAI_DESC_MAX - 1);
             y->desc[YOKAI_DESC_MAX - 1] = '\0';
-            
-            // 기술 목록 파싱
             y->learnableMoveCount = 0;
             char* moveName = strtok(moves, ";");
             while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
                 Move* m = findMoveByName(moveName);
                 if (m) {
                     y->learnableMoves[y->learnableMoveCount++] = *m;
+                } else {
+                    // 기술을 찾지 못한 경우 기본 기술 생성
+                    Move defaultMove;
+                    strncpy(defaultMove.name, moveName, YOKAI_NAME_MAX - 1);
+                    defaultMove.name[YOKAI_NAME_MAX - 1] = '\0';
+                    defaultMove.type = TYPE_EVIL_SPIRIT;  // 기본 타입
+                    defaultMove.power = 50;               // 기본 위력
+                    defaultMove.accuracy = 90;            // 기본 명중률
+                    defaultMove.pp = 10;                  // 기본 PP
+                    strncpy(defaultMove.description, "기본 기술", 255);
+                    defaultMove.description[255] = '\0';
+                    defaultMove.grade = MOVE_BASIC;       // 기본 등급
+                    y->learnableMoves[y->learnableMoveCount++] = defaultMove;
                 }
                 moveName = strtok(NULL, ";");
+            }
+            // 최소 1개의 기술은 보장
+            if (y->learnableMoveCount == 0) {
+                Move defaultMove;
+                strncpy(defaultMove.name, "기본공격", YOKAI_NAME_MAX - 1);
+                defaultMove.name[YOKAI_NAME_MAX - 1] = '\0';
+                defaultMove.type = TYPE_EVIL_SPIRIT;
+                defaultMove.power = 50;
+                defaultMove.accuracy = 90;
+                defaultMove.pp = 10;
+                strncpy(defaultMove.description, "기본 기술", 255);
+                defaultMove.description[255] = '\0';
+                defaultMove.grade = MOVE_BASIC;
+                y->learnableMoves[y->learnableMoveCount++] = defaultMove;
             }
             y->moveCount = 0;
         }
@@ -232,6 +256,20 @@ Yokai createRandomYokai() {
 // 기본 레벨(1)로 랜덤 보스 요괴 생성하는 함수
 Yokai createRandomBossYokai() {
     return createRandomBossYokaiWithLevel(1);
+}
+
+Yokai createRandomParadoxYokaiWithLevel(int level) {
+    if (paradoxYokaiListCount == 0) {
+        loadYokaiFromFile("data/yokai.txt");
+    }
+    int idx = rand() % paradoxYokaiListCount;
+    Yokai y = paradoxYokaiList[idx];
+    y.id = 0;
+    y.level = level;
+    y.status = YOKAI_NORMAL;
+    y.currentHP = calculateHP(&y);
+    assignRandomMoves(&y);
+    return y;
 }
 
 void printYokaiInfo(const Yokai* yokai) {

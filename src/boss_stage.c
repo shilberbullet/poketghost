@@ -52,9 +52,6 @@ int handleBossStageClear(void) {
     printTextAndWait("\n모든 동료 요괴의 HP와 상태가 회복되었습니다!");
     fastSleep(500);
     saveGame();
-    // 모든 지역 방문 + 함경도에서 클리어 시 finalstage 진입
-    if (isAllRegionsVisited() && strcmp(getCurrentRegion(), "함경도") == 0) {
-        return 1;
-    }
+    // 60스테이지 클리어 시 파이널 스테이지 진입 조건 체크 제거
     return 0;
 } 
