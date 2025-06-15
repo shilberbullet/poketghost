@@ -8,48 +8,43 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 
 # 텍스트 데이터
 extended_text = '''
- 태자귀,GHOST,120,90,120,110,원한을 품고 저승을 떠도는 무서운 원귀. 확률적으로 강력한 일격을 가하는 특성을 지녔다.,천연두;울음소리;복화술;염매
-총각귀신,GHOST,130,110,110,120,죽지 못하고 떠도는 처절한 원귀 강한 물리 공격과 방어력 저하 기술을 사용한다.,메치기;포효;위압;버티기
-처녀귀신,GHOST,140,100,100,110,불행한 죽음으로 원한 가득한 처녀귀신. 할퀴기와 공격력 및 방어력 저하 스킬이 특징이다.,할퀴기;비명;공포;원한의 바람
-구미호,ANIMAL,140,80,100,150,매혹적인 외모와 여우불로 적을 홀리는 구미호는 변신술과 흡생 능력을 지닌 전설의 요괴다.,매혹;할퀴기;간 빼먹기;둔갑술
-망태 할아버지,HUMAN,100,110,130,120,밤마다 어린이를 납치해 망태에 넣는다는 무서운 전설의 주인공 인간형에게 특히 위협적이다.,납치;민첩한 걸음;그물 던지기;
-돌진천마,ANIMAL,110,100,110,150,옥황상제가 타던 신성한 천마. 하늘을 달리며 전장을 누비고 아군에게 희망을 안겨주는 존재.,천상 질주;신광 충돌;포효하는 발굽;하늘의 응답
-마귀,EVIL_SPIRIT,125,95,100,130,형체도 불분명한 사악한 기운의 집합체. 조용히 상대의 정신을 갉아먹는 공포의 존재.,혼령 착취;서늘한 시선;틈 속의 손;영혼 긁기
-불가살이,MONSTER,135,135,145,75,강철 피부와 불사의 힘으로 죽지 않는 몸을 지녔다. 물리 공격을 받을수록 더 강해지는 무시무시한 괴수.,강철 섭취;무쇠 손톱;강철 피부;불사의 포효;강철 포식
-굴각,GHOST,105,90,110,145,호랑이에 기생한 창귀. 조용히 숨어들었다가 그림자처럼 적을 덮친다.,먹이 유인;그림자 할퀴기;잠복;도주 시도
-이올,GHOST,120,85,105,140,적의 기척을 지우며 은밀하게 다가드는 창귀. 방해와 회피에 특화되어 있다.,함정 해체;은신 이동;이빨 찍기;기척 지우기
-산적귀,GHOST,130,100,120,100,무리를 지어 길목을 지키는 악귀. 지나가는 이의 물건을 빼앗고 목숨까지 노리기도 한다.,돌던지기;후려치기;맹렬한 후려치기;몸통박치기;정신집중;돌무더기 던지기
-독각귀,MONSTER,120,110,130,100,몸에서 독이 흘러내리는 괴수. 날카로운 뿔로 찌르면 깊이 중독된다.,맹독침;극독침;가시돌진;광폭의 가시돌진;물기;깨물어부수기
-달귀,TYPE_EVIL_SPIRIT,120,110,100,140,어둠 속에 숨어드는 악귀. 달빛을 피해 그림자에 깃들어 사람의 혼을 갉아먹는다.,잠복;어둠의 손;기척 지우기;그림자 할퀴기;정신집중;속삭임
-바람노루,TYPE_ANIMAL,125,90,135,115,바람처럼 빠르게 움직이는 노루 요괴로 풀잎과 함께 달리며 적의 눈에 잘 띄지 않는다,은신 이동;기척 지우기;몸통박치기;맹렬한 몸통박치기;돌던지기;정신집중;
-처녀목귀,TYPE_GHOST,100,125,120,125,목매달아 죽은 여인의 원혼이 되살아난 귀신으로로 저주와 울음으로 원한을 퍼뜨린다,속삭임;혼란의 울부짖음;공포;영혼 압박;파열음파;정신집중;
-산치성,TYPE_MONSTER,140,130,105,115,깊은 산속에서 태어난 땅의 괴수로로 큰 돌과 나무를 휘두르며 산을 지키는 수호자처럼 행동한다,후려치기;맹렬한 후려치기;돌던지기;돌무더기 던지기;몸통박치기;분노의주먹;
-살음도깨비,TYPE_HUMAN,110,130,120,110,사람의 형상을 한 도깨비로 인간을 흉내내지만 의도를 알 수 없는 불안한 존재,짖기;혼란의 울부짖음;불꽃치기;폭렬 불꽃치기;정신집중;후려치기;
-구반귀,TYPE_EVIL_SPIRIT,105,135,115,115,밤마다 구불구불한 산길에서 나타나는 귀으로 길 잃은 자의 그림자를 따라붙는다,잠복;그림자 할퀴기;기척 지우기;속삭임;정신집중;영혼 압박;
-누룩귀,TYPE_GHOST,100,130,120,100,오래된 술독 속에서 태어난 원귀로 술기운에 취한 자를 노려 몸과 정신을 마비시킨다,파열음파;혼란의 울부짖음;음파;영혼 압박;후려치기;정신집중
-불화살귀,TYPE_MONSTER,140,100,110,120,전장에서 죽은 혼령들이 모여 만들어진 불꽃 요괴로로 불타는 화살처럼 빠르게 적을 꿰뚫는다,불꽃치기;폭렬 불꽃치기;꼬리치기;강철 꼬리치기;정신집중;돌던지기
-수면요마,GHOST,90,120,100,150,어두운 밤마다 나타나 잠든 사람을 괴롭히는 요마로 꿈과 현실의 경계를 무너뜨린다,수면가루(특수기);음파;파열음파;혼란의 울부짖음;속삭임;정신집중
-육혼,GHOST,110,90,110,140,혼령 여섯의 원한이 얽힌 무형의 존재. 이름을 부르며 상대를 저주한다.,이름 부르기;속삭임;어둠의 손;영혼 압박
-도깨비불,GHOST,120,90,115,150,도깨비의 장난으로 태어난 불씨. 작지만 끈질기며 접촉한 자의 기력을 태워 없앤다.,화염폭산;불씨 튀기기;따라붙는 불꽃;기력 연소
-노구화호,TYPE_ANIMAL,125,110,90,125,늙은 할머니로 둔갑하는 여우 요괴로 노파의 모습이지만 뽀얗고 아름다운 외모로 사람들을 현혹한다. 501년 백제에서 자주 목격되었다는 기록이 있다,불꽃치기;폭렬 불꽃치기;기척 지우기;속삭임;정신집중;
-대선사사,TYPE_EVIL_SPIRIT,115,125,95,120,과부에게 꿈 속에서 나타나 희롱하는 마물로 낮에는 여인들이 드나드는 집의 항아리 속에 숨어 지낸낸다,잠복;속삭임;어둠의 손;영혼 압박;정신집중;
-도피사의,TYPE_HUMAN,140,85,110,115,도롱이 옷을 거꾸로 입은 사람의 모습을 한 괴물입니다. 두 마리씩 몰려다니며 사람에게 들러붙어 체온을 높여 죽인다,몸통박치기;맹렬한 몸통박치기;후려치기;맹렬한 후려치기;정신집중;
-두두리,TYPE_GHOST,100,130,90,130,신라, 고려시대에 숭배받던 목신(木神)입니다. 경주 지역의 토속신으로 추정되며 몽골 침입 이후 신앙이 소멸된 것으로 보입니다.음파;파열음파;짖기;혼란의 울부짖음;정신집중;
-백제궁인,TYPE_GHOST,120,120,95,135,백제가 멸망할 때 백마강에 투신한 궁녀의 원혼입니다. 소년에게 접근하여 정기를 꾀어내어 자신의 기운을 보충하려 합니다,속삭임;이빨 찍기;기척 지우기;영혼 압박;정신집중;
-수일이참대,TYPE_MONSTER,135,90,95,130,작은 도마뱀 모습을 한 요괴입니다. 칼로 자르면 잘린 부위가 더 커져 이무기의 모습으로 변한다고 합니다,물기;깨물어부수기;가시돌진;광폭의 가시돌진;정신집중;
-닷발괴물,TYPE_MONSTER,140,95,90,130,꼬리깃과 부리가 각각 닷 발(약 750cm)에 이르는 거대한 괴물. 새 악어 오리너구리의 특징을 지닌 기괴한 형상으로, 종종 가족을 납치하거나 잡아먹는다. 복수한 주인공에게 가마솥에 삶겨 죽고, 그 가루가 벼룩이나 모기로 환생해 다시 인간을 괴롭힌다고 전해진다,몸통박치기;맹렬한 몸통박치기;꼬리치기;강철 꼬리치기;물기;깨물어부수기;
-독각귀,MONSTER,120,110,130,100,몸에서 독이 흘러내리는 괴수. 날카로운 뿔로 찌르면 깊이 중독된다,맹독침;극독침;가시돌진;광폭의 가시돌진;물기;깨물어부수기
-수면요마,GHOST,90,120,100,150,어두운 밤마다 나타나 잠든 사람을 괴롭히는 요마. 꿈과 현실의 경계를 무너뜨린다,수면가루(특수기);음파;파열음파;혼란의 울부짖음;속삭임;정신집중
-장자마리,TYPE_EVIL_SPIRIT,120,120,110,100,강릉 지역 도깨비로 풍요와 혼돈을 상징하는 익살스러운 존재입니다.,불꽃치기;죽음의속삭임;지옥불;지옥기운;음파;염력;
-그슨새,TYPE_GHOST,130,100,90,120,제주도에서 낮에 혼자 있는 사람을 홀리는 요괴로 말로 막을 수 있습니다.,음파;염력;망령의눈빛;죽음의속삭임;영혼흩뿌리기;분노의주먹;
-묘두사,TYPE_ANIMAL,100,110,110,130,고양이 머리를 한 뱀으로 치유의 기운을 내뿜어 신으로 숭배되었습니다.,물기;울부짖기;날개베기;깨물어부수기;유혹하기;날렵한몸놀림;
-거구귀,TYPE_EVIL_SPIRIT,110,130,110,110,거대한 입을 지녔으나 뛰어난 인물을 만나면 동자로 변해 돕는 수호 귀신입니다.,후려치기;돌던지기;망령의눈빛;지옥불;지옥기운;음파;
-삼두일족응,TYPE_MONSTER,140,90,120,100,머리 셋 다리 하나의 매로 삼재를 물리친다는 의미의 상징적 존재입니다.,날개베기;이단도약;사념의박치기;파괴포효;강철꼬리치기;맹화;
+ 
+# 일반 요괴
+도깨비,MONSTER,200,150,180,170,밤에 나타나 사람들을 놀라게 하지만 가끔씩 도움을 주기도 한다.,불꽃치기;지옥불;맹화;가시돌진;사념의박치기;강철꼬리치기;몸통박치기;번개
+구미호,ANIMAL,180,160,190,200,아홉 개의 꼬리를 가진 여우 요괴. 사람의 모습으로 변신하여 사람들을 유혹한다.,꼬리치기;유혹하기;물기;깨물어부수기;마구 할퀴기;맹독침;물어뜯기;짖기
+귀신,GHOST,190,140,160,220,원한을 풀지 못한 영혼이 변한 요괴. 매우 빠른 속도로 움직인다.,음파;염력;얼음창;바람칼;번개;흙폭탄;불꽃치기;돌던지기
+여우,ANIMAL,160,150,170,230,꼬리가 여러 개 달린 여우 요괴. 민첩한 움직임이 특징이다.,꼬리치기;유혹하기;물기;깨물어부수기;마구 할퀴기;맹독침;물어뜯기;짖기
+산신령,HUMAN,170,200,200,160,산을 지키는 신령. 강한 방어력과 체력을 가지고 있다.,돌던지기;바람칼;흙폭탄;후려치기;분노의주먹;얼음창;번개;불꽃치기
+
+# 보스 요괴
+도깨비불,EVIL_SPIRIT,230,180,220,190,도깨비의 왕. 강력한 불꽃을 다루는 능력을 가지고 있다.,지옥불;맹화;불꽃치기;가시돌진;사념의박치기;강철꼬리치기;몸통박치기;번개
+구미호왕,ANIMAL,210,190,230,220,구미호의 왕. 아홉 개의 꼬리로 강력한 공격을 한다.,꼬리치기;유혹하기;물기;깨물어부수기;마구 할퀴기;맹독침;물어뜯기;짖기
+귀신왕,GHOST,220,170,200,240,귀신의 왕. 매우 빠른 속도로 적을 공격한다.,음파;염력;얼음창;바람칼;번개;흙폭탄;불꽃치기;돌던지기
+산신령왕,HUMAN,200,230,240,190,산신령의 왕. 강력한 방어력으로 적의 공격을 막아낸다.,돌던지기;바람칼;흙폭탄;후려치기;분노의주먹;얼음창;번개;불꽃치기
+여우왕,ANIMAL,190,200,220,250,여우의 왕. 매우 빠른 속도로 적을 공격한다.,꼬리치기;유혹하기;물기;깨물어부수기;마구 할퀴기;맹독침;물어뜯기;짖기 
+
+# 패러독스 요괴
+이계의 망령,EVIL_SPIRIT,250,180,210,200,이계에서 온 정체불명의 망령. 현실과의 경계가 모호하다.,혼돈의파동;차원의칼날;어둠의손길;영혼흡수
+차원 파수꾼,MONSTER,240,170,220,210,차원을 지키는 수호자. 강력한 힘을 자랑한다.,차원방패;파멸의주먹;공간왜곡;수호의외침
+심연의 그림자,GHOST,230,160,200,220,심연에서 태어난 그림자. 모든 빛을 흡수한다.,그림자베기;암흑폭풍;속삭임;절망의눈빛
+운명의 조각자,HUMAN,220,200,230,190,운명을 조각하는 자. 미래를 예지한다.,운명베기;예지타격;시간왜곡;심판의칼날
+시간의 파편,EVIL_SPIRIT,210,150,190,230,시간의 흐름에서 떨어져 나온 존재.,시간단절;과거회상;미래도약;영원의속삭임
+공허의 사도,MONSTER,200,180,210,210,공허를 따르는 사도. 감정을 느끼지 않는다.,공허의창;무감정공격;침묵의포효;무의의손길
+붕괴의 인도자,GHOST,220,170,220,200,붕괴를 이끄는 자. 모든 것을 무로 돌린다.,붕괴의손짓;파멸의속삭임;무의식공격;종말의울음
+경계의 방랑자,HUMAN,210,160,200,220,경계를 떠도는 방랑자. 어디에도 속하지 않는다.,경계이동;방랑자의칼날;이방인의눈;자유의외침
+환영의 군주,ANIMAL,230,180,210,210,환영을 다루는 군주. 실체가 불분명하다.,환영공격;실체변화;환각의포효;허상의손길
+
+# 최종보스
+차원의 군주,EVIL_SPIRIT,300,250,300,280,차원의 균열을 지배하는 절대적인 존재. 모든 차원의 힘을 다룬다.,차원파괴;시간지배;공간지배;혼돈의파동;차원의칼날;어둠의손길;영혼흡수;파멸의주먹 
 
 '''
 
 # 기술 데이터
 skill_data = '''
+# 기술 데이터 파일
+# 형식: 이름,기술의 상성,공격력,명중률,PP,설명
+
+# 초급 기술
 불꽃치기,MONSTER,30,90,20,불꽃으로 적을 공격한다
 돌던지기,HUMAN,25,95,25,돌을 던져 적을 공격한다
 꼬리치기,ANIMAL,20,100,25,꼬리로 적을 공격한다
@@ -61,10 +56,10 @@ skill_data = '''
 음파,GHOST,25,90,25,강한 음파로 정신 피해를 입힌다
 유혹하기,ANIMAL,15,85,30,적을 유혹하여 공격력을 낮춘다
 날개베기,ANIMAL,30,90,15,날개를 이용해 회전 베기를 가한다
-울부짖기,ANIMAL,0,100,5,자신의 공격력을 2턴간 증가시킨다
-연속박치기,MONSTER,25×2,90,6,두 번 연속으로 머리로 들이받는다
-속임수베기,HUMAN,35,100,10,기습 공격으로 방어력을 무시한다
-망령의눈빛,GHOST,0,85,4,적을 1턴간 행동불능으로 만들 확률 30%
+속임수베기,HUMAN,35,100,10,기습 공격으로반드시 먼저 공격한다
+박치기,MONSTER,30,95,15,연속으로 머리로 들이받는다
+
+# 중급 기술
 바람칼,HUMAN,35,85,20,바람으로 만든 칼날을 날린다
 얼음창,GHOST,40,80,15,얼음으로 만든 창을 던진다
 물어뜯기,ANIMAL,35,80,20,이빨로 적을 물어뜯는다
@@ -73,6 +68,10 @@ skill_data = '''
 흙폭탄,HUMAN,30,90,20,흙으로 만든 폭탄을 던진다
 마구 할퀴기,ANIMAL,40,85,10,연속으로 할퀴어 강한 피해를 준다
 염력,GHOST,35,85,20,염력으로 물건을 던져져 공격한다
+울부짖기,ANIMAL,20,100,5,자신의 공격력을 증가시킨다
+연속박치기,MONSTER,40,80,/15,연속으로 머리로 들이받는다
+
+# 고급 기술
 지옥불,EVIL_SPIRIT,50,70,5,지옥의 불꽃으로 적을 태운다
 가시돌진,MONSTER,40,85,15,몸의 가시로 돌진하며 상대에게 큰 피해를 준다
 분노의주먹,HUMAN,45,80,10,분노를 담아 강한 한 방을 날린다
@@ -84,6 +83,51 @@ skill_data = '''
 철퇴내리치기,HUMAN,50,75,5,무거운 철퇴를 휘둘러 큰 피해를 준다
 지옥기운,EVIL_SPIRIT,60,65,5,지옥의 어둠으로 적에게 큰 피해를 준다
 이단도약,MONSTER,45,85,10,두 번 튕겨 뛰며 큰 피해를 준다
+망령의눈빛,GHOST,100,30,5,행동불능으로 만들 확률 30%
+
+# 패러독스 요괴 기술
+혼돈의파동,EVIL_SPIRIT,85,90,10,혼돈의 파동으로 적을 공격
+차원의칼날,EVIL_SPIRIT,80,95,10,차원의 칼날로 적을 베어버림
+어둠의손길,EVIL_SPIRIT,75,100,15,어둠의 손길로 적을 공격
+영혼흡수,EVIL_SPIRIT,70,100,15,적의 영혼을 흡수하여 HP 회복
+차원방패,EVIL_SPIRIT,0,100,10,차원의 방패로 자신을 보호
+파멸의주먹,EVIL_SPIRIT,85,90,10,파멸을 부르는 강력한 주먹
+공간왜곡,EVIL_SPIRIT,0,100,5,공간을 왜곡하여 적의 공격을 무효화
+수호의외침,EVIL_SPIRIT,0,100,5,강력한 외침으로 자신의 방어력 증가
+그림자베기,GHOST,75,95,10,그림자로 적을 베어버림
+암흑폭풍,GHOST,80,90,10,암흑의 폭풍으로 적을 공격
+속삭임,GHOST,0,100,5,적의 공격력을 낮추는 속삭임
+절망의눈빛,GHOST,0,100,5,적을 절망에 빠뜨리는 눈빛
+운명베기,HUMAN,80,90,10,운명을 베어버리는 강력한 공격
+예지타격,HUMAN,75,95,10,미래를 예지하여 정확한 타격
+시간왜곡,HUMAN,0,100,5,시간을 왜곡하여 적의 행동을 봉쇄
+심판의칼날,HUMAN,85,85,10,심판의 칼날로 적을 베어버림
+시간단절,EVIL_SPIRIT,0,100,5,시간의 흐름을 끊어버림
+과거회상,EVIL_SPIRIT,0,100,5,과거의 기억으로 자신을 강화
+미래도약,EVIL_SPIRIT,0,100,5,미래로 도약하여 회피
+영원의속삭임,EVIL_SPIRIT,0,100,5,영원한 속삭임으로 적을 약화
+공허의창,EVIL_SPIRIT,80,90,10,공허의 창으로 적을 관통
+무감정공격,EVIL_SPIRIT,75,95,10,감정 없는 공격으로 적을 공격
+침묵의포효,EVIL_SPIRIT,0,100,5,침묵의 포효로 적을 약화
+무의의손길,EVIL_SPIRIT,70,100,15,무의의 손길로 적을 공격
+붕괴의손짓,GHOST,0,100,5,붕괴의 손짓으로 적을 약화
+파멸의속삭임,GHOST,0,100,5,파멸의 속삭임으로 적을 공격
+무의식공격,GHOST,75,95,10,무의식의 공격으로 적을 공격
+종말의울음,GHOST,0,100,5,종말을 알리는 울음으로 적을 약화
+경계이동,HUMAN,0,100,5,경계를 이동하여 회피
+방랑자의칼날,HUMAN,80,90,10,방랑자의 칼날로 적을 베어버림
+이방인의눈,HUMAN,0,100,5,이방인의 눈으로 적을 약화
+자유의외침,HUMAN,0,100,5,자유의 외침으로 자신을 강화
+환영공격,ANIMAL,75,95,10,환영으로 적을 공격
+실체변화,ANIMAL,0,100,5,실체를 변화시켜 회피
+환각의포효,ANIMAL,0,100,5,환각의 포효로 적을 혼란
+허상의손길,ANIMAL,70,100,15,허상의 손길로 적을 공격
+
+# 최종보스 기술
+차원파괴,EVIL_SPIRIT,100,80,5,차원을 파괴하는 강력한 공격
+시간지배,EVIL_SPIRIT,90,85,5,시간을 지배하여 적의 행동을 봉쇄
+공간지배,EVIL_SPIRIT,95,80,5,공간을 지배하여 적을 압박
+
 '''
 
 # 기술 타입 매핑 딕셔너리 생성
@@ -95,9 +139,64 @@ for line in skill_data.strip().splitlines():
         skill_type = parts[1].strip()
         skill_type_map[skill_name] = skill_type
 
-# 파싱
-records = []
+def parse_yokai_data(text_data):
+    """텍스트 형식의 요괴 데이터를 파싱합니다."""
+    records = []
+    current_kind = "일반"  # 기본값
+    for line in text_data.strip().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith('#'):
+            if "일반" in line:
+                current_kind = "일반"
+            elif "보스" in line:
+                current_kind = "보스"
+            elif "패러독스" in line:
+                current_kind = "패러독스"
+            elif "최종보스" in line:
+                current_kind = "최종보스"
+            continue
+        
+        parts = line.split(",")
+        if len(parts) < 7:
+            continue
+        
+        name = parts[0].strip()
+        type_ = parts[1].strip().replace("TYPE_", "")
+        atk, df, hp, spd = map(int, parts[2:6])
+        description = parts[6].strip()
+        skills = ",".join(parts[7:]).replace(";", "; ").strip()
+        skill_list = [s.strip() for s in skills.split(";") if s.strip()]
+        while len(skill_list) < 10:
+            skill_list.append("")
+        
+        # 종족값 계산
+        total_stats = atk + df + hp + spd
+        
+        records.append([name, type_, atk, df, hp, spd, total_stats, description] + skill_list[:10] + [current_kind])
+    
+    return pd.DataFrame(records, columns=["이름", "타입", "공격력", "방어력", "체력", "스피드", "종족값", "도감설명", 
+                                        "기술1", "기술2", "기술3", "기술4", "기술5", "기술6", "기술7", "기술8", "기술9", "기술10", "요괴종류"])
+
+# 중복 제거 및 데이터 정리
+unique_records = []
+seen = set()
+current_kind = "일반"
 for line in extended_text.strip().splitlines():
+    line = line.strip()
+    if not line:
+        continue
+    if line.startswith('#'):
+        if "일반" in line:
+            current_kind = "일반"
+        elif "보스" in line:
+            current_kind = "보스"
+        elif "패러독스" in line:
+            current_kind = "패러독스"
+        elif "최종보스" in line:
+            current_kind = "최종보스"
+        continue
     parts = line.split(",")
     if len(parts) < 7:
         continue
@@ -106,14 +205,18 @@ for line in extended_text.strip().splitlines():
     atk, df, hp, spd = map(int, parts[2:6])
     description = parts[6].strip()
     skills = ",".join(parts[7:]).replace(";", "; ").strip()
-    # 기술 분리 (최대 10개)
     skill_list = [s.strip() for s in skills.split(";") if s.strip()]
     while len(skill_list) < 10:
         skill_list.append("")
-    records.append([name, type_, atk, df, hp, spd, description] + skill_list[:10])
+    # 종족값 계산
+    total_stats = atk + df + hp + spd
+    key = (name, type_, atk, df, hp, spd, description, tuple(skill_list))
+    if key not in seen:
+        seen.add(key)
+        unique_records.append([name, type_, atk, df, hp, spd, total_stats, description] + skill_list[:10] + [current_kind])
 
 # DataFrame 생성 (기술1~10 컬럼 추가)
-df = pd.DataFrame(records, columns=["이름", "타입", "공격력", "방어력", "체력", "스피드", "도감설명", "기술1", "기술2", "기술3", "기술4", "기술5", "기술6", "기술7", "기술8", "기술9", "기술10"])
+df = pd.DataFrame(unique_records, columns=["이름", "타입", "공격력", "방어력", "체력", "스피드", "종족값", "도감설명", "기술1", "기술2", "기술3", "기술4", "기술5", "기술6", "기술7", "기술8", "기술9", "기술10", "요괴종류"])
 
 # 타입별 색상 지정
 type_colors = {
@@ -122,6 +225,14 @@ type_colors = {
     "MONSTER": "FFFF99",
     "HUMAN": "66CCCC",
     "ANIMAL": "99CC99",
+}
+
+# 요괴종류별 색상 지정
+yokai_kind_colors = {
+    "일반": "FFFFFF",      # 흰색
+    "보스": "FFFACD",      # 연노랑
+    "패러독스": "E6E6FA",  # 연보라
+    "최종보스": "FFB6C1",  # 연빨강
 }
 
 # 워크북 구성
@@ -135,6 +246,13 @@ ws_yokai.title = "요괴 도감"
 for r in dataframe_to_rows(df, index=False, header=True):
     ws_yokai.append(r)
 
+# 테이블 생성
+table = Table(displayName="Table1", ref=f"A1:S{len(df)+1}")
+style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False,
+                      showLastColumn=False, showRowStripes=True, showColumnStripes=False)
+table.tableStyleInfo = style
+ws_yokai.add_table(table)
+
 # 타입 색상 적용 (타입 컬럼)
 for row in ws_yokai.iter_rows(min_row=2, max_row=ws_yokai.max_row, min_col=2, max_col=2):
     for cell in row:
@@ -146,55 +264,33 @@ for row in ws_yokai.iter_rows(min_row=2, max_row=ws_yokai.max_row, min_col=2, ma
 for col in range(8, 18):  # 기술1~10 컬럼
     for row in ws_yokai.iter_rows(min_row=2, max_row=ws_yokai.max_row, min_col=col, max_col=col):
         for cell in row:
-            skill_name = cell.value.strip()
-            if skill_name:
-                skill_type = skill_type_map.get(skill_name, None)
-                color = type_colors.get(skill_type, None)
-                if color:
-                    cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+            if cell.value:
+                skill_type = skill_type_map.get(cell.value, None)
+                if skill_type:
+                    color = type_colors.get(skill_type, None)
+                    if color:
+                        cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
 
-# 표 추가
-table = Table(displayName="YokaiDex", ref=f"A1:R{ws_yokai.max_row}")
-table.tableStyleInfo = TableStyleInfo(name="TableStyleMedium9", showRowStripes=True)
-ws_yokai.add_table(table)
-
-# 기술 도감 시트
-ws_skills = wb.create_sheet(title="기술 도감")
-
-# 기술 데이터 파싱
-skill_records = []
-for line in skill_data.strip().splitlines():
-    parts = line.split(",")
-    if len(parts) >= 6:
-        name = parts[0].strip()
-        type_ = parts[1].strip()
-        power = parts[2].strip()
-        accuracy = parts[3].strip()
-        pp = parts[4].strip()
-        description = parts[5].strip()
-        skill_records.append([name, type_, power, accuracy, pp, description])
-
-# 기술 DataFrame 생성
-df_skills = pd.DataFrame(skill_records, columns=["이름", "타입", "위력", "명중률", "PP", "설명"])
-
-# 기술 데이터 입력
-for r in dataframe_to_rows(df_skills, index=False, header=True):
-    ws_skills.append(r)
-
-# 기술 타입별 색상 적용
-for row in ws_skills.iter_rows(min_row=2, max_row=ws_skills.max_row, min_col=2, max_col=2):
+# 요괴종류 색상 적용 (요괴종류 컬럼)
+for row in ws_yokai.iter_rows(min_row=2, max_row=ws_yokai.max_row, min_col=19, max_col=19):
     for cell in row:
-        color = type_colors.get(cell.value, None)
+        color = yokai_kind_colors.get(cell.value, None)
         if color:
             cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
 
-# 기술 표 추가
-table_skills = Table(displayName="SkillDex", ref=f"A1:F{ws_skills.max_row}")
-table_skills.tableStyleInfo = TableStyleInfo(name="TableStyleMedium9", showRowStripes=True)
-ws_skills.add_table(table_skills)
+# 열 너비 자동 조정
+for column in ws_yokai.columns:
+    max_length = 0
+    column = [cell for cell in column]
+    for cell in column:
+        try:
+            if len(str(cell.value)) > max_length:
+                max_length = len(str(cell.value))
+        except:
+            pass
+    adjusted_width = (max_length + 2)
+    ws_yokai.column_dimensions[column[0].column_letter].width = adjusted_width
 
-# 저장
-path = "요괴_정리.xlsx"
-wb.save(path)
-
-print(f"엑셀 파일이 {path}에 저장되었습니다.")
+# 파일 저장
+wb.save("요괴_정리.xlsx")
+print("엑셀 파일이 요괴_정리.xlsx에 저장되었습니다.")
