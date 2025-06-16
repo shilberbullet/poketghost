@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
-#include "item.h"
 #include "yokai.h"
+#include "item.h"
 #include "text.h"
 #include "input.h"
 #include "game.h"
@@ -156,17 +156,38 @@ void addItemToInventory(const Item* item) {
     // 회복형, 양갱형 아이템은 즉시 사용
     if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG) {
         currentItem = item;  // 현재 사용할 아이템 설정
-        if (item->type == ITEM_YANGGAENG && item->grade == ITEM_RARE) {
-            // 이상한 양갱은 요괴 선택 없이 바로 사용
-            int result = healYokai(NULL);  // NULL을 전달하여 모든 요괴 처리
-            currentItem = NULL;  // 아이템 사용 후 초기화
-            if (!result) {
-                printText("\n다시 아이템을 선택하세요.\n");
-                itemRewardSystem();
+        if (item->type == ITEM_YANGGAENG) {
+            if (item->grade == ITEM_RARE) {
+                // 이상한 양갱은 요괴 선택 없이 바로 사용
+                int result = healYokai(NULL);  // NULL을 전달하여 모든 요괴 처리
+                currentItem = NULL;  // 아이템 사용 후 초기화
+                if (!result) {
+                    printText("\n다시 아이템을 선택하세요.\n");
+                    itemRewardSystem();
+                    return;
+                }
+                // 아이템 사용 성공 시 다음 스테이지로 진행
                 return;
+            } else {
+                // 평범한 양갱과 고급 양갱은 요괴 선택 필요
+                Yokai* targetYokai = selectYokaiToHeal();
+                if (targetYokai != NULL) {
+                    int result = healYokai(targetYokai);
+                    currentItem = NULL;  // 아이템 사용 후 초기화
+                    if (!result) {
+                        printText("\n다시 아이템을 선택하세요.\n");
+                        itemRewardSystem();
+                        return;
+                    }
+                    // 아이템 사용 성공 시 다음 스테이지로 진행
+                    return;
+                } else {
+                    // 뒤로가기 선택 시 아이템 목록으로 복귀
+                    currentItem = NULL;
+                    itemRewardSystem();
+                    return;
+                }
             }
-            // 아이템 사용 성공 시 다음 스테이지로 진행
-            return;
         } else {
             Yokai* targetYokai = selectYokaiToHeal();
             if (targetYokai != NULL) {
@@ -179,7 +200,14 @@ void addItemToInventory(const Item* item) {
                             itemRewardSystem();
                             return;
                         }
-                        targetYokai->currentHP = calculateHP(targetYokai);
+                        float maxHP = calculateHP(targetYokai);
+                        if (targetYokai->currentHP >= maxHP) {
+                            printText("\n이미 체력이 최대입니다!\n");
+                            currentItem = NULL;
+                            itemRewardSystem();
+                            return;
+                        }
+                        targetYokai->currentHP = maxHP;
                         char msg[64];
                         snprintf(msg, sizeof(msg), "\n%s의 체력이 완전히 회복되었습니다!\n", targetYokai->name);
                         printTextAndWait(msg);
@@ -248,6 +276,48 @@ void addItemToInventory(const Item* item) {
             }
         }
         currentItem = NULL;  // 아이템 사용 후 초기화
+        return;
+    }
+
+    // 요괴형 아이템은 요괴 인벤토리로
+    if (item->type == ITEM_YOKAI) {
+        printText("\n요괴형 아이템입니다. 아이템을 보관할 요괴를 선택하세요.\n");
+        Yokai* targetYokai = selectYokaiToHeal();
+        if (targetYokai == NULL) {
+            printText("\n요괴 선택이 취소되었습니다. 아이템 보상창으로 돌아갑니다.\n");
+            itemRewardSystem();
+            return;
+        }
+        // 중복 아이템 확인
+        int found = 0;
+        for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
+            if (strcmp(targetYokai->yokaiInventory[i].item.name, item->name) == 0) {
+                // 최대 99개까지만 보유
+                if (targetYokai->yokaiInventory[i].count >= 99) {
+                    printTextAndWait("\n이 아이템은 해당 요괴가 최대 99개까지만 보유할 수 있습니다!\n");
+                    itemRewardSystem();
+                    return;
+                }
+                targetYokai->yokaiInventory[i].count++;
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            if (targetYokai->yokaiInventoryCount >= INVENTORY_MAX) {
+                printTextAndWait("\n해당 요괴의 인벤토리가 가득 찼습니다!\n");
+                itemRewardSystem();
+                return;
+            }
+            targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].item = *item;
+            targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].count = 1;
+            targetYokai->yokaiInventoryCount++;
+        }
+        char buffer[128];
+        sprintf(buffer, "\n%s를 %s의 인벤토리에 획득했습니다!\n", item->name, targetYokai->name);
+        printTextAndWait(buffer);
+        fastSleep(500);
+        // 보상 선택이 완료되면 함수 종료
         return;
     }
 
@@ -365,15 +435,16 @@ void printInventory() {
 }
 
 // 부적 사용 함수
-bool useTalisman(const Item* item, Yokai* targetYokai) {
+bool useTalisman(const Item* item, void* targetYokai) {
+    Yokai* yokai = (Yokai*)targetYokai;
     if (item->type != ITEM_TALISMAN) {
         printf("이 아이템은 부적이 아닙니다!\n");
         return false;
     }
 
     // 현재 HP 비율 계산
-    float maxHP = targetYokai->stamina * (1.0f + (targetYokai->level * targetYokai->level) / 100.0f);
-    float hpRatio = targetYokai->currentHP / maxHP;
+    float maxHP = yokai->stamina * (1.0f + (yokai->level * yokai->level) / 100.0f);
+    float hpRatio = yokai->currentHP / maxHP;
     
     // HP 비율에 따른 포획률 보정 (HP가 낮을수록 포획률 증가)
     float hpBonus = 1.0f - hpRatio;  // HP가 0%일 때 1.0, 100%일 때 0.0
@@ -414,7 +485,8 @@ int calculateMudangBonus(int amount, int mudangCount) {
 }
 
 // 양갱 사용 함수
-bool useYanggaeng(const Item* item, Yokai* targetYokai) {
+bool useYanggaeng(const Item* item, void* targetYokai) {
+    Yokai* yokai = (Yokai*)targetYokai;
     if (item->type != ITEM_YANGGAENG) {
         printf("이 아이템은 양갱이 아닙니다!\n");
         return false;
@@ -460,21 +532,21 @@ bool useYanggaeng(const Item* item, Yokai* targetYokai) {
 
     // 일반 양갱과 고급 양갱의 경우
     if (levelUp > 0) {
-        float oldMaxHP = calculateHP(targetYokai);  // 이전 최대 HP 저장
-        int oldLevel = targetYokai->level;
-        targetYokai->level += levelUp;  // 레벨 증가
-        float newMaxHP = calculateHP(targetYokai);  // 새로운 최대 HP 계산
+        float oldMaxHP = calculateHP(yokai);  // 이전 최대 HP 저장
+        int oldLevel = yokai->level;
+        yokai->level += levelUp;  // 레벨 증가
+        float newMaxHP = calculateHP(yokai);  // 새로운 최대 HP 계산
         float hpIncrease = newMaxHP - oldMaxHP;  // HP 증가량 계산
         
         // 기절 상태가 아닐 때만 현재 HP 증가
-        if (targetYokai->status != YOKAI_FAINTED) {
-            targetYokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
+        if (yokai->status != YOKAI_FAINTED) {
+            yokai->currentHP += hpIncrease;  // 현재 HP에 증가량만큼 더하기
         }
         
         // 레벨업 메시지 출력
         char buffer[256];
         sprintf(buffer, "\n%s의 레벨이 %d에서 %d로 상승했습니다!\n", 
-            targetYokai->name, oldLevel, targetYokai->level);
+            yokai->name, oldLevel, yokai->level);
         printTextAndWait(buffer);
         return true;
     }
