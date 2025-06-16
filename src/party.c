@@ -11,9 +11,13 @@
 #include "settings.h"
 #include "../core/state.h"
 #include <windows.h>
+#include "hp_system.h"
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
 #endif
+
+#define HP_BAR_LENGTH 20  // HP 바 길이 정의
+#define MAX_FORGOTTEN_MOVES 10  // 잊은 기술 최대 개수
 
 // 랜덤 기술 할당 함수 선언
 void assignRandomMoves(Yokai* y);
@@ -73,6 +77,9 @@ void releaseYokai(int index) {
     
     // 요괴를 성불 상태로 설정하고 메시지 출력
     gParty[index].status = YOKAI_RELEASED;
+    // 요괴 인벤토리 초기화
+    clearYokaiInventory(&gParty[index]);
+    
     char buffer[256];
     sprintf(buffer, "\n%s (%s%s\033[0m)(이)가 성불했습니다.\n", 
         gParty[index].name,
@@ -252,117 +259,36 @@ int addYokaiToParty(const Yokai* yokai) {
     return 1;
 }
 
-// 파티 요괴 목록 출력 함수
-void printParty() {
-    printText("\n=== 동료 요괴 목록 ===\n");
-    printText("[0] 뒤로 가기\n");
-    for (int i = 0; i < gPartyCount; i++) {
+// 요괴 정보 서브메뉴 표시 함수
+void showYokaiSubMenu(const Yokai* yokai) {
+    while (1) {
         char buffer[256];
-        float maxHP = calculateHP(&gParty[i]);
-        sprintf(buffer, "[%d] %s Lv.%d (HP: %.0f/%.0f)\n", 
-            i+1, 
-            gParty[i].name, 
-            gParty[i].level,
-            gParty[i].currentHP,
-            maxHP);
-        printText(buffer);
-    }
-    printText("\n숫자를 입력해주세요: ");
-    
-    int choice = getIntInput();
-    if (choice == 0) {
-        return;
-    }
-    
-    if (choice > 0 && choice <= gPartyCount) {
-        int idx = choice - 1;
-        char buffer[2048];
-        
-        // 기본 정보 출력
-        float maxHP = calculateHP(&gParty[idx]);
-        sprintf(buffer, "\n=== %s Lv.%d의 정보 ===\n", gParty[idx].name, gParty[idx].level);
-        printText(buffer);
-        sprintf(buffer, "체력 종족값: %d\n", gParty[idx].stamina);
-        printText(buffer);
-        sprintf(buffer, "현재 HP: %.0f/%.0f\n", gParty[idx].currentHP, maxHP);
-        printText(buffer);
-        sprintf(buffer, "공격력: %d\n", gParty[idx].attack);
-        printText(buffer);
-        sprintf(buffer, "방어력: %d\n", gParty[idx].defense);
-        printText(buffer);
-        sprintf(buffer, "스피드: %d\n", gParty[idx].speed);
-        printText(buffer);
-        sprintf(buffer, "상성: %s\n", typeNames[gParty[idx].type]);
-        printText(buffer);
-        
-        // 경험치 정보 출력
-        int requiredExp = calculateRequiredExp(gParty[idx].level);
-        sprintf(buffer, "경험치: %d/%d\n", gParty[idx].exp, requiredExp);
-        printText(buffer);
-        
-        // 도감 설명을 별도로 출력
-        printText("\n도감설명:\n");
-        char* desc = gParty[idx].desc;
-        while (*desc) {
-            char temp[256];
-            int i = 0;
-            while (*desc && i < 255) {
-                temp[i++] = *desc++;
-            }
-            temp[i] = '\0';
-            printText(temp);
-            printText("\n");
-        }
-        
-        // 현재 배운 기술 목록 출력
-        printText("\n기술 목록:\n");
-        for (int i = 0; i < gParty[idx].moveCount; i++) {
-            const char* colorCode;
-            switch (gParty[idx].moves[i].move.type) {
-                case TYPE_EVIL_SPIRIT:
-                    colorCode = "\033[31m";  // 빨간색
-                    break;
-                case TYPE_GHOST:
-                    colorCode = "\033[35m";  // 보라색
-                    break;
-                case TYPE_MONSTER:
-                    colorCode = "\033[33m";  // 노란색
-                    break;
-                case TYPE_HUMAN:
-                    colorCode = "\033[36m";  // 청록색
-                    break;
-                case TYPE_ANIMAL:
-                    colorCode = "\033[32m";  // 초록색
-                    break;
-                default:
-                    colorCode = "\033[0m";   // 기본색
-            }
-            sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)\n", 
-                i+1, 
-                colorCode,
-                gParty[idx].moves[i].move.name,
-                colorCode,
-                gParty[idx].moves[i].move.power,
-                gParty[idx].moves[i].move.accuracy,
-                gParty[idx].moves[i].currentPP,
-                gParty[idx].moves[i].move.pp);
-            printText(buffer);
-        }
-
-        // 디버그 모드일 때 추가 정보 출력
+        sprintf(buffer, "\n=== 요괴 정보 ===\n");
+        sprintf(buffer + strlen(buffer), "1. 종족값 보기\n");
+        sprintf(buffer + strlen(buffer), "2. 도감 설명 보기\n");
+        sprintf(buffer + strlen(buffer), "3. HP를 본다\n");
+        sprintf(buffer + strlen(buffer), "4. 경험치 보기\n");
+        sprintf(buffer + strlen(buffer), "5. 기술 목록 보기\n");
         if (gameSettings.debugMode) {
-            char debugBuffer[256];
-            sprintf(debugBuffer, "\n[DEBUG] 디버그 모드 활성화됨 (gameSettings.debugMode = %d)\n", gameSettings.debugMode);
-            printText(debugBuffer);
-
-            // 배울 수 있는 기술 목록 출력
-            printText("\n배울 수 있는 기술 목록:\n");
-            sprintf(debugBuffer, "[DEBUG] learnableMoveCount: %d\n", gParty[idx].learnableMoveCount);
-            printText(debugBuffer);
-            
-            for (int i = 0; i < gParty[idx].learnableMoveCount; i++) {
+            sprintf(buffer + strlen(buffer), "6. 배울 수 있는 기술 목록 보기\n");
+            sprintf(buffer + strlen(buffer), "7. 잊은 기술 보기\n");
+            sprintf(buffer + strlen(buffer), "8. 뒤로 가기\n");
+        } else {
+            sprintf(buffer + strlen(buffer), "6. 뒤로 가기\n");
+        }
+        sprintf(buffer + strlen(buffer), "\n숫자를 입력해주세요: ");
+        printText(buffer);
+        
+        int choice = getIntInput();
+        if ((!gameSettings.debugMode && choice == 6) || (gameSettings.debugMode && choice == 8)) {
+            return;
+        }
+        
+        switch (choice) {
+            case 1: {  // 종족값 보기
+                char buffer[512];
                 const char* colorCode;
-                switch (gParty[idx].learnableMoves[i].type) {
+                switch (yokai->type) {
                     case TYPE_EVIL_SPIRIT:
                         colorCode = "\033[31m";  // 빨간색
                         break;
@@ -381,28 +307,73 @@ void printParty() {
                     default:
                         colorCode = "\033[0m";   // 기본색
                 }
-                sprintf(buffer, "%d. %s%s%s\033[0m (등급: %s, 공격력: %d, 명중률: %d%%, PP: %d)\n", 
-                    i+1,
-                    colorCode,
-                    gParty[idx].learnableMoves[i].name,
-                    colorCode,
-                    gParty[idx].learnableMoves[i].grade == MOVE_BASIC ? "기본" :
-                    gParty[idx].learnableMoves[i].grade == MOVE_MEDIUM ? "중급" : "고급",
-                    gParty[idx].learnableMoves[i].power,
-                    gParty[idx].learnableMoves[i].accuracy,
-                    gParty[idx].learnableMoves[i].pp);
+                sprintf(buffer, "\n=== %s의 종족값 ===\n", yokai->name);
+                sprintf(buffer + strlen(buffer), "공격력: %d\n", yokai->attack);
+                sprintf(buffer + strlen(buffer), "방어력: %d\n", yokai->defense);
+                sprintf(buffer + strlen(buffer), "체력: %d\n", yokai->stamina);
+                sprintf(buffer + strlen(buffer), "스피드: %d\n", yokai->speed);
+                sprintf(buffer + strlen(buffer), "상성: %s%s\033[0m\n", colorCode, typeNames[yokai->type]);
                 printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                getchar();
+                break;
             }
-
-            // 잊은 기술 목록 출력
-            sprintf(debugBuffer, "\n[DEBUG] forgottenMoveCount: %d\n", gParty[idx].forgottenMoveCount);
-            printText(debugBuffer);
-            
-            if (gParty[idx].forgottenMoveCount > 0) {
-                printText("\n잊은 기술 목록:\n");
-                for (int i = 0; i < gParty[idx].forgottenMoveCount; i++) {
+            case 2: {  // 도감 설명 보기
+                char buffer[256];
+                sprintf(buffer, "\n=== %s의 도감 설명 ===\n", yokai->name);
+                sprintf(buffer + strlen(buffer), "%s\n", yokai->desc);
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                getchar();
+                break;
+            }
+            case 3: {  // HP 보기
+                char buffer[256];
+                float maxHP = calculateHP(yokai);
+                float hpPercentage = (yokai->currentHP / maxHP) * 100.0f;
+                int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+                
+                sprintf(buffer, "\n=== %s의 HP ===\n", yokai->name);
+                sprintf(buffer + strlen(buffer), "현재 HP: %.0f/%.0f\n", yokai->currentHP, maxHP);
+                // HP 바 시각화
+                strcat(buffer, "HP[");
+                if (hpPercentage <= 20.0f) {
+                    strcat(buffer, "\033[31m"); // 빨간색
+                } else if (hpPercentage <= 50.0f) {
+                    strcat(buffer, "\033[33m"); // 노란색
+                } else {
+                    strcat(buffer, "\033[1;32m"); // 초록색
+                }
+                for (int i = 0; i < HP_BAR_LENGTH; i++) {
+                    if (i < filledLength) {
+                        strcat(buffer, "█");
+                    } else {
+                        strcat(buffer, "░");
+                    }
+                }
+                strcat(buffer, "\033[0m]");
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                getchar();
+                break;
+            }
+            case 4: {  // 경험치 보기
+                char buffer[256];
+                int requiredExp = calculateRequiredExp(yokai->level);
+                sprintf(buffer, "\n=== %s의 경험치 ===\n", yokai->name);
+                sprintf(buffer + strlen(buffer), "현재 경험치: %d\n", yokai->exp);
+                sprintf(buffer + strlen(buffer), "다음 레벨까지: %d\n", requiredExp - yokai->exp);
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                getchar();
+                break;
+            }
+            case 5: {  // 기술 목록 보기
+                char buffer[1024];
+                sprintf(buffer, "\n=== %s의 기술 목록 ===\n", yokai->name);
+                for (int i = 0; i < yokai->moveCount; i++) {
                     const char* colorCode;
-                    switch (gParty[idx].forgottenMoves[i].type) {
+                    switch (yokai->moves[i].move.type) {
                         case TYPE_EVIL_SPIRIT:
                             colorCode = "\033[31m";  // 빨간색
                             break;
@@ -421,20 +392,109 @@ void printParty() {
                         default:
                             colorCode = "\033[0m";   // 기본색
                     }
-                    sprintf(buffer, "%d. %s%s%s\033[0m (등급: %s, 공격력: %d, 명중률: %d%%, PP: %d)\n", 
-                        i+1,
-                        colorCode,
-                        gParty[idx].forgottenMoves[i].name,
-                        colorCode,
-                        gParty[idx].forgottenMoves[i].grade == MOVE_BASIC ? "기본" :
-                        gParty[idx].forgottenMoves[i].grade == MOVE_MEDIUM ? "중급" : "고급",
-                        gParty[idx].forgottenMoves[i].power,
-                        gParty[idx].forgottenMoves[i].accuracy,
-                        gParty[idx].forgottenMoves[i].pp);
-                    printText(buffer);
+                    sprintf(buffer + strlen(buffer), "%d. %s%s\033[0m\n", 
+                        i + 1, colorCode, yokai->moves[i].move.name);
+                    sprintf(buffer + strlen(buffer), "   공격력: %d\n", yokai->moves[i].move.power);
+                    sprintf(buffer + strlen(buffer), "   명중률: %d%%\n", yokai->moves[i].move.accuracy);
+                    sprintf(buffer + strlen(buffer), "   PP: %d/%d\n", 
+                        yokai->moves[i].currentPP, yokai->moves[i].move.pp);
+                    sprintf(buffer + strlen(buffer), "   설명: %s\n\n", yokai->moves[i].move.description);
                 }
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                getchar();
+                break;
             }
+            case 6: {  // 배울 수 있는 기술 목록
+                sprintf(buffer, "%s의 배울 수 있는 기술 목록:\n\n", yokai->name);
+                for (int i = 0; i < yokai->learnableMoveCount; i++) {
+                    char* typeColor = "";
+                    switch (yokai->learnableMoves[i].type) {
+                        case TYPE_EVIL_SPIRIT: typeColor = "\033[31m"; break; // 빨간색
+                        case TYPE_GHOST: typeColor = "\033[35m"; break;      // 보라색
+                        case TYPE_MONSTER: typeColor = "\033[33m"; break;    // 노란색
+                        case TYPE_HUMAN: typeColor = "\033[36m"; break;      // 청록색
+                        case TYPE_ANIMAL: typeColor = "\033[32m"; break;     // 초록색
+                        default: typeColor = "\033[0m"; break;               // 기본색
+                    }
+                    sprintf(buffer + strlen(buffer), "%d. %s%s\033[0m (PP: %d/%d, 공격력: %d, 명중률: %d%%)\n", 
+                        i + 1, 
+                        typeColor,
+                        yokai->learnableMoves[i].name,
+                        yokai->learnableMoves[i].pp,
+                        yokai->learnableMoves[i].pp,
+                        yokai->learnableMoves[i].power,
+                        yokai->learnableMoves[i].accuracy);
+                }
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+                break;
+            }
+            case 7: {  // 잊은 기술 목록
+                sprintf(buffer, "%s의 잊은 기술 목록:\n\n", yokai->name);
+                for (int i = 0; i < yokai->forgottenMoveCount; i++) {
+                    char* typeColor = "";
+                    switch (yokai->forgottenMoves[i].type) {
+                        case TYPE_EVIL_SPIRIT: typeColor = "\033[31m"; break; // 빨간색
+                        case TYPE_GHOST: typeColor = "\033[35m"; break;      // 보라색
+                        case TYPE_MONSTER: typeColor = "\033[33m"; break;    // 노란색
+                        case TYPE_HUMAN: typeColor = "\033[36m"; break;      // 청록색
+                        case TYPE_ANIMAL: typeColor = "\033[32m"; break;     // 초록색
+                        default: typeColor = "\033[0m"; break;               // 기본색
+                    }
+                    sprintf(buffer + strlen(buffer), "%d. %s%s\033[0m (PP: %d/%d, 공격력: %d, 명중률: %d%%)\n", 
+                        i + 1, 
+                        typeColor,
+                        yokai->forgottenMoves[i].name,
+                        yokai->forgottenMoves[i].pp,
+                        yokai->forgottenMoves[i].pp,
+                        yokai->forgottenMoves[i].power,
+                        yokai->forgottenMoves[i].accuracy);
+                }
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+                break;
+            }
+            default:
+                printTextAndWait("\n잘못된 선택입니다.");
+                break;
         }
+    }
+}
+
+// 파티 요괴 목록 출력 함수
+void printParty() {
+    char buffer[256];
+    sprintf(buffer, "\n=== 동료 요괴 목록 ===\n");
+    for (int i = 0; i < gPartyCount; i++) {
+        if (gParty[i].status != YOKAI_RELEASED) {
+            sprintf(buffer + strlen(buffer), "%d. %s Lv.%d\n", 
+                i + 1, gParty[i].name, gParty[i].level);
+        }
+    }
+    sprintf(buffer + strlen(buffer), "0. 뒤로 가기\n\n");
+    sprintf(buffer + strlen(buffer), "숫자를 입력해주세요: ");
+    printText(buffer);
+    
+    int choice = getIntInput();
+    if (choice == 0) {
+        return;
+    }
+    
+    if (choice > 0 && choice <= gPartyCount) {
+        if (gParty[choice - 1].status == YOKAI_RELEASED) {
+            printTextAndWait("\n이미 성불한 요괴입니다.");
+            return;
+        }
+        showYokaiSubMenu(&gParty[choice - 1]);
+    } else {
+        printTextAndWait("\n잘못된 선택입니다.");
     }
 }
 
