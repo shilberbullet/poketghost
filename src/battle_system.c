@@ -22,24 +22,24 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
     // 상성 관계 정의
     switch (moveType) {
         case TYPE_EVIL_SPIRIT:
-            if (defenderType == TYPE_GHOST) return 2.0f;  // 악령 기술은 유령에게 효과적
-            if (defenderType == TYPE_HUMAN) return 0.5f;  // 악령 기술은 인간에게 약함
+            if (defenderType == TYPE_GHOST || defenderType == TYPE_ANIMAL) return 2.0f;  // 악귀 기술은 원귀와 동물형에게 효과적
+            if (defenderType == TYPE_HUMAN || defenderType == TYPE_MONSTER) return 0.5f;  // 악귀 기술은 인간형과 괴수형에게 약함
             break;
         case TYPE_GHOST:
-            if (defenderType == TYPE_HUMAN) return 2.0f;  // 유령 기술은 인간에게 효과적
-            if (defenderType == TYPE_EVIL_SPIRIT) return 0.5f;  // 유령 기술은 악령에게 약함
-            break;
-        case TYPE_MONSTER:
-            if (defenderType == TYPE_ANIMAL) return 2.0f;  // 괴물 기술은 동물에게 효과적
-            if (defenderType == TYPE_HUMAN) return 0.5f;  // 괴물 기술은 인간에게 약함
+            if (defenderType == TYPE_HUMAN || defenderType == TYPE_ANIMAL) return 2.0f;  // 원귀 기술은 인간형과 동물형에게 효과적
+            if (defenderType == TYPE_EVIL_SPIRIT || defenderType == TYPE_MONSTER) return 0.5f;  // 원귀 기술은 악귀와 괴수형에게 약함
             break;
         case TYPE_HUMAN:
-            if (defenderType == TYPE_MONSTER) return 2.0f;  // 인간 기술은 괴물에게 효과적
-            if (defenderType == TYPE_GHOST) return 0.5f;  // 인간 기술은 유령에게 약함
+            if (defenderType == TYPE_EVIL_SPIRIT || defenderType == TYPE_MONSTER) return 2.0f;  // 인간형 기술은 악귀와 괴수형에게 효과적
+            if (defenderType == TYPE_GHOST || defenderType == TYPE_ANIMAL) return 0.5f;  // 인간형 기술은 원귀와 동물형에게 약함
             break;
         case TYPE_ANIMAL:
-            if (defenderType == TYPE_EVIL_SPIRIT) return 2.0f;  // 동물 기술은 악령에게 효과적
-            if (defenderType == TYPE_MONSTER) return 0.5f;  // 동물 기술은 괴물에게 약함
+            if (defenderType == TYPE_EVIL_SPIRIT || defenderType == TYPE_HUMAN || defenderType == TYPE_MONSTER) return 2.0f;  // 동물형 기술은 악귀, 인간형, 괴수형에게 효과적
+            if (defenderType == TYPE_GHOST) return 0.5f;  // 동물형 기술은 원귀에게 약함
+            break;
+        case TYPE_MONSTER:
+            if (defenderType == TYPE_EVIL_SPIRIT || defenderType == TYPE_GHOST) return 2.0f;  // 괴수형 기술은 악귀와 원귀에게 효과적
+            if (defenderType == TYPE_HUMAN || defenderType == TYPE_ANIMAL) return 0.5f;  // 괴수형 기술은 인간형과 동물형에게 약함
             break;
     }
     return 1.0f;  // 기본 상성
