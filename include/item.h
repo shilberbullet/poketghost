@@ -5,9 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "yokai.h"
-
-struct Yokai;
+#include "types.h"
 
 #define ITEM_NAME_MAX 32
 #define ITEM_DESC_MAX 128
@@ -68,10 +66,10 @@ void getRandomItems(Item* outItems, int count);
 void addItemToInventory(const Item* item);
 
 // 부적 사용 함수
-bool useTalisman(const Item* item, Yokai* targetYokai);
+bool useTalisman(const Item* item, void* targetYokai);
 
 // 양갱 사용 함수
-bool useYanggaeng(const Item* item, Yokai* targetYokai);
+bool useYanggaeng(const Item* item, void* targetYokai);
 
 // 무당방울 보너스 계산 함수
 int calculateMudangBonus(int amount, int mudangCount);

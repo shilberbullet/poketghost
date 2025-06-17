@@ -4,6 +4,7 @@
 #include "types.h"
 #include <stdbool.h>
 #include "move.h"
+#include "item.h"
 
 #define MAX_MOVES 4
 #define MAX_LEARNABLE_MOVES 50
@@ -41,6 +42,9 @@ typedef struct {
     int learnedMoveCount;                    // 배운 기술 개수
     int forgottenMoveCount;  // 잊은 기술 개수
     Move forgottenMoves[MAX_LEARNABLE_MOVES];  // 잊은 기술 목록
+    // 요괴 인벤토리 추가
+    InventoryItem yokaiInventory[INVENTORY_MAX]; // 요괴별 인벤토리
+    int yokaiInventoryCount; // 요괴 인벤토리 아이템 개수
 } Yokai;
 
 // 요괴 이름 배열
@@ -72,6 +76,13 @@ Yokai createRandomBossYokai();
 
 // 요괴 정보 출력 함수
 void printYokaiInfo(const Yokai* yokai);
+
+// 요괴 인벤토리 관련 함수들
+void initYokaiInventory(Yokai* yokai);
+void printYokaiInventory(const Yokai* yokai);
+bool addItemToYokaiInventory(Yokai* yokai, const Item* item);
+bool removeItemFromYokaiInventory(Yokai* yokai, int itemIndex);
+void clearYokaiInventory(Yokai* yokai);
 
 // 상성 관계 확인 함수 (공격자의 공격력이 방어자에게 얼마나 효과적인지 반환)
 float getTypeEffectiveness(YokaiType attacker, YokaiType defender);
