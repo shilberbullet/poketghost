@@ -287,7 +287,82 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("\n");
 }
 
-// initParty와 addYokaiToParty 함수는 party.c로 이동 
+// 요괴 인벤토리 초기화
+void initYokaiInventory(Yokai* yokai) {
+    yokai->yokaiInventoryCount = 0;
+    memset(yokai->yokaiInventory, 0, sizeof(yokai->yokaiInventory));
+}
+
+// 요괴 인벤토리 출력
+void printYokaiInventory(const Yokai* yokai) {
+    printf("\n=== %s의 인벤토리 ===\n", yokai->name);
+    if (yokai->yokaiInventoryCount == 0) {
+        printf("인벤토리가 비어있습니다.\n");
+        return;
+    }
+    
+    for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+        const InventoryItem* invItem = &yokai->yokaiInventory[i];
+        printf("%d. %s (x%d) - %s\n", 
+            i + 1,
+            invItem->item.name,
+            invItem->count,
+            invItem->item.desc);
+    }
+    printf("\n");
+}
+
+// 요괴 인벤토리에 아이템 추가
+bool addItemToYokaiInventory(Yokai* yokai, const Item* item) {
+    // 중복 아이템 확인
+    for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+        if (strcmp(yokai->yokaiInventory[i].item.name, item->name) == 0) {
+            // 최대 99개까지만 보유
+            if (yokai->yokaiInventory[i].count >= 99) {
+                return false;
+            }
+            yokai->yokaiInventory[i].count++;
+            return true;
+        }
+    }
+    
+    // 인벤토리가 가득 찼는지 확인
+    if (yokai->yokaiInventoryCount >= INVENTORY_MAX) {
+        return false;
+    }
+    
+    // 새 아이템 추가
+    yokai->yokaiInventory[yokai->yokaiInventoryCount].item = *item;
+    yokai->yokaiInventory[yokai->yokaiInventoryCount].count = 1;
+    yokai->yokaiInventoryCount++;
+    return true;
+}
+
+// 요괴 인벤토리에서 아이템 제거
+bool removeItemFromYokaiInventory(Yokai* yokai, int itemIndex) {
+    if (itemIndex < 0 || itemIndex >= yokai->yokaiInventoryCount) {
+        return false;
+    }
+    
+    // 아이템 개수 감소
+    yokai->yokaiInventory[itemIndex].count--;
+    
+    // 아이템이 모두 소진되었으면 인벤토리에서 제거
+    if (yokai->yokaiInventory[itemIndex].count <= 0) {
+        // 마지막 아이템을 현재 위치로 이동
+        if (itemIndex < yokai->yokaiInventoryCount - 1) {
+            yokai->yokaiInventory[itemIndex] = yokai->yokaiInventory[yokai->yokaiInventoryCount - 1];
+        }
+        yokai->yokaiInventoryCount--;
+    }
+    return true;
+}
+
+// 요괴 인벤토리 초기화
+void clearYokaiInventory(Yokai* yokai) {
+    yokai->yokaiInventoryCount = 0;
+    memset(yokai->yokaiInventory, 0, sizeof(yokai->yokaiInventory));
+}
 
 // 레벨업 함수
 void levelUpYokai(Yokai* yokai) {

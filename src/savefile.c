@@ -41,7 +41,7 @@ void saveGame() {
     
     // 동료 요괴 정보 저장
     for (int i = 0; i < gPartyCount; i++) {
-        // 요괴 기본 정보 저장
+        fwrite(&gParty[i].id, sizeof(unsigned long long), 1, file);
         fwrite(&gParty[i].name, sizeof(char), YOKAI_NAME_MAX, file);
         fwrite(&gParty[i].level, sizeof(int), 1, file);
         fwrite(&gParty[i].exp, sizeof(int), 1, file);
@@ -52,19 +52,19 @@ void saveGame() {
         fwrite(&gParty[i].currentHP, sizeof(float), 1, file);
         fwrite(&gParty[i].type, sizeof(YokaiType), 1, file);
         fwrite(&gParty[i].status, sizeof(YokaiStatus), 1, file);
-        fwrite(&gParty[i].desc, sizeof(char), 128, file);
+        fwrite(&gParty[i].desc, sizeof(char), YOKAI_DESC_MAX, file);
         fwrite(&gParty[i].moveCount, sizeof(int), 1, file);
         
-        // 현재 배운 기술 정보 저장
+        // 기술 정보 저장
         for (int j = 0; j < gParty[i].moveCount; j++) {
             fwrite(&gParty[i].moves[j].move, sizeof(Move), 1, file);
             fwrite(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
         }
         
-        // 배운 기술 목록 저장
-        fwrite(&gParty[i].learnedMoveCount, sizeof(int), 1, file);
-        for (int j = 0; j < gParty[i].learnedMoveCount; j++) {
-            fwrite(&gParty[i].learnedMoves[j], sizeof(Move), 1, file);
+        // 요괴 인벤토리 저장
+        fwrite(&gParty[i].yokaiInventoryCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
+            fwrite(&gParty[i].yokaiInventory[j], sizeof(InventoryItem), 1, file);
         }
     }
     
@@ -159,7 +159,7 @@ int loadGameData() {
     
     // 동료 요괴 정보 불러오기
     for (int i = 0; i < gPartyCount; i++) {
-        // 요괴 기본 정보 불러오기
+        fread(&gParty[i].id, sizeof(unsigned long long), 1, file);
         fread(&gParty[i].name, sizeof(char), YOKAI_NAME_MAX, file);
         fread(&gParty[i].level, sizeof(int), 1, file);
         fread(&gParty[i].exp, sizeof(int), 1, file);
@@ -170,19 +170,19 @@ int loadGameData() {
         fread(&gParty[i].currentHP, sizeof(float), 1, file);
         fread(&gParty[i].type, sizeof(YokaiType), 1, file);
         fread(&gParty[i].status, sizeof(YokaiStatus), 1, file);
-        fread(&gParty[i].desc, sizeof(char), 128, file);
+        fread(&gParty[i].desc, sizeof(char), YOKAI_DESC_MAX, file);
         fread(&gParty[i].moveCount, sizeof(int), 1, file);
         
-        // 현재 배운 기술 정보 불러오기
+        // 기술 정보 불러오기
         for (int j = 0; j < gParty[i].moveCount; j++) {
             fread(&gParty[i].moves[j].move, sizeof(Move), 1, file);
             fread(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
         }
         
-        // 배운 기술 목록 불러오기
-        fread(&gParty[i].learnedMoveCount, sizeof(int), 1, file);
-        for (int j = 0; j < gParty[i].learnedMoveCount; j++) {
-            fread(&gParty[i].learnedMoves[j], sizeof(Move), 1, file);
+        // 요괴 인벤토리 불러오기
+        fread(&gParty[i].yokaiInventoryCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
+            fread(&gParty[i].yokaiInventory[j], sizeof(InventoryItem), 1, file);
         }
     }
     
