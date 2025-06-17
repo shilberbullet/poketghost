@@ -158,16 +158,16 @@ void addItemToInventory(const Item* item) {
         currentItem = item;  // 현재 사용할 아이템 설정
         if (item->type == ITEM_YANGGAENG) {
             if (item->grade == ITEM_RARE) {
-                // 이상한 양갱은 요괴 선택 없이 바로 사용
-                int result = healYokai(NULL);  // NULL을 전달하여 모든 요괴 처리
-                currentItem = NULL;  // 아이템 사용 후 초기화
-                if (!result) {
-                    printText("\n다시 아이템을 선택하세요.\n");
-                    itemRewardSystem();
-                    return;
-                }
-                // 아이템 사용 성공 시 다음 스테이지로 진행
+            // 이상한 양갱은 요괴 선택 없이 바로 사용
+            int result = healYokai(NULL);  // NULL을 전달하여 모든 요괴 처리
+            currentItem = NULL;  // 아이템 사용 후 초기화
+            if (!result) {
+                printText("\n다시 아이템을 선택하세요.\n");
+                itemRewardSystem();
                 return;
+            }
+            // 아이템 사용 성공 시 다음 스테이지로 진행
+            return;
             } else {
                 // 평범한 양갱과 고급 양갱은 요괴 선택 필요
                 Yokai* targetYokai = selectYokaiToHeal();

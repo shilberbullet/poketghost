@@ -27,8 +27,8 @@
 
 // 메인 함수
 int main(void) {
-    // 콘솔 출력 인코딩을 UTF-8로 설정하여 한글 출력이 가능하도록 함
-    system("chcp 65001");
+    // 콘솔 출력 인코딩을 UTF-8로 설정 (출력 숨김)
+    system("chcp 65001 > nul");
     
     // 랜덤 시드를 현재 시간으로 초기화하여 매번 다른 랜덤 값이 나오도록 함
     srand((unsigned int)time(NULL));

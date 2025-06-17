@@ -23,5 +23,6 @@ void initGame(void);
 void addMoney(int amount);
 void showMoney(void);
 void resetGameState();
+void cleanupGame();
 
 #endif // GAME_H 

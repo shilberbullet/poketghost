@@ -5,10 +5,16 @@
 #include "text.h"
 #include "exit.h"
 #include "../core/state.h"
+#include "logger.h"
  
 // 게임 종료 함수
 void exitGame() {
     gGameState.isRunning = 0;  // 게임 루프 종료
     printTextAndWait("\n게임을 종료합니다.");
+    
+    // 프로그램 종료 로그 기록
+    logMessage("프로그램 종료");
+    cleanupLogger();  // 로그 시스템 정리
+    
     exit(0);  // 프로그램 종료
 } 

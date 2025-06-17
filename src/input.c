@@ -8,6 +8,8 @@
 #include <stdlib.h>
 // 입력 처리 관련 함수와 구조체 정의
 #include "input.h"
+// 로깅 함수를 위한 헤더
+#include "logger.h"
 
 // 입력 버퍼를 비우는 함수
 void clearInputBuffer() {
@@ -18,50 +20,40 @@ void clearInputBuffer() {
 
 // 정수 입력을 받는 함수
 int getIntInput() {
-    char input[256];    // 입력 문자열을 저장할 버퍼
-    int number;         // 변환된 숫자를 저장할 변수
-    int i = 0;          // 문자열 인덱스
-    int isValid = 1;    // 입력 유효성 플래그
-    
-    // 입력 받기
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        return -1;      // 입력 실패 시 -1 반환
-    }
-    
-    // 입력된 문자열이 비어있는지 확인
-    if (input[0] == '\n') {
-        return -1;      // 빈 입력 시 -1 반환
-    }
-    
-    // 모든 문자가 숫자인지 확인
-    while (input[i] != '\n' && input[i] != '\0') {
-        if (!isdigit(input[i])) {  // 숫자가 아닌 문자가 있으면
-            isValid = 0;            // 유효하지 않음으로 표시
-            break;
-        }
-        i++;
-    }
-    
-    // 숫자가 아닌 문자가 있거나 입력이 비어있는 경우
-    if (!isValid || i == 0) {
-        printf("\n잘못된 선택입니다. 다시 선택하세요.\n");
-        return -1;      // 유효하지 않은 입력 시 -1 반환
-    }
-    
-    // 문자열을 숫자로 변환
-    number = atoi(input);
-    
-    // 입력 버퍼 비우기
+    int input;
+    int result = scanf("%d", &input);
     clearInputBuffer();
     
-    return number;      // 변환된 숫자 반환
+    // 입력 로깅
+    if (result == 1) {
+        logInput("정수 입력: %d", input);
+    } else {
+        logError("잘못된 정수 입력");
+    }
+    
+    return input;
+}
+
+// 문자 입력을 받는 함수
+char getCharInput() {
+    char input = _getch();
+    
+    // 입력 로깅
+    logInput("문자 입력: %c", input);
+    
+    return input;
 }
 
 // 엔터 키 입력을 기다리는 함수
 void waitForEnter() {
-    // 메시지 출력 없이 엔터 대기만
-    clearInputBuffer();  // 입력 버퍼 비우기
-    getchar();          // 엔터 키 입력 대기
+    logInput("엔터키 입력 대기");
+    while (_getch() != '\r');
+}
+
+// 입력 대기 함수
+void waitForInput() {
+    logInput("아무 키나 입력 대기");
+    _getch();
 }
 
 // 특정 범위 내의 숫자 입력을 받는 함수
