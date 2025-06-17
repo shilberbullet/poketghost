@@ -269,18 +269,19 @@ void showYokaiSubMenu(const Yokai* yokai) {
         sprintf(buffer + strlen(buffer), "3. HP를 본다\n");
         sprintf(buffer + strlen(buffer), "4. 경험치 보기\n");
         sprintf(buffer + strlen(buffer), "5. 기술 목록 보기\n");
+        sprintf(buffer + strlen(buffer), "6. 요괴 인벤토리 보기\n");
         if (gameSettings.debugMode) {
-            sprintf(buffer + strlen(buffer), "6. 배울 수 있는 기술 목록 보기\n");
-            sprintf(buffer + strlen(buffer), "7. 잊은 기술 보기\n");
-            sprintf(buffer + strlen(buffer), "8. 뒤로 가기\n");
+            sprintf(buffer + strlen(buffer), "7. 배울 수 있는 기술 목록 보기\n");
+            sprintf(buffer + strlen(buffer), "8. 잊은 기술 보기\n");
+            sprintf(buffer + strlen(buffer), "9. 뒤로 가기\n");
         } else {
-            sprintf(buffer + strlen(buffer), "6. 뒤로 가기\n");
+            sprintf(buffer + strlen(buffer), "7. 뒤로 가기\n");
         }
         sprintf(buffer + strlen(buffer), "\n숫자를 입력해주세요: ");
         printText(buffer);
         
         int choice = getIntInput();
-        if ((!gameSettings.debugMode && choice == 6) || (gameSettings.debugMode && choice == 8)) {
+        if ((!gameSettings.debugMode && choice == 7) || (gameSettings.debugMode && choice == 9)) {
             return;
         }
         
@@ -372,40 +373,52 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 char buffer[1024];
                 sprintf(buffer, "\n=== %s의 기술 목록 ===\n", yokai->name);
                 for (int i = 0; i < yokai->moveCount; i++) {
-                    const char* colorCode;
+                    char* typeColor = "";
                     switch (yokai->moves[i].move.type) {
-                        case TYPE_EVIL_SPIRIT:
-                            colorCode = "\033[31m";  // 빨간색
-                            break;
-                        case TYPE_GHOST:
-                            colorCode = "\033[35m";  // 보라색
-                            break;
-                        case TYPE_MONSTER:
-                            colorCode = "\033[33m";  // 노란색
-                            break;
-                        case TYPE_HUMAN:
-                            colorCode = "\033[36m";  // 청록색
-                            break;
-                        case TYPE_ANIMAL:
-                            colorCode = "\033[32m";  // 초록색
-                            break;
-                        default:
-                            colorCode = "\033[0m";   // 기본색
+                        case TYPE_EVIL_SPIRIT: typeColor = "\033[31m"; break; // 빨간색
+                        case TYPE_GHOST: typeColor = "\033[35m"; break;      // 보라색
+                        case TYPE_MONSTER: typeColor = "\033[33m"; break;    // 노란색
+                        case TYPE_HUMAN: typeColor = "\033[36m"; break;      // 청록색
+                        case TYPE_ANIMAL: typeColor = "\033[32m"; break;     // 초록색
+                        default: typeColor = "\033[0m"; break;               // 기본색
                     }
-                    sprintf(buffer + strlen(buffer), "%d. %s%s\033[0m\n", 
-                        i + 1, colorCode, yokai->moves[i].move.name);
-                    sprintf(buffer + strlen(buffer), "   공격력: %d\n", yokai->moves[i].move.power);
-                    sprintf(buffer + strlen(buffer), "   명중률: %d%%\n", yokai->moves[i].move.accuracy);
-                    sprintf(buffer + strlen(buffer), "   PP: %d/%d\n", 
-                        yokai->moves[i].currentPP, yokai->moves[i].move.pp);
-                    sprintf(buffer + strlen(buffer), "   설명: %s\n\n", yokai->moves[i].move.description);
+                    sprintf(buffer + strlen(buffer), "%d. %s%s\033[0m (PP: %d/%d, 공격력: %d, 명중률: %d%%)\n", 
+                        i + 1, 
+                        typeColor,
+                        yokai->moves[i].move.name,
+                        yokai->moves[i].currentPP,
+                        yokai->moves[i].move.pp,
+                        yokai->moves[i].move.power,
+                        yokai->moves[i].move.accuracy);
                 }
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
-                getchar();
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                 break;
             }
-            case 6: {  // 배울 수 있는 기술 목록
+            case 6: {  // 요괴 인벤토리 보기
+                char buffer[1024];
+                sprintf(buffer, "\n=== %s의 인벤토리 ===\n", yokai->name);
+                if (yokai->yokaiInventoryCount == 0) {
+                    sprintf(buffer + strlen(buffer), "인벤토리가 비어있습니다.\n");
+                } else {
+                    for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+                        sprintf(buffer + strlen(buffer), "%d. %s (수량: %d)\n", 
+                            i + 1, 
+                            yokai->yokaiInventory[i].item.name,
+                            yokai->yokaiInventory[i].count);
+                    }
+                }
+                printText(buffer);
+                printText("\n엔터를 눌러 돌아가기...");
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+                break;
+            }
+            case 7: {  // 배울 수 있는 기술 목록
                 sprintf(buffer, "%s의 배울 수 있는 기술 목록:\n\n", yokai->name);
                 for (int i = 0; i < yokai->learnableMoveCount; i++) {
                     char* typeColor = "";
@@ -426,14 +439,14 @@ void showYokaiSubMenu(const Yokai* yokai) {
                         yokai->learnableMoves[i].power,
                         yokai->learnableMoves[i].accuracy);
                 }
-                printText(buffer);
+                    printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
                 clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                 break;
             }
-            case 7: {  // 잊은 기술 목록
+            case 8: {  // 잊은 기술 목록
                 sprintf(buffer, "%s의 잊은 기술 목록:\n\n", yokai->name);
                 for (int i = 0; i < yokai->forgottenMoveCount; i++) {
                     char* typeColor = "";
