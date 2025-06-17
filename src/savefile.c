@@ -61,6 +61,18 @@ void saveGame() {
             fwrite(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
         }
         
+        // 배울 수 있는 기술 목록 저장
+        fwrite(&gParty[i].learnableMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].learnableMoveCount; j++) {
+            fwrite(&gParty[i].learnableMoves[j], sizeof(Move), 1, file);
+        }
+        
+        // 잊은 기술 목록 저장
+        fwrite(&gParty[i].forgottenMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].forgottenMoveCount; j++) {
+            fwrite(&gParty[i].forgottenMoves[j], sizeof(Move), 1, file);
+        }
+        
         // 요괴 인벤토리 저장
         fwrite(&gParty[i].yokaiInventoryCount, sizeof(int), 1, file);
         for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
@@ -177,6 +189,18 @@ int loadGameData() {
         for (int j = 0; j < gParty[i].moveCount; j++) {
             fread(&gParty[i].moves[j].move, sizeof(Move), 1, file);
             fread(&gParty[i].moves[j].currentPP, sizeof(int), 1, file);
+        }
+        
+        // 배울 수 있는 기술 목록 불러오기
+        fread(&gParty[i].learnableMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].learnableMoveCount; j++) {
+            fread(&gParty[i].learnableMoves[j], sizeof(Move), 1, file);
+        }
+        
+        // 잊은 기술 목록 불러오기
+        fread(&gParty[i].forgottenMoveCount, sizeof(int), 1, file);
+        for (int j = 0; j < gParty[i].forgottenMoveCount; j++) {
+            fread(&gParty[i].forgottenMoves[j], sizeof(Move), 1, file);
         }
         
         // 요괴 인벤토리 불러오기

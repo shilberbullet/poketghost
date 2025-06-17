@@ -10,6 +10,8 @@
 #include "settings.h"
 // 입력 처리 관련 함수
 #include "input.h"
+// 로깅 관련 함수와 구조체 정의
+#include "logger.h"
 
 // 텍스트 출력 속도에 따른 대기 시간 계산 (밀리초)
 int getTextDelay() {
@@ -25,7 +27,10 @@ int getTextDelay() {
 
 // 텍스트를 한 글자씩 출력하는 함수
 void printText(const char* text) {
-    int delay = getTextDelay();  // 현재 설정된 텍스트 속도에 따른 대기 시간 계산
+    // 출력 로깅
+    logOutput("%s", text);
+
+    int delay = getTextDelay();  // 현재 설정된 텍스트 속도
     
     // 출력 시작 전 입력 버퍼 초기화
     clearInputBuffer();
