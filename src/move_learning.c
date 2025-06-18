@@ -47,6 +47,7 @@ bool canLearnNewMove(const Yokai* yokai) {
 
 // 기술 학습 확률 계산 (레벨에 따라 10% 확률)
 bool calculateLearningChance(const Yokai* yokai) {
+    (void)yokai;
     return true;  // 항상 true를 반환하여 100% 확률로 기술 학습
 }
 

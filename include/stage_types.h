@@ -14,6 +14,7 @@ typedef enum {
     TERRAIN_SEA,
     TERRAIN_FIELD,
     TERRAIN_VILLAGE,
+    TERRAIN_DIMENSIONAL_RIFT,  // 차원의 균열 지형 추가
     TERRAIN_COUNT
 } TerrainType;
 
@@ -26,6 +27,7 @@ typedef struct {
     Yokai enemies[MAX_ENEMIES];
     char region[REGION_NAME_MAX];
     TerrainType terrain;
+    char terrainName[32];  // 지형 이름 저장용
     int hour;
 } StageInfo;
 

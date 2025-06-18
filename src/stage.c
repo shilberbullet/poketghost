@@ -17,19 +17,113 @@
 #include "item.h"
 #include "../core/state.h"
 #include <windows.h>
-#include "finalstage.h"
-
 
 // 지형 이름 배열
 const char* terrainNames[] = {
-    "산", "강", "바다", "논", "마을"
+    "산", "강", "바다", "논", "마을", "차원의 균열"
+};
+
+// 파이널 스테이지 지형 순서 정의
+const int terrainSequence[] = {
+    0, 0,  // 백두산 입구 (2개)
+    1, 1,  // 백두산 숲길 (2개)
+    2, 2,  // 백두산 계곡 (2개)
+    3, 3, 3,  // 백두산 중턱 (3개)
+    4  // 백두산 천지 (1개)
+};
+
+const char* finalTerrainNames[] = {
+    "백두산 입구",
+    "백두산 숲길",
+    "백두산 계곡",
+    "백두산 중턱",
+    "백두산 천지"
 };
 
 // 스테이지 정보는 state 모듈에서 관리
 
 // 스테이지 초기화 함수
 void initStage(StageInfo* stage, int stageNumber) {
-    if (stageNumber % 10 == 0) {
+    if (stageNumber >= 81) {
+        // 파이널 스테이지 초기화
+        stage->stageNumber = stageNumber;
+        stage->isBossStage = false;
+        strcpy(stage->region, "백두산");
+        
+        // 스테이지 번호에 따른 지형 설정 (81부터 시작)
+        int terrainIndex = stageNumber - 81;
+        if (terrainIndex >= 0 && terrainIndex < FINAL_TERRAIN_SEQUENCE_LENGTH) {
+            stage->terrain = terrainSequence[terrainIndex];
+            strcpy(stage->terrainName, finalTerrainNames[terrainSequence[terrainIndex]]);
+        } else {
+            stage->terrain = FINAL_TERRAIN_COUNT - 1;
+            strcpy(stage->terrainName, finalTerrainNames[FINAL_TERRAIN_COUNT - 1]);
+        }
+        
+        // 레벨 범위 계산
+        calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);
+        int level = stage->minLevel + (rand() % (stage->maxLevel - stage->minLevel + 1));
+        
+        // 보스 스테이지(90스테이지)에서는 최종보스 출현
+        if (stageNumber == 90) {
+            // 적 배열 전체 초기화
+            memset(stage->enemies, 0, sizeof(stage->enemies));
+            stage->enemyCount = 1;
+            Yokai* y = findYokaiByName("차원의 군주");
+            if (y) {
+                stage->enemies[0] = *y;
+                stage->enemies[0].level = level;
+                // HP 계산 및 설정
+                stage->enemies[0].currentHP = calculateHP(&stage->enemies[0]);
+                
+                // 최종보스는 모든 기술을 사용할 수 있도록 설정
+                stage->enemies[0].moveCount = stage->enemies[0].learnableMoveCount;
+                if (stage->enemies[0].moveCount > MAX_MOVES) {
+                    stage->enemies[0].moveCount = MAX_MOVES;
+                }
+                
+                // 모든 기술을 moves 배열에 복사
+                for (int i = 0; i < stage->enemies[0].moveCount; i++) {
+                    stage->enemies[0].moves[i].move = stage->enemies[0].learnableMoves[i];
+                    stage->enemies[0].moves[i].currentPP = stage->enemies[0].learnableMoves[i].pp;
+                }
+                
+                printf("[DEBUG] 최종보스 생성 성공: %s, 레벨: %d, HP: %.1f, 기술 수: %d\n", 
+                       stage->enemies[0].name, stage->enemies[0].level, stage->enemies[0].currentHP, stage->enemies[0].moveCount);
+            } else {
+                printf("[DEBUG] 차원의 군주를 찾을 수 없음, yokai.txt 재로드 시도\n");
+                loadYokaiFromFile("data/yokai.txt");
+                y = findYokaiByName("차원의 군주");
+                if (y) {
+                    stage->enemies[0] = *y;
+                    stage->enemies[0].level = level;
+                    // HP 계산 및 설정
+                    stage->enemies[0].currentHP = calculateHP(&stage->enemies[0]);
+                    
+                    // 최종보스는 모든 기술을 사용할 수 있도록 설정
+                    stage->enemies[0].moveCount = stage->enemies[0].learnableMoveCount;
+                    if (stage->enemies[0].moveCount > MAX_MOVES) {
+                        stage->enemies[0].moveCount = MAX_MOVES;
+                    }
+                    
+                    // 모든 기술을 moves 배열에 복사
+                    for (int i = 0; i < stage->enemies[0].moveCount; i++) {
+                        stage->enemies[0].moves[i].move = stage->enemies[0].learnableMoves[i];
+                        stage->enemies[0].moves[i].currentPP = stage->enemies[0].learnableMoves[i].pp;
+                    }
+                    
+                    printf("[DEBUG] 최종보스 생성 성공(재로드 후): %s, 레벨: %d, HP: %.1f, 기술 수: %d\n", 
+                           stage->enemies[0].name, stage->enemies[0].level, stage->enemies[0].currentHP, stage->enemies[0].moveCount);
+                } else {
+                    printf("[DEBUG] 차원의 군주를 여전히 찾을 수 없음\n");
+                }
+            }
+        } else {
+            // 일반 스테이지에서는 패러독스 요괴 출현
+            stage->enemyCount = 1;
+            stage->enemies[0] = createRandomParadoxYokaiWithLevel(level);
+        }
+    } else if (stageNumber % 10 == 0) {
         initBossStage(stage, stageNumber);  // 10의 배수 스테이지는 보스 스테이지
     } else {
         initNormalStage(stage, stageNumber);  // 그 외는 일반 스테이지
@@ -40,9 +134,6 @@ void initStage(StageInfo* stage, int stageNumber) {
         stage->hour = 0;
         gGameState.isNewGame = 0;  // 플래그 초기화
     }
-    
-    // 랜덤 지형 설정
-    stage->terrain = rand() % TERRAIN_COUNT;
 }
 
 // 다음 스테이지로 진행하는 함수
@@ -50,22 +141,20 @@ void nextStage() {
     gStage.stageNumber++;  // 스테이지 번호 증가
     turnCount = 0;              // 턴 카운트 초기화
     gStage.hour = (gStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
-    gStage.terrain = rand() % TERRAIN_COUNT;     // 랜덤 지형 설정
     
     // 10스테이지마다 지역 변경
     if (gStage.stageNumber % 10 == 1) {  // 1, 11, 21... 스테이지에서 지역 변경
-        // 모든 지역을 방문했는지 확인
-        if (isAllRegionsVisited()) {
-            enterFinalStage();
+        // 81스테이지부터 파이널 스테이지로 진입
+        if (gStage.stageNumber >= 81) {
+            strcpy(gStage.region, "백두산");
+            initStage(&gStage, gStage.stageNumber);
             return;
         }
 
         int hasMap = 0;
-        int mapIdx = -1;
         for (int i = 0; i < inventoryCount; i++) {
             if (strcmp(inventory[i].item.name, "지도") == 0 && inventory[i].count > 0) {
                 hasMap = 1;
-                mapIdx = i;
                 break;
             }
         }
@@ -86,7 +175,7 @@ void nextStage() {
         }
     }
     
-    // 새로운 스테이지 초기화 (hour, terrain은 유지)
+    // 새로운 스테이지 초기화
     initStage(&gStage, gStage.stageNumber);
     
     // 5의 배수 스테이지 완료 시 자동 저장 (수동 저장이 아닌 경우에만)
@@ -106,9 +195,9 @@ void showStageInfo() {
     printText("=== 스테이지 정보 ===\n\n");
     sprintf(buffer, "스테이지: %d\n", gStage.stageNumber);  // 스테이지 번호
     printText(buffer);
-    sprintf(buffer, "지역: %s\n", getCurrentRegion());  // 현재 지역명 출력
+    sprintf(buffer, "지역: %s\n", gStage.region);  // 현재 지역명 출력
     printText(buffer);
-    sprintf(buffer, "지형: %s\n", terrainNames[gStage.terrain]);  // 지형 이름
+    sprintf(buffer, "지형: %s\n", gStage.terrainName);  // 지형 이름
     printText(buffer);
     int hour = (gStage.stageNumber - 1) % 24;  // 현재 시간
     sprintf(buffer, "시간: %02d시\n", hour);
@@ -121,7 +210,6 @@ void showStageInfo() {
 void showBattleInterface() {
     int minLevel, maxLevel;
     calculateLevelRange(gStage.stageNumber, &minLevel, &maxLevel);  // 레벨 범위 계산
-    int randomLevel = minLevel + rand() % (maxLevel - minLevel + 1);      // 랜덤 레벨 선택
 
     Yokai enemy;
     if (gGameState.isLoadedGame) {
@@ -140,8 +228,25 @@ void showBattleInterface() {
             handleBossStageClear();  // 보스 스테이지 클리어 처리
             nextStage();  // 다음 스테이지로 진행
         }
+    } else if (gStage.stageNumber >= 81) {  // 파이널 스테이지
+        if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
+            if (gStage.stageNumber == 90) {  // 최종 보스 클리어
+                printText("\n=== 축하합니다! ===\n");
+                printText("당신은 백두산의 정상을 정복했습니다!\n");
+                printText("게임 클리어를 축하합니다!\n");
+                fastSleep(2000);
+                resetGameAfterClear();  // 게임 데이터 초기화
+                exit(0);
+            }
+            nextStage();  // 다음 스테이지로 진행
+        }
     } else {
         handleNormalStageClear();  // 일반 스테이지 클리어 처리
         nextStage();               // 다음 스테이지로 진행
     }
+}
+
+// 현재 스테이지의 지형 이름을 반환하는 함수
+const char* getCurrentTerrain(void) {
+    return gStage.terrainName;
 } 

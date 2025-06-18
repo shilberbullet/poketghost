@@ -1,5 +1,8 @@
 // 표준 입출력 함수를 위한 헤더
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 // 게임 관련 함수와 구조체 정의
 #include "game.h"
 // 텍스트 출력 관련 함수
@@ -12,6 +15,23 @@
 #include "roguelite.h"
 #include "logger.h"
 #include "../core/state.h"
+#include "input.h"
+#include "stage.h"
+#include "battle.h"
+#include "reward.h"
+#include "savefile.h"
+#include <windows.h>
+#include <math.h>
+
+// 상수 정의
+#define MAX_PARTY 6
+#define MAX_INVENTORY 50
+
+// 전역 변수 선언
+extern int turnCount;
+extern int participatedCount;
+extern int participatedIdx[];
+extern unsigned long long participatedId[];
 
 // 전역 게임 상태와 플레이어 정보는 state 모듈에서 관리
  
@@ -129,4 +149,58 @@ void resetGameState() {
 void cleanupGame() {
     logMessage("게임 종료 처리 시작");
     cleanupLogger();
+}
+
+// 게임 클리어 후 데이터 초기화 함수
+void resetGameAfterClear() {
+    logMessage("게임 클리어 후 데이터 초기화 시작");
+    
+    // 게임 상태 초기화
+    gGameState.isRunning = 0;
+    gGameState.currentStage = 1;
+    gGameState.currentTime = 0;
+    gGameState.isNewGame = 1;
+    gGameState.isLoadedGame = 0;
+    gGameState.isManualSave = 0;
+    
+    // 플레이어 데이터 초기화
+    gPlayer.money = 0;
+    
+    // 스테이지 데이터 초기화
+    gStage.stageNumber = 1;
+    gStage.isBossStage = false;
+    gStage.hour = 0;
+    strcpy(gStage.region, "");
+    strcpy(gStage.terrainName, "");
+    gStage.terrain = 0;
+    gStage.enemyCount = 0;
+    
+    // 파티 데이터 초기화
+    gPartyCount = 0;
+    for (int i = 0; i < MAX_PARTY; i++) {
+        memset(&gParty[i], 0, sizeof(Yokai));
+    }
+    
+    // 인벤토리 초기화
+    inventoryCount = 0;
+    for (int i = 0; i < MAX_INVENTORY; i++) {
+        memset(&inventory[i], 0, sizeof(InventoryItem));
+    }
+    
+    // 전투 관련 변수 초기화
+    turnCount = 0;
+    participatedCount = 0;
+    lastYokaiIdx = 0;
+    for (int i = 0; i < MAX_PARTY; i++) {
+        participatedIdx[i] = 0;
+        participatedId[i] = 0;
+    }
+    
+    // 아이템 보상 시스템 초기화
+    resetItemRewardSystem();
+    
+    // 저장 파일 삭제
+    removeSaveFile();
+    
+    logMessage("게임 클리어 후 데이터 초기화 완료");
 } 

@@ -117,6 +117,16 @@ int healYokai(Yokai* targetYokai) {
                     return 1;
             }
             break;
+        case ITEM_TALISMAN:
+            if (!targetYokai) return -1;
+            if (useTalisman(currentItem, targetYokai)) {
+                char buffer[256];
+                sprintf(buffer, "\n%s가 %s를 사용했습니다!\n", targetYokai->name, currentItem->name);
+                printText(buffer);
+                fastSleep(500);
+                return 1;
+            }
+            break;
         case ITEM_YANGGAENG:
             if (strcmp(currentItem->name, "이상한 양갱") == 0) {
                 printTextAndWait("\n이상한 양갱을 사용합니다...\n");
@@ -153,6 +163,8 @@ int healYokai(Yokai* targetYokai) {
                     return 1;
                 }
             }
+            break;
+        default:
             break;
     }
     return -1;

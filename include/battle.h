@@ -50,4 +50,6 @@ int switchYokai();
 // 데미지 메시지 출력 함수
 void printDamageMessage(Yokai* attacker, Yokai* defender, int damage);
 
+void applyPeachHealingToParty();
+
 #endif // BATTLE_H 

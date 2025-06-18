@@ -23,6 +23,9 @@ void initGame(void);
 void addMoney(int amount);
 void showMoney(void);
 void resetGameState();
-void cleanupGame();
+void cleanupGame(void);
+
+// 게임 클리어 후 데이터 초기화 함수
+void resetGameAfterClear(void);
 
 #endif // GAME_H 

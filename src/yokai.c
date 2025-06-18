@@ -57,6 +57,11 @@ static const float typeEffectivenessTable[TYPE_COUNT][TYPE_COUNT] = {
     {1.0f, 2.0f, 1.0f, 2.0f, 1.0f}
 };
 
+// 상성 효과를 계산하는 함수
+float calculateTypeEffectiveness(YokaiType attackerType, YokaiType defenderType) {
+    return typeEffectivenessTable[attackerType][defenderType];
+}
+
 // 전역 변수로 다음 ID 값 저장
 static unsigned long long nextYokaiId = 1;
 
@@ -197,8 +202,17 @@ void assignRandomMoves(Yokai* y) {
 }
 
 Yokai* findYokaiByName(const char* name) {
+    // 일반 요괴 리스트에서 검색
     for (int i = 0; i < yokaiListCount; i++) {
         if (strcmp(yokaiList[i].name, name) == 0) return &yokaiList[i];
+    }
+    // 보스 요괴 리스트에서 검색
+    for (int i = 0; i < bossYokaiListCount; i++) {
+        if (strcmp(bossYokaiList[i].name, name) == 0) return &bossYokaiList[i];
+    }
+    // 패러독스 요괴 리스트에서 검색
+    for (int i = 0; i < paradoxYokaiListCount; i++) {
+        if (strcmp(paradoxYokaiList[i].name, name) == 0) return &paradoxYokaiList[i];
     }
     return NULL;
 }
@@ -317,9 +331,16 @@ bool addItemToYokaiInventory(Yokai* yokai, const Item* item) {
     // 중복 아이템 확인
     for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
         if (strcmp(yokai->yokaiInventory[i].item.name, item->name) == 0) {
-            // 최대 99개까지만 보유
-            if (yokai->yokaiInventory[i].count >= 99) {
-                return false;
+            // 복숭아는 5개까지만 보유 가능
+            if (strcmp(item->name, "복숭아") == 0) {
+                if (yokai->yokaiInventory[i].count >= 5) {
+                    return false;
+                }
+            } else {
+                // 그 외 아이템은 99개까지
+                if (yokai->yokaiInventory[i].count >= 99) {
+                    return false;
+                }
             }
             yokai->yokaiInventory[i].count++;
             return true;
