@@ -75,6 +75,7 @@ void printTextAndWait(const char* text) {
 
 // 텍스트 속도에 비례한 sleep 함수 (base=500이면 매우 빠름)
 void fastSleep(int base) {
+    (void)base;
     int delay = getTextDelay();
     Sleep(delay*180);
 }

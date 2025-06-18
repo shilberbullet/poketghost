@@ -23,7 +23,6 @@
 #include "settings.h"
 #include "region.h"
 #include <windows.h>
-#include "finalstage.h" // 추가: finalstage 진입 함수 사용을 위해
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
 // 현재 전투 중인 상대 요괴
@@ -182,7 +181,7 @@ int startBattle(const Yokai* enemy) {
     } else {
     }
     while (1) {
-        int done = showBattleMenu(&currentEnemy);
+        int done = showBattleMenu(enemy);
         if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
@@ -196,7 +195,11 @@ int startBattle(const Yokai* enemy) {
                     gainExp(&gParty[idx], exp);
                 }
             }
-            itemRewardSystem(); // 아이템 보상 창 호출
+            
+            // 90스테이지(최종보스)가 아닐 때만 아이템 보상창 호출
+            if (gStage.stageNumber != 90) {
+                itemRewardSystem(); // 아이템 보상 창 호출
+            }
             
             // 함경도 보스 스테이지 완료 후 모든 지역 방문 확인
             if (strcmp(getCurrentRegion(), "함경도") == 0 && gStage.stageNumber % 10 == 0) {
@@ -215,6 +218,7 @@ int startBattle(const Yokai* enemy) {
 }
 
 int showBattleMenu(const Yokai* enemy) {
+    (void)enemy;
     int choice;
     
     if (gameSettings.debugMode) {
@@ -546,11 +550,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     newIdx = selectPartyYokai();
                 }
                 lastYokaiIdx = newIdx;
+                applyPeachHealingToParty(); // 복숭아 효과 적용
                 turnCount++;
                 return 0;
             }
             
             handleBattleResult(&gParty[yokaiIdx], enemy, result);
+            applyPeachHealingToParty(); // 복숭아 효과 적용
             turnCount++;
             lastYokaiIdx = yokaiIdx;
             if (result == 1) {
@@ -696,10 +702,12 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                         newIdx = selectPartyYokai();
                     }
                     lastYokaiIdx = newIdx;
+                    applyPeachHealingToParty(); // 복숭아 효과 적용
                     turnCount++;
                     return 0;
                 }
                 
+                applyPeachHealingToParty(); // 복숭아 효과 적용
                 turnCount++;
                 lastYokaiIdx = yokaiIdx;
                 return 0;
@@ -814,9 +822,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 if (allFainted) {
                     handleRogueliteSystem();
+                printTextAndWait("\n전투에서 패배했습니다...");
                 return 104; // 전투 패배
                 }
-                
+
                 // 남은 동료가 있으면 즉시 교체 메뉴
                 int newIdx = selectPartyYokai();
                 while (gParty[newIdx].status == YOKAI_FAINTED) {
@@ -824,12 +833,14 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     newIdx = selectPartyYokai();
                 }
                 lastYokaiIdx = newIdx;
+                applyPeachHealingToParty(); // 복숭아 효과 적용
                 turnCount++;
                 return 0;
             }
             
-            lastYokaiIdx = newYokaiIdx;
+            applyPeachHealingToParty(); // 복숭아 효과 적용
             turnCount++;
+            lastYokaiIdx = newYokaiIdx;
             return 0;
         }
         case BATTLE_RUN: {
@@ -962,11 +973,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                         newIdx = selectPartyYokai();
                     }
                     lastYokaiIdx = newIdx;
+                    applyPeachHealingToParty(); // 복숭아 효과 적용
                     turnCount++;
                     return 0;
                 }
                 
-                turnCount++;  // 도망치기 실패 시에도 턴 카운트 증가
+                applyPeachHealingToParty(); // 복숭아 효과 적용
+                turnCount++;
                 return 0;
             }
             return escapeResult;
@@ -986,6 +999,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
 }
 
 void printDamageMessage(Yokai* attacker, Yokai* defender, int damage) {
+    (void)attacker;
     char buffer[256];
     int actualDamage = damage;
     
@@ -996,4 +1010,33 @@ void printDamageMessage(Yokai* attacker, Yokai* defender, int damage) {
     
     sprintf(buffer, "%s에게 %d의 데미지를 입혔다!", defender->name, actualDamage);
     printTextAndWait(buffer);
+}
+
+// 복숭아 효과 함수: 전투 중인 요괴에게만 복숭아 1개당 최대 HP의 5% 회복(기절 제외)
+void applyPeachHealingToParty() {
+    // 전투 중인 요괴만 대상으로 함
+    if (lastYokaiIdx >= 0 && lastYokaiIdx < gPartyCount) {
+        Yokai* y = &gParty[lastYokaiIdx];
+        if (y->status == YOKAI_FAINTED) return; // 기절한 요괴 제외
+        
+        int peachCount = 0;
+        for (int j = 0; j < y->yokaiInventoryCount; j++) {
+            if (strcmp(y->yokaiInventory[j].item.name, "복숭아") == 0) {
+                peachCount = y->yokaiInventory[j].count;
+                break;
+            }
+        }
+        if (peachCount > 0) {
+            float maxHP = calculateHP(y);
+            float healAmount = (int)(maxHP * 0.05f * peachCount);
+            if (healAmount < 1) healAmount = 1; // 최소 1 회복
+            float beforeHP = y->currentHP;
+            y->currentHP += healAmount;
+            if (y->currentHP > maxHP) y->currentHP = maxHP;
+            // 회복 메시지 출력
+            char buffer[128];
+            sprintf(buffer, "\n%s가 복숭아 효과로 %.0f의 체력을 회복했습니다! (%.0f → %.0f)", y->name, y->currentHP - beforeHP, beforeHP, y->currentHP);
+            printTextAndWait(buffer);
+        }
+    }
 } 

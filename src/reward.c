@@ -10,6 +10,7 @@
 #include "battle.h"
 #include "../core/state.h"
 #include <windows.h>
+#include <math.h>
 
 // 필요한 전역 변수는 state 모듈에서 접근
 
@@ -21,16 +22,27 @@ int lastStageNumber = -1; // 마지막 스테이지 번호
 
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
-    int baseReward = 100;  // 기본 보상
-    int stageBonus = (gStage.stageNumber / 10) * 100;  // 10스테이지마다 50전씩 증가
-    int randomBonus = rand() % 50;  // 0-49전 랜덤 보너스
+    // 기본 보상: 100전
+    int baseReward = 100;
     
-    // 10의 배수 스테이지에서는 2배 보상
+    // 스테이지 보너스: 스테이지가 올라갈수록 보상이 점진적으로 증가
+    // 예: 1스테이지 = 100, 2스테이지 = 110, 3스테이지 = 121, 4스테이지 = 133, ...
+    int stageBonus = (int)(baseReward * pow(1.1, gStage.stageNumber - 1));
+    
+    // 랜덤 보너스: 0-49전
+    int randomBonus = rand() % 50;
+    
+    // 레벨 보너스: 적 요괴 레벨당 15전씩 보너스
+    int levelBonus = currentEnemy.level * 15;
+    
+    // 10의 배수 스테이지에서는 추가 보너스
     if (gStage.stageNumber % 10 == 0) {
-        return (baseReward + stageBonus + randomBonus) * 2;
+        // 10의 배수 스테이지에서는 기본 보상의 50% 추가
+        stageBonus = (int)(stageBonus * 1.5);
     }
     
-    return baseReward + stageBonus + randomBonus;
+    // 최종 보상 계산
+    return stageBonus + randomBonus + levelBonus;
 }
 
 // 초기화 비용 계산 함수
@@ -62,6 +74,11 @@ const char* getGradeName(ItemGrade grade) {
     }
 }
 
+// 파이널 스테이지 여부를 반환하는 함수
+int isFinalStage() {
+    return strcmp(gStage.region, "이계의 심연") == 0;
+}
+
 // 아이템 보상 시스템
 void itemRewardSystem() {
     // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
@@ -87,8 +104,8 @@ void itemRewardSystem() {
             getRandomItems(candidates, 3);
             valid = 1;
             for (int i = 0; i < 3; i++) {
-                // 보스 스테이지에서는 회복형 아이템만 제외
-                if (gStage.isBossStage && candidates[i].type == ITEM_HEAL) {
+                // 보스 스테이지이면서 파이널 스테이지가 아닐 때만 회복형 아이템 제외
+                if (gStage.isBossStage && !isFinalStage() && candidates[i].type == ITEM_HEAL) {
                     valid = 0;
                     break;
                 }

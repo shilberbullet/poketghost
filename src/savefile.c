@@ -21,17 +21,25 @@ extern int participatedCount;
 extern int participatedIdx[];
 extern int lastYokaiIdx;
 
+char currentRegion[32]; // 현재 지역명을 저장할 변수
+
 // 게임 저장 함수
 void saveGame() {
     FILE* file = fopen(SAVE_FILE, "wb");  // 바이너리 쓰기 모드로 파일 열기
-    if (!file) return;
+    if (!file) {
+        printText("저장 실패!\n");
+        return;
+    }
     
     if (gameSettings.debugMode) {
-    char buffer[128];
-    sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n", turnCount);
+    char buffer[256];
+    sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n지역: %s\n지형: %s\n", turnCount, gStage.region, gStage.terrainName);
     printTextAndWait(buffer);
     fastSleep(500);
     }
+    
+    // 지역 데이터 먼저 저장
+    saveRegionData(file);
     
     // 스테이지 정보 저장
     fwrite(&gStage, sizeof(StageInfo), 1, file);
@@ -152,19 +160,36 @@ void saveGame() {
     // 마지막으로 사용한 요괴 인덱스 저장
     fwrite(&lastYokaiIdx, sizeof(int), 1, file);
     
-    // 지역 데이터 저장
-    saveRegionData(file);
-    
     fclose(file);
+    printText("게임이 저장되었습니다.\n");
 }
 
 // 게임 데이터 불러오기 함수
 int loadGameData() {
     FILE* file = fopen(SAVE_FILE, "rb");  // 바이너리 읽기 모드로 파일 열기
-    if (!file) return 0;
+    if (!file) {
+        printText("저장 파일이 없습니다.\n");
+        return 0;
+    }
+    
+    // 지역 데이터 먼저 불러오기
+    loadRegionData(file);
     
     // 스테이지 정보 불러오기
     fread(&gStage, sizeof(StageInfo), 1, file);
+    
+    // 이어하기 시 지역명이 바뀌는 문제 해결: currentRegion을 gStage.region으로 덮어씁니다.
+    strcpy(currentRegion, gStage.region);
+    
+    // 파이널 스테이지일 경우 지형 이름 복원
+    if (gStage.stageNumber >= 81) {
+        int terrainIndex = gStage.stageNumber - 81;
+        if (terrainIndex >= 0 && terrainIndex < FINAL_TERRAIN_SEQUENCE_LENGTH) {
+            strcpy(gStage.terrainName, finalTerrainNames[terrainSequence[terrainIndex]]);
+        } else {
+            strcpy(gStage.terrainName, finalTerrainNames[FINAL_TERRAIN_COUNT - 1]);
+        }
+    }
     
     // 동료 요괴 수 불러오기
     fread(&gPartyCount, sizeof(int), 1, file);
@@ -208,6 +233,16 @@ int loadGameData() {
         for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
             fread(&gParty[i].yokaiInventory[j], sizeof(InventoryItem), 1, file);
         }
+        
+        // 복숭아 개수 제한 확인 (5개 초과 시 5개로 제한)
+        for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
+            if (strcmp(gParty[i].yokaiInventory[j].item.name, "복숭아") == 0) {
+                if (gParty[i].yokaiInventory[j].count > 5) {
+                    gParty[i].yokaiInventory[j].count = 5;
+                }
+                break;
+            }
+        }
     }
     
     // 플레이어 정보 불러오기
@@ -245,10 +280,16 @@ int loadGameData() {
     fread(&turnCount, sizeof(int), 1, file);
     
     if (gameSettings.debugMode) {
-    char buffer[128];
+        char buffer[256];
     sprintf(buffer, "[DEBUG] 로드 시 turnCount: %d\n", turnCount);
-    printTextAndWait(buffer);
-    fastSleep(500);
+        printTextAndWait(buffer);
+        sprintf(buffer, "[DEBUG] 로드 시 스테이지 번호: %d\n", gStage.stageNumber);
+        printTextAndWait(buffer);
+        sprintf(buffer, "[DEBUG] 로드 시 지역: %s\n", getCurrentRegion());
+        printTextAndWait(buffer);
+        sprintf(buffer, "[DEBUG] 로드 시 지형: %s\n", getCurrentTerrain());
+        printTextAndWait(buffer);
+        fastSleep(500);
     }
     
     // 전투에 참여한 요괴 수 불러오기
@@ -259,9 +300,6 @@ int loadGameData() {
     
     // 마지막으로 사용한 요괴 인덱스 불러오기
     fread(&lastYokaiIdx, sizeof(int), 1, file);
-    
-    // 지역 데이터 불러오기
-    loadRegionData(file);
     
     fclose(file);
     gGameState.isLoadedGame = 1; // 이어하기 플래그 설정

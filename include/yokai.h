@@ -87,6 +87,9 @@ void clearYokaiInventory(Yokai* yokai);
 // 상성 관계 확인 함수 (공격자의 공격력이 방어자에게 얼마나 효과적인지 반환)
 float getTypeEffectiveness(YokaiType attacker, YokaiType defender);
 
+// 상성 효과를 계산하는 함수
+float calculateTypeEffectiveness(YokaiType attackerType, YokaiType defenderType);
+
 // 스테이지 번호에 따른 레벨 범위 계산 함수
 void calculateLevelRange(int stage, int* minLevel, int* maxLevel);
 

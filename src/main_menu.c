@@ -101,8 +101,6 @@ void startNewGame(void) {
 // 저장된 게임 불러오기 함수
 void loadGame(void) {
     if (loadGameData()) {
-        gGameState.isLoadedGame = 1;
-        initGame(); // 게임 상태 초기화
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
         while (gGameState.isRunning) {
             showStageInfo();

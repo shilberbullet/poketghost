@@ -356,7 +356,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
                 getchar();
-                break;
+                            break;
             }
             case 4: {  // 경험치 보기
                 char buffer[256];
@@ -367,7 +367,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
                 getchar();
-                break;
+                            break;
             }
             case 5: {  // 기술 목록 보기
                 char buffer[1024];
@@ -396,7 +396,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
                 clearInputBuffer(); // 콘솔 입력 버퍼 비우기
-                break;
+                            break;
             }
             case 6: {  // 요괴 인벤토리 보기
                 char buffer[1024];
@@ -416,7 +416,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
                 clearInputBuffer(); // 콘솔 입력 버퍼 비우기
-                break;
+                            break;
             }
             case 7: {  // 배울 수 있는 기술 목록
                 sprintf(buffer, "%s의 배울 수 있는 기술 목록:\n\n", yokai->name);

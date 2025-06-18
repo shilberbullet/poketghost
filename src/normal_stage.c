@@ -8,6 +8,8 @@
 #include "party.h"
 #include "savefile.h"
 #include "region.h"
+#include "stage.h"
+#include "stage_types.h"
 
 // 일반 스테이지 초기화 함수
 void initNormalStage(StageInfo* stage, int stageNumber) {
@@ -16,6 +18,10 @@ void initNormalStage(StageInfo* stage, int stageNumber) {
     
     // 현재 지역 설정
     strcpy(stage->region, getCurrentRegion());
+    
+    // 랜덤 지형 설정 (차원의 균열 제외)
+    stage->terrain = rand() % (TERRAIN_COUNT - 1);
+    strcpy(stage->terrainName, terrainNames[stage->terrain]);
     
     // 레벨 범위 계산
     calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);

@@ -292,11 +292,20 @@ void addItemToInventory(const Item* item) {
         int found = 0;
         for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
             if (strcmp(targetYokai->yokaiInventory[i].item.name, item->name) == 0) {
-                // 최대 99개까지만 보유
-                if (targetYokai->yokaiInventory[i].count >= 99) {
-                    printTextAndWait("\n이 아이템은 해당 요괴가 최대 99개까지만 보유할 수 있습니다!\n");
-                    itemRewardSystem();
-                    return;
+                // 복숭아는 5개까지만 보유 가능
+                if (strcmp(item->name, "복숭아") == 0) {
+                    if (targetYokai->yokaiInventory[i].count >= 5) {
+                        printTextAndWait("\n복숭아는 해당 요괴가 최대 5개까지만 보유할 수 있습니다!\n");
+                        itemRewardSystem();
+                        return;
+                    }
+                } else {
+                    // 그 외 아이템은 최대 99개까지만 보유
+                    if (targetYokai->yokaiInventory[i].count >= 99) {
+                        printTextAndWait("\n이 아이템은 해당 요괴가 최대 99개까지만 보유할 수 있습니다!\n");
+                        itemRewardSystem();
+                        return;
+                    }
                 }
                 targetYokai->yokaiInventory[i].count++;
                 found = 1;
@@ -313,9 +322,6 @@ void addItemToInventory(const Item* item) {
             targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].count = 1;
             targetYokai->yokaiInventoryCount++;
         }
-        char buffer[128];
-        sprintf(buffer, "\n%s를 %s의 인벤토리에 획득했습니다!\n", item->name, targetYokai->name);
-        printTextAndWait(buffer);
         fastSleep(500);
         // 보상 선택이 완료되면 함수 종료
         return;

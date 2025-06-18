@@ -10,7 +10,6 @@
 #include "region.h"
 #include "../core/state.h"
 #include <windows.h>
-#include "finalstage.h"
 
 // 보스 스테이지 초기화 함수
 void initBossStage(StageInfo* stage, int stageNumber) {
