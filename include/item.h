@@ -24,7 +24,8 @@ typedef enum {
     ITEM_TALISMAN,  // 부적형
     ITEM_PLAYER,    // 플레이어 아이템
     ITEM_YOKAI,     // 요괴 아이템
-    ITEM_YANGGAENG  // 양갱형
+    ITEM_YANGGAENG, // 양갱형
+    ITEM_FORGOTTEN_MOVE // 잊은 기술 배우기
 } ItemType;
 
 // 아이템 구조체
@@ -70,6 +71,9 @@ bool useTalisman(const Item* item, void* targetYokai);
 
 // 양갱 사용 함수
 bool useYanggaeng(const Item* item, void* targetYokai);
+
+// 잊은 기술 배우기 함수
+bool useForgottenMoveItem(const Item* item, void* targetYokai);
 
 // 무당방울 보너스 계산 함수
 int calculateMudangBonus(int amount, int mudangCount);
