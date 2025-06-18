@@ -185,13 +185,14 @@ int startBattle(const Yokai* enemy) {
         if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
-            // 경험치 지급: 참여했고 기절하지 않은 모든 요괴에게 지급
-            int exp = calculateBattleExp(&currentEnemy);
+            // 경험치 지급: 참여했고 기절하지 않은 모든 요괴에게 개별 경험치 지급
             for (int i = 0; i < participatedCount; i++) {
                 int idx = participatedIdx[i];
                 // ID가 일치하는 경우에만 경험치 지급
                 if (gParty[idx].status != YOKAI_FAINTED && gParty[idx].status != YOKAI_RELEASED &&
                     gParty[idx].id == participatedId[i]) {
+                    // 각 요괴의 레벨에 따라 개별적으로 경험치 계산
+                    int exp = calculateIndividualExp(&currentEnemy, &gParty[idx]);
                     gainExp(&gParty[idx], exp);
                 }
             }
