@@ -16,6 +16,7 @@
 시원한 식혜,RARE,HEAL,동료 요괴의 선택한 기술 PP를 모두 회복한다
 이상한 양갱,RARE,YANGGAENG,모든 동료 요괴의 레벨을 1 올려준다
 지도,RARE,PLAYER,10의 배수 스테이지 완료 후 다음 이동 가능 지역 중 한 곳을 선택할 수 있다
+버섯죽,RARE,FORGOTTEN_MOVE,요괴의 잊은 기술을 1개 배울수 있다
 
 # 초희귀 아이템
 신비한 부적,SUPERRARE,TALISMAN,요괴를 반드시 동료로 만들수 있다

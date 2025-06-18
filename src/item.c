@@ -11,6 +11,7 @@
 #include "sikhye_system.h"
 #include "reward.h"
 #include "party.h"
+#include "move_learning.h"
 #include "../core/state.h"
 
 #define INITIAL_ITEM_CAPACITY 32
@@ -72,6 +73,7 @@ ItemType stringToType(const char* str) {
     if (strcmp(str, "PLAYER") == 0) return ITEM_PLAYER;
     if (strcmp(str, "YOKAI") == 0) return ITEM_YOKAI;
     if (strcmp(str, "YANGGAENG") == 0) return ITEM_YANGGAENG;
+    if (strcmp(str, "FORGOTTEN_MOVE") == 0) return ITEM_FORGOTTEN_MOVE;
     return ITEM_HEAL;
 }
 
@@ -153,8 +155,8 @@ void getRandomItems(Item* outItems, int count) {
 
 // 인벤토리에 아이템 추가
 void addItemToInventory(const Item* item) {
-    // 회복형, 양갱형 아이템은 즉시 사용
-    if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG) {
+    // 회복형, 양갱형, 잊은 기술 배우기 아이템은 즉시 사용
+    if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG || item->type == ITEM_FORGOTTEN_MOVE) {
         currentItem = item;  // 현재 사용할 아이템 설정
         if (item->type == ITEM_YANGGAENG) {
             if (item->grade == ITEM_RARE) {
@@ -187,6 +189,25 @@ void addItemToInventory(const Item* item) {
                     itemRewardSystem();
                     return;
                 }
+            }
+        } else if (item->type == ITEM_FORGOTTEN_MOVE) {
+            // 잊은 기술 배우기 아이템 처리
+            Yokai* targetYokai = selectYokaiToHeal();
+            if (targetYokai != NULL) {
+                int result = useForgottenMoveItem(item, targetYokai);
+                currentItem = NULL;  // 아이템 사용 후 초기화
+                if (!result) {
+                    printText("\n다시 아이템을 선택하세요.\n");
+                    itemRewardSystem();
+                    return;
+                }
+                // 아이템 사용 성공 시 다음 스테이지로 진행
+                return;
+            } else {
+                // 뒤로가기 선택 시 아이템 목록으로 복귀
+                currentItem = NULL;
+                itemRewardSystem();
+                return;
             }
         } else {
             Yokai* targetYokai = selectYokaiToHeal();
@@ -570,4 +591,115 @@ int getJakduCount() {
         }
     }
     return count;
+}
+
+// 잊은 기술 배우기 함수
+bool useForgottenMoveItem(const Item* item, void* targetYokai) {
+    Yokai* yokai = (Yokai*)targetYokai;
+    if (item->type != ITEM_FORGOTTEN_MOVE) {
+        printf("이 아이템은 잊은 기술 배우기 아이템이 아닙니다!\n");
+        return false;
+    }
+
+    // 기절한 요괴에게는 사용할 수 없음
+    if (yokai->status == YOKAI_FAINTED) {
+        printText("\n기절한 요괴에게는 사용할 수 없습니다.\n");
+        return false;
+    }
+
+    // 잊은 기술이 있는지 확인
+    if (yokai->forgottenMoveCount == 0) {
+        printText("\n이 요괴는 잊은 기술이 없습니다.\n");
+        return false;
+    }
+
+    // 잊은 기술 목록 출력
+    printText("\n=== 잊은 기술 목록 ===\n");
+    for (int i = 0; i < yokai->forgottenMoveCount; i++) {
+        char* typeColor = "";
+        switch (yokai->forgottenMoves[i].type) {
+            case TYPE_EVIL_SPIRIT: typeColor = "\033[31m"; break; // 빨간색
+            case TYPE_GHOST: typeColor = "\033[35m"; break;      // 보라색
+            case TYPE_MONSTER: typeColor = "\033[33m"; break;    // 노란색
+            case TYPE_HUMAN: typeColor = "\033[36m"; break;      // 청록색
+            case TYPE_ANIMAL: typeColor = "\033[32m"; break;     // 초록색
+            default: typeColor = "\033[0m"; break;               // 기본색
+        }
+        char buffer[256];
+        sprintf(buffer, "%d. %s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d)\n", 
+            i + 1, 
+            typeColor,
+            yokai->forgottenMoves[i].name,
+            yokai->forgottenMoves[i].power,
+            yokai->forgottenMoves[i].accuracy,
+            yokai->forgottenMoves[i].pp);
+        printText(buffer);
+    }
+    printText("0. 뒤로 가기\n");
+    printText("\n배울 기술을 선택하세요: ");
+
+    int choice = getIntInput(0, yokai->forgottenMoveCount);
+    if (choice == 0) {
+        return false; // 뒤로 가기
+    }
+
+    // 선택된 기술
+    Move selectedMove = yokai->forgottenMoves[choice - 1];
+
+    // 기술 슬롯이 가득 찬 경우 기존 기술 중 하나를 잊어야 함
+    if (yokai->moveCount >= MAX_MOVES) {
+        printText("\n기술 슬롯이 가득 찼습니다. 어떤 기술을 잊으시겠습니까?\n");
+        printAvailableMoves(yokai);
+        
+        int forgetChoice = getIntInput(0, yokai->moveCount);
+        if (forgetChoice == 0) {
+            return false; // 뒤로 가기
+        }
+        
+        // 기존 기술을 잊고 새로운 기술 배우기
+        char oldMoveName[YOKAI_NAME_MAX];
+        strcpy(oldMoveName, yokai->moves[forgetChoice - 1].move.name);
+        
+        // 기존 기술을 잊은 기술 목록에서 제거하고 새로운 기술을 잊은 기술 목록에 추가
+        for (int i = choice - 1; i < yokai->forgottenMoveCount - 1; i++) {
+            yokai->forgottenMoves[i] = yokai->forgottenMoves[i + 1];
+        }
+        yokai->forgottenMoveCount--;
+        
+        // 기존 기술을 잊은 기술 목록에 추가
+        yokai->forgottenMoves[yokai->forgottenMoveCount++] = yokai->moves[forgetChoice - 1].move;
+        
+        // 기존 기술 제거
+        for (int i = forgetChoice - 1; i < yokai->moveCount - 1; i++) {
+            yokai->moves[i] = yokai->moves[i + 1];
+        }
+        yokai->moveCount--;
+        
+        // 새로운 기술 배우기
+        yokai->moves[yokai->moveCount].move = selectedMove;
+        yokai->moves[yokai->moveCount].currentPP = selectedMove.pp;
+        yokai->moveCount++;
+        
+        char buffer[256];
+        sprintf(buffer, "\n%s를 잊고 %s를 배웠습니다!\n", oldMoveName, selectedMove.name);
+        printText(buffer);
+    } else {
+        // 빈 슬롯이 있는 경우
+        // 선택된 기술을 잊은 기술 목록에서 제거
+        for (int i = choice - 1; i < yokai->forgottenMoveCount - 1; i++) {
+            yokai->forgottenMoves[i] = yokai->forgottenMoves[i + 1];
+        }
+        yokai->forgottenMoveCount--;
+        
+        // 새로운 기술 배우기
+        yokai->moves[yokai->moveCount].move = selectedMove;
+        yokai->moves[yokai->moveCount].currentPP = selectedMove.pp;
+        yokai->moveCount++;
+        
+        char buffer[256];
+        sprintf(buffer, "\n%s를 배웠습니다!\n", selectedMove.name);
+        printText(buffer);
+    }
+
+    return true;
 } 
