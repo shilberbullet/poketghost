@@ -53,6 +53,38 @@ int calculateBattleExp(const Yokai* enemy) {
     return finalExp * 2;
 }
 
+// 개별 요괴의 경험치 계산 함수 (새로 추가)
+// 각 요괴의 레벨에 따라 개별적으로 경험치를 계산
+int calculateIndividualExp(const Yokai* enemy, const Yokai* player) {
+    // 기본 경험치: 적 레벨 * 80
+    int baseExp = enemy->level * 80;
+    
+    // 보스 요괴일 경우 2배 경험치
+    if (enemy->level >= 10) {
+        baseExp *= 2;
+    }
+    
+    // 레벨 차이 보정: 개별 요괴와 적 요괴의 레벨 차이에 따라 경험치 증감
+    int levelDiff = enemy->level - player->level;
+    float ratio;
+    
+    if (levelDiff > 0) {
+        // 요괴 레벨이 낮을 때: 레벨 차이당 20% 증가 (최대 200%)
+        ratio = 1.0f + (levelDiff * 0.2f);
+        if (ratio > 3.0f) ratio = 3.0f;
+    } else {
+        // 요괴 레벨이 높을 때: 기본 경험치 유지
+        ratio = 1.0f;
+    }
+    
+    // 랜덤 보너스: ±20%
+    float randomBonus = 0.8f + (rand() % 41) / 100.0f;
+    int finalExp = (int)(baseExp * ratio * randomBonus);
+    if (finalExp < 1) finalExp = 1;
+    // 경험치 2배로 증가
+    return finalExp * 2;
+}
+
 // 경험치 획득 및 레벨업 처리 함수
 // 요괴가 경험치를 획득하고 레벨업 여부를 체크
 void gainExp(Yokai* yokai, int exp) {

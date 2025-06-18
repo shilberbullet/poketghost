@@ -1,10 +1,6 @@
-import pandas as pd
-from openpyxl import Workbook
-from openpyxl.styles import PatternFill
-from openpyxl.worksheet.table import Table, TableStyleInfo
-from openpyxl.utils.dataframe import dataframe_to_rows
+import re
 
-# 기술 데이터 (여기에 붙여넣거나, 외부 파일에서 읽어올 수도 있음)
+# 코드 내에 직접 입력하는 기술 데이터 텍스트 (아래에 붙여넣으세요)
 skill_data = '''
 # 기술 데이터 파일
 # 형식: 이름,기술의 상성,공격력,명중률,PP,설명
@@ -118,101 +114,41 @@ skill_data = '''
 혼돈의폭발,GHOST,50,75,5,혼돈의 에너지를 폭발시켜 광역 흡수 피해를 입힌다  
 '''
 
-# 타입별 색상 지정
-type_colors = {
-    "EVIL_SPIRIT": "FF9999",  # 빨간색
-    "GHOST": "CC99FF",        # 보라색
-    "MONSTER": "FFFF99",      # 노란색
-    "HUMAN": "66CCCC",        # 청록색
-    "ANIMAL": "99CC99",       # 초록색
-}
+def parse_and_sort_skills(skill_data, output_file):
+    lines = skill_data.strip().splitlines()
 
-# 난이도별 색상 지정
-difficulty_colors = {
-    "초급": "FFFFFF",  # 흰색
-    "중급": "FFCC99",  # 연한 주황색
-    "고급": "FF9999",  # 연한 빨간색
-    "패러독스": "CC99FF",  # 보라색
-    "최종보스": "FF6666",  # 진한 빨간색
-}
+    # 등급별로 기술 저장
+    skill_blocks = {'초급': [], '중급': [], '고급': []}
+    current_grade = None
 
-# 기술 데이터 파싱 (주석, 공백 줄 무시)
-skill_records = []
-current_difficulty = "초급"  # 기본 난이도
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith('#'):
+            # 등급 헤더 감지
+            if '초급 기술' in line:
+                current_grade = '초급'
+            elif '중급 기술' in line:
+                current_grade = '중급'
+            elif '고급 기술' in line:
+                current_grade = '고급'
+            continue
+        # 기술 데이터 라인만 추출
+        if current_grade:
+            skill_blocks[current_grade].append(line)
 
-for line in skill_data.strip().splitlines():
-    line = line.strip()
-    if not line:
-        continue
-    if line.startswith('#'):
-        if "초급" in line:
-            current_difficulty = "초급"
-        elif "중급" in line:
-            current_difficulty = "중급"
-        elif "고급" in line:
-            current_difficulty = "고급"
-        elif "패러독스" in line:
-            current_difficulty = "패러독스"
-        elif "최종보스" in line:
-            current_difficulty = "최종보스"
-        continue
-    
-    parts = line.split(",")
-    if len(parts) >= 6:
-        name = parts[0].strip()
-        type_ = parts[1].strip()
-        power = parts[2].strip()
-        accuracy = parts[3].strip()
-        pp = parts[4].strip()
-        description = parts[5].strip()
-        skill_records.append([name, type_, power, accuracy, pp, description, current_difficulty])
+    # 등급별 가나다순 정렬
+    for grade in skill_blocks:
+        skill_blocks[grade].sort(key=lambda x: x.split(',')[0])
 
-# DataFrame 생성
-df = pd.DataFrame(skill_records, columns=["이름", "타입", "위력", "명중률", "PP", "설명", "난이도"])
+    # 파일로 저장
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("# 기술 데이터 파일\n")
+        f.write("# 형식: 이름,기술의 상성,공격력,명중률,PP,설명\n\n")
+        for grade in ['초급', '중급', '고급']:
+            f.write(f"# {grade} 기술\n")
+            for skill in skill_blocks[grade]:
+                f.write(skill + '\n')
+            f.write('\n')
 
-# 워크북 생성
-wb = Workbook()
-ws = wb.active
-ws.title = "기술 도감"
-
-# 데이터 입력
-for r in dataframe_to_rows(df, index=False, header=True):
-    ws.append(r)
-
-# 타입별 색상 적용
-for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=2, max_col=2):
-    for cell in row:
-        color = type_colors.get(cell.value, None)
-        if color:
-            cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
-
-# 난이도별 색상 적용
-for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=7, max_col=7):
-    for cell in row:
-        color = difficulty_colors.get(cell.value, None)
-        if color:
-            cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
-
-# 표 추가
-table = Table(displayName="SkillDex", ref=f"A1:G{ws.max_row}")
-table.tableStyleInfo = TableStyleInfo(name="TableStyleMedium9", showRowStripes=True)
-ws.add_table(table)
-
-# 열 너비 자동 조정
-for column in ws.columns:
-    max_length = 0
-    column = [cell for cell in column]
-    for cell in column:
-        try:
-            if len(str(cell.value)) > max_length:
-                max_length = len(str(cell.value))
-        except:
-            pass
-    adjusted_width = (max_length + 2)
-    ws.column_dimensions[column[0].column_letter].width = adjusted_width
-
-# 저장
-path = "기술_도감.xlsx"
-wb.save(path)
-
-print(f"기술 도감이 {path}에 저장되었습니다.") 
+if __name__ == "__main__":
+    parse_and_sort_skills(skill_data, "sorted_skills.txt") 
