@@ -52,6 +52,10 @@ void initParty() {
 // 요괴 성불 처리 함수
 void releaseYokai(int index) {
     if (index < 0 || index >= gPartyCount) return;
+    if (index == 0) {
+        printText("\n0번(첫 번째) 동료 요괴는 성불시킬 수 없습니다.\n");
+        return;
+    }
     
     // 요괴의 상성에 따른 색상 코드 설정
     const char* colorCode;
@@ -172,10 +176,13 @@ int handleFullParty(const Yokai* newYokai) {
             yokaiChoice--; // 0-based index로 변환
 
             if (yokaiChoice >= 0 && yokaiChoice < gPartyCount) {
+                if (yokaiChoice == 0) {
+                    printTextAndWait("\n0번(첫 번째) 동료 요괴는 성불시킬 수 없습니다. 다른 요괴를 선택하세요.");
+                    continue;
+                }
                 char buffer[128];
                 sprintf(buffer, "\n%s를 성불시켰습니다.", gParty[yokaiChoice].name);
                 printTextAndWait(buffer);
-                
                 // 선택된 요괴를 성불시키고 새로운 요괴 추가
                 releaseYokai(yokaiChoice);
                 return addYokaiToParty(newYokai);
