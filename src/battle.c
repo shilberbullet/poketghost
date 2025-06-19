@@ -197,6 +197,33 @@ int startBattle(const Yokai* enemy) {
                 }
             }
             
+            // 고대의 서적 효과: bench 요괴에게 경험치 분배
+            for (int i = 0; i < gPartyCount; i++) {
+                int isParticipated = 0;
+                for (int j = 0; j < participatedCount; j++) {
+                    if (i == participatedIdx[j]) {
+                        isParticipated = 1;
+                        break;
+                    }
+                }
+                if (isParticipated) continue;
+                if (gParty[i].status == YOKAI_FAINTED || gParty[i].status == YOKAI_RELEASED) continue;
+                int bookCount = 0;
+                for (int k = 0; k < gParty[i].yokaiInventoryCount; k++) {
+                    if (strcmp(gParty[i].yokaiInventory[k].item.name, "고대의 서적") == 0) {
+                        bookCount = gParty[i].yokaiInventory[k].count;
+                        if (bookCount > 5) bookCount = 5;
+                        break;
+                    }
+                }
+                if (bookCount > 0) {
+                    int exp = calculateIndividualExp(&currentEnemy, &gParty[i]);
+                    int bonusExp = (exp * 20 * bookCount) / 100;
+                    if (bonusExp < 1) bonusExp = 1; // 최소 1 경험치 보장
+                    gainExp(&gParty[i], bonusExp);
+                }
+            }
+            
             // 90스테이지(최종보스)가 아닐 때만 아이템 보상창 호출
             if (gStage.stageNumber != 90) {
                 itemRewardSystem(); // 아이템 보상 창 호출
@@ -719,14 +746,22 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                 }
                 
-                sprintf(buffer + strlen(buffer), "\033[0m] %.0f/%.0f\n", gParty[yokaiIdx].currentHP, maxHP);
-                printTextAndWait(buffer);
-                fastSleep(500);
+                // 색상 초기화 및 HP 바 종료
+                char tempBuffer[256];
+                sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
+                strcat(buffer, tempBuffer);
+                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                    strcat(buffer, " (기절)");
+                }
+                strcat(buffer, "\n");
                 
-                // 요괴가 기절했는지 확인
+                // HP 바 전체를 한 번에 출력
+                printTextAndWait(buffer);
+                
+                // 전투 결과 확인
                 if (gParty[yokaiIdx].currentHP <= 0) {
-                    gParty[yokaiIdx].currentHP = 0;
                     gParty[yokaiIdx].status = YOKAI_FAINTED;
+                    gParty[yokaiIdx].currentHP = 0;
                     
                     // 모든 요괴가 기절했는지 확인
                     bool allFainted = true;
@@ -739,9 +774,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     
                     if (allFainted) {
                         handleRogueliteSystem();
-                        return 104; // 전투 패배
+                    printTextAndWait("\n전투에서 패배했습니다...");
+                    return 104; // 전투 패배
                     }
-                    
+
                     // 남은 동료가 있으면 즉시 교체 메뉴
                     int newIdx = selectPartyYokai();
                     while (gParty[newIdx].status == YOKAI_FAINTED) {

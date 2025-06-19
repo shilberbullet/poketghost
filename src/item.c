@@ -313,10 +313,12 @@ void addItemToInventory(const Item* item) {
         int found = 0;
         for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
             if (strcmp(targetYokai->yokaiInventory[i].item.name, item->name) == 0) {
-                // 복숭아는 5개까지만 보유 가능
-                if (strcmp(item->name, "복숭아") == 0) {
+                // 복숭아와 고대의 서적은 5개까지만 보유 가능
+                if (strcmp(item->name, "복숭아") == 0 || strcmp(item->name, "고대의 서적") == 0) {
                     if (targetYokai->yokaiInventory[i].count >= 5) {
-                        printTextAndWait("\n복숭아는 해당 요괴가 최대 5개까지만 보유할 수 있습니다!\n");
+                        char msg[128];
+                        snprintf(msg, sizeof(msg), "\n%s는 해당 요괴가 최대 5개까지만 보유할 수 있습니다!\n", item->name);
+                        printTextAndWait(msg);
                         itemRewardSystem();
                         return;
                     }
