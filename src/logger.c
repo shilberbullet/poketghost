@@ -163,6 +163,22 @@ void logError(const char* format, ...) {
     checkLogFileSplit();
 }
 
+// 함수 실행 로깅 함수
+void logFunctionExecution(const char* funcName) {
+    if (logFile == NULL) return;
+    checkLogFileSplit();
+    char buffer[2048];
+    time_t now = time(NULL);
+    char* timeStr = ctime(&now);
+    timeStr[strlen(timeStr) - 1] = '\0';
+    int n = snprintf(buffer, sizeof(buffer), "[%s] [함수실행] %s\n", timeStr, funcName);
+    int lines = count_newlines(buffer);
+    fwrite(buffer, 1, strlen(buffer), logFile);
+    fflush(logFile);
+    logLineCount += lines;
+    checkLogFileSplit();
+}
+
 // 로그 시스템 정리 함수
 void cleanupLogger() {
     if (logFile != NULL) {

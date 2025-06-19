@@ -14,12 +14,14 @@ extern const char* getEnemyNameColorExport();
 
 // 전투 시스템 초기화 함수
 void initBattleSystem() {
+    LOG_FUNCTION_EXECUTION("initBattleSystem");
     // 향후 전투 시스템 초기화 코드가 들어갈 자리
 }
 
 // 상성 시스템 구현 함수
 // 공격 기술의 타입과 방어자의 타입에 따른 데미지 배율을 반환
 float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
+    LOG_FUNCTION_EXECUTION("getTypeEffectiveness");
     // 상성 관계 정의
     switch (moveType) {
         case TYPE_EVIL_SPIRIT:
@@ -49,6 +51,7 @@ float getTypeEffectiveness(YokaiType moveType, YokaiType defenderType) {
 // 데미지 계산 함수
 // 공격자, 방어자, 사용 기술에 따른 데미지를 계산
 float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* move) {
+    LOG_FUNCTION_EXECUTION("calculateDamage");
     // 기본 데미지 계산: 공격력 * 기술 위력 * 레벨 보정
     float baseDamage = (float)attacker->attack * move->power * (1.0f + (attacker->level * 1.2f));
     // 방어력 보정
@@ -78,6 +81,7 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
 // 전투 실행 함수
 // 공격자와 방어자 간의 전투를 실행하고 결과를 반환
 int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
+    LOG_FUNCTION_EXECUTION("executeBattle");
     // 사용할 기술 정보 가져오기
     const Move* move = &attacker->moves[moveIndex].move;
     
@@ -124,33 +128,26 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
 
     // 명중률 계산
     int baseAccuracy = move->accuracy;
-    logMessage("[함수%d] 기본 명중률: %d%%, 돋보기 개수: %d", FUNC_EXECUTE_BATTLE, baseAccuracy, attacker->magnifierCount);
     int magnifierBonus = attacker->magnifierCount * 3;
     int finalAccuracy = baseAccuracy + magnifierBonus;
     if (finalAccuracy > 100) finalAccuracy = 100;
 
     // 돋보기 효과 메시지 출력
     if (magnifierBonus > 0) {
-        logMessage("[함수%d] 돋보기 효과 계산 시작", FUNC_EXECUTE_BATTLE);
         char magnifierBuffer[256];
     
         sprintf(magnifierBuffer, "\n돋보기 %d개의 효과로 명중률이 %d%% 증가! (%d%% → %d%%)", 
             attacker->magnifierCount, magnifierBonus, baseAccuracy, finalAccuracy);
         printTextAndWait(magnifierBuffer);
-        logMessage("[함수%d] 돋보기 효과 적용 완료 (개수: %d, 명중률: %d%% → %d%%)", 
-            FUNC_EXECUTE_BATTLE, attacker->magnifierCount, baseAccuracy, finalAccuracy);
         fastSleep(500);
     }
 
     // 명중 판정
     if ((rand() % 100) > finalAccuracy) {
         printTextAndWait("\n하지만 빗나갔다!");
-        logMessage("[함수%d] 기술 빗나감 (명중률: %d%%)", FUNC_EXECUTE_BATTLE, finalAccuracy);
         fastSleep(500);
         return 0;
     }
-    
-    logMessage("[함수%d] 기술 명중 (명중률: %d%%)", FUNC_EXECUTE_BATTLE, finalAccuracy);
     
     // 데미지 계산 및 적용
     float damage = calculateDamage(attacker, defender, move);
@@ -174,8 +171,6 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
             char buffer[256];
             sprintf(buffer, "\n작두의 힘으로 데미지가 %.0f%% 증가했습니다!", (damageMultiplier - 1.0f) * 100);
             printTextAndWait(buffer);
-            logMessage("[함수%d] 작두 효과 적용 (개수: %d, 데미지 증가: %.0f%%)", 
-                FUNC_EXECUTE_BATTLE, jakduCount, (damageMultiplier - 1.0f) * 100);
             fastSleep(500);
         }
     }
@@ -282,6 +277,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
 // 턴제 전투 실행 함수
 // 플레이어와 적 요괴 간의 턴제 전투를 실행
 int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex) {
+    LOG_FUNCTION_EXECUTION("executeTurnBattle");
     // 레벨 차이에 따른 스피드 보정 계산
     int levelDiff = playerYokai->level - enemyYokai->level;
     float speedMultiplier = 1.0f + (levelDiff * 0.05f);  // 레벨 차이당 5% 보정
@@ -321,6 +317,7 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
 // 전투 결과 처리 함수
 // 전투 결과에 따른 메시지 출력
 void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
+    LOG_FUNCTION_EXECUTION("handleBattleResult");
     if (result == 1) {
         char buffer[256];
         if (defender->status == YOKAI_FAINTED) {
@@ -341,6 +338,7 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
 // 발버둥(스트러글) 전투 실행 함수
 // 모든 기술의 PP가 0일 때만 사용 가능
 int struggleBattle(Yokai* attacker, Yokai* defender) {
+    LOG_FUNCTION_EXECUTION("struggleBattle");
     // 메시지 출력
     char buffer[256];
     sprintf(buffer, "\n%s(이)가 발버둥을 쳤다!", attacker->name);

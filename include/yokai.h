@@ -13,6 +13,7 @@
 #define MAX_BOSS_YOKAI 8
 #define YOKAI_DESC_MAX 128
 #define MAX_PARADOX_YOKAI 16
+#define MAX_MAGNIFIER_COUNT 5  // 최대 돋보기 개수
 
 // 상성 이름 배열
 extern const char* typeNames[];
@@ -45,6 +46,7 @@ typedef struct {
     // 요괴 인벤토리 추가
     InventoryItem yokaiInventory[INVENTORY_MAX]; // 요괴별 인벤토리
     int yokaiInventoryCount; // 요괴 인벤토리 아이템 개수
+    int magnifierCount;  // 보유 중인 돋보기 개수
 } Yokai;
 
 // 요괴 이름 배열

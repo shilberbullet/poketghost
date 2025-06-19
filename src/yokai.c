@@ -61,6 +61,7 @@ static const float typeEffectivenessTable[TYPE_COUNT][TYPE_COUNT] = {
 
 // 상성 효과를 계산하는 함수
 float calculateTypeEffectiveness(YokaiType attackerType, YokaiType defenderType) {
+    LOG_FUNCTION_EXECUTION("calculateTypeEffectiveness");
     return typeEffectivenessTable[attackerType][defenderType];
 }
 
@@ -69,6 +70,7 @@ static unsigned long long nextYokaiId = 1;
 
 // ID 생성 함수
 static unsigned long long generateYokaiId() {
+    LOG_FUNCTION_EXECUTION("generateYokaiId");
     // 현재 시간을 밀리초 단위로 가져옴
     SYSTEMTIME st;
     GetSystemTime(&st);
@@ -88,6 +90,7 @@ static unsigned long long generateYokaiId() {
 }
 
 YokaiType parseType(const char* typeStr) {
+    LOG_FUNCTION_EXECUTION("parseType");
     if (strcmp(typeStr, "EVIL_SPIRIT") == 0) return TYPE_EVIL_SPIRIT;
     if (strcmp(typeStr, "GHOST") == 0) return TYPE_GHOST;
     if (strcmp(typeStr, "MONSTER") == 0) return TYPE_MONSTER;
@@ -97,6 +100,7 @@ YokaiType parseType(const char* typeStr) {
 }
 
 void loadYokaiFromFile(const char* filename) {
+    LOG_FUNCTION_EXECUTION("loadYokaiFromFile");
     yokaiListCount = 0;
     bossYokaiListCount = 0;
     paradoxYokaiListCount = 0;
@@ -187,6 +191,7 @@ void loadYokaiFromFile(const char* filename) {
 
 // learnableMoves에서 랜덤 4개를 moves에 복사하는 함수
 void assignRandomMoves(Yokai* y) {
+    LOG_FUNCTION_EXECUTION("assignRandomMoves");
     int idx[MAX_LEARNABLE_MOVES];
     for (int i = 0; i < y->learnableMoveCount; i++) idx[i] = i;
     // Fisher-Yates shuffle
@@ -205,6 +210,7 @@ void assignRandomMoves(Yokai* y) {
 }
 
 Yokai* findYokaiByName(const char* name) {
+    LOG_FUNCTION_EXECUTION("findYokaiByName");
     // 일반 요괴 리스트에서 검색
     for (int i = 0; i < yokaiListCount; i++) {
         if (strcmp(yokaiList[i].name, name) == 0) return &yokaiList[i];
@@ -222,6 +228,7 @@ Yokai* findYokaiByName(const char* name) {
 
 // 스테이지 번호에 따른 레벨 범위 계산 함수
 void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
+    LOG_FUNCTION_EXECUTION("calculateLevelRange");
     // 기본 레벨 = 스테이지 번호
     int baseLevel = stage;
     
@@ -243,6 +250,7 @@ void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
 
 // 랜덤 요괴 생성 함수 (레벨 지정)
 Yokai createRandomYokaiWithLevel(int level) {
+    LOG_FUNCTION_EXECUTION("createRandomYokaiWithLevel");
     int idx;
     // 도깨비를 제외한 요괴만 선택
     do {
@@ -257,13 +265,13 @@ Yokai createRandomYokaiWithLevel(int level) {
     y.status = YOKAI_NORMAL;
     y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
     y.magnifierCount = 0;  // 돋보기 개수 초기화
-    logMessage("[함수%d] %s 돋보기 개수 초기화", FUNC_LOAD_YOKAI, y.name);
     assignRandomMoves(&y);
     return y;
 }
 
 // 랜덤 보스 요괴 생성 함수 (레벨 지정)
 Yokai createRandomBossYokaiWithLevel(int level) {
+    LOG_FUNCTION_EXECUTION("createRandomBossYokaiWithLevel");
     int idx = rand() % bossYokaiListCount;
     Yokai y = bossYokaiList[idx];
     y.id = generateYokaiId();  // 고유 ID 부여
@@ -276,15 +284,18 @@ Yokai createRandomBossYokaiWithLevel(int level) {
 
 // 기본 레벨(1)로 랜덤 요괴 생성하는 함수
 Yokai createRandomYokai() {
+    LOG_FUNCTION_EXECUTION("createRandomYokai");
     return createRandomYokaiWithLevel(1);
 }
 
 // 기본 레벨(1)로 랜덤 보스 요괴 생성하는 함수
 Yokai createRandomBossYokai() {
+    LOG_FUNCTION_EXECUTION("createRandomBossYokai");
     return createRandomBossYokaiWithLevel(1);
 }
 
 Yokai createRandomParadoxYokaiWithLevel(int level) {
+    LOG_FUNCTION_EXECUTION("createRandomParadoxYokaiWithLevel");
     if (paradoxYokaiListCount == 0) {
         loadYokaiFromFile("data/yokai.txt");
     }
@@ -295,12 +306,13 @@ Yokai createRandomParadoxYokaiWithLevel(int level) {
     y.status = YOKAI_NORMAL;
     y.currentHP = calculateHP(&y);
     y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
-    logMessage("[함수%d] %s 돋보기 개수 초기화", FUNC_LOAD_YOKAI, y.name);
+    y.magnifierCount = 0;  // 돋보기 개수 초기화
     assignRandomMoves(&y);
     return y;
 }
 
 void printYokaiInfo(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("printYokaiInfo");
     printf("\n=== %s Lv.%d ===\n", yokai->name, yokai->level);
     printf("체력: %d\n", yokai->stamina);
     printf("공격력: %d\n", yokai->attack);
@@ -317,12 +329,14 @@ void printYokaiInfo(const Yokai* yokai) {
 
 // 요괴 인벤토리 초기화
 void initYokaiInventory(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("initYokaiInventory");
     yokai->yokaiInventoryCount = 0;
     memset(yokai->yokaiInventory, 0, sizeof(yokai->yokaiInventory));
 }
 
 // 요괴 인벤토리 출력
 void printYokaiInventory(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("printYokaiInventory");
     printf("\n=== %s의 인벤토리 ===\n", yokai->name);
     if (yokai->yokaiInventoryCount == 0) {
         printf("인벤토리가 비어있습니다.\n");
@@ -342,6 +356,7 @@ void printYokaiInventory(const Yokai* yokai) {
 
 // 요괴 인벤토리에 아이템 추가
 bool addItemToYokaiInventory(Yokai* yokai, const Item* item) {
+    LOG_FUNCTION_EXECUTION("addItemToYokaiInventory");
     // 중복 아이템 확인
     for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
         if (strcmp(yokai->yokaiInventory[i].item.name, item->name) == 0) {
@@ -375,6 +390,7 @@ bool addItemToYokaiInventory(Yokai* yokai, const Item* item) {
 
 // 요괴 인벤토리에서 아이템 제거
 bool removeItemFromYokaiInventory(Yokai* yokai, int itemIndex) {
+    LOG_FUNCTION_EXECUTION("removeItemFromYokaiInventory");
     if (itemIndex < 0 || itemIndex >= yokai->yokaiInventoryCount) {
         return false;
     }
@@ -395,12 +411,14 @@ bool removeItemFromYokaiInventory(Yokai* yokai, int itemIndex) {
 
 // 요괴 인벤토리 초기화
 void clearYokaiInventory(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("clearYokaiInventory");
     yokai->yokaiInventoryCount = 0;
     memset(yokai->yokaiInventory, 0, sizeof(yokai->yokaiInventory));
 }
 
 // 레벨업 함수
 void levelUpYokai(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("levelUpYokai");
     yokai->level++;
     if (yokai->status != YOKAI_FAINTED) {  // 기절 상태가 아닐 때만 HP 증가
         yokai->currentHP = calculateHP(yokai);

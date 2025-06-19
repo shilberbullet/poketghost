@@ -24,41 +24,64 @@
 #include "sikhye_system.h" // 식혜 시스템 관련 함수와 구조체 정의
 // 지역 시스템 관련 함수와 구조체 정의
 #include "region.h"       // 지역 시스템 관련 함수와 구조체 정의
+// 로거 관련 함수와 구조체 정의
+#include "logger.h"       // 로거 관련 함수와 구조체 정의
 
 // 메인 함수
 int main(void) {
+    LOG_FUNCTION_EXECUTION("main");
+    
     // 콘솔 출력 인코딩을 UTF-8로 설정 (출력 숨김)
     system("chcp 65001 > nul");
     
     // 랜덤 시드를 현재 시간으로 초기화하여 매번 다른 랜덤 값이 나오도록 함
     srand((unsigned int)time(NULL));
     
+    // 로거 초기화
+    initLogger();
+    LOG_FUNCTION_EXECUTION("initLogger");
+    
     // 아이템 시스템을 초기화하여 게임에서 사용할 아이템들을 준비
+    LOG_FUNCTION_EXECUTION("initItemSystem");
     initItemSystem();
     
     // 회복 시스템을 초기화하여 게임에서 사용할 회복 기능들을 준비
+    LOG_FUNCTION_EXECUTION("initHealSystem");
     initHealSystem();
     
     // 지역 시스템을 초기화하여 게임에서 사용할 지역 기능들을 준비
+    LOG_FUNCTION_EXECUTION("initRegionSystem");
     initRegionSystem();
     
     // 게임에 필요한 데이터 파일들을 로드
+    LOG_FUNCTION_EXECUTION("loadMovesFromFile");
     loadMovesFromFile("data/move.txt");     // 이동 관련 데이터 로드
+    LOG_FUNCTION_EXECUTION("loadYokaiFromFile");
     loadYokaiFromFile("data/yokai.txt");    // 요괴 관련 데이터 로드
+    LOG_FUNCTION_EXECUTION("loadItemsFromFile");
     loadItemsFromFile("data/items.txt");    // 아이템 관련 데이터 로드
     
     // 게임 설정을 초기화하여 기본 설정값을 로드
+    LOG_FUNCTION_EXECUTION("initSettings");
     initSettings();
     
     // 무한 게임 루프
     while (1) {
+        LOG_FUNCTION_EXECUTION("initGame");
         initGame(); // 게임 상태를 초기화
+        LOG_FUNCTION_EXECUTION("showMainMenu");
         showMainMenu(); // 메인 메뉴를 표시
     }
     
     // 프로그램 종료 전 정리 작업
+    LOG_FUNCTION_EXECUTION("cleanupHealSystem");
     cleanupHealSystem(); // 회복 시스템 정리
+    LOG_FUNCTION_EXECUTION("cleanupItemSystem");
     cleanupItemSystem(); // 아이템 시스템 정리
+    
+    // 로거 정리
+    LOG_FUNCTION_EXECUTION("cleanupLogger");
+    cleanupLogger();
     
     return 0; // 프로그램 정상 종료
 } 

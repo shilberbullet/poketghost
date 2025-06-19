@@ -84,4 +84,6 @@ void printInventory();
 // 작두 아이템 개수 반환 함수
 int getJakduCount();
 
+bool useYokaiItem(const Item* item, void* targetYokai);
+
 #endif // ITEM_H 

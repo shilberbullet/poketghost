@@ -8,6 +8,9 @@
 // 로그 파일 경로
 #define LOG_FILE_PATH "logs/game.log"
 
+// 함수 실행 로깅을 위한 매크로
+#define LOG_FUNCTION_EXECUTION(func_name) logFunctionExecution(func_name)
+
 // 로그 초기화 함수 (파일명 자동 생성 및 분할 관리)
 void initLogger();
 
@@ -22,6 +25,9 @@ void logInput(const char* format, ...);
 
 // 오류 로깅 함수
 void logError(const char* format, ...);
+
+// 함수 실행 로깅 함수
+void logFunctionExecution(const char* funcName);
 
 // 로그 시스템 정리 함수
 void cleanupLogger();
