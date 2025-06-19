@@ -326,6 +326,14 @@ int selectPartyYokai() {
 
 // 기술 선택 함수
 int selectMove(const Yokai* yokai) {
+    // 모든 기술의 PP가 0인지 확인
+    bool allPPZero = true;
+    for (int i = 0; i < yokai->moveCount; i++) {
+        if (yokai->moves[i].currentPP > 0) {
+            allPPZero = false;
+            break;
+        }
+    }
     printText("\n사용할 기술을 선택하세요:\n");
     for (int i = 0; i < yokai->moveCount; i++) {
         char buffer[128];
@@ -349,7 +357,6 @@ int selectMove(const Yokai* yokai) {
             default:
                 colorCode = "\033[0m";   // 기본색
         }
-        
         // 상성 힌트 생성
         char typeHint[64] = "";
         if (gameSettings.showTypeHint) {
@@ -360,7 +367,6 @@ int selectMove(const Yokai* yokai) {
                 sprintf(typeHint, " \033[31m(약한 공격)\033[0m");
             }
         }
-        
         sprintf(buffer, "%d. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d/%d)%s\n", 
             i+1, 
             colorCode,
@@ -378,6 +384,10 @@ int selectMove(const Yokai* yokai) {
     if (idx < 0 || idx >= yokai->moveCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return selectMove(yokai);
+    }
+    if (allPPZero) {
+        // 발버둥(스트러글) 상황: 어떤 기술을 선택해도 발버둥
+        return -100; // 특수 플래그 값
     }
     if (yokai->moves[idx].currentPP <= 0) {
         printTextAndWait("\n해당 기술의 PP가 부족합니다. 다른 기술을 선택하세요.");
@@ -523,7 +533,13 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (moveIdx == -1) {
                 return 0; // 뒤로 돌아가기
             }
-            int result = executeTurnBattle(&gParty[yokaiIdx], enemy, moveIdx);
+            int result;
+            if (moveIdx == -100) {
+                // 발버둥(스트러글) 상황
+                result = struggleBattle(&gParty[yokaiIdx], enemy);
+            } else {
+                result = executeTurnBattle(&gParty[yokaiIdx], enemy, moveIdx);
+            }
             
             // 전투 결과 처리 전에 요괴가 기절했는지 확인
             if (gParty[yokaiIdx].currentHP <= 0) {

@@ -21,4 +21,7 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
 // 전투 결과 처리
 void handleBattleResult(Yokai* attacker, Yokai* defender, int result);
 
+// 발버둥(스트러글) 전투 실행
+int struggleBattle(Yokai* attacker, Yokai* defender);
+
 #endif // BATTLE_SYSTEM_H 
