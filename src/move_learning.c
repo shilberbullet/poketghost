@@ -37,7 +37,7 @@ bool canLearnNewMove(const Yokai* yokai) {
                     if (yokai->level >= 10 && yokai->level <= 30) return true;
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30 && yokai->level <= 60) return true;
+                    if (yokai->level >= 30 && yokai->level <= 100) return true;
                     break;
             }
         }

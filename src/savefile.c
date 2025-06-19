@@ -86,6 +86,9 @@ void saveGame() {
         for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
             fwrite(&gParty[i].yokaiInventory[j], sizeof(InventoryItem), 1, file);
         }
+        
+        // 돋보기 개수 저장
+        fwrite(&gParty[i].magnifierCount, sizeof(int), 1, file);
     }
     
     // 플레이어 정보 저장
@@ -233,6 +236,9 @@ int loadGameData() {
         for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {
             fread(&gParty[i].yokaiInventory[j], sizeof(InventoryItem), 1, file);
         }
+        
+        // 돋보기 개수 불러오기
+        fread(&gParty[i].magnifierCount, sizeof(int), 1, file);
         
         // 복숭아 개수 제한 확인 (5개 초과 시 5개로 제한)
         for (int j = 0; j < gParty[i].yokaiInventoryCount; j++) {

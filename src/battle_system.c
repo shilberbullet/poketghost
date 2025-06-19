@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "battle_system.h"
+#include "logger.h"
 #include "text.h"
 #include "hp_system.h"
 #include "battle.h"  // currentEnemy 변수를 위해 추가
@@ -61,24 +62,7 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     }
     
     // 최종 데미지 계산
-    float damage = (baseDamage / defenseFactor) * typeEffectiveness * 0.7f ;
-    
-    // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
-    // 파티 정보는 state 모듈에서 접근
-    for (int i = 0; i < gPartyCount; i++) {
-        if (attacker == &gParty[i]) {
-            int jakduCount = getJakduCount();
-            if (jakduCount > 0) {
-                if (jakduCount > 5) jakduCount = 5;
-                float damageMultiplier = 1.0f + 0.1f * jakduCount;
-                damage *= damageMultiplier;
-                char buffer[256];
-                sprintf(buffer, "\n작두의 힘으로 데미지가 %.0f%% 증가했습니다!\n", (damageMultiplier - 1.0f) * 100);
-                printText(buffer);
-            }
-            break;
-        }
-    }
+    float damage = (baseDamage / defenseFactor) * typeEffectiveness * 0.7f;
     
     // 랜덤 요소 추가 (0.85 ~ 1.0)
     float randomFactor = 0.85f + (float)(rand() % 16) / 100.0f;
@@ -126,7 +110,7 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         colorCode = "\033[0m";   // 잘못된 타입일 경우 기본색
     }
     
-    // 기술 사용 메시지 출력 (상대 요괴일 경우에만 이름 색상 적용)
+    // 기술 사용 메시지 출력
     char buffer[512];
     if (attacker == &currentEnemy) {
         // 상대 요괴의 경우 색상 적용
@@ -136,17 +120,65 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         sprintf(buffer, "\n%s의 %s%s\033[0m!", attacker->name, colorCode, move->name);
     }
     printTextAndWait(buffer);
+    fastSleep(500);
+
+    // 명중률 계산
+    int baseAccuracy = move->accuracy;
+    logMessage("[함수%d] 기본 명중률: %d%%, 돋보기 개수: %d", FUNC_EXECUTE_BATTLE, baseAccuracy, attacker->magnifierCount);
+    int magnifierBonus = attacker->magnifierCount * 3;
+    int finalAccuracy = baseAccuracy + magnifierBonus;
+    if (finalAccuracy > 100) finalAccuracy = 100;
+
+    // 돋보기 효과 메시지 출력
+    if (magnifierBonus > 0) {
+        logMessage("[함수%d] 돋보기 효과 계산 시작", FUNC_EXECUTE_BATTLE);
+        char magnifierBuffer[256];
     
-    // 명중률 체크
-    if ((rand() % 100) >= move->accuracy) {
+        sprintf(magnifierBuffer, "\n돋보기 %d개의 효과로 명중률이 %d%% 증가! (%d%% → %d%%)", 
+            attacker->magnifierCount, magnifierBonus, baseAccuracy, finalAccuracy);
+        printTextAndWait(magnifierBuffer);
+        logMessage("[함수%d] 돋보기 효과 적용 완료 (개수: %d, 명중률: %d%% → %d%%)", 
+            FUNC_EXECUTE_BATTLE, attacker->magnifierCount, baseAccuracy, finalAccuracy);
+        fastSleep(500);
+    }
+
+    // 명중 판정
+    if ((rand() % 100) > finalAccuracy) {
         printTextAndWait("\n하지만 빗나갔다!");
+        logMessage("[함수%d] 기술 빗나감 (명중률: %d%%)", FUNC_EXECUTE_BATTLE, finalAccuracy);
         fastSleep(500);
         return 0;
     }
     
+    logMessage("[함수%d] 기술 명중 (명중률: %d%%)", FUNC_EXECUTE_BATTLE, finalAccuracy);
+    
     // 데미지 계산 및 적용
     float damage = calculateDamage(attacker, defender, move);
     float actualDamage = damage;
+    
+    // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
+    bool isPlayerYokai = false;
+    for (int i = 0; i < gPartyCount; i++) {
+        if (attacker == &gParty[i]) {
+            isPlayerYokai = true;
+            break;
+        }
+    }
+    
+    if (isPlayerYokai) {
+        int jakduCount = getJakduCount();
+        if (jakduCount > 0) {
+            if (jakduCount > 5) jakduCount = 5;
+            float damageMultiplier = 1.0f + 0.1f * jakduCount;
+            actualDamage *= damageMultiplier;
+            char buffer[256];
+            sprintf(buffer, "\n작두의 힘으로 데미지가 %.0f%% 증가했습니다!", (damageMultiplier - 1.0f) * 100);
+            printTextAndWait(buffer);
+            logMessage("[함수%d] 작두 효과 적용 (개수: %d, 데미지 증가: %.0f%%)", 
+                FUNC_EXECUTE_BATTLE, jakduCount, (damageMultiplier - 1.0f) * 100);
+            fastSleep(500);
+        }
+    }
     
     // 실제 데미지가 현재 HP보다 크면 현재 HP만큼만 데미지를 입힘
     if (actualDamage > defender->currentHP) {
