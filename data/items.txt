@@ -28,5 +28,6 @@
 고급양갱,SUPERRARE,YANGGAENG,선택한 요괴의 레벨을 3 올려준다 
 곶감,SUPERRARE,HEAL,동료 요괴의 모든 체력을 회복한다 
 고대의 서적,SUPERRARE,YOKAI,보유한 요괴가 전투에 참여하지 않아도 경험치를 받는다
+돋보기,SUPERRARE,YOKAI,동료 요괴가 지니고 있으면 기술의 명중률이 3% 증가한다
  
  
