@@ -55,6 +55,11 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     // 타입 상성 적용
     float typeEffectiveness = getTypeEffectiveness(move->type, defender->type);
     
+    // 타입 일치 보너스(STAB) 적용
+    if (move->type == attacker->type) {
+        typeEffectiveness *= 1.5f;
+    }
+    
     // 최종 데미지 계산
     float damage = (baseDamage / defenseFactor) * typeEffectiveness;
     
