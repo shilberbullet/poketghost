@@ -240,7 +240,11 @@ void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
 
 // 랜덤 요괴 생성 함수 (레벨 지정)
 Yokai createRandomYokaiWithLevel(int level) {
-    int idx = rand() % yokaiListCount;
+    int idx;
+    // 도깨비를 제외한 요괴만 선택
+    do {
+        idx = rand() % yokaiListCount;
+    } while (strcmp(yokaiList[idx].name, "도깨비") == 0);
     Yokai y = yokaiList[idx];
     y.id = generateYokaiId();  // 고유 ID 부여
     y.level = level;
