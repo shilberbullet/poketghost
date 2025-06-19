@@ -53,7 +53,7 @@ void initParty() {
 void releaseYokai(int index) {
     if (index < 0 || index >= gPartyCount) return;
     if (index == 0) {
-        printText("\n0번(첫 번째) 동료 요괴는 성불시킬 수 없습니다.\n");
+        printText("\n도깨비는 성불시킬 수 없습니다.\n");
         return;
     }
     
@@ -177,7 +177,7 @@ int handleFullParty(const Yokai* newYokai) {
 
             if (yokaiChoice >= 0 && yokaiChoice < gPartyCount) {
                 if (yokaiChoice == 0) {
-                    printTextAndWait("\n0번(첫 번째) 동료 요괴는 성불시킬 수 없습니다. 다른 요괴를 선택하세요.");
+                    printTextAndWait("\n도깨비는 성불시킬 수 없습니다. 다른 요괴를 선택하세요.");
                     continue;
                 }
                 char buffer[128];
