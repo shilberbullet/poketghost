@@ -195,31 +195,90 @@ void itemRewardSystem() {
         return;
     }
     
-    addItemToInventory(&candidates[idx]);
-    
-    // 작두나 무당방울의 경우 개수에 따라 메시지 출력 여부 결정
-    if (strcmp(candidates[idx].name, "작두") == 0 || strcmp(candidates[idx].name, "무당방울") == 0) {
-        int count = 0;
-        for (int i = 0; i < inventoryCount; i++) {
-            if (strcmp(inventory[i].item.name, candidates[idx].name) == 0) {
-                count = inventory[i].count;
-                break;
+    // 요괴형 아이템은 요괴 인벤토리로
+    if (strcmp(candidates[idx].name, "돋보기") == 0 || 
+        strcmp(candidates[idx].name, "복숭아") == 0 || 
+        strcmp(candidates[idx].name, "고대의 서적") == 0 ||
+        candidates[idx].type == ITEM_YANGGAENG) {  // 양갱형 아이템 추가
+        
+        // 요괴 선택 메뉴
+        if (strcmp(candidates[idx].name, "돋보기") == 0) {
+            printText("\n돋보기를 장착할 요괴를 선택하세요:\n");
+        } else if (strcmp(candidates[idx].name, "복숭아") == 0) {
+            printText("\n복숭아를 지니게 할 요괴를 선택하세요:\n");
+        } else if (strcmp(candidates[idx].name, "고대의 서적") == 0) {
+            printText("\n고대의 서적을 지니게 할 요괴를 선택하세요:\n");
+        } else if (candidates[idx].type == ITEM_YANGGAENG) {
+            if (strcmp(candidates[idx].name, "이상한 양갱") == 0) {
+                // 이상한 양갱은 바로 사용
+                addItemToInventory(&candidates[idx]);
+                return;
             }
+            printText("\n양갱을 먹을 요괴를 선택하세요:\n");
+        } else {
+            printText("\n회복할 요괴를 선택하세요:\n");
         }
-        // 5개 미만일 때만 메시지 출력
-        if (count < 5) {
+        for (int i = 0; i < gPartyCount; i++) {
+            char buffer[256];
+            sprintf(buffer, "%d. %s Lv.%d (HP: %.0f/%.0f)\033[0m\n", 
+                i + 1, 
+                gParty[i].name, 
+                gParty[i].level,
+                gParty[i].currentHP,
+                calculateHP(&gParty[i]));
+            printText(buffer);
+        }
+        printText("0. 뒤로 가기\n");
+        printText("숫자를 입력해주세요: ");
+        
+        int yokaiChoice = getIntInput();
+        if (yokaiChoice == 0) {
+            itemRewardSystem();
+            return;
+        }
+        
+        if (yokaiChoice < 1 || yokaiChoice > gPartyCount) {
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            itemRewardSystem();
+            return;
+        }
+        
+        // 선택된 요괴에게 아이템 지급
+        Yokai* targetYokai = &gParty[yokaiChoice - 1];
+        if (useYokaiItem(&candidates[idx], targetYokai)) {
             char buffer[128];
             sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
             printTextAndWait(buffer);
             fastSleep(500);
         }
-    }
-    // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
-    else if (candidates[idx].type != ITEM_HEAL && candidates[idx].type != ITEM_YANGGAENG) {
-        char buffer[128];
-        sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
-        printTextAndWait(buffer);
-        fastSleep(500);
+    } else {
+        // 일반 아이템은 플레이어 인벤토리에 추가
+        addItemToInventory(&candidates[idx]);
+        
+        // 작두나 무당방울의 경우 개수에 따라 메시지 출력 여부 결정
+        if (strcmp(candidates[idx].name, "작두") == 0 || strcmp(candidates[idx].name, "무당방울") == 0) {
+            int count = 0;
+            for (int i = 0; i < inventoryCount; i++) {
+                if (strcmp(inventory[i].item.name, candidates[idx].name) == 0) {
+                    count = inventory[i].count;
+                    break;
+                }
+            }
+            // 5개 미만일 때만 메시지 출력
+            if (count < 5) {
+                char buffer[128];
+                sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
+                printTextAndWait(buffer);
+                fastSleep(500);
+            }
+        }
+        // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
+        else if (candidates[idx].type != ITEM_HEAL && candidates[idx].type != ITEM_YANGGAENG) {
+            char buffer[128];
+            sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
+            printTextAndWait(buffer);
+            fastSleep(500);
+        }
     }
     
     // 보상 선택이 완료되면 초기화 플래그를 리셋

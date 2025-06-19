@@ -13,6 +13,7 @@
 #include "party.h"
 #include "move_learning.h"
 #include "../core/state.h"
+#include "logger.h"
 
 #define INITIAL_ITEM_CAPACITY 32
 
@@ -126,8 +127,8 @@ void getRandomItems(Item* outItems, int count) {
         ItemGrade targetGrade;
         
         // 등급별 확률 설정
-        if (randomValue < 70) targetGrade = ITEM_COMMON;      // 70%
-        else if (randomValue < 95) targetGrade = ITEM_RARE;   // 25%
+        if (randomValue < 60) targetGrade = ITEM_COMMON;      // 70%
+        else if (randomValue < 5) targetGrade = ITEM_RARE;   // 25%
         else targetGrade = ITEM_SUPERRARE;             // 5%
 
         // 해당 등급의 아이템 중 랜덤 선택
@@ -704,4 +705,63 @@ bool useForgottenMoveItem(const Item* item, void* targetYokai) {
     }
 
     return true;
+}
+
+bool useYokaiItem(const Item* item, void* targetYokai) {
+    Yokai* yokai = (Yokai*)targetYokai;
+    if (!yokai) return false;
+    
+    if (strcmp(item->name, "복숭아") == 0) {
+        // 복숭아 아이템 처리
+        for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+            if (strcmp(yokai->yokaiInventory[i].item.name, "복숭아") == 0) {
+                printTextAndWait("\n이미 복숭아를 가지고 있습니다!");
+                return false;
+            }
+        }
+        addItemToYokaiInventory(yokai, item);
+        return true;
+    }
+    else if (strcmp(item->name, "고대의 서적") == 0) {
+        // 고대의 서적 아이템 처리
+        for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+            if (strcmp(yokai->yokaiInventory[i].item.name, "고대의 서적") == 0) {
+                printTextAndWait("\n이미 고대의 서적을 가지고 있습니다!");
+                return false;
+            }
+        }
+        addItemToYokaiInventory(yokai, item);
+        return true;
+    }
+    else if (strcmp(item->name, "돋보기") == 0) {
+        logMessage("[함수%d] 돋보기 사용 시도 (현재 개수: %d)", FUNC_USE_YOKAI_ITEM, yokai->magnifierCount);
+        // 돋보기 개수 체크
+        if (yokai->magnifierCount >= MAX_MAGNIFIER_COUNT) {
+            char buffer[256];
+            sprintf(buffer, "\n%s는 이미 최대 개수(%d개)의 돋보기를 가지고 있습니다!", yokai->name, MAX_MAGNIFIER_COUNT);
+            printTextAndWait(buffer);
+            logMessage("[함수%d] 돋보기 사용 실패 (최대 개수 도달)", FUNC_USE_YOKAI_ITEM);
+            return false;
+        }
+        // 먼저 돋보기 개수를 증가시킴
+        yokai->magnifierCount++;
+        logMessage("[함수%d] magnifierCount 증가 (%d → %d)", FUNC_USE_YOKAI_ITEM, yokai->magnifierCount - 1, yokai->magnifierCount);
+        
+        // 그 다음 돋보기를 요괴의 인벤토리에 추가
+        if (!addItemToYokaiInventory(yokai, item)) {
+            // 인벤토리 추가 실패 시 돋보기 개수 원복
+            yokai->magnifierCount--;
+            logMessage("[함수%d] 돋보기 사용 실패 (인벤토리 추가 실패)", FUNC_USE_YOKAI_ITEM);
+            return false;
+        }
+        char buffer[256];
+        sprintf(buffer, "\n%s의 돋보기 개수가 %d개가 되었습니다! (명중률 +%d%%)", 
+            yokai->name, yokai->magnifierCount, yokai->magnifierCount * 3);
+        printTextAndWait(buffer);
+        logMessage("[함수%d] 돋보기 사용 성공 (현재 개수: %d, 명중률 보너스: +%d%%)", 
+            FUNC_USE_YOKAI_ITEM, yokai->magnifierCount, yokai->magnifierCount * 3);
+        fastSleep(500);
+        return true;
+    }
+    return false;
 } 

@@ -39,7 +39,7 @@ extern unsigned long long participatedId[];
 void initGame() {
     // 로그 시스템 초기화
     initLogger();
-    logMessage("게임 초기화 시작");
+    logMessage("[함수%d] 게임 초기화 시작", FUNC_INIT_GAME);
 
     // 게임의 기본 상태를 초기화
     gGameState.isRunning = 1;        // 게임 실행 상태를 true로 설정
@@ -54,7 +54,7 @@ void initGame() {
         
         // 아이템 데이터를 파일에서 로드
         loadItemsFromFile("data/items.txt");
-        logMessage("아이템 데이터 로드 완료");
+        logMessage("[함수%d] 아이템 데이터 로드 완료", FUNC_INIT_GAME);
         
         // 게임 시작 시 기본 아이템인 '낡은 부적' 5개를 인벤토리에 추가
         Item* oldTalisman = NULL;
@@ -71,7 +71,7 @@ void initGame() {
         }
     }
 
-    logMessage("게임 초기화 완료");
+    logMessage("[함수%d] 게임 초기화 완료", FUNC_INIT_GAME);
 }
 
 // 전을 추가하는 함수
@@ -99,7 +99,7 @@ void addMoney(int amount) {
         sprintf(buffer, "\n%d전을 획득했습니다! (현재 보유: %d전)\n", amount, gPlayer.money);
     }
     printText(buffer);
-    logMessage("전 획득: %d (보너스: %d, 총: %d, 현재 보유: %d)", amount, bonus, total, gPlayer.money);
+    logMessage("[함수%d] 전 획득: %d (보너스: %d, 총: %d, 현재 보유: %d)", FUNC_ADD_MONEY, amount, bonus, total, gPlayer.money);
 }
 
 // 현재 보유한 전을 보여주는 함수
@@ -107,12 +107,12 @@ void showMoney() {
     char buffer[128];
     sprintf(buffer, "\n현재 보유 전: %d전\n", gPlayer.money);
     printText(buffer);
-    logMessage("현재 보유 전: %d", gPlayer.money);
+    logMessage("[함수%d] 현재 보유 전: %d", FUNC_SHOW_MONEY, gPlayer.money);
 }
 
 // 게임 상태를 완전히 초기화하는 함수
 void resetGameState() {
-    logMessage("게임 상태 초기화 시작");
+    logMessage("[함수%d] 게임 상태 초기화 시작", FUNC_RESET_GAME);
 
     // 게임 상태를 기본값으로 초기화
     gGameState.isRunning = 1;        // 게임 실행 상태를 true로 설정
@@ -125,7 +125,7 @@ void resetGameState() {
     
     // 아이템 데이터를 다시 로드
     loadItemsFromFile("data/items.txt");
-    logMessage("아이템 데이터 재로드 완료");
+    logMessage("[함수%d] 아이템 데이터 재로드 완료", FUNC_RESET_GAME);
     
     // 낡은 부적 5개를 다시 추가
     Item* oldTalisman = NULL;
@@ -139,15 +139,15 @@ void resetGameState() {
         for (int i = 0; i < 5; i++) {
             addItemToInventory(oldTalisman);
         }
-        logMessage("초기 아이템 '낡은부적' 5개 재추가");
+        logMessage("[함수%d] 초기 아이템 '낡은부적' 5개 재추가", FUNC_RESET_GAME);
     }
 
-    logMessage("게임 상태 초기화 완료");
+    logMessage("[함수%d] 게임 상태 초기화 완료", FUNC_RESET_GAME);
 }
 
 // 게임 종료 함수
 void cleanupGame() {
-    logMessage("게임 종료 처리 시작");
+    logMessage("[함수%d] 게임 종료 처리 시작", FUNC_CLEANUP_GAME);
     cleanupLogger();
 }
 

@@ -103,7 +103,7 @@ int healYokai(Yokai* targetYokai) {
                     printTextAndWait("\n막걸리는 기절한 요괴만 회복할 수 있습니다!");
                     return -1;
                 }
-                float healAmount = maxHP * 0.9f;
+                float healAmount = maxHP * 1.0f;
                 float oldHP = targetYokai->currentHP;
                 targetYokai->currentHP += healAmount;
                 if (targetYokai->currentHP > maxHP) {

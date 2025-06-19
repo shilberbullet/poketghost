@@ -5,6 +5,8 @@
 #include <windows.h>  // SYSTEMTIME 구조체를 위해 추가
 #include "yokai.h"
 #include "move.h"
+#include "logger.h"
+#include "text.h"
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -141,6 +143,7 @@ void loadYokaiFromFile(const char* filename) {
             strncpy(y->desc, desc, YOKAI_DESC_MAX - 1);
             y->desc[YOKAI_DESC_MAX - 1] = '\0';
             y->learnableMoveCount = 0;
+            y->yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
             char* moveName = strtok(moves, ";");
             while (moveName && y->learnableMoveCount < MAX_LEARNABLE_MOVES) {
                 Move* m = findMoveByName(moveName);
@@ -245,11 +248,16 @@ Yokai createRandomYokaiWithLevel(int level) {
     do {
         idx = rand() % yokaiListCount;
     } while (strcmp(yokaiList[idx].name, "도깨비") == 0);
+    
     Yokai y = yokaiList[idx];
-    y.id = generateYokaiId();  // 고유 ID 부여
+    y.id = generateYokaiId();
     y.level = level;
-    y.status = YOKAI_NORMAL;  // 기본 상태는 정상
-    y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
+    y.exp = 0;
+    y.currentHP = calculateHP(&y);
+    y.status = YOKAI_NORMAL;
+    y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
+    y.magnifierCount = 0;  // 돋보기 개수 초기화
+    logMessage("[함수%d] %s 돋보기 개수 초기화", FUNC_LOAD_YOKAI, y.name);
     assignRandomMoves(&y);
     return y;
 }
@@ -286,6 +294,8 @@ Yokai createRandomParadoxYokaiWithLevel(int level) {
     y.level = level;
     y.status = YOKAI_NORMAL;
     y.currentHP = calculateHP(&y);
+    y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
+    logMessage("[함수%d] %s 돋보기 개수 초기화", FUNC_LOAD_YOKAI, y.name);
     assignRandomMoves(&y);
     return y;
 }
