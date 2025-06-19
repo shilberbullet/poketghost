@@ -79,8 +79,6 @@ void releaseYokai(int index) {
             colorCode = "\033[0m";   // 기본색
     }
     
-    // 요괴를 성불 상태로 설정하고 메시지 출력
-    gParty[index].status = YOKAI_RELEASED;
     // 요괴 인벤토리 초기화
     clearYokaiInventory(&gParty[index]);
     
@@ -90,6 +88,12 @@ void releaseYokai(int index) {
         colorCode,
         typeNames[gParty[index].type]);
     printText(buffer);
+
+    // 실제로 파티 배열에서 삭제 (뒤의 요괴들을 앞으로 당김)
+    for (int i = index; i < gPartyCount - 1; i++) {
+        gParty[i] = gParty[i + 1];
+    }
+    gPartyCount--;
 }
 
 // 새로운 요괴를 잡았을 때 파티가 가득 찼을 경우의 처리
@@ -277,18 +281,19 @@ void showYokaiSubMenu(const Yokai* yokai) {
         sprintf(buffer + strlen(buffer), "4. 경험치 보기\n");
         sprintf(buffer + strlen(buffer), "5. 기술 목록 보기\n");
         sprintf(buffer + strlen(buffer), "6. 요괴 인벤토리 보기\n");
+        sprintf(buffer + strlen(buffer), "7. 동료요괴를 성불시킨다\n");
         if (gameSettings.debugMode) {
-            sprintf(buffer + strlen(buffer), "7. 배울 수 있는 기술 목록 보기\n");
-            sprintf(buffer + strlen(buffer), "8. 잊은 기술 보기\n");
-            sprintf(buffer + strlen(buffer), "9. 뒤로 가기\n");
+            sprintf(buffer + strlen(buffer), "8. 배울 수 있는 기술 목록 보기\n");
+            sprintf(buffer + strlen(buffer), "9. 잊은 기술 보기\n");
+            sprintf(buffer + strlen(buffer), "10. 뒤로 가기\n");
         } else {
-            sprintf(buffer + strlen(buffer), "7. 뒤로 가기\n");
+            sprintf(buffer + strlen(buffer), "8. 뒤로 가기\n");
         }
         sprintf(buffer + strlen(buffer), "\n숫자를 입력해주세요: ");
         printText(buffer);
         
         int choice = getIntInput();
-        if ((!gameSettings.debugMode && choice == 7) || (gameSettings.debugMode && choice == 9)) {
+        if ((!gameSettings.debugMode && choice == 8) || (gameSettings.debugMode && choice == 10)) {
             return;
         }
         
@@ -425,7 +430,27 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                             break;
             }
-            case 7: {  // 배울 수 있는 기술 목록
+            case 7: {  // 동료요괴를 성불시킨다
+                int idx = -1;
+                // 파티 배열에서 해당 요괴의 인덱스 찾기
+                for (int i = 0; i < gPartyCount; i++) {
+                    if (&gParty[i] == yokai) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx == 0) {
+                    printTextAndWait("\n도깨비는 성불시킬 수 없습니다.\n");
+                } else if (idx > 0 && idx < gPartyCount) {
+                    releaseYokai(idx);
+                    printTextAndWait("\n성불이 완료되었습니다. 목록에서 사라집니다.\n");
+                    return; // 성불 후 메뉴 종료
+                } else {
+                    printTextAndWait("\n오류: 요괴 인덱스를 찾을 수 없습니다.\n");
+                }
+                break;
+            }
+            case 8: {  // 배울 수 있는 기술 목록
                 sprintf(buffer, "%s의 배울 수 있는 기술 목록:\n\n", yokai->name);
                 for (int i = 0; i < yokai->learnableMoveCount; i++) {
                     char* typeColor = "";
@@ -453,7 +478,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                 break;
             }
-            case 8: {  // 잊은 기술 목록
+            case 9: {  // 잊은 기술 목록
                 sprintf(buffer, "%s의 잊은 기술 목록:\n\n", yokai->name);
                 for (int i = 0; i < yokai->forgottenMoveCount; i++) {
                     char* typeColor = "";
