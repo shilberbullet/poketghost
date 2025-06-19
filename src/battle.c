@@ -398,22 +398,52 @@ int selectMove(const Yokai* yokai) {
 
 // 부적 아이템 선택 함수
 int selectTalismanFromInventory() {
-    int talismanIdx[INVENTORY_MAX];
+    typedef struct {
+        int idx;
+        ItemGrade grade;
+    } TalismanInfo;
+    TalismanInfo talismans[INVENTORY_MAX];
     int talismanCount = 0;
     for (int i = 0; i < inventoryCount; i++) {
         if (inventory[i].item.type == ITEM_TALISMAN && inventory[i].count > 0) {
-            talismanIdx[talismanCount++] = i;
+            talismans[talismanCount].idx = i;
+            talismans[talismanCount].grade = inventory[i].item.grade;
+            talismanCount++;
         }
     }
     if (talismanCount == 0) {
         printTextAndWait("\n사용할 수 있는 부적이 없습니다!");
         return -1;
     }
+    // 등급 기준 오름차순 정렬
+    for (int i = 0; i < talismanCount - 1; i++) {
+        for (int j = i + 1; j < talismanCount; j++) {
+            if (talismans[i].grade > talismans[j].grade) {
+                TalismanInfo temp = talismans[i];
+                talismans[i] = talismans[j];
+                talismans[j] = temp;
+            }
+        }
+    }
     printText("\n사용할 부적을 선택하세요:\n");
     printText("0. 뒤로 가기\n");
     for (int i = 0; i < talismanCount; i++) {
         char buffer[128];
-        sprintf(buffer, "%d. %s (보유: %d개)\n", i+1, inventory[talismanIdx[i]].item.name, inventory[talismanIdx[i]].count);
+        const char* colorCode = "\033[0m";
+        switch (inventory[talismans[i].idx].item.grade) {
+            case ITEM_COMMON:
+                colorCode = "\033[0m"; // 기본색
+                break;
+            case ITEM_RARE:
+                colorCode = "\033[33m"; // 노란색
+                break;
+            case ITEM_SUPERRARE:
+                colorCode = "\033[31m"; // 빨간색
+                break;
+            default:
+                colorCode = "\033[0m";
+        }
+        sprintf(buffer, "%s%d. %s (보유: %d개)\033[0m\n", colorCode, i+1, inventory[talismans[i].idx].item.name, inventory[talismans[i].idx].count);
         printText(buffer);
     }
     printText("숫자를 입력해주세요: ");
@@ -424,7 +454,7 @@ int selectTalismanFromInventory() {
         printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
         return selectTalismanFromInventory();
     }
-    return talismanIdx[idx];
+    return talismans[idx].idx;
 }
 
 // 동료 요괴 교체 함수
