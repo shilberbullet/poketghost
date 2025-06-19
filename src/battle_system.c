@@ -61,7 +61,7 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
     }
     
     // 최종 데미지 계산
-    float damage = (baseDamage / defenseFactor) * typeEffectiveness;
+    float damage = (baseDamage / defenseFactor) * typeEffectiveness * 0.7f ;
     
     // 작두 효과 적용 (플레이어 동료 요괴가 공격할 때만)
     // 파티 정보는 state 모듈에서 접근
