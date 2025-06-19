@@ -8,7 +8,7 @@
 // 로그 파일 경로
 #define LOG_FILE_PATH "logs/game.log"
 
-// 로그 초기화 함수
+// 로그 초기화 함수 (파일명 자동 생성 및 분할 관리)
 void initLogger();
 
 // 로그 기록 함수
