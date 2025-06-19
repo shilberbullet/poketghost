@@ -304,4 +304,111 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
             fastSleep(500);
         }
     }
+}
+
+// 발버둥(스트러글) 전투 실행 함수
+// 모든 기술의 PP가 0일 때만 사용 가능
+int struggleBattle(Yokai* attacker, Yokai* defender) {
+    // 메시지 출력
+    char buffer[256];
+    sprintf(buffer, "\n%s(이)가 발버둥을 쳤다!", attacker->name);
+    printTextAndWait(buffer);
+
+    // 상대에게 최대 HP의 10% 데미지
+    float defenderMaxHP = calculateHP(defender);
+    float struggleDamage = defenderMaxHP * 0.1f;
+    if (struggleDamage < 1.0f) struggleDamage = 1.0f;
+    if (struggleDamage > defender->currentHP) struggleDamage = defender->currentHP;
+    defender->currentHP -= struggleDamage;
+    if (defender->currentHP < 0) defender->currentHP = 0;
+    sprintf(buffer, "\n%s에게 %.0f의 데미지를 입혔다!", defender->name, struggleDamage);
+    printTextAndWait(buffer);
+
+    // 자신에게 최대 HP의 20% 반동 데미지
+    float attackerMaxHP = calculateHP(attacker);
+    float recoil = attackerMaxHP * 0.2f;
+    if (recoil < 1.0f) recoil = 1.0f;
+    if (recoil > attacker->currentHP) recoil = attacker->currentHP;
+    attacker->currentHP -= recoil;
+    if (attacker->currentHP < 0) attacker->currentHP = 0;
+    sprintf(buffer, "\n반동으로 %s도 %.0f의 데미지를 입었다!", attacker->name, recoil);
+    printTextAndWait(buffer);
+
+    // HP 바 업데이트 및 출력 (상대)
+    float maxHP = calculateHP(defender);
+    float hpPercentage = (defender->currentHP / maxHP) * 100.0f;
+    int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+    char hpBuffer[512];
+    if (defender == &currentEnemy) {
+        sprintf(hpBuffer, "\n%s%s\033[0m HP[", getEnemyNameColorExport(), defender->name);
+    } else {
+        sprintf(hpBuffer, "\n%s HP[", defender->name);
+    }
+    if (hpPercentage <= 20.0f) {
+        strcat(hpBuffer, "\033[31m");
+    } else if (hpPercentage <= 50.0f) {
+        strcat(hpBuffer, "\033[33m");
+    } else {
+        strcat(hpBuffer, "\033[1;32m");
+    }
+    for (int i = 0; i < HP_BAR_LENGTH; i++) {
+        if (i < filledLength) {
+            strcat(hpBuffer, "█");
+        } else {
+            strcat(hpBuffer, "░");
+        }
+    }
+    strcat(hpBuffer, "\033[0m]");
+    sprintf(hpBuffer + strlen(hpBuffer), " %.0f/%.0f\n", defender->currentHP, maxHP);
+    printTextAndWait(hpBuffer);
+    fastSleep(500);
+
+    // HP 바 업데이트 및 출력 (자신)
+    maxHP = calculateHP(attacker);
+    hpPercentage = (attacker->currentHP / maxHP) * 100.0f;
+    filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+    if (attacker == &currentEnemy) {
+        sprintf(hpBuffer, "\n%s%s\033[0m HP[", getEnemyNameColorExport(), attacker->name);
+    } else {
+        sprintf(hpBuffer, "\n%s HP[", attacker->name);
+    }
+    if (hpPercentage <= 20.0f) {
+        strcat(hpBuffer, "\033[31m");
+    } else if (hpPercentage <= 50.0f) {
+        strcat(hpBuffer, "\033[33m");
+    } else {
+        strcat(hpBuffer, "\033[1;32m");
+    }
+    for (int i = 0; i < HP_BAR_LENGTH; i++) {
+        if (i < filledLength) {
+            strcat(hpBuffer, "█");
+        } else {
+            strcat(hpBuffer, "░");
+        }
+    }
+    strcat(hpBuffer, "\033[0m]");
+    sprintf(hpBuffer + strlen(hpBuffer), " %.0f/%.0f\n", attacker->currentHP, maxHP);
+    printTextAndWait(hpBuffer);
+    fastSleep(500);
+
+    // 기절 처리
+    if (defender->currentHP <= 0) {
+        defender->currentHP = 0;
+        defender->status = YOKAI_FAINTED;
+        if (defender == &currentEnemy) {
+            currentEnemy.currentHP = 0;
+            currentEnemy.status = YOKAI_FAINTED;
+        }
+        return 1; // 승리
+    }
+    if (attacker->currentHP <= 0) {
+        attacker->currentHP = 0;
+        attacker->status = YOKAI_FAINTED;
+        if (attacker == &currentEnemy) {
+            currentEnemy.currentHP = 0;
+            currentEnemy.status = YOKAI_FAINTED;
+        }
+        return -1; // 패배
+    }
+    return 0; // 전투 계속
 } 
