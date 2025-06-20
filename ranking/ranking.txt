@@ -1,0 +1,2 @@
+user_name,yokai_caught,yokai_defeated,stages_completed,games_cleared
+이상엽,0,0,0,0
