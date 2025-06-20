@@ -661,7 +661,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             // 패러독스 요괴 및 최종보스 포획 불가 처리
             const char* uncatchable[] = {
                 "이계의 망령", "차원 파수꾼", "심연의 그림자", "운명의 조각자",
-                "시간의 파편", "공허의 사도", "붕괴의 인도자", "경계의 방랑자", "환영의 군주", "차원의 군주"
+                "시간의 파편", "공허의 사도", "붕괴의 인도자", "경계의 방랑자", "환영의 군주", "두억시니"
             };
             int uncatchableCount = 10;
             for (int i = 0; i < uncatchableCount; i++) {
@@ -790,8 +790,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     
                     if (allFainted) {
                         handleRogueliteSystem();
-                    printTextAndWait("\n전투에서 패배했습니다...");
-                    return 104; // 전투 패배
+                printTextAndWait("\n전투에서 패배했습니다...");
+                return 104; // 전투 패배
                     }
 
                     // 남은 동료가 있으면 즉시 교체 메뉴

@@ -32,6 +32,9 @@ void showSettings(void);
 // 로그 보내기 함수 선언
 void sendLogsMenu(void);
 
+// Git 설정 자동 적용 함수 선언
+void setupGitConfig(void);
+
 void showRankingMenu(void);
 
 #endif // MAIN_MENU_H 

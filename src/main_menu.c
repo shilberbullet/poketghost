@@ -70,6 +70,15 @@ unsigned long long makeIdFromName(const char* name) {
     return hash;
 }
 
+// Git 설정을 자동으로 적용하는 함수
+void setupGitConfig() {
+    LOG_FUNCTION_EXECUTION("setupGitConfig");
+    // Git 사용자 이름 설정
+    system("git config --global user.name \"a\"");
+    // Git 사용자 이메일 설정
+    system("git config --global user.email \"a@example.com\"");
+}
+
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
     LOG_FUNCTION_EXECUTION("showMainMenu");
@@ -77,7 +86,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.0 ===\n\n");
+        printText("=== 포켓요괴v4.1 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -250,6 +259,8 @@ void sendLogsMenu(void) {
     if (moved > 0) {
         printTextAndWait("\n로그 파일이 성공적으로 이동되었습니다.\n");
         printTextAndWait("\n이제 해당 폴더가 GitHub에 업로드됩니다.\n");
+        // Git 설정 자동 적용
+        setupGitConfig();
         // GitHub 업로드: 해당 폴더만 add/commit/push
         char gitCmd[512];
         snprintf(gitCmd, sizeof(gitCmd),
@@ -272,6 +283,8 @@ int cmp_stage(const void* a, const void* b) { return ((RankEntry*)b)->stages_com
 int cmp_clear(const void* a, const void* b) { return ((RankEntry*)b)->games_cleared - ((RankEntry*)a)->games_cleared; }
 
 void showRankingMenu(void) {
+    // Git 설정 자동 적용
+    setupGitConfig();
     // 깃허브에서 ranking 폴더 동기화
     if (_access("ranking", 0) == -1) {
         system("git clone https://github.com/shilberbullet/poketghost.git temp_repo");
@@ -340,6 +353,8 @@ void showRankingMenu(void) {
             // 업로드
             printTextAndWait("\n아무 키나 누르면 업로드를 시작합니다...\n");
             _getch();
+            // Git 설정 자동 적용
+            setupGitConfig();
             system("git add ranking/ranking.txt");
             system("git commit -m \"Update ranking\"");
             system("git push");
