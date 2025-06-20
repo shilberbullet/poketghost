@@ -21,6 +21,24 @@
 #include <io.h>
 #include <errno.h>
 #include <conio.h>
+#include <string.h>
+#include <locale.h>
+#include <stddef.h>
+
+// 순위 데이터용 구조체
+typedef struct {
+    char user_name[50];
+    int yokai_caught;
+    int yokai_defeated;
+    int stages_completed;
+    int games_cleared;
+} RankEntry;
+
+// 정렬 함수 선언
+int cmp_caught(const void* a, const void* b);
+int cmp_defeated(const void* a, const void* b);
+int cmp_stage(const void* a, const void* b);
+int cmp_clear(const void* a, const void* b);
 
 // 폴더명에서 개행, 공백, 특수문자 제거 함수
 void sanitizeFolderName(const char* src, char* dest, size_t destSize) {
@@ -59,13 +77,14 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v3.0 ===\n\n");
+        printText("=== 포켓요괴v4.0 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
         printText("4. 통계\n");
         printText("5. 로그 보내기\n");
-        printText("6. 종료\n\n");
+        printText("6. 종료\n");
+        printText("7. 순위를 본다\n\n");
         printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
@@ -99,6 +118,9 @@ void handleMainMenuChoice(MainMenuOption choice) {
             break;
         case MAIN_MENU_EXIT:
             exitGame();
+            break;
+        case MAIN_MENU_RANKING:
+            showRankingMenu();
             break;
         default:
             printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
@@ -242,3 +264,113 @@ void sendLogsMenu(void) {
 }
 
 // 게임 종료 함수는 exit.c에서 관리 
+
+// 정렬 함수 구현
+int cmp_caught(const void* a, const void* b) { return ((RankEntry*)b)->yokai_caught - ((RankEntry*)a)->yokai_caught; }
+int cmp_defeated(const void* a, const void* b) { return ((RankEntry*)b)->yokai_defeated - ((RankEntry*)a)->yokai_defeated; }
+int cmp_stage(const void* a, const void* b) { return ((RankEntry*)b)->stages_completed - ((RankEntry*)a)->stages_completed; }
+int cmp_clear(const void* a, const void* b) { return ((RankEntry*)b)->games_cleared - ((RankEntry*)a)->games_cleared; }
+
+void showRankingMenu(void) {
+    // 깃허브에서 ranking 폴더 동기화
+    if (_access("ranking", 0) == -1) {
+        system("git clone https://github.com/shilberbullet/poketghost.git temp_repo");
+        system("xcopy /E /I /Y temp_repo\\ranking ranking");
+        system("rmdir /S /Q temp_repo");
+    } else {
+        system("git pull");
+    }
+    FILE* fp = fopen("ranking/ranking.txt", "r");
+    if (!fp) {
+        printTextAndWait("\n순위 파일을 열 수 없습니다.\n");
+        _getch();
+        return;
+    }
+    char line[256];
+    int user_count = 0, i;
+    RankEntry users[100];
+    fgets(line, sizeof(line), fp);
+    while (fgets(line, sizeof(line), fp)) {
+        if (sscanf(line, "%49[^,],%d,%d,%d,%d", users[user_count].user_name, &users[user_count].yokai_caught, &users[user_count].yokai_defeated, &users[user_count].stages_completed, &users[user_count].games_cleared) == 5) {
+            user_count++;
+        }
+    }
+    fclose(fp);
+    int found = 0;
+    for (i = 0; i < user_count; i++) {
+        if (strcmp(users[i].user_name, total_stats.user_name) == 0) {
+            users[i].yokai_caught = total_stats.yokai_caught;
+            users[i].yokai_defeated = total_stats.yokai_defeated;
+            users[i].stages_completed = total_stats.stages_completed;
+            users[i].games_cleared = total_stats.games_cleared;
+            found = 1;
+            break;
+        }
+    }
+    if (!found && user_count < 100) {
+        strncpy(users[user_count].user_name, total_stats.user_name, 49);
+        users[user_count].user_name[49] = '\0';
+        users[user_count].yokai_caught = total_stats.yokai_caught;
+        users[user_count].yokai_defeated = total_stats.yokai_defeated;
+        users[user_count].stages_completed = total_stats.stages_completed;
+        users[user_count].games_cleared = total_stats.games_cleared;
+        user_count++;
+    }
+    const char* titles[] = {"잡은 요괴 수", "쓰러트린 요괴 수", "클리어한 스테이지", "게임 클리어 횟수"};
+    int (*sorts[])(const void*, const void*) = {cmp_caught, cmp_defeated, cmp_stage, cmp_clear};
+    int offsets[] = {offsetof(RankEntry, yokai_caught), offsetof(RankEntry, yokai_defeated), offsetof(RankEntry, stages_completed), offsetof(RankEntry, games_cleared)};
+    int running = 1;
+    while (running) {
+        int menu_choice = 0;
+        while (menu_choice < 1 || menu_choice > 5) {
+            system("cls");
+            printText("=== 순위 항목 선택 ===\n\n");
+            printText("1. 잡은 요괴 수\n");
+            printText("2. 쓰러트린 요괴 수\n");
+            printText("3. 클리어한 스테이지\n");
+            printText("4. 게임 클리어 횟수\n");
+            printText("5. 뒤로가기\n\n");
+            printText("선택하세요: ");
+            menu_choice = getIntInput();
+            if (menu_choice < 1 || menu_choice > 5) {
+                printTextAndWait("\n잘못된 입력입니다. 다시 선택하세요.\n");
+            }
+        }
+        if (menu_choice == 5) {
+            // 업로드
+            printTextAndWait("\n아무 키나 누르면 업로드를 시작합니다...\n");
+            _getch();
+            system("git add ranking/ranking.txt");
+            system("git commit -m \"Update ranking\"");
+            system("git push");
+            printText("\n순위가 깃허브에 업로드되었습니다.\n");
+            printTextAndWait("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
+            _getch();
+            break;
+        } else {
+            qsort(users, user_count, sizeof(RankEntry), sorts[menu_choice-1]);
+            system("cls");
+            char buffer[256];
+            sprintf(buffer, "[%s TOP 5]\n", titles[menu_choice-1]);
+            printText(buffer);
+            printText("순위 | 이름 | 수치\n");
+            for (i = 0; i < user_count && i < 5; i++) {
+                int value = *(int*)((char*)&users[i] + offsets[menu_choice-1]);
+                sprintf(buffer, "%2d위 | %s | %d\n", i+1, users[i].user_name, value);
+                printText(buffer);
+            }
+            printText("\n순위 데이터가 갱신되었습니다.\n");
+            printTextAndWait("\n아무 키나 누르면 순위 항목 선택으로 돌아갑니다...\n");
+            _getch();
+        }
+    }
+    // ranking.txt 파일 저장(항상 최신화)
+    fp = fopen("ranking/ranking.txt", "w");
+    if (fp) {
+        fprintf(fp, "user_name,yokai_caught,yokai_defeated,stages_completed,games_cleared\n");
+        for (i = 0; i < user_count; i++) {
+            fprintf(fp, "%s,%d,%d,%d,%d\n", users[i].user_name, users[i].yokai_caught, users[i].yokai_defeated, users[i].stages_completed, users[i].games_cleared);
+        }
+        fclose(fp);
+    }
+} 
