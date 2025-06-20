@@ -757,5 +757,18 @@ bool useYokaiItem(const Item* item, void* targetYokai) {
         fastSleep(500);
         return true;
     }
+    else if (item->type == ITEM_YANGGAENG) {
+        // 양갱류 아이템 처리
+        if (useYanggaeng(item, yokai)) {
+            char buffer[256];
+            sprintf(buffer, "\n%s가 %s를 먹었습니다!\n", yokai->name, item->name);
+            printTextAndWait(buffer);
+            fastSleep(500);
+            return true;
+        } else {
+            printTextAndWait("\n양갱 사용에 실패했습니다!\n");
+            return false;
+        }
+    }
     return false;
 } 
