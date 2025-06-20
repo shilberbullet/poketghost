@@ -164,19 +164,24 @@ void logError(const char* format, ...) {
 }
 
 // 함수 실행 로깅 함수
-void logFunctionExecution(const char* funcName) {
-    if (logFile == NULL) return;
+void logFunctionExecution(const char *funcName) {
+    if (!logFile) return;
+
     checkLogFileSplit();
+
     char buffer[2048];
     time_t now = time(NULL);
-    char* timeStr = ctime(&now);
-    timeStr[strlen(timeStr) - 1] = '\0';
-    int n = snprintf(buffer, sizeof(buffer), "[%s] [함수실행] %s\n", timeStr, funcName);
-    int lines = count_newlines(buffer);
-    fwrite(buffer, 1, strlen(buffer), logFile);
+    char *timeStr = ctime(&now);
+    timeStr[strlen(timeStr) - 1] = '\0';  // 개행 문자 제거
+
+    snprintf(buffer, sizeof(buffer), "[%s] [함수실행] %s\n", timeStr, funcName);
+    
+    // 로그 파일에 쓰기
+    fputs(buffer, logFile);
     fflush(logFile);
-    logLineCount += lines;
-    checkLogFileSplit();
+
+    // 로그 라인 수 업데이트
+    logLineCount++;
 }
 
 // 로그 시스템 정리 함수

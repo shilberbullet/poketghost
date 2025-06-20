@@ -13,6 +13,7 @@
 #include "exit.h"
 #include "reward.h"
 #include "region.h"
+#include "statistics.h"
 #include "../core/state.h"
 #include "logger.h"
 #include <windows.h>
@@ -27,7 +28,8 @@ void showMainMenu(void) {
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
-        printText("4. 종료\n\n");
+        printText("4. 통계\n");
+        printText("5. 종료\n\n");
         printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
@@ -53,6 +55,9 @@ void handleMainMenuChoice(MainMenuOption choice) {
         case MAIN_MENU_SETTINGS:
             showSettings();
             break;
+        case MAIN_MENU_STATISTICS:
+            display_statistics_screen();
+            break;
         case MAIN_MENU_EXIT:
             exitGame();
             break;
@@ -68,6 +73,7 @@ void startNewGame(void) {
     gGameState.isNewGame = 1;  // 새 게임 플래그 설정
     gGameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
+    init_player_statistics(); // 플레이어 통계 초기화
     
     // 시작 지역 선택
     system("cls");
@@ -121,6 +127,7 @@ void startNewGame(void) {
 void loadGame(void) {
     LOG_FUNCTION_EXECUTION("loadGame");
     if (loadGameData()) {
+        set_session_initial_statistics(); // 세션 통계 초기화
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
         while (gGameState.isRunning) {
             showStageInfo();

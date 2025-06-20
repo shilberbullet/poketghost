@@ -23,6 +23,7 @@
 #include "settings.h"
 #include "region.h"
 #include "logger.h"
+#include "statistics.h"
 #include <windows.h>
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
@@ -648,6 +649,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             turnCount++;
             lastYokaiIdx = yokaiIdx;
             if (result == 1) {
+                gPlayer.stats.yokai_defeated++; // 쓰러트린 요괴 수 증가
                 // 경험치 지급은 startBattle에서 일괄 처리
                 return 101;
             } else if (result == -1) {

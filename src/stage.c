@@ -18,6 +18,7 @@
 #include "../core/state.h"
 #include "logger.h"
 #include <windows.h>
+#include "statistics.h"
 
 // 지형 이름 배열
 const char* terrainNames[] = {
@@ -142,6 +143,7 @@ void initStage(StageInfo* stage, int stageNumber) {
 void nextStage() {
     LOG_FUNCTION_EXECUTION("nextStage");
     gStage.stageNumber++;  // 스테이지 번호 증가
+    gPlayer.stats.stages_completed++; // 클리어한 스테이지 수 증가
     turnCount = 0;              // 턴 카운트 초기화
     gStage.hour = (gStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
     
@@ -239,6 +241,8 @@ void showBattleInterface() {
                 printText("\n=== 축하합니다! ===\n");
                 printText("당신은 백두산의 정상을 정복했습니다!\n");
                 printText("게임 클리어를 축하합니다!\n");
+                gPlayer.stats.games_cleared++; // 게임 클리어 횟수 증가
+                update_total_statistics_on_save(); // 통계 저장
                 fastSleep(2000);
                 resetGameAfterClear();  // 게임 데이터 초기화
                 exit(0);

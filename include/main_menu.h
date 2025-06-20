@@ -8,7 +8,8 @@ typedef enum {
     MAIN_MENU_NEW_GAME = 1,
     MAIN_MENU_LOAD_GAME = 2,
     MAIN_MENU_SETTINGS = 3,
-    MAIN_MENU_EXIT = 4
+    MAIN_MENU_STATISTICS = 4,
+    MAIN_MENU_EXIT = 5
 } MainMenuOption;
 
 // 메인 메뉴 표시 함수

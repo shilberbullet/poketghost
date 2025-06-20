@@ -2,10 +2,12 @@
 #define GAME_H
 
 #include <stdbool.h>
+#include "statistics.h"
 
 // 플레이어 구조체
 typedef struct {
     int money;  // 보유 전
+    GameStatistics stats;
 } Player;
 
 // 게임 상태 구조체

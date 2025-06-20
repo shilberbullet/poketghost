@@ -14,8 +14,11 @@
 #include "move_learning.h"
 #include "../core/state.h"
 #include "logger.h"
+#include "battle.h"
+#include "statistics.h"
 
 #define INITIAL_ITEM_CAPACITY 32
+#define MAX_ITEMS 100 // 최대 아이템 종류
 
 // 아이템 목록 (동적 배열)
 Item* itemList = NULL;
@@ -580,11 +583,12 @@ bool useTalisman(const Item* item, void* targetYokai) {
     }
     
     // 최종 포획률 계산 (기본 포획률 + HP 보너스)
-    float finalCatchRate = baseCatchRate + (hpBonus * 0.4f);  // HP 보너스는 최대 40%까지
+    float finalCatchRate = baseCatchRate + hpBonus;
     
     // 포획 시도
     if ((float)rand() / RAND_MAX < finalCatchRate) {
         printf("포획 성공!\n");
+        gPlayer.stats.yokai_caught++; // 잡은 요괴 수 증가
         return true;
     } else {
         printf("포획 실패...\n");

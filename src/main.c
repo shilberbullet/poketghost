@@ -26,6 +26,7 @@
 #include "region.h"       // 지역 시스템 관련 함수와 구조체 정의
 // 로거 관련 함수와 구조체 정의
 #include "logger.h"       // 로거 관련 함수와 구조체 정의
+#include "statistics.h"
 
 // 메인 함수
 int main(void) {
@@ -41,6 +42,9 @@ int main(void) {
     initLogger();
     LOG_FUNCTION_EXECUTION("initLogger");
     
+    // 통계 데이터 로드
+    load_total_statistics();
+
     // 아이템 시스템을 초기화하여 게임에서 사용할 아이템들을 준비
     LOG_FUNCTION_EXECUTION("initItemSystem");
     initItemSystem();
