@@ -305,11 +305,16 @@ void itemRewardSystem() {
         
         // 선택된 요괴에게 아이템 지급
         Yokai* targetYokai = &gParty[yokaiChoice - 1];
-        if (useYokaiItem(&candidates[idx], targetYokai)) {
+        int result = useYokaiItem(&candidates[idx], targetYokai);
+        if (result == 1) {
             // 고급양갱은 메시지 출력하지 않음
             if (strcmp(candidates[idx].name, "고급양갱") != 0) {
                 fastSleep(500);
             }
+        } else if (result == -1) {
+            // 최대 개수 초과 시 요괴 선택 메뉴로 복귀
+            itemRewardSystem();
+            return;
         } else if (candidates[idx].type == ITEM_YANGGAENG) {
             if (addItemToYokaiInventory(targetYokai, &candidates[idx])) {
                 // 고급양갱은 메시지 출력하지 않음

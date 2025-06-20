@@ -821,79 +821,68 @@ bool useForgottenMoveItem(const Item* item, void* targetYokai) {
     return true;
 }
 
-bool useYokaiItem(const Item* item, void* targetYokai) {
+int useYokaiItem(const Item* item, void* targetYokai) {
     LOG_FUNCTION_EXECUTION("useYokaiItem");
     Yokai* yokai = (Yokai*)targetYokai;
-    if (!yokai) return false;
+    if (!yokai) return 0;
     
     if (strcmp(item->name, "복숭아") == 0) {
-        // 복숭아 아이템 처리
         for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
             if (strcmp(yokai->yokaiInventory[i].item.name, "복숭아") == 0) {
                 if (yokai->yokaiInventory[i].count >= 5) {
                     printTextAndWait("\n이미 복숭아를 5개 가지고 있습니다!");
-                    return false;
+                    return -1;
                 }
-                // 5개 미만이면 추가 가능
                 break;
             }
         }
         addItemToYokaiInventory(yokai, item);
-        return true;
+        return 1;
     }
     else if (strcmp(item->name, "고대의 서적") == 0) {
-        // 고대의 서적 아이템 처리
         for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
             if (strcmp(yokai->yokaiInventory[i].item.name, "고대의 서적") == 0) {
                 if (yokai->yokaiInventory[i].count >= 5) {
                     printTextAndWait("\n이미 고대의 서적을 5개 가지고 있습니다!");
-                    return false;
+                    return -1;
                 }
-                // 5개 미만이면 추가 가능
                 break;
             }
         }
         addItemToYokaiInventory(yokai, item);
-        return true;
+        return 1;
     }
     else if (strcmp(item->name, "돋보기") == 0) {
-        // 돋보기 개수 체크
         if (yokai->magnifierCount >= MAX_MAGNIFIER_COUNT) {
             char buffer[256];
             sprintf(buffer, "\n%s는 이미 최대 개수(%d개)의 돋보기를 가지고 있습니다!", yokai->name, MAX_MAGNIFIER_COUNT);
             printTextAndWait(buffer);
-            return false;
+            return -1;
         }
-        // 먼저 돋보기 개수를 증가시킴
         yokai->magnifierCount++;
-        
-        // 그 다음 돋보기를 요괴의 인벤토리에 추가
         if (!addItemToYokaiInventory(yokai, item)) {
-            // 인벤토리 추가 실패 시 돋보기 개수 원복
             yokai->magnifierCount--;
-            return false;
+            return 0;
         }
         char buffer[256];
-        sprintf(buffer, "\n%s의 돋보기 개수가 %d개가 되었습니다! (명중률 +%d%%)", 
-            yokai->name, yokai->magnifierCount, yokai->magnifierCount * 3);
+        sprintf(buffer, "\n%s의 돋보기 개수가 %d개가 되었습니다! (명중률 +%d%%)", yokai->name, yokai->magnifierCount, yokai->magnifierCount * 3);
         printTextAndWait(buffer);
         fastSleep(500);
-        return true;
+        return 1;
     }
     else if (item->type == ITEM_YANGGAENG) {
-        // 양갱류 아이템 처리
         if (useYanggaeng(item, yokai)) {
             char buffer[256];
             sprintf(buffer, "\n%s가 %s를 먹었습니다!\n", yokai->name, item->name);
             printTextAndWait(buffer);
             fastSleep(500);
-            return true;
+            return 1;
         } else {
             printTextAndWait("\n양갱 사용에 실패했습니다!\n");
-            return false;
+            return 0;
         }
     }
-    return false;
+    return 0;
 }
 
 // 찹살경단 자동 발동 함수
