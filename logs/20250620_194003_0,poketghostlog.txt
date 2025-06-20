@@ -1,0 +1,52 @@
+
+=== 게임 시작: Fri Jun 20 19:40:03 2025 ===
+[Fri Jun 20 19:40:03 2025] [함수실행] printTextAndWait
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printText
+[Fri Jun 20 19:40:03 2025] [OUTPUT] 
+낡은부적를 인벤토리에 획득했습니다!
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] fastSleep
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printTextAndWait
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printText
+[Fri Jun 20 19:40:03 2025] [OUTPUT] 
+낡은부적를 인벤토리에 획득했습니다!
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] fastSleep
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printTextAndWait
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printText
+[Fri Jun 20 19:40:03 2025] [OUTPUT] 
+낡은부적를 인벤토리에 획득했습니다!
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] fastSleep
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printTextAndWait
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] printText
+[Fri Jun 20 19:40:03 2025] [OUTPUT] 
+낡은부적를 인벤토리에 획득했습니다!
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:03 2025] [함수실행] fastSleep
+[Fri Jun 20 19:40:03 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:04 2025] [함수실행] printTextAndWait
+[Fri Jun 20 19:40:04 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:04 2025] [함수실행] printText
+[Fri Jun 20 19:40:04 2025] [OUTPUT] 
+낡은부적를 인벤토리에 획득했습니다!
+[Fri Jun 20 19:40:04 2025] [함수실행] getTextDelay
+[Fri Jun 20 19:40:04 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:04 2025] [함수실행] clearInputBuffer
+[Fri Jun 20 19:40:04 2025] [함수실행] fastSleep
+[Fri Jun 20 19:40:04 2025] [함수실행] getTextDelay

@@ -104,4 +104,7 @@ Yokai createRandomBossYokaiWithLevel(int level);
 // 랜덤 패러독스 요괴 생성 함수 (레벨 지정)
 Yokai createRandomParadoxYokaiWithLevel(int level);
 
+// Yokai 구조체 정의 이후에 추가
+bool tryActivateChapsalgyungdan(Yokai* yokai);
+
 #endif // YOKAI_H 

@@ -200,6 +200,12 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         }
     }
     
+    // 찹살경단 자동 발동 (기절하지 않았고 HP 20% 이하)
+    extern bool tryActivateChapsalgyungdan(Yokai* yokai);
+    if (defender->status != YOKAI_FAINTED) {
+        tryActivateChapsalgyungdan(defender);
+    }
+    
     // 데미지 메시지 출력
     if (defender == &currentEnemy) {
         // 상대 요괴의 경우 색상 적용
