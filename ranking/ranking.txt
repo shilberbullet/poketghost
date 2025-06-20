@@ -1,3 +1,3 @@
 user_name,yokai_caught,yokai_defeated,stages_completed,games_cleared
-가상의인물A,1,1,1,1
 이상엽,0,5,5,0
+가상의인물A,1,1,1,1
