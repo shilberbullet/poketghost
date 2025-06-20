@@ -81,7 +81,56 @@ const char* getGradeName(ItemGrade grade) {
 // 파이널 스테이지 여부를 반환하는 함수
 int isFinalStage() {
     LOG_FUNCTION_EXECUTION("isFinalStage");
-    return strcmp(gStage.region, "이계의 심연") == 0;
+    return strcmp(gStage.region, "백두산 정상") == 0;
+}
+
+// 찹살경단 전용 요괴 선택 함수
+static void selectYokaiForChapsalgyungdan(int idx) {
+    while (1) {
+        printText("\n찹살경단을 지니게 할 요괴를 선택하세요:\n");
+        for (int i = 0; i < gPartyCount; i++) {
+            char buffer[256];
+            sprintf(buffer, "%d. %s Lv.%d (HP: %.0f/%.0f)\033[0m\n",
+                i + 1,
+                gParty[i].name,
+                gParty[i].level,
+                gParty[i].currentHP,
+                calculateHP(&gParty[i]));
+            printText(buffer);
+        }
+        printText("0. 뒤로 가기\n");
+        printText("숫자를 입력해주세요: ");
+        int yokaiChoice = getIntInput();
+        if (yokaiChoice == 0) {
+            itemRewardSystem();
+            return;
+        }
+        if (yokaiChoice < 1 || yokaiChoice > gPartyCount) {
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            continue;
+        }
+        Yokai* targetYokai = &gParty[yokaiChoice - 1];
+        int hasChapsal = 0;
+        for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
+            if (strcmp(targetYokai->yokaiInventory[i].item.name, "찹살경단") == 0) {
+                hasChapsal = 1;
+                break;
+            }
+        }
+        if (hasChapsal) {
+            printTextAndWait("\n이미 찹살경단을 가지고 있습니다!");
+            fastSleep(500);
+            continue; // 요괴 선택 메뉴 반복
+        } else {
+            if (addItemToYokaiInventory(targetYokai, &candidates[idx])) {
+                printTextAndWait("\n찹살경단을 요괴 인벤토리에 추가했습니다!");
+            } else {
+                printTextAndWait("\n찹살경단은 1개만 보유할 수 있습니다!");
+            }
+            fastSleep(500);
+            break;
+        }
+    }
 }
 
 // 아이템 보상 시스템
@@ -201,6 +250,11 @@ void itemRewardSystem() {
         return;
     }
     
+    // 찹살경단 분기를 최우선으로 처리
+    if (strcmp(candidates[idx].name, "찹살경단") == 0) {
+        selectYokaiForChapsalgyungdan(idx);
+        return;
+    }
     // 요괴형 아이템은 요괴 인벤토리로
     if (strcmp(candidates[idx].name, "돋보기") == 0 || 
         strcmp(candidates[idx].name, "복숭아") == 0 || 
@@ -252,9 +306,22 @@ void itemRewardSystem() {
         // 선택된 요괴에게 아이템 지급
         Yokai* targetYokai = &gParty[yokaiChoice - 1];
         if (useYokaiItem(&candidates[idx], targetYokai)) {
-            char buffer[128];
-            sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
-            printTextAndWait(buffer);
+            // 고급양갱은 메시지 출력하지 않음
+            if (strcmp(candidates[idx].name, "고급양갱") != 0) {
+                char buffer[128];
+     
+                fastSleep(500);
+            }
+        } else if (candidates[idx].type == ITEM_YANGGAENG) {
+            if (addItemToYokaiInventory(targetYokai, &candidates[idx])) {
+                // 고급양갱은 메시지 출력하지 않음
+                if (strcmp(candidates[idx].name, "고급양갱") != 0) {
+                    char buffer[128];
+                   
+                }
+            } else {
+                printTextAndWait("\n이미 최대치까지 보유하고 있습니다!");
+            }
             fastSleep(500);
         }
     } else {
