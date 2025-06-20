@@ -86,7 +86,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.1 ===\n\n");
+        printText("=== 포켓요괴v4.2 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -355,10 +355,24 @@ void showRankingMenu(void) {
             _getch();
             // Git 설정 자동 적용
             setupGitConfig();
-            system("git add ranking/ranking.txt");
-            system("git commit -m \"Update ranking\"");
-            system("git push");
-            printText("\n순위가 깃허브에 업로드되었습니다.\n");
+            // 변경 사항 확인
+            system("git status --porcelain ranking/ranking.txt > temp_git_status.txt");
+            FILE* status_fp = fopen("temp_git_status.txt", "r");
+            int hasChange = 0;
+            if (status_fp) {
+                int c = fgetc(status_fp);
+                if (c != EOF) hasChange = 1;
+                fclose(status_fp);
+                remove("temp_git_status.txt");
+            }
+            if (hasChange) {
+                system("git add ranking/ranking.txt");
+                system("git commit -m \"Update ranking\"");
+                system("git push");
+                printText("\n순위가 깃허브에 업로드되었습니다.\n");
+            } else {
+                printText("\n변경 사항이 없어 업로드를 생략합니다.\n");
+            }
             printTextAndWait("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
             _getch();
             break;
