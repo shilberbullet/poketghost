@@ -31,6 +31,7 @@ int inventoryCount = 0;
 
 // 아이템 시스템 초기화
 void initItemSystem() {
+    LOG_FUNCTION_EXECUTION("initItemSystem");
     itemList = (Item*)malloc(INITIAL_ITEM_CAPACITY * sizeof(Item));
     if (itemList == NULL) {
         printf("아이템 시스템 초기화 실패: 메모리 할당 오류\n");
@@ -42,6 +43,7 @@ void initItemSystem() {
 
 // 아이템 시스템 정리
 void cleanupItemSystem() {
+    LOG_FUNCTION_EXECUTION("cleanupItemSystem");
     if (itemList != NULL) {
         free(itemList);
         itemList = NULL;
@@ -52,6 +54,7 @@ void cleanupItemSystem() {
 
 // 아이템 목록 크기 확장
 static void expandItemList() {
+    LOG_FUNCTION_EXECUTION("expandItemList");
     int newCapacity = itemListCapacity * 2;
     Item* newList = (Item*)realloc(itemList, newCapacity * sizeof(Item));
     if (newList == NULL) {
@@ -64,6 +67,7 @@ static void expandItemList() {
 
 // 문자열을 ItemGrade로 변환
 ItemGrade stringToGrade(const char* str) {
+    LOG_FUNCTION_EXECUTION("stringToGrade");
     if (strcmp(str, "COMMON") == 0) return ITEM_COMMON;
     if (strcmp(str, "RARE") == 0) return ITEM_RARE;
     if (strcmp(str, "SUPERRARE") == 0) return ITEM_SUPERRARE;
@@ -72,6 +76,7 @@ ItemGrade stringToGrade(const char* str) {
 
 // 문자열을 ItemType으로 변환
 ItemType stringToType(const char* str) {
+    LOG_FUNCTION_EXECUTION("stringToType");
     if (strcmp(str, "HEAL") == 0) return ITEM_HEAL;
     if (strcmp(str, "TALISMAN") == 0) return ITEM_TALISMAN;
     if (strcmp(str, "PLAYER") == 0) return ITEM_PLAYER;
@@ -83,6 +88,7 @@ ItemType stringToType(const char* str) {
 
 // 아이템 데이터 파일 로드
 void loadItemsFromFile(const char* filename) {
+    LOG_FUNCTION_EXECUTION("loadItemsFromFile");
     FILE* file = fopen(filename, "r");
     if (!file) {
         printf("아이템 데이터 파일을 열 수 없습니다: %s\n", filename);
@@ -125,6 +131,7 @@ void loadItemsFromFile(const char* filename) {
 
 // 아이템 3개를 확률에 따라 랜덤 추출
 void getRandomItems(Item* outItems, int count) {
+    LOG_FUNCTION_EXECUTION("getRandomItems");
     for (int i = 0; i < count; i++) {
         int randomValue = rand() % 100;
         ItemGrade targetGrade;
@@ -159,6 +166,7 @@ void getRandomItems(Item* outItems, int count) {
 
 // 인벤토리에 아이템 추가
 void addItemToInventory(const Item* item) {
+    LOG_FUNCTION_EXECUTION("addItemToInventory");
     // 회복형, 양갱형, 잊은 기술 배우기 아이템은 즉시 사용
     if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG || item->type == ITEM_FORGOTTEN_MOVE) {
         currentItem = item;  // 현재 사용할 아이템 설정
@@ -456,6 +464,7 @@ void addItemToInventory(const Item* item) {
 
 // 메시지 없이 인벤토리에 아이템 추가
 void addItemToInventoryWithoutMessage(const Item* item) {
+    LOG_FUNCTION_EXECUTION("addItemToInventoryWithoutMessage");
     // 회복형, 양갱형, 잊은 기술 배우기 아이템은 즉시 사용
     if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG || item->type == ITEM_FORGOTTEN_MOVE) {
         // 이 함수에서는 즉시 사용 로직을 처리하지 않음
@@ -525,6 +534,7 @@ void addItemToInventoryWithoutMessage(const Item* item) {
 
 // 인벤토리 출력 함수
 void printInventory() {
+    LOG_FUNCTION_EXECUTION("printInventory");
     if (inventoryCount == 0) {
         printTextAndWait("\n인벤토리가 비어있습니다.");
         return;
@@ -564,6 +574,7 @@ void printInventory() {
 
 // 부적 사용 함수
 bool useTalisman(const Item* item, void* targetYokai) {
+    LOG_FUNCTION_EXECUTION("useTalisman");
     Yokai* yokai = (Yokai*)targetYokai;
     if (item->type != ITEM_TALISMAN) {
         printf("이 아이템은 부적이 아닙니다!\n");
@@ -609,12 +620,14 @@ bool useTalisman(const Item* item, void* targetYokai) {
 
 // 무당방울 보너스 계산 함수
 int calculateMudangBonus(int amount, int mudangCount) {
+    LOG_FUNCTION_EXECUTION("calculateMudangBonus");
     if (mudangCount > 5) mudangCount = 5;
     return (amount * 10 * mudangCount) / 100;
 }
 
 // 양갱 사용 함수
 bool useYanggaeng(const Item* item, void* targetYokai) {
+    LOG_FUNCTION_EXECUTION("useYanggaeng");
     Yokai* yokai = (Yokai*)targetYokai;
     if (item->type != ITEM_YANGGAENG) {
         printf("이 아이템은 양갱이 아닙니다!\n");
@@ -685,6 +698,7 @@ bool useYanggaeng(const Item* item, void* targetYokai) {
 
 // 작두 아이템 개수 반환 함수
 int getJakduCount() {
+    LOG_FUNCTION_EXECUTION("getJakduCount");
     int count = 0;
     for (int i = 0; i < inventoryCount; i++) {
         if (strcmp(inventory[i].item.name, "작두") == 0) {
@@ -697,6 +711,7 @@ int getJakduCount() {
 
 // 잊은 기술 배우기 함수
 bool useForgottenMoveItem(const Item* item, void* targetYokai) {
+    LOG_FUNCTION_EXECUTION("useForgottenMoveItem");
     Yokai* yokai = (Yokai*)targetYokai;
     if (item->type != ITEM_FORGOTTEN_MOVE) {
         printf("이 아이템은 잊은 기술 배우기 아이템이 아닙니다!\n");
@@ -807,6 +822,7 @@ bool useForgottenMoveItem(const Item* item, void* targetYokai) {
 }
 
 bool useYokaiItem(const Item* item, void* targetYokai) {
+    LOG_FUNCTION_EXECUTION("useYokaiItem");
     Yokai* yokai = (Yokai*)targetYokai;
     if (!yokai) return false;
     
@@ -883,6 +899,7 @@ bool useYokaiItem(const Item* item, void* targetYokai) {
 // 찹살경단 자동 발동 함수
 // HP가 20% 이하로 내려가면, 기절 상태가 아니면 30% 회복 후 1개 소모
 bool tryActivateChapsalgyungdan(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("tryActivateChapsalgyungdan");
     // 기절 상태면 발동 불가
     if (yokai->status == YOKAI_FAINTED) return false;
     // 찹살경단 보유 여부 확인
