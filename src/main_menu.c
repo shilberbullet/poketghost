@@ -14,9 +14,11 @@
 #include "reward.h"
 #include "region.h"
 #include "../core/state.h"
+#include "logger.h"
 #include <windows.h>
 // 메인 메뉴를 표시하는 함수
 void showMainMenu(void) {
+    LOG_FUNCTION_EXECUTION("showMainMenu");
     int choice;
     
     while (gGameState.isRunning) {
@@ -40,6 +42,7 @@ void showMainMenu(void) {
 
 // 메인 메뉴 선택을 처리하는 함수
 void handleMainMenuChoice(MainMenuOption choice) {
+    LOG_FUNCTION_EXECUTION("handleMainMenuChoice");
     switch (choice) {
         case MAIN_MENU_NEW_GAME:
             startNewGame();
@@ -61,6 +64,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
 
 // 새 게임 시작 함수
 void startNewGame(void) {
+    LOG_FUNCTION_EXECUTION("startNewGame");
     gGameState.isNewGame = 1;  // 새 게임 플래그 설정
     gGameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
@@ -100,6 +104,7 @@ void startNewGame(void) {
 
 // 저장된 게임 불러오기 함수
 void loadGame(void) {
+    LOG_FUNCTION_EXECUTION("loadGame");
     if (loadGameData()) {
         printTextAndWait("\n저장된 게임을 불러왔습니다!");
         while (gGameState.isRunning) {
@@ -113,6 +118,7 @@ void loadGame(void) {
 
 // 설정 메뉴 표시 함수
 void showSettings(void) {
+    LOG_FUNCTION_EXECUTION("showSettings");
     // 기존 설정 메뉴 표시 함수 호출
     showSettingsMenu();
 }

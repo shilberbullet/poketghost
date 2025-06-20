@@ -10,9 +10,11 @@
 #include "region.h"
 #include "stage.h"
 #include "stage_types.h"
+#include "logger.h"
 
 // 일반 스테이지 초기화 함수
 void initNormalStage(StageInfo* stage, int stageNumber) {
+    LOG_FUNCTION_EXECUTION("initNormalStage");
     stage->stageNumber = stageNumber;      // 스테이지 번호 설정
     stage->isBossStage = false;            // 일반 스테이지 플래그 설정
     
@@ -35,6 +37,7 @@ void initNormalStage(StageInfo* stage, int stageNumber) {
 
 // 일반 스테이지 적 요괴 생성 함수
 void generateNormalStageEnemies(StageInfo* stage) {
+    LOG_FUNCTION_EXECUTION("generateNormalStageEnemies");
     for (int i = 0; i < stage->enemyCount; i++) {
         int level = stage->minLevel + (rand() % (stage->maxLevel - stage->minLevel + 1));
         stage->enemies[i] = createRandomYokaiWithLevel(level);
@@ -43,5 +46,6 @@ void generateNormalStageEnemies(StageInfo* stage) {
 
 // 일반 스테이지 클리어 처리 함수
 void handleNormalStageClear(void) {
+    LOG_FUNCTION_EXECUTION("handleNormalStageClear");
     // 일반 스테이지 클리어 시 처리
 } 

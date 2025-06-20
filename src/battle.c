@@ -22,6 +22,7 @@
 #include "roguelite.h"  // 로그라이트 시스템 추가
 #include "settings.h"
 #include "region.h"
+#include "logger.h"
 #include <windows.h>
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
@@ -39,6 +40,7 @@ int participatedCount = 0;
 
 // 참여 요괴 인덱스 추가 함수(중복 방지)
 static void addParticipatedIdx(int idx) {
+    LOG_FUNCTION_EXECUTION("addParticipatedIdx");
     for (int i = 0; i < participatedCount; i++) {
         if (participatedIdx[i] == idx) return;
     }
@@ -49,14 +51,19 @@ static void addParticipatedIdx(int idx) {
 
 // 상대 요괴 이름 색상 반환 함수
 static const char* getEnemyNameColor() {
+    LOG_FUNCTION_EXECUTION("getEnemyNameColor");
     return (gStage.stageNumber % 10 == 0) ? "\033[35m" : "\033[34m";
 }
 
 // 외부에서 사용할 수 있도록 export 함수 추가
-const char* getEnemyNameColorExport() { return getEnemyNameColor(); }
+const char* getEnemyNameColorExport() {
+    LOG_FUNCTION_EXECUTION("getEnemyNameColorExport");
+    return getEnemyNameColor();
+}
 
 // 요괴가 기절했을 때의 처리 함수
 int handleFaintedYokai(int faintedIdx) {
+    LOG_FUNCTION_EXECUTION("handleFaintedYokai");
     char buffer[256];
     sprintf(buffer, "\n%s(이)가 쓰러졌다!\n", gParty[faintedIdx].name);
     printText(buffer);
@@ -93,6 +100,7 @@ int handleFaintedYokai(int faintedIdx) {
 }
 
 int startBattle(const Yokai* enemy) {
+    LOG_FUNCTION_EXECUTION("startBattle");
     if (gameSettings.debugMode) {
         char debugbuf[128];
         sprintf(debugbuf, "[DEBUG] startBattle 진입 - isLoadedGame: %d, turnCount: %d\n", gGameState.isLoadedGame, turnCount);
@@ -246,6 +254,7 @@ int startBattle(const Yokai* enemy) {
 }
 
 int showBattleMenu(const Yokai* enemy) {
+    LOG_FUNCTION_EXECUTION("showBattleMenu");
     (void)enemy;
     int choice;
     
@@ -290,6 +299,7 @@ int showBattleMenu(const Yokai* enemy) {
 
 // 동료 요괴 선택 함수
 int selectPartyYokai() {
+    LOG_FUNCTION_EXECUTION("selectPartyYokai");
     printText("\n동료 요괴를 선택하세요:\n");
     for (int i = 0; i < gPartyCount; i++) {
         char buffer[256];
@@ -353,6 +363,7 @@ int selectPartyYokai() {
 
 // 기술 선택 함수
 int selectMove(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("selectMove");
     // 모든 기술의 PP가 0인지 확인
     bool allPPZero = true;
     for (int i = 0; i < yokai->moveCount; i++) {
@@ -425,6 +436,7 @@ int selectMove(const Yokai* yokai) {
 
 // 부적 아이템 선택 함수
 int selectTalismanFromInventory() {
+    LOG_FUNCTION_EXECUTION("selectTalismanFromInventory");
     typedef struct {
         int idx;
         ItemGrade grade;
@@ -486,6 +498,7 @@ int selectTalismanFromInventory() {
 
 // 동료 요괴 교체 함수
 int switchYokai() {
+    LOG_FUNCTION_EXECUTION("switchYokai");
     printText("\n교체할 동료 요괴를 선택하세요:\n");
     for (int i = 0; i < gPartyCount; i++) {
         char buffer[256];
@@ -536,6 +549,7 @@ int switchYokai() {
 }
 
 int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
+    LOG_FUNCTION_EXECUTION("handleBattleChoice");
     if (gameSettings.debugMode) {
         char buffer[128];
         sprintf(buffer, "\n[DEBUG] handleBattleChoice 진입 - 현재 턴: %d, 마지막 요괴 인덱스: %d\n", turnCount, lastYokaiIdx);
@@ -1082,6 +1096,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
 }
 
 void printDamageMessage(Yokai* attacker, Yokai* defender, int damage) {
+    LOG_FUNCTION_EXECUTION("printDamageMessage");
     (void)attacker;
     char buffer[256];
     int actualDamage = damage;
@@ -1097,6 +1112,7 @@ void printDamageMessage(Yokai* attacker, Yokai* defender, int damage) {
 
 // 복숭아 효과 함수: 전투 중인 요괴에게만 복숭아 1개당 최대 HP의 5% 회복(기절 제외)
 void applyPeachHealingToParty() {
+    LOG_FUNCTION_EXECUTION("applyPeachHealingToParty");
     // 전투 중인 요괴만 대상으로 함
     if (lastYokaiIdx >= 0 && lastYokaiIdx < gPartyCount) {
         Yokai* y = &gParty[lastYokaiIdx];

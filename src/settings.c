@@ -6,11 +6,14 @@
 #include "settings.h"
 // 설정 파일 관련 함수
 #include "settings_file.h"
+// 로깅 기능을 위한 헤더
+#include "logger.h"
 
 // 전역 게임 설정 초기화 (기본값: 보통 속도, 한 글자씩 출력)
 GameSettings gameSettings = {3, 0, 1, 0};  // textSpeed = 3 (보통 속도), textDisplayMode = 0 (한 글자씩), showTypeHint = 1 (상성 힌트 켬), debugMode = 0 (디버그 모드 꺼짐)
 
 // 게임 설정 초기화 함수
 void initSettings() {
+    LOG_FUNCTION_EXECUTION("initSettings");
     loadSettings();  // 시작할 때 설정 파일에서 설정 불러오기
 } 

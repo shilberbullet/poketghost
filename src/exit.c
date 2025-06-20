@@ -9,6 +9,7 @@
  
 // 게임 종료 함수
 void exitGame() {
+    LOG_FUNCTION_EXECUTION("exitGame");
     gGameState.isRunning = 0;  // 게임 루프 종료
     printTextAndWait("\n게임을 종료합니다.");
     

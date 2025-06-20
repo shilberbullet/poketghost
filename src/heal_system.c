@@ -7,22 +7,26 @@
 #include "hp_system.h"
 #include "../core/state.h"
 #include "reward.h"
+#include "logger.h"
 
 // 현재 사용 중인 아이템
 const Item* currentItem = NULL;
 
 // 회복 시스템 초기화 함수
 void initHealSystem() {
+    LOG_FUNCTION_EXECUTION("initHealSystem");
     // 향후 구현 예정
 }
 
 // 회복 시스템 정리 함수
 void cleanupHealSystem() {
+    LOG_FUNCTION_EXECUTION("cleanupHealSystem");
     // 향후 구현 예정
 }
 
 // 요괴 HP 회복 함수
 int healYokai(Yokai* targetYokai) {
+    LOG_FUNCTION_EXECUTION("healYokai");
     if (!currentItem) return -1;
     
     switch (currentItem->type) {
@@ -172,6 +176,7 @@ int healYokai(Yokai* targetYokai) {
 
 // 회복할 요괴 선택 함수
 Yokai* selectYokaiToHeal() {
+    LOG_FUNCTION_EXECUTION("selectYokaiToHeal");
     // 이상한 양갱인 경우 바로 NULL 반환
     if (currentItem && strcmp(currentItem->name, "이상한 양갱") == 0) {
         return NULL;
@@ -224,6 +229,7 @@ Yokai* selectYokaiToHeal() {
 
 // 기술 선택 함수
 int selectMoveToHeal(Yokai* targetYokai) {
+    LOG_FUNCTION_EXECUTION("selectMoveToHeal");
     printText("\n=== 회복할 기술 선택 ===\n");
     
     // 기술 목록 표시
@@ -276,6 +282,7 @@ int selectMoveToHeal(Yokai* targetYokai) {
 
 // 단일 기술 PP 회복 처리 함수
 void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
+    LOG_FUNCTION_EXECUTION("healSingleMovePP");
     if (targetYokai == NULL || moveIndex < 0 || moveIndex >= targetYokai->moveCount) {
         printTextAndWait("\n잘못된 기술 선택입니다.");
         return;
@@ -306,6 +313,7 @@ void healSingleMovePP(Yokai* targetYokai, int moveIndex, int ppAmount) {
 
 // 모든 기술 PP 회복 처리 함수
 void healAllMovesPP(Yokai* targetYokai) {
+    LOG_FUNCTION_EXECUTION("healAllMovesPP");
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
         return;
@@ -323,6 +331,7 @@ void healAllMovesPP(Yokai* targetYokai) {
 
 // 기술 PP 회복 처리 함수
 void healMovePP(Yokai* targetYokai, int ppAmount) {
+    LOG_FUNCTION_EXECUTION("healMovePP");
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
         return;

@@ -6,14 +6,17 @@
 #include <time.h>
 #include <string.h>
 #include <windows.h>
+#include "logger.h"
 
 // 기술 학습 시스템 초기화
 void initMoveLearningSystem() {
+    LOG_FUNCTION_EXECUTION("initMoveLearningSystem");
     srand((unsigned int)time(NULL));
 }
 
 // 레벨업 시 새로운 기술을 배울 수 있는지 확인
 bool canLearnNewMove(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("canLearnNewMove");
     // 레벨에 따른 기술 등급 확인
     for (int i = 0; i < yokai->learnableMoveCount; i++) {
         Move move = yokai->learnableMoves[i];
@@ -47,12 +50,14 @@ bool canLearnNewMove(const Yokai* yokai) {
 
 // 기술 학습 확률 계산 (레벨에 따라 10% 확률)
 bool calculateLearningChance(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("calculateLearningChance");
     (void)yokai;
     return true;  // 항상 true를 반환하여 100% 확률로 기술 학습
 }
 
 // 기술 목록 출력
 void printAvailableMoves(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("printAvailableMoves");
     char buffer[256];
     sprintf(buffer, "\n=== %s의 기술 목록 ===\n", yokai->name);
     printTextAndWait(buffer);
@@ -96,6 +101,7 @@ void printAvailableMoves(const Yokai* yokai) {
 
 // 새로운 기술 학습 시도
 bool tryLearnNewMove(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("tryLearnNewMove");
     if (!canLearnNewMove(yokai)) {
         return false;
     }
@@ -254,6 +260,7 @@ bool tryLearnNewMove(Yokai* yokai) {
 
 // 기술 잊기
 bool forgetMove(Yokai* yokai, int moveIndex) {
+    LOG_FUNCTION_EXECUTION("forgetMove");
     if (moveIndex < 0 || moveIndex >= yokai->moveCount) {
         return false;
     }
@@ -271,6 +278,7 @@ bool forgetMove(Yokai* yokai, int moveIndex) {
 
 // 기술 학습 메뉴 표시
 void showMoveLearningMenu(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("showMoveLearningMenu");
     if (yokai->moveCount >= MAX_MOVES) {
         printText("\n새로운 기술을 배우기 위해서는 기존 기술 중 하나를 잊어야 합니다.\n");
         printText("어떤 기술을 잊으시겠습니까?\n");

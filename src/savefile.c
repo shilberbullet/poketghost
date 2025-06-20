@@ -12,6 +12,7 @@
 #include "text.h"
 #include "region.h"
 #include "../core/state.h"
+#include "logger.h"
 #include <windows.h>
 #define SAVE_FILE "data/save.dat"
 
@@ -25,6 +26,7 @@ char currentRegion[32]; // 현재 지역명을 저장할 변수
 
 // 게임 저장 함수
 void saveGame() {
+    LOG_FUNCTION_EXECUTION("saveGame");
     FILE* file = fopen(SAVE_FILE, "wb");  // 바이너리 쓰기 모드로 파일 열기
     if (!file) {
         printText("저장 실패!\n");
@@ -169,6 +171,7 @@ void saveGame() {
 
 // 게임 데이터 불러오기 함수
 int loadGameData() {
+    LOG_FUNCTION_EXECUTION("loadGameData");
     FILE* file = fopen(SAVE_FILE, "rb");  // 바이너리 읽기 모드로 파일 열기
     if (!file) {
         printText("저장 파일이 없습니다.\n");
@@ -314,5 +317,10 @@ int loadGameData() {
 
 // 저장 파일 삭제 함수
 void removeSaveFile() {
-    remove(SAVE_FILE);
+    LOG_FUNCTION_EXECUTION("removeSaveFile");
+    if (remove(SAVE_FILE) == 0) {
+        printText("저장 파일이 삭제되었습니다.\n");
+    } else {
+        printText("저장 파일을 삭제하지 못했습니다.\n");
+    }
 } 

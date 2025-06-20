@@ -8,10 +8,13 @@
 #include "text.h"
 // 회복 시스템 관련 함수
 #include "heal_system.h"
+// 로깅 함수를 위한 헤더
+#include "logger.h"
 
 // 식혜 아이템 사용 함수
 // 아이템 이름과 대상 요괴를 받아 해당하는 효과를 적용
 void useSikhyeItem(const char* itemName, Yokai* targetYokai) {
+    LOG_FUNCTION_EXECUTION("useSikhyeItem");
     // 대상 요괴가 선택되지 않은 경우
     if (targetYokai == NULL) {
         printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
@@ -35,6 +38,7 @@ void useSikhyeItem(const char* itemName, Yokai* targetYokai) {
 // 식혜 효과 적용 함수
 // 대상 요괴와 회복할 PP 양을 받아 효과를 적용
 void applySikhyeEffect(Yokai* targetYokai, int ppAmount) {
+    LOG_FUNCTION_EXECUTION("applySikhyeEffect");
     // PP 양이 -1인 경우 (시원한 식혜)
     if (ppAmount == -1) {
         // 선택한 기술의 PP를 최대치까지 회복

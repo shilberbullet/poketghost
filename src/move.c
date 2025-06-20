@@ -8,6 +8,8 @@
 #include "move.h"
 // 텍스트 출력 관련 함수와 구조체 정의
 #include "text.h"
+// 로깅 기능을 위한 헤더
+#include "logger.h"
 
 // 외부에서 정의된 변수와 함수 선언
 extern const char* typeNames[];           // 요괴 타입 이름 배열
@@ -22,6 +24,7 @@ static MoveGrade currentGrade = MOVE_BASIC;
 
 // 기술 데이터를 파일에서 로드하는 함수
 void loadMovesFromFile(const char* filename) {
+    LOG_FUNCTION_EXECUTION("loadMovesFromFile");
     moveListCount = 0;  // 기술 목록 초기화
     FILE* file = fopen(filename, "r");
     if (!file) return;
@@ -67,6 +70,7 @@ void loadMovesFromFile(const char* filename) {
 
 // 이름으로 기술을 찾는 함수
 Move* findMoveByName(const char* name) {
+    LOG_FUNCTION_EXECUTION("findMoveByName");
     for (int i = 0; i < moveListCount; i++) {
         if (strcmp(moveList[i].name, name) == 0) return &moveList[i];
     }
@@ -75,6 +79,7 @@ Move* findMoveByName(const char* name) {
 
 // 기술 정보를 출력하는 함수
 void printMoveInfo(const Move* move) {
+    LOG_FUNCTION_EXECUTION("printMoveInfo");
     printf("\n=== %s ===\n", move->name);                    // 기술 이름 출력
     printf("등급: %s\n", gradeToString(move->grade));        // 기술 등급 출력
     printf("공격력: %d\n", move->power);                     // 기술 위력 출력

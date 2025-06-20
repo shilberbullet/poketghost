@@ -16,6 +16,7 @@
 #include "region.h"
 #include "item.h"
 #include "../core/state.h"
+#include "logger.h"
 #include <windows.h>
 
 // 지형 이름 배열
@@ -44,6 +45,7 @@ const char* finalTerrainNames[] = {
 
 // 스테이지 초기화 함수
 void initStage(StageInfo* stage, int stageNumber) {
+    LOG_FUNCTION_EXECUTION("initStage");
     if (stageNumber >= 81) {
         // 파이널 스테이지 초기화
         stage->stageNumber = stageNumber;
@@ -138,6 +140,7 @@ void initStage(StageInfo* stage, int stageNumber) {
 
 // 다음 스테이지로 진행하는 함수
 void nextStage() {
+    LOG_FUNCTION_EXECUTION("nextStage");
     gStage.stageNumber++;  // 스테이지 번호 증가
     turnCount = 0;              // 턴 카운트 초기화
     gStage.hour = (gStage.hour + 1) % 24;  // 시간 증가 (24시간 주기)
@@ -190,6 +193,7 @@ void nextStage() {
 
 // 스테이지 정보를 표시하는 함수
 void showStageInfo() {
+    LOG_FUNCTION_EXECUTION("showStageInfo");
     char buffer[256];
     system("cls");  // 화면 지우기
     printText("=== 스테이지 정보 ===\n\n");
@@ -208,6 +212,7 @@ void showStageInfo() {
 
 // 전투 인터페이스를 표시하고 전투를 시작하는 함수
 void showBattleInterface() {
+    LOG_FUNCTION_EXECUTION("showBattleInterface");
     int minLevel, maxLevel;
     calculateLevelRange(gStage.stageNumber, &minLevel, &maxLevel);  // 레벨 범위 계산
 
@@ -248,5 +253,6 @@ void showBattleInterface() {
 
 // 현재 스테이지의 지형 이름을 반환하는 함수
 const char* getCurrentTerrain(void) {
+    LOG_FUNCTION_EXECUTION("getCurrentTerrain");
     return gStage.terrainName;
 } 
