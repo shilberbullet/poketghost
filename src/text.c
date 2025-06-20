@@ -15,6 +15,7 @@
 
 // 텍스트 출력 속도에 따른 대기 시간 계산 (밀리초)
 int getTextDelay() {
+    LOG_FUNCTION_EXECUTION("getTextDelay");
     switch (gameSettings.textSpeed) {
         case 1: return 15;   // 매우 느림 (10ms)
         case 2: return 10;   // 느림 (5ms)
@@ -27,6 +28,7 @@ int getTextDelay() {
 
 // 텍스트를 한 글자씩 출력하는 함수
 void printText(const char* text) {
+    LOG_FUNCTION_EXECUTION("printText");
     // 출력 로깅
     logOutput("%s", text);
 
@@ -67,14 +69,16 @@ void printText(const char* text) {
 
 // 텍스트를 출력하고 1초 대기 후 자동으로 넘어가는 함수
 void printTextAndWait(const char* text) {
-    int delay = getTextDelay();  // 현재 설정된 텍스트 속도에 따른 대기 시간 계산
+    LOG_FUNCTION_EXECUTION("printTextAndWait");
+    int delay = getTextDelay();
 
-    printText(text);     // 텍스트 출력
-    Sleep(delay * 50);         // 1.5초 대기
+    printText(text);
+    Sleep(delay * 50);
 }
 
 // 텍스트 속도에 비례한 sleep 함수 (base=500이면 매우 빠름)
 void fastSleep(int base) {
+    LOG_FUNCTION_EXECUTION("fastSleep");
     (void)base;
     int delay = getTextDelay();
     Sleep(delay*180);

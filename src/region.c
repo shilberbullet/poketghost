@@ -2,6 +2,7 @@
 #include "../include/text.h"
 #include "../include/input.h"
 #include "../include/settings.h"
+#include "../include/logger.h"
 #include <windows.h>
 #include <stdbool.h>  // bool 타입을 위해 추가
 
@@ -20,14 +21,17 @@ static Region regions[MAX_REGIONS] = {
 static char currentRegion[REGION_NAME_LENGTH];
 
 void initRegionSystem(void) {
+    LOG_FUNCTION_EXECUTION("initRegionSystem");
     srand((unsigned int)time(NULL));
 }
 
 const char* getCurrentRegion(void) {
+    LOG_FUNCTION_EXECUTION("getCurrentRegion");
     return currentRegion;
 }
 
 int setInitialRegion(int choice) {
+    LOG_FUNCTION_EXECUTION("setInitialRegion");
     if (choice == 1) {
         strcpy(currentRegion, "경상도");
         regions[6].visited = 1;  // 경상도 방문 표시
@@ -41,6 +45,7 @@ int setInitialRegion(int choice) {
 }
 
 int moveToNextRegion(void) {
+    LOG_FUNCTION_EXECUTION("moveToNextRegion");
     // 현재 지역의 인덱스 찾기
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
@@ -102,6 +107,7 @@ int moveToNextRegion(void) {
 
 // 지도 아이템 사용 시 플레이어가 직접 지역을 선택할 수 있는 함수
 int moveToNextRegionWithMap(void) {
+    LOG_FUNCTION_EXECUTION("moveToNextRegionWithMap");
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
         if (strcmp(regions[i].name, currentRegion) == 0) {
@@ -195,6 +201,7 @@ int moveToNextRegionWithMap(void) {
 }
 
 void displayConnectedRegions(void) {
+    LOG_FUNCTION_EXECUTION("displayConnectedRegions");
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
         if (strcmp(regions[i].name, currentRegion) == 0) {
@@ -220,6 +227,7 @@ void displayConnectedRegions(void) {
 }
 
 void saveRegionData(FILE* file) {
+    LOG_FUNCTION_EXECUTION("saveRegionData");
     if (!file) return;
     
     // 현재 지역 저장
@@ -232,6 +240,7 @@ void saveRegionData(FILE* file) {
 }
 
 void loadRegionData(FILE* file) {
+    LOG_FUNCTION_EXECUTION("loadRegionData");
     if (!file) return;
     
     // 현재 지역 로드
@@ -245,6 +254,7 @@ void loadRegionData(FILE* file) {
 
 // 모든 지역 방문 여부 확인
 int isAllRegionsVisited(void) {
+    LOG_FUNCTION_EXECUTION("isAllRegionsVisited");
     for (int i = 0; i < MAX_REGIONS; i++) {
         if (!regions[i].visited) return 0;
     }

@@ -10,9 +10,11 @@
 #include "party.h"
 #include "savefile.h"
 #include "../core/state.h"
+#include "logger.h"
 
 // 게임 메뉴를 표시하는 함수
 void showGameMenu(void) {
+    LOG_FUNCTION_EXECUTION("showGameMenu");
     int choice;
     
     while (1) {
@@ -38,6 +40,7 @@ void showGameMenu(void) {
 
 // 게임 메뉴 선택을 처리하는 함수
 void handleGameMenuChoice(int choice) {
+    LOG_FUNCTION_EXECUTION("handleGameMenuChoice");
     switch (choice) {
         case 1:
             showPartyMenu();  // 파티 관리 메뉴 표시
@@ -66,10 +69,16 @@ void handleGameMenuChoice(int choice) {
 }
 
 // 파티 관리 메뉴를 표시하는 함수 (구현 예정)
-void showPartyMenu(void) {}
+void showPartyMenu(void) {
+    LOG_FUNCTION_EXECUTION("showPartyMenu");
+}
 
 // 아이템 사용 메뉴를 표시하는 함수 (구현 예정)
-void showItemMenu(void) {}
+void showItemMenu(void) {
+    LOG_FUNCTION_EXECUTION("showItemMenu");
+}
 
 // 맵을 표시하는 함수 (구현 예정)
-void showMap(void) {} 
+void showMap(void) {
+    LOG_FUNCTION_EXECUTION("showMap");
+} 

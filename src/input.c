@@ -13,6 +13,7 @@
 
 // 입력 버퍼를 비우는 함수
 void clearInputBuffer() {
+    LOG_FUNCTION_EXECUTION("clearInputBuffer");
     while (_kbhit()) {  // 버퍼에 문자가 있는 동안
         _getch();       // 문자를 읽어서 버퍼에서 제거
     }
@@ -20,6 +21,7 @@ void clearInputBuffer() {
 
 // 정수 입력을 받는 함수
 int getIntInput() {
+    LOG_FUNCTION_EXECUTION("getIntInput");
     char input[256];    // 입력 문자열을 저장할 버퍼
     int number;         // 변환된 숫자를 저장할 변수
     int i = 0;          // 문자열 인덱스
@@ -67,6 +69,7 @@ int getIntInput() {
 
 // 문자 입력을 받는 함수
 char getCharInput() {
+    LOG_FUNCTION_EXECUTION("getCharInput");
     char input = _getch();
     
     // 입력 로깅
@@ -77,6 +80,7 @@ char getCharInput() {
 
 // 엔터 키 입력을 기다리는 함수
 void waitForEnter() {
+    LOG_FUNCTION_EXECUTION("waitForEnter");
     logInput("엔터키 입력 대기");
     clearInputBuffer();  // 입력 버퍼 비우기
     while (_getch() != '\r');  // 엔터키 입력 대기
@@ -84,12 +88,14 @@ void waitForEnter() {
 
 // 입력 대기 함수
 void waitForInput() {
+    LOG_FUNCTION_EXECUTION("waitForInput");
     logInput("아무 키나 입력 대기");
     _getch();
 }
 
 // 특정 범위 내의 숫자 입력을 받는 함수
 int getNumberInput(int min, int max) {
+    LOG_FUNCTION_EXECUTION("getNumberInput");
     int num;
     while (1) {
         printf("선택 (%d-%d): ", min, max);  // 입력 범위 안내

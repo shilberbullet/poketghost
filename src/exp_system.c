@@ -11,10 +11,12 @@
 #include "../core/state.h"
 #include "yokai.h"
 #include "move_learning.h"
+#include "logger.h"
 
 // 레벨업에 필요한 경험치 계산 함수
 // 레벨에 따라 필요한 경험치를 계산
 int calculateRequiredExp(int level) {
+    LOG_FUNCTION_EXECUTION("calculateRequiredExp");
     // 기본 공식: 20 * (level^1.2)
     return (int)(15 * pow(level, 1.7));
 }
@@ -22,6 +24,7 @@ int calculateRequiredExp(int level) {
 // 전투 승리 시 획득 경험치 계산 함수
 // 적 요괴의 레벨과 보스 여부에 따라 경험치를 계산
 int calculateBattleExp(const Yokai* enemy) {
+    LOG_FUNCTION_EXECUTION("calculateBattleExp");
     // 기본 경험치: 적 레벨 * 80
     int baseExp = enemy->level * 80;
     
@@ -56,6 +59,7 @@ int calculateBattleExp(const Yokai* enemy) {
 // 개별 요괴의 경험치 계산 함수 (새로 추가)
 // 각 요괴의 레벨에 따라 개별적으로 경험치를 계산
 int calculateIndividualExp(const Yokai* enemy, const Yokai* player) {
+    LOG_FUNCTION_EXECUTION("calculateIndividualExp");
     // 기본 경험치: 적 레벨 * 80
     int baseExp = enemy->level * 80;
     
@@ -88,6 +92,7 @@ int calculateIndividualExp(const Yokai* enemy, const Yokai* player) {
 // 경험치 획득 및 레벨업 처리 함수
 // 요괴가 경험치를 획득하고 레벨업 여부를 체크
 void gainExp(Yokai* yokai, int exp) {
+    LOG_FUNCTION_EXECUTION("gainExp");
     // 경험치 획득 메시지 출력
     char buffer[256];
     sprintf(buffer, "\n%s가 %d의 경험치를 획득했습니다!\n", yokai->name, exp);
@@ -107,6 +112,7 @@ void gainExp(Yokai* yokai, int exp) {
 // 레벨업 처리 함수
 // 요괴의 레벨을 올리고 능력치를 재계산
 void levelUp(Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("levelUp");
     char buffer[256];
     float oldMaxHP = calculateHP(yokai);  // 이전 최대 HP 저장
     yokai->level++;  // 레벨 증가

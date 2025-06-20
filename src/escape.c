@@ -5,9 +5,11 @@
 #include "escape.h"
 #include "text.h"
 #include "../core/state.h"
+#include "logger.h"
 
 // 보스 스테이지에서 도망치기 가능 여부 확인 함수
 int canEscapeFromStage(void) {
+    LOG_FUNCTION_EXECUTION("canEscapeFromStage");
     // 10의 배수 스테이지(보스 스테이지) 또는 파이널 스테이지(81스테이지 이상)에서는 도망칠 수 없음
     if (gStage.stageNumber % 10 == 0 || gStage.stageNumber >= 81) {
         printTextAndWait("\n알 수 없는 힘이 도망치지 못하게 합니다!");
@@ -18,6 +20,7 @@ int canEscapeFromStage(void) {
 
 // 도망치기 시도 함수
 int tryToEscape(void) {
+    LOG_FUNCTION_EXECUTION("tryToEscape");
     // 보스 스테이지에서는 도망칠 수 없음
     if (!canEscapeFromStage()) {
         return ESCAPE_FAIL;

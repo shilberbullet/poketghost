@@ -14,9 +14,11 @@
 #include "main.h"  // main 함수를 위해 추가
 #include "savefile.h" // 세이브 파일 삭제를 위해 추가
 #include "../core/state.h"
+#include "logger.h"
 
 // 모든 요괴가 기절했는지 확인하는 함수
 bool areAllYokaiFainted() {
+    LOG_FUNCTION_EXECUTION("areAllYokaiFainted");
     // HP와 상태 동기화
     for (int i = 0; i < gPartyCount; i++) {
         if (gParty[i].currentHP > 0) {
@@ -35,6 +37,7 @@ bool areAllYokaiFainted() {
 
 // 게임 초기화 함수
 void resetGame() {
+    LOG_FUNCTION_EXECUTION("resetGame");
     // 파티 초기화
     initParty();
     
@@ -44,6 +47,7 @@ void resetGame() {
 
 // 로그라이트 시스템 메인 함수
 void handleRogueliteSystem() {
+    LOG_FUNCTION_EXECUTION("handleRogueliteSystem");
     printText("\n모든 요괴가 기절했습니다!\n");
     printText("더 이상 싸울 수 있는 요괴가 없습니다.\n");
     printTextAndWait("잠시 후 게임이 초기화됩니다...\n");

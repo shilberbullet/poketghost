@@ -6,9 +6,11 @@
 #include "settings_file.h"
 #include "input.h"
 #include "text.h"
+#include "logger.h"
 
 // 설정 메뉴를 표시하는 함수
 void showSettingsMenu() {
+    LOG_FUNCTION_EXECUTION("showSettingsMenu");
     int choice;
     
     while (1) {
@@ -53,6 +55,7 @@ void showSettingsMenu() {
 
 // 텍스트 출력 속도 설정 함수
 void setTextSpeed() {
+    LOG_FUNCTION_EXECUTION("setTextSpeed");
     int choice;
     
     while (1) {
@@ -102,6 +105,7 @@ void setTextSpeed() {
 
 // 텍스트 출력 방식 설정 함수
 void setTextDisplayMode() {
+    LOG_FUNCTION_EXECUTION("setTextDisplayMode");
     int choice;
     
     while (1) {
@@ -153,6 +157,7 @@ void setTextDisplayMode() {
 
 // 상성 힌트 표시 설정 함수
 void setTypeHintDisplay() {
+    LOG_FUNCTION_EXECUTION("setTypeHintDisplay");
     system("cls");
     printText("=== 상성 힌트 표시 설정 ===\n\n");
     printText("현재 상태: ");
@@ -183,6 +188,7 @@ void setTypeHintDisplay() {
 }
 
 void setDebugMode() {
+    LOG_FUNCTION_EXECUTION("setDebugMode");
     system("cls");
     printText("=== 디버그 모드 설정 ===\n\n");
     printText("현재 상태: ");

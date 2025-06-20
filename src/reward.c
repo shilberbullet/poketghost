@@ -9,6 +9,7 @@
 #include "party.h"
 #include "battle.h"
 #include "../core/state.h"
+#include "logger.h"
 #include <windows.h>
 #include <math.h>
 
@@ -22,6 +23,7 @@ int lastStageNumber = -1; // 마지막 스테이지 번호
 
 // 전투 보상 전 계산 함수
 int calculateBattleReward() {
+    LOG_FUNCTION_EXECUTION("calculateBattleReward");
     // 기본 보상: 100전
     int baseReward = 100;
     
@@ -47,6 +49,7 @@ int calculateBattleReward() {
 
 // 초기화 비용 계산 함수
 static int calculateResetCost(int stageNumber) {
+    LOG_FUNCTION_EXECUTION("calculateResetCost");
     int baseCost = 100;  // 기본 비용
     int multiplier = 1;  // 기본 배수
     
@@ -62,6 +65,7 @@ static int calculateResetCost(int stageNumber) {
 
 // 아이템 등급을 한글로 반환하는 함수
 const char* getGradeName(ItemGrade grade) {
+    LOG_FUNCTION_EXECUTION("getGradeName");
     switch (grade) {
         case ITEM_COMMON:
             return "일반";
@@ -76,11 +80,13 @@ const char* getGradeName(ItemGrade grade) {
 
 // 파이널 스테이지 여부를 반환하는 함수
 int isFinalStage() {
+    LOG_FUNCTION_EXECUTION("isFinalStage");
     return strcmp(gStage.region, "이계의 심연") == 0;
 }
 
 // 아이템 보상 시스템
 void itemRewardSystem() {
+    LOG_FUNCTION_EXECUTION("itemRewardSystem");
     // 스테이지가 바뀌면 resetCount와 isInitialized를 초기화
     if (lastStageNumber != gStage.stageNumber) {
         resetCount = 0;
@@ -288,6 +294,7 @@ void itemRewardSystem() {
 
 // 새 게임 시작 시 호출할 초기화 함수
 void resetItemRewardSystem(void) {
+    LOG_FUNCTION_EXECUTION("resetItemRewardSystem");
     resetCount = 0;
     isInitialized = 0;
     lastStageNumber = -1;

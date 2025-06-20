@@ -12,6 +12,7 @@
 #include "../core/state.h"
 #include <windows.h>
 #include "hp_system.h"
+#include "logger.h"
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
 #endif
@@ -26,6 +27,7 @@ void assignRandomMoves(Yokai* y);
 
 // 파티 초기화 함수
 void initParty() {
+    LOG_FUNCTION_EXECUTION("initParty");
     gPartyCount = 0;
     // 도깨비 요괴를 파일에서 불러와 추가
     Yokai* dokkaebi = findYokaiByName("도깨비");
@@ -51,6 +53,7 @@ void initParty() {
 
 // 요괴 성불 처리 함수
 void releaseYokai(int index) {
+    LOG_FUNCTION_EXECUTION("releaseYokai");
     if (index < 0 || index >= gPartyCount) return;
     if (index == 0) {
         printText("\n도깨비는 성불시킬 수 없습니다.\n");
@@ -98,6 +101,7 @@ void releaseYokai(int index) {
 
 // 새로운 요괴를 잡았을 때 파티가 가득 찼을 경우의 처리
 int handleFullParty(const Yokai* newYokai) {
+    LOG_FUNCTION_EXECUTION("handleFullParty");
     if (gPartyCount < MAX_PARTY_SIZE) {
         return addYokaiToParty(newYokai);
     }
@@ -204,6 +208,7 @@ int handleFullParty(const Yokai* newYokai) {
 
 // 파티에 새로운 요괴 추가 함수
 int addYokaiToParty(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("addYokaiToParty");
     // 성불된 요괴의 자리를 찾아서 재사용
     int releasedSlot = -1;
     for (int i = 0; i < gPartyCount; i++) {
@@ -272,6 +277,7 @@ int addYokaiToParty(const Yokai* yokai) {
 
 // 요괴 정보 서브메뉴 표시 함수
 void showYokaiSubMenu(const Yokai* yokai) {
+    LOG_FUNCTION_EXECUTION("showYokaiSubMenu");
     while (1) {
         char buffer[256];
         sprintf(buffer, "\n=== 요괴 정보 ===\n");
@@ -515,6 +521,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
 
 // 파티 요괴 목록 출력 함수
 void printParty() {
+    LOG_FUNCTION_EXECUTION("printParty");
     char buffer[256];
     sprintf(buffer, "\n=== 동료 요괴 목록 ===\n");
     for (int i = 0; i < gPartyCount; i++) {
@@ -545,6 +552,7 @@ void printParty() {
 
 // 모든 요괴의 PP를 초기화하는 함수
 void resetAllYokaiPP() {
+    LOG_FUNCTION_EXECUTION("resetAllYokaiPP");
     for (int i = 0; i < gPartyCount; i++) {
         for (int j = 0; j < gParty[i].moveCount; j++) {
             gParty[i].moves[j].currentPP = gParty[i].moves[j].move.pp;
