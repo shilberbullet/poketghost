@@ -89,6 +89,21 @@ void startNewGame(void) {
     }
     
     initGame(); // 게임 상태 초기화
+
+    // 게임 시작 시 기본 아이템인 '낡은 부적' 5개를 인벤토리에 추가
+    Item* oldTalisman = NULL;
+    for (int i = 0; i < itemListCount; i++) {
+        if (strcmp(itemList[i].name, "낡은부적") == 0) {
+            oldTalisman = &itemList[i];
+            break;
+        }
+    }
+    if (oldTalisman) {
+        for (int i = 0; i < 5; i++) {
+            addItemToInventoryWithoutMessage(oldTalisman);
+        }
+    }
+    
     initStage(&gStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
     

@@ -66,6 +66,9 @@ void getRandomItems(Item* outItems, int count);
 // 인벤토리에 아이템 추가
 void addItemToInventory(const Item* item);
 
+// 메시지 없이 인벤토리에 아이템 추가
+void addItemToInventoryWithoutMessage(const Item* item);
+
 // 부적 사용 함수
 bool useTalisman(const Item* item, void* targetYokai);
 
