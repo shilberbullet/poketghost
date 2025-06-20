@@ -72,7 +72,7 @@ void initStage(StageInfo* stage, int stageNumber) {
             // 적 배열 전체 초기화
             memset(stage->enemies, 0, sizeof(stage->enemies));
             stage->enemyCount = 1;
-            Yokai* y = findYokaiByName("차원의 군주");
+            Yokai* y = findYokaiByName("두억시니");
             if (y) {
                 stage->enemies[0] = *y;
                 stage->enemies[0].level = level;
@@ -94,9 +94,9 @@ void initStage(StageInfo* stage, int stageNumber) {
                 printf("[DEBUG] 최종보스 생성 성공: %s, 레벨: %d, HP: %.1f, 기술 수: %d\n", 
                        stage->enemies[0].name, stage->enemies[0].level, stage->enemies[0].currentHP, stage->enemies[0].moveCount);
             } else {
-                printf("[DEBUG] 차원의 군주를 찾을 수 없음, yokai.txt 재로드 시도\n");
+                printf("[DEBUG] 두억시니를 찾을 수 없음, yokai.txt 재로드 시도\n");
                 loadYokaiFromFile("data/yokai.txt");
-                y = findYokaiByName("차원의 군주");
+                y = findYokaiByName("두억시니");
                 if (y) {
                     stage->enemies[0] = *y;
                     stage->enemies[0].level = level;
@@ -118,7 +118,7 @@ void initStage(StageInfo* stage, int stageNumber) {
                     printf("[DEBUG] 최종보스 생성 성공(재로드 후): %s, 레벨: %d, HP: %.1f, 기술 수: %d\n", 
                            stage->enemies[0].name, stage->enemies[0].level, stage->enemies[0].currentHP, stage->enemies[0].moveCount);
                 } else {
-                    printf("[DEBUG] 차원의 군주를 여전히 찾을 수 없음\n");
+                    printf("[DEBUG] 두억시니를 여전히 찾을 수 없음\n");
                 }
             }
         } else {
