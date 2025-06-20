@@ -308,16 +308,12 @@ void itemRewardSystem() {
         if (useYokaiItem(&candidates[idx], targetYokai)) {
             // 고급양갱은 메시지 출력하지 않음
             if (strcmp(candidates[idx].name, "고급양갱") != 0) {
-                char buffer[128];
-     
                 fastSleep(500);
             }
         } else if (candidates[idx].type == ITEM_YANGGAENG) {
             if (addItemToYokaiInventory(targetYokai, &candidates[idx])) {
                 // 고급양갱은 메시지 출력하지 않음
                 if (strcmp(candidates[idx].name, "고급양갱") != 0) {
-                    char buffer[128];
-                   
                 }
             } else {
                 printTextAndWait("\n이미 최대치까지 보유하고 있습니다!");
@@ -337,19 +333,13 @@ void itemRewardSystem() {
                     break;
                 }
             }
-            // 5개 미만일 때만 메시지 출력
+            // 5개 미만일 때만 메시지 출력 (중복 방지 위해 메시지 출력 코드 삭제)
             if (count < 5) {
-                char buffer[128];
-                sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
-                printTextAndWait(buffer);
                 fastSleep(500);
             }
         }
-        // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력
+        // 회복형, 양갱형 아이템이 아닌 경우에만 획득 메시지 출력 (중복 방지 위해 메시지 출력 코드 삭제)
         else if (candidates[idx].type != ITEM_HEAL && candidates[idx].type != ITEM_YANGGAENG) {
-            char buffer[128];
-            sprintf(buffer, "\n%s를 인벤토리에 획득했습니다!", candidates[idx].name);
-            printTextAndWait(buffer);
             fastSleep(500);
         }
     }
