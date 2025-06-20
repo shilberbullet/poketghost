@@ -53,20 +53,6 @@ void initGame() {
         
         // 아이템 데이터를 파일에서 로드
         loadItemsFromFile("data/items.txt");
-        
-        // 게임 시작 시 기본 아이템인 '낡은 부적' 5개를 인벤토리에 추가
-        Item* oldTalisman = NULL;
-        for (int i = 0; i < itemListCount; i++) {
-            if (strcmp(itemList[i].name, "낡은부적") == 0) {
-                oldTalisman = &itemList[i];
-                break;
-            }
-        }
-        if (oldTalisman) {
-            for (int i = 0; i < 5; i++) {
-                addItemToInventory(oldTalisman);
-            }
-        }
     }
 }
 
@@ -128,7 +114,7 @@ void resetGameState() {
     }
     if (oldTalisman) {
         for (int i = 0; i < 5; i++) {
-            addItemToInventory(oldTalisman);
+            addItemToInventoryWithoutMessage(oldTalisman);
         }
     }
 }

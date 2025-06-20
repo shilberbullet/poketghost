@@ -440,6 +440,75 @@ void addItemToInventory(const Item* item) {
     }
 }
 
+// 메시지 없이 인벤토리에 아이템 추가
+void addItemToInventoryWithoutMessage(const Item* item) {
+    // 회복형, 양갱형, 잊은 기술 배우기 아이템은 즉시 사용
+    if (item->type == ITEM_HEAL || item->type == ITEM_YANGGAENG || item->type == ITEM_FORGOTTEN_MOVE) {
+        // 이 함수에서는 즉시 사용 로직을 처리하지 않음
+        return;
+    }
+    
+    if (item->type == ITEM_YOKAI) {
+        // 이 함수에서는 요괴 아이템을 처리하지 않음
+        return;
+    }
+
+    // 지도 아이템은 최대 1개만 보유 가능
+    if (strcmp(item->name, "지도") == 0) {
+        for (int i = 0; i < inventoryCount; i++) {
+            if (strcmp(inventory[i].item.name, "지도") == 0) {
+                return;
+            }
+        }
+    }
+
+    // 이미 있는 아이템인지 확인
+    for (int i = 0; i < inventoryCount; i++) {
+        if (strcmp(inventory[i].item.name, item->name) == 0) {
+            // 작두는 최대 5개까지만 보유 가능
+            if (strcmp(item->name, "작두") == 0 && inventory[i].count >= 5) {
+                return;
+            }
+            // 무당방울은 최대 5개까지만 보유 가능
+            if (strcmp(item->name, "무당방울") == 0 && inventory[i].count >= 5) {
+                return;
+            }
+            // 그 외 아이템은 최대 99개까지만 보유 가능
+            if (strcmp(item->name, "작두") != 0 && strcmp(item->name, "무당방울") != 0 && inventory[i].count >= 99) {
+                return;
+            }
+            inventory[i].count++;
+            return;
+        }
+    }
+
+    // 새로운 아이템 추가
+    if (inventoryCount < INVENTORY_MAX) {
+        // 작두는 최대 5개까지만 보유 가능
+        if (strcmp(item->name, "작두") == 0) {
+            if (1 > 5) {
+                return;
+            }
+        }
+        // 무당방울은 최대 5개까지만 보유 가능
+        if (strcmp(item->name, "무당방울") == 0) {
+            if (1 > 5) {
+                return;
+            }
+        }
+        // 그 외 아이템은 최대 99개까지만 보유 가능
+        if (strcmp(item->name, "작두") != 0 && strcmp(item->name, "무당방울") != 0) {
+            if (1 > 99) {
+                return;
+            }
+        }
+        inventory[inventoryCount].item = *item;
+        inventory[inventoryCount].count = 1;
+        inventoryCount++;
+        return;
+    }
+}
+
 // 인벤토리 출력 함수
 void printInventory() {
     if (inventoryCount == 0) {
