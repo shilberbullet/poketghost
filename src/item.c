@@ -127,8 +127,8 @@ void getRandomItems(Item* outItems, int count) {
         ItemGrade targetGrade;
         
         // 등급별 확률 설정
-        if (randomValue < 60) targetGrade = ITEM_COMMON;      // 70%
-        else if (randomValue < 5) targetGrade = ITEM_RARE;   // 25%
+        if (randomValue < 30) targetGrade = ITEM_COMMON;      // 70%
+        else if (randomValue < 30) targetGrade = ITEM_RARE;   // 25%
         else targetGrade = ITEM_SUPERRARE;             // 5%
 
         // 해당 등급의 아이템 중 랜덤 선택
@@ -386,6 +386,13 @@ void addItemToInventory(const Item* item) {
                 return;
             }
             inventory[i].count++;
+            // 평범한 양갱 등 양갱류는 메시지 출력하지 않음
+            if (item->type != ITEM_YANGGAENG) {
+                char msg[128];
+                snprintf(msg, sizeof(msg), "\n%s를 인벤토리에 획득했습니다!", item->name);
+                printTextAndWait(msg);
+                fastSleep(500);
+            }
             return;
         }
     }
@@ -421,7 +428,15 @@ void addItemToInventory(const Item* item) {
         }
         inventory[inventoryCount].item = *item;
         inventory[inventoryCount].count = 1;
+        // 평범한 양갱 등 양갱류는 메시지 출력하지 않음
+        if (item->type != ITEM_YANGGAENG) {
+            char msg[128];
+            snprintf(msg, sizeof(msg), "\n%s를 인벤토리에 획득했습니다!", item->name);
+            printTextAndWait(msg);
+            fastSleep(500);
+        }
         inventoryCount++;
+        return;
     }
 }
 
@@ -715,8 +730,12 @@ bool useYokaiItem(const Item* item, void* targetYokai) {
         // 복숭아 아이템 처리
         for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
             if (strcmp(yokai->yokaiInventory[i].item.name, "복숭아") == 0) {
-                printTextAndWait("\n이미 복숭아를 가지고 있습니다!");
-                return false;
+                if (yokai->yokaiInventory[i].count >= 5) {
+                    printTextAndWait("\n이미 복숭아를 5개 가지고 있습니다!");
+                    return false;
+                }
+                // 5개 미만이면 추가 가능
+                break;
             }
         }
         addItemToYokaiInventory(yokai, item);
@@ -726,8 +745,12 @@ bool useYokaiItem(const Item* item, void* targetYokai) {
         // 고대의 서적 아이템 처리
         for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
             if (strcmp(yokai->yokaiInventory[i].item.name, "고대의 서적") == 0) {
-                printTextAndWait("\n이미 고대의 서적을 가지고 있습니다!");
-                return false;
+                if (yokai->yokaiInventory[i].count >= 5) {
+                    printTextAndWait("\n이미 고대의 서적을 5개 가지고 있습니다!");
+                    return false;
+                }
+                // 5개 미만이면 추가 가능
+                break;
             }
         }
         addItemToYokaiInventory(yokai, item);
@@ -771,4 +794,39 @@ bool useYokaiItem(const Item* item, void* targetYokai) {
         }
     }
     return false;
+}
+
+// 찹살경단 자동 발동 함수
+// HP가 20% 이하로 내려가면, 기절 상태가 아니면 30% 회복 후 1개 소모
+bool tryActivateChapsalgyungdan(Yokai* yokai) {
+    // 기절 상태면 발동 불가
+    if (yokai->status == YOKAI_FAINTED) return false;
+    // 찹살경단 보유 여부 확인
+    int idx = -1;
+    for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
+        if (strcmp(yokai->yokaiInventory[i].item.name, "찹살경단") == 0 && yokai->yokaiInventory[i].count > 0) {
+            idx = i;
+            break;
+        }
+    }
+    if (idx == -1) return false;
+    float maxHP = calculateHP(yokai);
+    float hpPercentage = (yokai->currentHP / maxHP) * 100.0f;
+    if (hpPercentage >= 30.0f) return false;
+    // 회복량 계산
+    float healAmount = maxHP * 0.3f;
+    float beforeHP = yokai->currentHP;
+    yokai->currentHP += healAmount;
+    if (yokai->currentHP > maxHP) yokai->currentHP = maxHP;
+    // 아이템 1개 소모
+    yokai->yokaiInventory[idx].count--;
+    if (yokai->yokaiInventory[idx].count <= 0) {
+        removeItemFromYokaiInventory(yokai, idx);
+    }
+    // 메시지 출력
+    char buffer[256];
+    sprintf(buffer, "\n찹살경단의 힘으로 %s가 %.0f의 체력을 회복했습니다! (%.0f → %.0f)", yokai->name, yokai->currentHP - beforeHP, beforeHP, yokai->currentHP);
+    printTextAndWait(buffer);
+    fastSleep(500);
+    return true;
 } 

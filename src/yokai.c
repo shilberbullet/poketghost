@@ -345,10 +345,12 @@ void printYokaiInventory(const Yokai* yokai) {
     
     for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
         const InventoryItem* invItem = &yokai->yokaiInventory[i];
+        int displayCount = invItem->count;
+        if (strcmp(invItem->item.name, "찹살경단") == 0 && displayCount > 1) displayCount = 1;
         printf("%d. %s (x%d) - %s\n", 
             i + 1,
             invItem->item.name,
-            invItem->count,
+            displayCount,
             invItem->item.desc);
     }
     printf("\n");
@@ -357,31 +359,25 @@ void printYokaiInventory(const Yokai* yokai) {
 // 요괴 인벤토리에 아이템 추가
 bool addItemToYokaiInventory(Yokai* yokai, const Item* item) {
     LOG_FUNCTION_EXECUTION("addItemToYokaiInventory");
-    // 중복 아이템 확인
+    // 기존 슬롯 탐색
     for (int i = 0; i < yokai->yokaiInventoryCount; i++) {
         if (strcmp(yokai->yokaiInventory[i].item.name, item->name) == 0) {
-            // 복숭아는 5개까지만 보유 가능
-            if (strcmp(item->name, "복숭아") == 0) {
-                if (yokai->yokaiInventory[i].count >= 5) {
-                    return false;
+            int maxCount = 99;
+            if (strcmp(item->name, "복숭아") == 0 || strcmp(item->name, "고대의 서적") == 0) maxCount = 5;
+            if (strcmp(item->name, "찹살경단") == 0) maxCount = 1;
+            if (yokai->yokaiInventory[i].count < maxCount) {
+                yokai->yokaiInventory[i].count++;
+                // 찹살경단은 count가 1을 초과할 경우 1로 강제 보정
+                if (strcmp(item->name, "찹살경단") == 0 && yokai->yokaiInventory[i].count > 1) {
+                    yokai->yokaiInventory[i].count = 1;
                 }
-            } else {
-                // 그 외 아이템은 99개까지
-                if (yokai->yokaiInventory[i].count >= 99) {
-                    return false;
-                }
+                return true;
             }
-            yokai->yokaiInventory[i].count++;
-            return true;
+            return false;
         }
     }
-    
-    // 인벤토리가 가득 찼는지 확인
-    if (yokai->yokaiInventoryCount >= INVENTORY_MAX) {
-        return false;
-    }
-    
-    // 새 아이템 추가
+    // 새 슬롯 추가
+    if (yokai->yokaiInventoryCount >= INVENTORY_MAX) return false;
     yokai->yokaiInventory[yokai->yokaiInventoryCount].item = *item;
     yokai->yokaiInventory[yokai->yokaiInventoryCount].count = 1;
     yokai->yokaiInventoryCount++;
