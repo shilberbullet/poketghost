@@ -536,3 +536,15 @@ include/
 - 원본 데이터 형식이 유지됩니다
 - 데이터 입력 시 각 항목은 콤마(,)로 구분, 기술은 세미콜론(;)으로 구분합니다
 
+## ranking 폴더
+
+- 게임 내 '순위를 본다' 기능에서 사용하는 순위 데이터가 저장됩니다.
+- ranking/ranking.txt 파일 포맷:
+
+```
+user_name,yokai_caught,yokai_defeated,stages_completed,games_cleared
+홍길동,10,20,5,1
+김철수,8,15,4,0
+```
+- 첫 줄은 헤더, 이후는 유저별 데이터(쉼표로 구분)
+

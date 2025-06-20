@@ -10,7 +10,8 @@ typedef enum {
     MAIN_MENU_SETTINGS = 3,
     MAIN_MENU_STATISTICS = 4,
     MAIN_MENU_SEND_LOGS = 5,
-    MAIN_MENU_EXIT = 6
+    MAIN_MENU_EXIT = 6,
+    MAIN_MENU_RANKING = 7
 } MainMenuOption;
 
 // 메인 메뉴 표시 함수
@@ -30,5 +31,7 @@ void showSettings(void);
 
 // 로그 보내기 함수 선언
 void sendLogsMenu(void);
+
+void showRankingMenu(void);
 
 #endif // MAIN_MENU_H 
