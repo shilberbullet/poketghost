@@ -10,6 +10,9 @@ typedef struct {
     int games_cleared;
 } GameStatistics;
 
+// 외부에서 접근 가능한 전역 통계 변수
+extern GameStatistics total_stats;
+
 // 함수 선언
 void load_total_statistics();
 void save_total_statistics();
