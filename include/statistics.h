@@ -3,6 +3,7 @@
 
 // 게임 통계 구조체
 typedef struct {
+    char user_name[50];
     int yokai_caught;
     int yokai_defeated;
     int stages_completed;

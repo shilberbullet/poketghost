@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#include <string.h>
 
 #define STATISTICS_FILE "data/statistics.dat"
 
@@ -21,11 +22,19 @@ void load_total_statistics() {
         fread(&total_stats, sizeof(GameStatistics), 1, file);
         fclose(file);
     } else {
-        // 파일이 없으면 0으로 초기화
+        // 파일이 없으면 이름 물어보고 0으로 초기화
+        printf("당신의 이름은 무엇 입니까? ");
+        fgets(total_stats.user_name, sizeof(total_stats.user_name), stdin);
+        // fgets는 개행 문자도 포함하므로 제거
+        char *p = strchr(total_stats.user_name, '\n');
+        if (p) *p = '\0';
+
         total_stats.yokai_caught = 0;
         total_stats.yokai_defeated = 0;
         total_stats.stages_completed = 0;
         total_stats.games_cleared = 0;
+        
+        save_total_statistics(); // 새로 생성된 통계를 바로 저장
     }
 }
 
@@ -60,8 +69,10 @@ void update_total_statistics_on_save() {
 void display_statistics_screen() {
     system("cls");
     char buffer[256];
-        
-    printTextAndWait("==================== 통계 ====================\n\n");
+    
+    sprintf(buffer, "==================== %s님의 통계 ====================", total_stats.user_name);
+    printTextAndWait(buffer);
+    printTextAndWait("\n\n");
 
     sprintf(buffer, "  잡은 요괴 수       : %d\n", total_stats.yokai_caught);
     printTextAndWait(buffer);
