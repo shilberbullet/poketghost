@@ -1,24 +1,6 @@
-# 빌드 결과물
-*.exe
-*.o
-*.obj
-build/
-
-# IDE 관련 파일
-.vscode/
-.idea/
-
-# 운영체제 관련 파일
-.DS_Store
-Thumbs.db
-
-# 기타
-*.log
-*.tmp
-
-# 데이터 파일
-data/save.dat
-data/statistics.dat
-
-# 로그 디렉토리
+data/save.dat 
+*.exe 
 logs/ 
+tasklist 
+.vscode/ 
+poketghost.exe 

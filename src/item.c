@@ -307,50 +307,61 @@ void addItemToInventory(const Item* item) {
     // 요괴형 아이템은 요괴 인벤토리로
     if (item->type == ITEM_YOKAI) {
         printText("\n요괴형 아이템입니다. 아이템을 보관할 요괴를 선택하세요.\n");
-        Yokai* targetYokai = selectYokaiToHeal();
-        if (targetYokai == NULL) {
-            printText("\n요괴 선택이 취소되었습니다. 아이템 보상창으로 돌아갑니다.\n");
-            itemRewardSystem();
-            return;
-        }
-        // 중복 아이템 확인
-        int found = 0;
-        for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
-            if (strcmp(targetYokai->yokaiInventory[i].item.name, item->name) == 0) {
-                // 복숭아와 고대의 서적은 5개까지만 보유 가능
-                if (strcmp(item->name, "복숭아") == 0 || strcmp(item->name, "고대의 서적") == 0) {
-                    if (targetYokai->yokaiInventory[i].count >= 5) {
-                        char msg[128];
-                        snprintf(msg, sizeof(msg), "\n%s는 해당 요괴가 최대 5개까지만 보유할 수 있습니다!\n", item->name);
-                        printTextAndWait(msg);
-                        itemRewardSystem();
-                        return;
-                    }
-                } else {
-                    // 그 외 아이템은 최대 99개까지만 보유
-                    if (targetYokai->yokaiInventory[i].count >= 99) {
-                        printTextAndWait("\n이 아이템은 해당 요괴가 최대 99개까지만 보유할 수 있습니다!\n");
-                        itemRewardSystem();
-                        return;
-                    }
-                }
-                targetYokai->yokaiInventory[i].count++;
-                found = 1;
-                break;
-            }
-        }
-        if (!found) {
-            if (targetYokai->yokaiInventoryCount >= INVENTORY_MAX) {
-                printTextAndWait("\n해당 요괴의 인벤토리가 가득 찼습니다!\n");
+
+        while (1) {
+            Yokai* targetYokai = selectYokaiToHeal();
+            if (targetYokai == NULL) {
+                printText("\n요괴 선택이 취소되었습니다. 아이템 보상창으로 돌아갑니다.\n");
                 itemRewardSystem();
                 return;
             }
-            targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].item = *item;
-            targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].count = 1;
-            targetYokai->yokaiInventoryCount++;
+
+            int found = 0;
+            int existing_item_index = -1;
+            for (int i = 0; i < targetYokai->yokaiInventoryCount; i++) {
+                if (strcmp(targetYokai->yokaiInventory[i].item.name, item->name) == 0) {
+                    found = 1;
+                    existing_item_index = i;
+                    break;
+                }
+            }
+
+            if (found) {
+                if (strcmp(item->name, "복숭아") == 0) {
+                    if (targetYokai->yokaiInventory[existing_item_index].count >= 5) {
+                        printTextAndWait("\n이미 복숭아를 5개 가지고 있습니다!");
+                        continue;
+                    }
+                } else if (strcmp(item->name, "고대의 서적") == 0) {
+                    if (targetYokai->yokaiInventory[existing_item_index].count >= 5) {
+                        char msg[128];
+                        snprintf(msg, sizeof(msg), "\n%s는 해당 요괴가 최대 5개까지만 보유할 수 있습니다!\n", item->name);
+                        printTextAndWait(msg);
+                        continue;
+                    }
+                } else {
+                    if (targetYokai->yokaiInventory[existing_item_index].count >= 99) {
+                        printTextAndWait("\n이 아이템은 해당 요괴가 최대 99개까지만 보유할 수 있습니다!\n");
+                        continue;
+                    }
+                }
+                targetYokai->yokaiInventory[existing_item_index].count++;
+            } else {
+                if (targetYokai->yokaiInventoryCount >= INVENTORY_MAX) {
+                    printTextAndWait("\n해당 요괴의 인벤토리가 가득 찼습니다!\n");
+                    continue;
+                }
+                targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].item = *item;
+                targetYokai->yokaiInventory[targetYokai->yokaiInventoryCount].count = 1;
+                targetYokai->yokaiInventoryCount++;
+            }
+
+            char msg[128];
+            snprintf(msg, sizeof(msg), "\n%s에게 %s를 보관했습니다.", targetYokai->name, item->name);
+            printTextAndWait(msg);
+            fastSleep(500);
+            break; 
         }
-        fastSleep(500);
-        // 보상 선택이 완료되면 함수 종료
         return;
     }
 

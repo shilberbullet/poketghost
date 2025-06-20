@@ -60,9 +60,7 @@ void update_total_statistics_on_save() {
 void display_statistics_screen() {
     system("cls");
     char buffer[256];
-
-    printText("=== 포켓요괴 ===\n\n");
-    
+        
     printTextAndWait("==================== 통계 ====================\n\n");
 
     sprintf(buffer, "  잡은 요괴 수       : %d\n", total_stats.yokai_caught);
