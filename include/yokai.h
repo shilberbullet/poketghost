@@ -107,4 +107,7 @@ Yokai createRandomParadoxYokaiWithLevel(int level);
 // Yokai 구조체 정의 이후에 추가
 bool tryActivateChapsalgyungdan(Yokai* yokai);
 
+// learnableMoves에서 랜덤 4개를 moves에 복사하는 함수
+void assignRandomMoves(Yokai* y, int level);
+
 #endif // YOKAI_H 

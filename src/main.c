@@ -27,6 +27,8 @@
 // 로거 관련 함수와 구조체 정의
 #include "logger.h"       // 로거 관련 함수와 구조체 정의
 #include "statistics.h"
+// 대화 시스템 관련 함수와 구조체 정의
+#include "dialogue.h"     // 대화 시스템 관련 함수와 구조체 정의
 
 // 메인 함수
 int main(void) {
@@ -57,6 +59,10 @@ int main(void) {
     LOG_FUNCTION_EXECUTION("initRegionSystem");
     initRegionSystem();
     
+    // 대화 시스템을 초기화하여 게임에서 사용할 대화 기능들을 준비
+    LOG_FUNCTION_EXECUTION("initDialogueSystem");
+    initDialogueSystem();
+    
     // 게임에 필요한 데이터 파일들을 로드
     LOG_FUNCTION_EXECUTION("loadMovesFromFile");
     loadMovesFromFile("data/move.txt");     // 이동 관련 데이터 로드
@@ -64,6 +70,8 @@ int main(void) {
     loadYokaiFromFile("data/yokai.txt");    // 요괴 관련 데이터 로드
     LOG_FUNCTION_EXECUTION("loadItemsFromFile");
     loadItemsFromFile("data/items.txt");    // 아이템 관련 데이터 로드
+    LOG_FUNCTION_EXECUTION("loadDialoguesFromFile");
+    loadDialoguesFromFile("data/dialogues.txt"); // 대화 관련 데이터 로드
     
     // 게임 설정을 초기화하여 기본 설정값을 로드
     LOG_FUNCTION_EXECUTION("initSettings");
@@ -82,6 +90,8 @@ int main(void) {
     cleanupHealSystem(); // 회복 시스템 정리
     LOG_FUNCTION_EXECUTION("cleanupItemSystem");
     cleanupItemSystem(); // 아이템 시스템 정리
+    LOG_FUNCTION_EXECUTION("cleanupDialogueSystem");
+    cleanupDialogueSystem(); // 대화 시스템 정리
     
     // 로거 정리
     LOG_FUNCTION_EXECUTION("cleanupLogger");

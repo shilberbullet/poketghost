@@ -22,7 +22,9 @@ void showSettingsMenu() {
         printText(gameSettings.showTypeHint ? "켬\n" : "끔\n");
         printText("4. 디버그 모드: ");
         printText(gameSettings.debugMode ? "켬\n" : "끔\n");
-        printText("5. 뒤로 가기\n\n");
+        printText("5. 대화 시스템: ");
+        printText(gameSettings.dialogueEnabled ? "켬\n" : "끔\n");
+        printText("6. 뒤로 가기\n\n");
         printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
@@ -45,6 +47,9 @@ void showSettingsMenu() {
                 setDebugMode();
                 break;
             case 5:
+                setDialogueEnabled();
+                break;
+            case 6:
                 return;
             default:
                 printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
@@ -214,6 +219,37 @@ void setDebugMode() {
         default:
             printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
             setDebugMode();
+            break;
+    }
+}
+
+void setDialogueEnabled() {
+    LOG_FUNCTION_EXECUTION("setDialogueEnabled");
+    system("cls");
+    printText("=== 대화 시스템 설정 ===\n\n");
+    printText("현재 상태: ");
+    printText(gameSettings.dialogueEnabled ? "켬\n\n" : "끔\n\n");
+    printText("1. 켬\n");
+    printText("2. 끔\n");
+    printText("3. 뒤로 가기\n\n");
+    printText("선택하세요 (1-3): ");
+    int choice = getIntInput();
+    switch (choice) {
+        case 1:
+            gameSettings.dialogueEnabled = 1;
+            saveSettings();
+            printTextAndWait("\n대화 시스템이 켜졌습니다.");
+            break;
+        case 2:
+            gameSettings.dialogueEnabled = 0;
+            saveSettings();
+            printTextAndWait("\n대화 시스템이 꺼졌습니다.");
+            break;
+        case 3:
+            return;
+        default:
+            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            setDialogueEnabled();
             break;
     }
 } 

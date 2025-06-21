@@ -120,8 +120,28 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         // 상대 요괴의 경우 색상 적용
         sprintf(buffer, "\n%s%s\033[0m의 %s%s\033[0m!", getEnemyNameColorExport(), attacker->name, colorCode, move->name);
     } else {
-        // 동료 요괴의 경우 기본 색상
-        sprintf(buffer, "\n%s의 %s%s\033[0m!", attacker->name, colorCode, move->name);
+        // 동료 요괴의 경우 요괴 타입에 따른 색상 적용
+        const char* yokaiColorCode;
+        switch (attacker->type) {
+            case TYPE_EVIL_SPIRIT:
+                yokaiColorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                yokaiColorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                yokaiColorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                yokaiColorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                yokaiColorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                yokaiColorCode = "\033[0m";   // 기본색
+        }
+        sprintf(buffer, "\n%s%s\033[0m의 %s%s\033[0m!", yokaiColorCode, attacker->name, colorCode, move->name);
     }
     printTextAndWait(buffer);
     fastSleep(500);

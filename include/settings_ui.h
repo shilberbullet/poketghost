@@ -16,4 +16,7 @@ void setTypeHintDisplay();
 // 디버그 모드 설정 함수
 void setDebugMode();
 
+// 대화 시스템 설정 함수
+void setDialogueEnabled();
+
 #endif // SETTINGS_UI_H 

@@ -25,6 +25,7 @@
 #include "logger.h"
 #include "statistics.h"
 #include <windows.h>
+#include "dialogue.h"
 #define MAX_PARTY 6  // 최대 파티 요괴 수
 
 // 현재 전투 중인 상대 요괴
@@ -108,6 +109,10 @@ int startBattle(const Yokai* enemy) {
         printTextAndWait(debugbuf);
         fastSleep(500);
     }
+    
+    // 전투 시작 대화 표시
+    startDialogue(10);
+    
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy;
     
@@ -194,6 +199,10 @@ int startBattle(const Yokai* enemy) {
         if (done == 101 || done == 102) {
             int reward = calculateBattleReward();
             addMoney(reward);
+            
+            // 전투 승리 대화 표시
+            startDialogue(20);
+            
             // 경험치 지급: 참여했고 기절하지 않은 모든 요괴에게 개별 경험치 지급
             for (int i = 0; i < participatedCount; i++) {
                 int idx = participatedIdx[i];
@@ -246,6 +255,7 @@ int startBattle(const Yokai* enemy) {
             return done;  // 전투 결과 반환
         } else if (done == 103) {
             // 도망 성공: 보상 없음
+            startDialogue(330); // 도망 성공 대화
             return done;
         } else if (done == 2) {
             // 저장 후 종료
@@ -687,16 +697,16 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
-            printTextAndWait(buffer);
-            fastSleep(500);
+                    printTextAndWait(buffer);
+                    fastSleep(500);
                 }
-            if (inventory[idx].count == 1) {
-                for (int i = idx; i < inventoryCount - 1; i++)
-                    inventory[i] = inventory[i + 1];
-                inventoryCount--;
-            } else {
-                inventory[idx].count--;
-            }
+                if (inventory[idx].count == 1) {
+                    for (int i = idx; i < inventoryCount - 1; i++)
+                        inventory[i] = inventory[i + 1];
+                    inventoryCount--;
+                } else {
+                    inventory[idx].count--;
+                }
                 return 102; // BATTLE_TALISMAN 성공
             } else {
                 sprintf(buffer, "\n%s를 던졌다! 하지만 요괴를 잡지 못했다...", inventory[idx].item.name);
@@ -790,8 +800,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     
                     if (allFainted) {
                         handleRogueliteSystem();
-                printTextAndWait("\n전투에서 패배했습니다...");
-                return 104; // 전투 패배
+                        printTextAndWait("\n전투에서 패배했습니다...");
+                        return 104; // 전투 패배
                     }
 
                     // 남은 동료가 있으면 즉시 교체 메뉴
@@ -921,8 +931,8 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 if (allFainted) {
                     handleRogueliteSystem();
-                printTextAndWait("\n전투에서 패배했습니다...");
-                return 104; // 전투 패배
+                    printTextAndWait("\n전투에서 패배했습니다...");
+                    return 104; // 전투 패배
                 }
 
                 // 남은 동료가 있으면 즉시 교체 메뉴

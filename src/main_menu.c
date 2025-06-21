@@ -14,6 +14,7 @@
 #include "reward.h"
 #include "region.h"
 #include "statistics.h"
+#include "dialogue.h"
 #include "../core/state.h"
 #include "logger.h"
 #include <windows.h>
@@ -86,7 +87,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.2 ===\n\n");
+        printText("=== 포켓요괴v4.3 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -183,6 +184,10 @@ void startNewGame(void) {
     initStage(&gStage, 1);  // 첫 번째 스테이지로 시작
     initParty();
     
+    // 새 게임 시작 시 환영 대화 표시
+    system("cls");
+    startDialogue(1);
+    
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
     printTextAndWait(buffer);
@@ -222,7 +227,7 @@ void sendLogsMenu(void) {
     sanitizeFolderName(total_stats.user_name, sanitizedName, sizeof(sanitizedName));
     unsigned long long id = makeIdFromName(sanitizedName);
     char folderName[100];
-    snprintf(folderName, sizeof(folderName), "%llulog", id);
+    snprintf(folderName, sizeof(folderName), "%I64ulog", id);
     printf("폴더명: %s\n", folderName);
     if (_mkdir(folderName) == -1 && errno != EEXIST) {
         printf("errno: %d\n", errno); // 진단용 에러코드 출력
@@ -312,7 +317,7 @@ void showRankingMenu(void) {
     int found = 0;
     for (i = 0; i < user_count; i++) {
         if (strcmp(users[i].user_name, total_stats.user_name) == 0) {
-            users[i].yokai_caught = total_stats.yokai_caught;
+            users[i].yokai_caught = gPartyCount;
             users[i].yokai_defeated = total_stats.yokai_defeated;
             users[i].stages_completed = total_stats.stages_completed;
             users[i].games_cleared = total_stats.games_cleared;
@@ -323,13 +328,13 @@ void showRankingMenu(void) {
     if (!found && user_count < 100) {
         strncpy(users[user_count].user_name, total_stats.user_name, 49);
         users[user_count].user_name[49] = '\0';
-        users[user_count].yokai_caught = total_stats.yokai_caught;
+        users[user_count].yokai_caught = gPartyCount;
         users[user_count].yokai_defeated = total_stats.yokai_defeated;
         users[user_count].stages_completed = total_stats.stages_completed;
         users[user_count].games_cleared = total_stats.games_cleared;
         user_count++;
     }
-    const char* titles[] = {"잡은 요괴 수", "쓰러트린 요괴 수", "클리어한 스테이지", "게임 클리어 횟수"};
+    const char* titles[] = {"동료로 만든 요괴 수", "쓰러트린 요괴 수", "클리어한 스테이지", "게임 클리어 횟수"};
     int (*sorts[])(const void*, const void*) = {cmp_caught, cmp_defeated, cmp_stage, cmp_clear};
     int offsets[] = {offsetof(RankEntry, yokai_caught), offsetof(RankEntry, yokai_defeated), offsetof(RankEntry, stages_completed), offsetof(RankEntry, games_cleared)};
     int running = 1;
@@ -338,7 +343,7 @@ void showRankingMenu(void) {
         while (menu_choice < 1 || menu_choice > 5) {
             system("cls");
             printText("=== 순위 항목 선택 ===\n\n");
-            printText("1. 잡은 요괴 수\n");
+            printText("1. 동료로 만든 요괴 수\n");
             printText("2. 쓰러트린 요괴 수\n");
             printText("3. 클리어한 스테이지\n");
             printText("4. 게임 클리어 횟수\n");

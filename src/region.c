@@ -3,11 +3,13 @@
 #include "../include/input.h"
 #include "../include/settings.h"
 #include "../include/logger.h"
+#include "../include/game.h"
+#include "../core/state.h"
 #include <windows.h>
 #include <stdbool.h>  // bool 타입을 위해 추가
 
 // 지역 데이터
-static Region regions[MAX_REGIONS] = {
+static Region regionData[MAX_REGIONS] = {
     {"함경도", 0, 3, {"평안도", "강원도", "황해도"}},
     {"평안도", 0, 2, {"함경도", "황해도"}},
     {"황해도", 0, 3, {"평안도", "경기도", "강원도"}},
@@ -34,11 +36,11 @@ int setInitialRegion(int choice) {
     LOG_FUNCTION_EXECUTION("setInitialRegion");
     if (choice == 1) {
         strcpy(currentRegion, "경상도");
-        regions[6].visited = 1;  // 경상도 방문 표시
+        regionData[6].visited = 1;  // 경상도 방문 표시
         return 1;
     } else if (choice == 2) {
         strcpy(currentRegion, "전라도");
-        regions[7].visited = 1;  // 전라도 방문 표시
+        regionData[7].visited = 1;  // 전라도 방문 표시
         return 1;
     }
     return 0;
@@ -49,7 +51,7 @@ int moveToNextRegion(void) {
     // 현재 지역의 인덱스 찾기
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
-        if (strcmp(regions[i].name, currentRegion) == 0) {
+        if (strcmp(regionData[i].name, currentRegion) == 0) {
             currentIndex = i;
             break;
         }
@@ -61,10 +63,10 @@ int moveToNextRegion(void) {
     int availableRegions[MAX_REGIONS];
     int availableCount = 0;
     
-    for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
+    for (int i = 0; i < regionData[currentIndex].connectedCount; i++) {
         for (int j = 0; j < MAX_REGIONS; j++) {
-            if (strcmp(regions[currentIndex].connected[i], regions[j].name) == 0) {
-                if (!regions[j].visited) {  // 방문하지 않은 지역만 추가
+            if (strcmp(regionData[currentIndex].connected[i], regionData[j].name) == 0) {
+                if (!regionData[j].visited) {  // 방문하지 않은 지역만 추가
                     availableRegions[availableCount++] = j;
                 }
                 break;
@@ -78,20 +80,27 @@ int moveToNextRegion(void) {
         int unvisitedCount = 0;
         
         for (int i = 0; i < MAX_REGIONS; i++) {
-            if (!regions[i].visited) {
+            if (!regionData[i].visited) {
                 unvisitedRegions[unvisitedCount++] = i;
             }
         }
         
         if (unvisitedCount > 0) {
+            // 보유전의 50% 차감
+            int cost = gPlayer.money / 2;
+            gPlayer.money -= cost;
+            
             printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n");
             printText("방문하지 않은 랜덤한 지역으로 이동합니다.\n");
+            char buffer[128];
+            sprintf(buffer, "이동 비용으로 %d전을 지불했습니다. (남은 전: %d전)\n", cost, gPlayer.money);
+            printText(buffer);
             fastSleep(1000);
             
             // 랜덤으로 방문하지 않은 지역 선택
             int nextIndex = unvisitedRegions[rand() % unvisitedCount];
-            strcpy(currentRegion, regions[nextIndex].name);
-            regions[nextIndex].visited = 1;
+            strcpy(currentRegion, regionData[nextIndex].name);
+            regionData[nextIndex].visited = 1;
             return 1;
         }
         return 0;
@@ -99,8 +108,8 @@ int moveToNextRegion(void) {
     
     // 랜덤으로 다음 지역 선택
     int nextIndex = availableRegions[rand() % availableCount];
-    strcpy(currentRegion, regions[nextIndex].name);
-    regions[nextIndex].visited = 1;
+    strcpy(currentRegion, regionData[nextIndex].name);
+    regionData[nextIndex].visited = 1;
     
     return 1;
 }
@@ -110,7 +119,7 @@ int moveToNextRegionWithMap(void) {
     LOG_FUNCTION_EXECUTION("moveToNextRegionWithMap");
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
-        if (strcmp(regions[i].name, currentRegion) == 0) {
+        if (strcmp(regionData[i].name, currentRegion) == 0) {
             currentIndex = i;
             break;
         }
@@ -122,11 +131,11 @@ int moveToNextRegionWithMap(void) {
     int availableCount = 0;
     
     // 현재 지역과 연결된 모든 지역 확인
-    for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
-        const char* connectedRegion = regions[currentIndex].connected[i];
+    for (int i = 0; i < regionData[currentIndex].connectedCount; i++) {
+        const char* connectedRegion = regionData[currentIndex].connected[i];
         for (int j = 0; j < MAX_REGIONS; j++) {
-            if (strcmp(regions[j].name, connectedRegion) == 0) {
-                if (!regions[j].visited) {  // 방문하지 않은 지역만 추가
+            if (strcmp(regionData[j].name, connectedRegion) == 0) {
+                if (!regionData[j].visited) {  // 방문하지 않은 지역만 추가
                     // 중복 체크
                     bool isDuplicate = false;
                     for (int k = 0; k < availableCount; k++) {
@@ -150,18 +159,25 @@ int moveToNextRegionWithMap(void) {
         int unvisitedCount = 0;
         
         for (int i = 0; i < MAX_REGIONS; i++) {
-            if (!regions[i].visited) {
+            if (!regionData[i].visited) {
                 unvisitedRegions[unvisitedCount++] = i;
             }
         }
         
         if (unvisitedCount > 0) {
+            // 보유전의 50% 차감
+            int cost = gPlayer.money / 2;
+            gPlayer.money -= cost;
+            
             printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n");
             printText("방문하지 않은 지역 중 하나를 선택하세요:\n");
+            char buffer[128];
+            sprintf(buffer, "이동 비용으로 %d전을 지불했습니다. (남은 전: %d전)\n", cost, gPlayer.money);
+            printText(buffer);
             
             for (int i = 0; i < unvisitedCount; i++) {
                 char buffer[64];
-                sprintf(buffer, "%d. %s\n", i+1, regions[unvisitedRegions[i]].name);
+                sprintf(buffer, "%d. %s\n", i+1, regionData[unvisitedRegions[i]].name);
                 printTextAndWait(buffer);
             }
             
@@ -174,8 +190,8 @@ int moveToNextRegionWithMap(void) {
             }
             
             int nextIndex = unvisitedRegions[choice];
-            strcpy(currentRegion, regions[nextIndex].name);
-            regions[nextIndex].visited = 1;
+            strcpy(currentRegion, regionData[nextIndex].name);
+            regionData[nextIndex].visited = 1;
             return 1;
         }
         return 0;
@@ -184,7 +200,7 @@ int moveToNextRegionWithMap(void) {
     printText("\n지도 아이템을 사용하여 다음 지역을 선택하세요:\n");
     for (int i = 0; i < availableCount; i++) {
         char buffer[64];
-        sprintf(buffer, "%d. %s\n", i+1, regions[availableRegions[i]].name);
+        sprintf(buffer, "%d. %s\n", i+1, regionData[availableRegions[i]].name);
         printTextAndWait(buffer);
     }
     printText("선택 (번호): ");
@@ -195,8 +211,8 @@ int moveToNextRegionWithMap(void) {
         choice = getIntInput() - 1;
     }
     int nextIndex = availableRegions[choice];
-    strcpy(currentRegion, regions[nextIndex].name);
-    regions[nextIndex].visited = 1;
+    strcpy(currentRegion, regionData[nextIndex].name);
+    regionData[nextIndex].visited = 1;
     return 1;
 }
 
@@ -204,7 +220,7 @@ void displayConnectedRegions(void) {
     LOG_FUNCTION_EXECUTION("displayConnectedRegions");
     int currentIndex = -1;
     for (int i = 0; i < MAX_REGIONS; i++) {
-        if (strcmp(regions[i].name, currentRegion) == 0) {
+        if (strcmp(regionData[i].name, currentRegion) == 0) {
             currentIndex = i;
             break;
         }
@@ -215,9 +231,9 @@ void displayConnectedRegions(void) {
     // 연결된 지역 표시 (디버그 모드에서만)
     if (gameSettings.debugMode) {
         printText("\n연결된 지역:\n");
-        for (int i = 0; i < regions[currentIndex].connectedCount; i++) {
-            printText(regions[currentIndex].connected[i]);
-            if (i < regions[currentIndex].connectedCount - 1) {
+        for (int i = 0; i < regionData[currentIndex].connectedCount; i++) {
+            printText(regionData[currentIndex].connected[i]);
+            if (i < regionData[currentIndex].connectedCount - 1) {
                 printText(", ");
             }
         }
@@ -235,7 +251,7 @@ void saveRegionData(FILE* file) {
     
     // 방문 기록 저장
     for (int i = 0; i < MAX_REGIONS; i++) {
-        fwrite(&regions[i].visited, sizeof(int), 1, file);
+        fwrite(&regionData[i].visited, sizeof(int), 1, file);
     }
 }
 
@@ -248,7 +264,7 @@ void loadRegionData(FILE* file) {
     
     // 방문 기록 로드
     for (int i = 0; i < MAX_REGIONS; i++) {
-        fread(&regions[i].visited, sizeof(int), 1, file);
+        fread(&regionData[i].visited, sizeof(int), 1, file);
     }
 }
 
@@ -256,7 +272,7 @@ void loadRegionData(FILE* file) {
 int isAllRegionsVisited(void) {
     LOG_FUNCTION_EXECUTION("isAllRegionsVisited");
     for (int i = 0; i < MAX_REGIONS; i++) {
-        if (!regions[i].visited) return 0;
+        if (!regionData[i].visited) return 0;
     }
     return 1;
 } 
