@@ -11,7 +11,7 @@
 
 #include "types.h" // 기본 타입 정의
 
-#define MAX_MOVES_TOTAL 32 // 전체 기술의 최대 개수
+#define MAX_MOVES_TOTAL 256 // 전체 기술의 최대 개수
 
 // 기술 구조체 (yokai.h에 이미 정의됨)
 // typedef struct { ... } Move;

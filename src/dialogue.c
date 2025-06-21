@@ -5,6 +5,7 @@
 #include "dialogue.h"
 #include "text.h"
 #include "settings.h"
+#include "input.h"
 #include "logger.h"
 
 // 전역 대화 시스템
@@ -66,13 +67,13 @@ void printDialogueMessage(const char* speaker, const char* message, DialogueType
     const char* color = getDialogueColor(type);
     
     // 대화 시작을 명확하게 표시
-    printText("\n");
-    printText("==================================================\n");
-    
+    printText("\n");    
     if (speaker && strlen(speaker) > 0) {
         char buffer[512];
         sprintf(buffer, "%s%s\033[0m: %s%s\033[0m\n", color, speaker, color, message);
         printTextAndWait(buffer);
+        clearInputBuffer();
+
     } else {
         char buffer[512];
         sprintf(buffer, "%s%s\033[0m\n", color, message);
@@ -80,7 +81,6 @@ void printDialogueMessage(const char* speaker, const char* message, DialogueType
     }
     
     // 대화 끝을 명확하게 표시
-    printText("==================================================\n");
 }
 
 // 대화 추가
@@ -186,7 +186,9 @@ void showDialogue(void) {
     
     // 사용자가 엔터키를 누를 때까지 대기
     printText("계속하려면 엔터키를 누르세요...\n");
+    clearInputBuffer();
     getchar();
+    clearInputBuffer();
     
     // 다음 대화가 있으면 자동으로 진행
     if (dialogue->nextDialogueId != -1) {

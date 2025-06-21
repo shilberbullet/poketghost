@@ -202,7 +202,6 @@ int startBattle(const Yokai* enemy) {
             addMoney(reward);
             
             // 전투 승리 대화 표시
-            startDialogue(20);
             
             // 경험치 지급: 참여했고 기절하지 않은 모든 요괴에게 개별 경험치 지급
             for (int i = 0; i < participatedCount; i++) {

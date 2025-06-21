@@ -175,6 +175,10 @@ void loadYokaiFromFile(const char* filename) {
                     y->learnableMoves[y->learnableMoveCount++] = *m;
                 } else {
                     // 기술을 찾지 못한 경우 기본 기술 생성
+                    char debugBuffer[256];
+                    sprintf(debugBuffer, "[DEBUG] 기술을 찾을 수 없음: '%s'", moveName);
+                    LOG_FUNCTION_EXECUTION(debugBuffer);
+                    
                     Move defaultMove;
                     strncpy(defaultMove.name, moveName, YOKAI_NAME_MAX - 1);
                     defaultMove.name[YOKAI_NAME_MAX - 1] = '\0';
@@ -337,7 +341,7 @@ void assignRandomMoves(Yokai* y, int level) {
         }
 
         if (!isAssigned) {
-            if (level > 11) {  // 11레벨 이상에서 고급기술 배우기 가능
+            if (level > 20) {  // 20레벨 이상에서 고급기술 배우기 가능
                  if (y->learnableMoves[i].grade == MOVE_BASIC || y->learnableMoves[i].grade == MOVE_MEDIUM) {
                     if (y->forgottenMoveCount < MAX_LEARNABLE_MOVES) {
                         y->forgottenMoves[y->forgottenMoveCount++] = y->learnableMoves[i];
