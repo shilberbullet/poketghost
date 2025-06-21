@@ -88,7 +88,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v5.5 ===\n\n");
+        printText("=== 포켓요괴v5.6 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");

@@ -70,6 +70,7 @@ int handleFaintedYokai(int faintedIdx) {
     char buffer[256];
     sprintf(buffer, "\n%s(이)가 쓰러졌다!\n", gParty[faintedIdx].name);
     printText(buffer);
+    startDialogue(20);
     fastSleep(500);
     
     // 다른 기절하지 않은 요괴가 있는지 확인
@@ -670,10 +671,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
         case BATTLE_TALISMAN: {
             // 패러독스 요괴 및 최종보스 포획 불가 처리
             const char* uncatchable[] = {
-                "이계의 망령", "차원 파수꾼", "심연의 그림자", "운명의 조각자",
-                "시간의 파편", "공허의 사도", "붕괴의 인도자", "경계의 방랑자", "환영의 군주", "두억시니"
+                "장산범", "홍콩할매귀신", "퉁퉁퉁퉁 사후르", "사이렌헤드",
+                "슬렌더맨", "Entit", "자유로귀신", "갓파", "오니", "누라리횬",  "두억시니"
             };
-            int uncatchableCount = 10;
+            int uncatchableCount = 11;
             for (int i = 0; i < uncatchableCount; i++) {
                 if (strcmp(enemy->name, uncatchable[i]) == 0) {
                     printTextAndWait("\n이 요괴는 포획할 수 없습니다!\n");

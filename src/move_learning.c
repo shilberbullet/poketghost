@@ -75,7 +75,6 @@ void printAvailableMoves(const Yokai* yokai) {
     char buffer[256];
     sprintf(buffer, "\n=== %s의 기술 목록 ===\n", yokai->name);
     printTextAndWait(buffer);
-    printTextAndWait("숫자를 입력하세요: ");
     
     for (int i = 0; i < yokai->moveCount; i++) {
         const char* colorCode;
@@ -267,7 +266,7 @@ bool tryLearnNewMove(Yokai* yokai) {
             // 기술을 배우지 않기로 했을 때, 해당 기술을 잊은 기술 목록에 추가
             yokai->forgottenMoves[yokai->forgottenMoveCount++] = selectedMove;
             char buffer[256];
-            sprintf(buffer, "\n%s를 배우지 않았습니다. (나중에 다시 배울 수 있습니다)\n", selectedMove.name);
+            sprintf(buffer, "\n%s를 배우지 않았습니다. \n", selectedMove.name);
             printText(buffer);
             return false;
         }

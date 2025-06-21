@@ -20,6 +20,7 @@
 #include "logger.h"
 #include <windows.h>
 #include "statistics.h"
+#include "dialogue.h"
 
 // 지형 이름 배열
 const char* terrainNames[] = {
@@ -247,8 +248,7 @@ void showBattleInterface() {
     } else if (gStage.stageNumber >= 81) {  // 파이널 스테이지
         if (battleResult == 101 || battleResult == 102) {  // 승리한 경우
             if (gStage.stageNumber == 90) {  // 최종 보스 클리어
-                printText("\n=== 축하합니다! ===\n");
-                printText("당신은 백두산의 정상을 정복했습니다!\n");
+                startDialogue(3000);
                 printText("게임 클리어를 축하합니다!\n");
                 gPlayer.stats.games_cleared++; // 게임 클리어 횟수 증가
                 update_total_statistics_on_save(); // 통계 저장
