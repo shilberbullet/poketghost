@@ -10,6 +10,7 @@
 #include "region.h"
 #include "stage.h"
 #include "stage_types.h"
+#include "event_system.h"
 #include "logger.h"
 
 // 일반 스테이지 초기화 함수
@@ -28,11 +29,20 @@ void initNormalStage(StageInfo* stage, int stageNumber) {
     // 레벨 범위 계산
     calculateLevelRange(stageNumber, &stage->minLevel, &stage->maxLevel);
     
-    // 일반 스테이지는 3-5마리
-    stage->enemyCount = rand() % 3 + 3;
-    
-    // 적 요괴 생성
-    generateNormalStageEnemies(stage);
+    // 이벤트 발생 확률 체크
+    if (shouldTriggerEvent()) {
+        // 이벤트 발생 시 요괴 없이 이벤트만 실행
+        stage->enemyCount = 0;
+        Event* event = generateRandomEvent();
+        if (event) {
+            handleEvent(event);
+        }
+    } else {
+        // 일반 스테이지는 3-5마리
+        stage->enemyCount = rand() % 3 + 3;
+        // 적 요괴 생성
+        generateNormalStageEnemies(stage);
+    }
 }
 
 // 일반 스테이지 적 요괴 생성 함수
@@ -47,5 +57,12 @@ void generateNormalStageEnemies(StageInfo* stage) {
 // 일반 스테이지 클리어 처리 함수
 void handleNormalStageClear(void) {
     LOG_FUNCTION_EXECUTION("handleNormalStageClear");
+    
+    // 활성 이벤트가 있는지 확인하고 완료 조건 체크
+    Event* currentEvent = getCurrentEvent();
+    if (currentEvent && checkEventCompletion(currentEvent)) {
+        completeEvent(currentEvent);
+    }
+    
     // 일반 스테이지 클리어 시 처리
 } 

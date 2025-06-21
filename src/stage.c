@@ -15,6 +15,7 @@
 #include "game.h"
 #include "region.h"
 #include "item.h"
+#include "event_system.h"
 #include "../core/state.h"
 #include "logger.h"
 #include <windows.h>
@@ -215,6 +216,14 @@ void showStageInfo() {
 // 전투 인터페이스를 표시하고 전투를 시작하는 함수
 void showBattleInterface() {
     LOG_FUNCTION_EXECUTION("showBattleInterface");
+    
+    // 이벤트가 발생한 경우(enemyCount가 0) 전투를 건너뛰고 다음 스테이지로 진행
+    if (gStage.enemyCount == 0) {
+        handleNormalStageClear();  // 일반 스테이지 클리어 처리
+        nextStage();               // 다음 스테이지로 진행
+        return;
+    }
+    
     int minLevel, maxLevel;
     calculateLevelRange(gStage.stageNumber, &minLevel, &maxLevel);  // 레벨 범위 계산
 
