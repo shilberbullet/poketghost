@@ -696,12 +696,44 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
                 
-                // 도감에 요괴 기록
+                // 도감에 요괴 기록 (중복 체크 포함)
+                bool alreadyCaught = false;
                 for (int i = 0; i < yokaiListCount; i++) {
                     if (strcmp(yokaiList[i].name, enemy->name) == 0) {
-                        markYokaiAsCaught(i + 1);
-                        gTotalCaughtCount++;
+                        // 이미 잡은 요괴인지 확인
+                        if (!isYokaiCaught(i + 1)) {
+                            markYokaiAsCaught(i + 1);
+                            gTotalCaughtCount++;
+                        } else {
+                            alreadyCaught = true;
+                        }
                         break;
+                    }
+                }
+                
+                // 보스 요괴 체크
+                if (!alreadyCaught) {
+                    for (int i = 0; i < bossYokaiListCount; i++) {
+                        if (strcmp(bossYokaiList[i].name, enemy->name) == 0) {
+                            if (!isYokaiCaught(yokaiListCount + i + 1)) {
+                                markYokaiAsCaught(yokaiListCount + i + 1);
+                                gTotalCaughtCount++;
+                            }
+                            break;
+                        }
+                    }
+                }
+                
+                // 패러독스 요괴 체크
+                if (!alreadyCaught) {
+                    for (int i = 0; i < paradoxYokaiListCount; i++) {
+                        if (strcmp(paradoxYokaiList[i].name, enemy->name) == 0) {
+                            if (!isYokaiCaught(yokaiListCount + bossYokaiListCount + i + 1)) {
+                                markYokaiAsCaught(yokaiListCount + bossYokaiListCount + i + 1);
+                                gTotalCaughtCount++;
+                            }
+                            break;
+                        }
                     }
                 }
                 

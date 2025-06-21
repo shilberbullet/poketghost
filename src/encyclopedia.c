@@ -481,9 +481,12 @@ int getCaughtYokaiCount(void) {
 // 요괴를 잡은 것으로 표시하는 함수 (다른 모듈에서 호출)
 void markYokaiAsCaught(int yokaiIndex) {
     if (yokaiIndex >= 1 && yokaiIndex <= totalYokaiCount) {
-        caughtYokai[yokaiIndex - 1] = 1;
-        // 도감 데이터를 파일에 저장
-        saveCaughtYokaiData();
+        // 이미 잡은 요괴인지 확인
+        if (caughtYokai[yokaiIndex - 1] == 0) {
+            caughtYokai[yokaiIndex - 1] = 1;
+            // 도감 데이터를 파일에 저장
+            saveCaughtYokaiData();
+        }
     }
 }
 
