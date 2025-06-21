@@ -14,6 +14,7 @@ static Player _player = {0}; // 플레이어 정보 전역 변수
 static StageInfo _currentStage = {0}; // 현재 스테이지 정보 전역 변수
 static Yokai _party[MAX_PARTY_SIZE]; // 파티 요괴 배열 전역 변수
 static int _partyCount = 0; // 파티 요괴 수 전역 변수
+static int _totalCaughtCount = 0; // 누적 포획 수 전역 변수
 
 /**
  * @brief 게임 상태를 가져오는 함수
@@ -85,4 +86,20 @@ int* getPartyCountPtr() {
  */
 void setPartyCount(int count) {
     _partyCount = count; // 파티 요괴 수 설정
+}
+
+/**
+ * @brief 누적 포획 수 포인터를 가져오는 함수
+ * @return 누적 포획 수 포인터
+ */
+int* getTotalCaughtCountPtr() {
+    return &_totalCaughtCount; // 누적 포획 수 포인터 반환
+}
+
+/**
+ * @brief 누적 포획 수를 설정하는 함수
+ * @param count 설정할 누적 포획 수
+ */
+void setTotalCaughtCount(int count) {
+    _totalCaughtCount = count; // 누적 포획 수 설정
 }

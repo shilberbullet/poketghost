@@ -700,6 +700,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 for (int i = 0; i < yokaiListCount; i++) {
                     if (strcmp(yokaiList[i].name, enemy->name) == 0) {
                         markYokaiAsCaught(i + 1);
+                        gTotalCaughtCount++;
                         break;
                     }
                 }

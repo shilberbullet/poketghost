@@ -96,28 +96,6 @@ void releaseYokai(int index) {
         return;
     }
     
-    // 요괴의 상성에 따른 색상 코드 설정
-    const char* colorCode;
-    switch (gParty[index].type) {
-        case TYPE_EVIL_SPIRIT:
-            colorCode = "\033[31m";  // 빨간색
-            break;
-        case TYPE_GHOST:
-            colorCode = "\033[35m";  // 보라색
-            break;
-        case TYPE_MONSTER:
-            colorCode = "\033[33m";  // 노란색
-            break;
-        case TYPE_HUMAN:
-            colorCode = "\033[36m";  // 청록색
-            break;
-        case TYPE_ANIMAL:
-            colorCode = "\033[32m";  // 초록색
-            break;
-        default:
-            colorCode = "\033[0m";   // 기본색
-            break;
-    }
     gPartyCount--;
 }
 
@@ -356,7 +334,9 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 sprintf(buffer + strlen(buffer), "상성: %s%s\033[0m\n", colorCode, typeNames[yokai->type]);
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
-                getchar();
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                 break;
             }
             case 2: {  // 도감 설명 보기
@@ -365,7 +345,9 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 sprintf(buffer + strlen(buffer), "%s\n", yokai->desc);
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
-                getchar();
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                 break;
             }
             case 3: {  // HP 보기
@@ -395,7 +377,9 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 strcat(buffer, "\033[0m]");
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
-                getchar();
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                             break;
             }
             case 4: {  // 경험치 보기
@@ -406,7 +390,9 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 sprintf(buffer + strlen(buffer), "다음 레벨까지: %d\n", requiredExp - yokai->exp);
                 printText(buffer);
                 printText("\n엔터를 눌러 돌아가기...");
-                getchar();
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+                clearInputBuffer(); // 콘솔 입력 버퍼 비우기
                             break;
             }
             case 5: {  // 기술 목록 보기

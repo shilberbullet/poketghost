@@ -220,8 +220,10 @@ void completeEvent(Event* event) {
             // 보상 지급
             gPlayer.money += event->reward_money;
             
-            printText("\n아무 키나 누르면 계속합니다...\n");
-            _getch();
+            printText("\n엔터를 눌러 돌아가기...");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+            clearInputBuffer(); // 콘솔 입력 버퍼 비우기
             break;
         default:
             break;

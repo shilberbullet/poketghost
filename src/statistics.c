@@ -4,6 +4,7 @@
 #include "input.h"
 #include "state.h"
 #include "party.h"
+#include "encyclopedia.h"  // 도감 초기화를 위해 추가
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
@@ -22,6 +23,7 @@ void load_total_statistics() {
     if (file) {
         fread(&total_stats, sizeof(GameStatistics), 1, file);
         fclose(file);
+        gTotalCaughtCount = total_stats.yokai_caught;
     } else {
         // 파일이 없으면 이름 물어보고 0으로 초기화
         printf("당신의 이름은 무엇 입니까? ");
@@ -36,12 +38,14 @@ void load_total_statistics() {
         total_stats.games_cleared = 0;
         
         save_total_statistics(); // 새로 생성된 통계를 바로 저장
+        gTotalCaughtCount = 0;
     }
 }
 
 void save_total_statistics() {
     FILE* file = fopen(STATISTICS_FILE, "wb");
     if (file) {
+        total_stats.yokai_caught = gTotalCaughtCount;
         fwrite(&total_stats, sizeof(GameStatistics), 1, file);
         fclose(file);
     }
@@ -75,7 +79,7 @@ void display_statistics_screen() {
     printText(buffer);
     printText("\n\n");
 
-    sprintf(buffer, "  동료로 만든 요괴 수 : %d\n", gPartyCount);
+    sprintf(buffer, "  동료로 만든 요괴 수 : %d\n", gTotalCaughtCount);
     printText(buffer);
 
     sprintf(buffer, "  쓰러트린 요괴 수   : %d\n", total_stats.yokai_defeated);
