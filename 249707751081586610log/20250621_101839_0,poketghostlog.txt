@@ -1,0 +1,1091 @@
+
+=== 게임 시작: Sat Jun 21 10:18:39 2025 ===
+[Sat Jun 21 10:18:39 2025] [함수실행] initLogger
+[Sat Jun 21 10:18:39 2025] [함수실행] initItemSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initItemSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initHealSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initHealSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initRegionSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initRegionSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initDialogueSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] initDialogueSystem
+[Sat Jun 21 10:18:39 2025] [함수실행] loadMovesFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] loadMovesFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] loadYokaiFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] loadYokaiFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] parseType
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] findMoveByName
+[Sat Jun 21 10:18:39 2025] [함수실행] loadItemsFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] loadItemsFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] loadDialoguesFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] loadDialoguesFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] addDialogue
+[Sat Jun 21 10:18:39 2025] [함수실행] initSettings
+[Sat Jun 21 10:18:39 2025] [함수실행] initSettings
+[Sat Jun 21 10:18:39 2025] [함수실행] loadSettings
+[Sat Jun 21 10:18:39 2025] [함수실행] initGame
+
+=== 게임 시작: Sat Jun 21 10:18:39 2025 ===
+[Sat Jun 21 10:18:39 2025] [함수실행] loadItemsFromFile
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:18:39 2025] [함수실행] stringToType
+[Sat Jun 21 10:18:39 2025] [함수실행] showMainMenu
+[Sat Jun 21 10:18:39 2025] [함수실행] showMainMenu
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] === 포켓요괴v4.3 ===
+
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 1. 새 게임 시작
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 2. 이어하기
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 3. 게임 설정
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 4. 통계
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 5. 로그 보내기
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 6. 종료
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 7. 순위를 본다
+
+
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] printText
+[Sat Jun 21 10:18:39 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 10:18:39 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:39 2025] [함수실행] getIntInput
+[Sat Jun 21 10:18:41 2025] [INPUT] 정수 입력: 3
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] handleMainMenuChoice
+[Sat Jun 21 10:18:41 2025] [함수실행] showSettings
+[Sat Jun 21 10:18:41 2025] [함수실행] showSettingsMenu
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] === 게임 설정 ===
+
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 1. 게임 출력 속도
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 2. 텍스트 출력 방식
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 3. 상성 힌트 표시: 
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 4. 디버그 모드: 
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 5. 대화 시스템: 
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:41 2025] [함수실행] printText
+[Sat Jun 21 10:18:41 2025] [OUTPUT] 6. 뒤로 가기
+
+
+[Sat Jun 21 10:18:41 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:41 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] getIntInput
+[Sat Jun 21 10:18:42 2025] [INPUT] 정수 입력: 1
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] setTextSpeed
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] === 게임 출력 속도 설정 ===
+
+
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 현재 속도: 
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 매우 빠름
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 
+
+
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 1. 매우 느림
+
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 2. 느림
+
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:42 2025] [함수실행] printText
+[Sat Jun 21 10:18:42 2025] [OUTPUT] 3. 보통
+
+[Sat Jun 21 10:18:42 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:42 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] printText
+[Sat Jun 21 10:18:43 2025] [OUTPUT] 4. 빠름
+
+[Sat Jun 21 10:18:43 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] printText
+[Sat Jun 21 10:18:43 2025] [OUTPUT] 5. 매우 빠름
+
+[Sat Jun 21 10:18:43 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] printText
+[Sat Jun 21 10:18:43 2025] [OUTPUT] 6. 뒤로 가기
+
+
+[Sat Jun 21 10:18:43 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] printText
+[Sat Jun 21 10:18:43 2025] [OUTPUT] 선택하세요 (1-6): 
+[Sat Jun 21 10:18:43 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:43 2025] [함수실행] getIntInput
+[Sat Jun 21 10:18:44 2025] [INPUT] 정수 입력: 6
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] === 게임 설정 ===
+
+
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 1. 게임 출력 속도
+
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 2. 텍스트 출력 방식
+
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 3. 상성 힌트 표시: 
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 4. 디버그 모드: 
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:44 2025] [함수실행] printText
+[Sat Jun 21 10:18:44 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:44 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:44 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] printText
+[Sat Jun 21 10:18:45 2025] [OUTPUT] 5. 대화 시스템: 
+[Sat Jun 21 10:18:45 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] printText
+[Sat Jun 21 10:18:45 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:45 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] printText
+[Sat Jun 21 10:18:45 2025] [OUTPUT] 6. 뒤로 가기
+
+
+[Sat Jun 21 10:18:45 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] printText
+[Sat Jun 21 10:18:45 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 10:18:45 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:45 2025] [함수실행] getIntInput
+[Sat Jun 21 10:18:46 2025] [INPUT] 정수 입력: 2
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] setTextDisplayMode
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] === 텍스트 출력 방식 설정 ===
+
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 현재 출력 방식: 
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 한 줄씩
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 
+
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 1. 한 글자씩 출력
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 2. 한 줄씩 출력
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 3. 한 번에 출력
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 4. 뒤로 가기
+
+
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] printText
+[Sat Jun 21 10:18:46 2025] [OUTPUT] 선택하세요 (1-4): 
+[Sat Jun 21 10:18:46 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:46 2025] [함수실행] getIntInput
+[Sat Jun 21 10:18:48 2025] [INPUT] 정수 입력: 1
+[Sat Jun 21 10:18:48 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:48 2025] [함수실행] saveSettings
+[Sat Jun 21 10:18:48 2025] [함수실행] printText
+[Sat Jun 21 10:18:48 2025] [OUTPUT] 
+텍스트 출력 방식이 '한 글자씩'으로 변경되었습니다.
+[Sat Jun 21 10:18:48 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:48 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:49 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:49 2025] [함수실행] printText
+[Sat Jun 21 10:18:49 2025] [OUTPUT] === 게임 설정 ===
+
+
+[Sat Jun 21 10:18:49 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:49 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:49 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:49 2025] [함수실행] printText
+[Sat Jun 21 10:18:49 2025] [OUTPUT] 1. 게임 출력 속도
+
+[Sat Jun 21 10:18:49 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:49 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] printText
+[Sat Jun 21 10:18:50 2025] [OUTPUT] 2. 텍스트 출력 방식
+
+[Sat Jun 21 10:18:50 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] printText
+[Sat Jun 21 10:18:50 2025] [OUTPUT] 3. 상성 힌트 표시: 
+[Sat Jun 21 10:18:50 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] printText
+[Sat Jun 21 10:18:50 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:50 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:50 2025] [함수실행] printText
+[Sat Jun 21 10:18:50 2025] [OUTPUT] 4. 디버그 모드: 
+[Sat Jun 21 10:18:50 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:50 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] printText
+[Sat Jun 21 10:18:51 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:51 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] printText
+[Sat Jun 21 10:18:51 2025] [OUTPUT] 5. 대화 시스템: 
+[Sat Jun 21 10:18:51 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] printText
+[Sat Jun 21 10:18:51 2025] [OUTPUT] 켬
+
+[Sat Jun 21 10:18:51 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:51 2025] [함수실행] printText
+[Sat Jun 21 10:18:51 2025] [OUTPUT] 6. 뒤로 가기
+
+
+[Sat Jun 21 10:18:51 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:51 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:52 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:52 2025] [함수실행] printText
+[Sat Jun 21 10:18:52 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 10:18:52 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:18:52 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:52 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:18:52 2025] [함수실행] getIntInput

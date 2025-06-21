@@ -1,0 +1,115 @@
+
+=== 게임 시작: Sat Jun 21 10:16:54 2025 ===
+[Sat Jun 21 10:16:54 2025] [함수실행] loadItemsFromFile
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToGrade
+[Sat Jun 21 10:16:54 2025] [함수실행] stringToType
+[Sat Jun 21 10:16:54 2025] [함수실행] addItemToInventoryWithoutMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] addItemToInventoryWithoutMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] addItemToInventoryWithoutMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] addItemToInventoryWithoutMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] addItemToInventoryWithoutMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] initStage
+[Sat Jun 21 10:16:54 2025] [함수실행] initNormalStage
+[Sat Jun 21 10:16:54 2025] [함수실행] getCurrentRegion
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateLevelRange
+[Sat Jun 21 10:16:54 2025] [함수실행] generateNormalStageEnemies
+[Sat Jun 21 10:16:54 2025] [함수실행] createRandomYokaiWithLevel
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] generateYokaiId
+[Sat Jun 21 10:16:54 2025] [함수실행] assignRandomMoves
+[Sat Jun 21 10:16:54 2025] [함수실행] createRandomYokaiWithLevel
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] generateYokaiId
+[Sat Jun 21 10:16:54 2025] [함수실행] assignRandomMoves
+[Sat Jun 21 10:16:54 2025] [함수실행] createRandomYokaiWithLevel
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] generateYokaiId
+[Sat Jun 21 10:16:54 2025] [함수실행] assignRandomMoves
+[Sat Jun 21 10:16:54 2025] [함수실행] createRandomYokaiWithLevel
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] generateYokaiId
+[Sat Jun 21 10:16:54 2025] [함수실행] assignRandomMoves
+[Sat Jun 21 10:16:54 2025] [함수실행] createRandomYokaiWithLevel
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] generateYokaiId
+[Sat Jun 21 10:16:54 2025] [함수실행] assignRandomMoves
+[Sat Jun 21 10:16:54 2025] [함수실행] initParty
+[Sat Jun 21 10:16:54 2025] [함수실행] findYokaiByName
+[Sat Jun 21 10:16:54 2025] [함수실행] calculateHP
+[Sat Jun 21 10:16:54 2025] [함수실행] startDialogue
+[Sat Jun 21 10:16:54 2025] [함수실행] showDialogue
+[Sat Jun 21 10:16:54 2025] [함수실행] printDialogueMessage
+[Sat Jun 21 10:16:54 2025] [함수실행] printText
+[Sat Jun 21 10:16:54 2025] [OUTPUT] 
+
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] printText
+[Sat Jun 21 10:16:54 2025] [OUTPUT] ==================================================
+
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] printTextAndWait
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] printText
+[Sat Jun 21 10:16:54 2025] [OUTPUT] [33m시스템[0m: [33m포켓고스트 세계에 오신 것을 환영합니다![0m
+
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] printText
+[Sat Jun 21 10:16:54 2025] [OUTPUT] ==================================================
+
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] printText
+[Sat Jun 21 10:16:54 2025] [OUTPUT] 계속하려면 엔터키를 누르세요...
+
+[Sat Jun 21 10:16:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 10:16:54 2025] [함수실행] clearInputBuffer
