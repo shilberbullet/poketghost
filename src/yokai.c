@@ -337,7 +337,7 @@ void assignRandomMoves(Yokai* y, int level) {
         }
 
         if (!isAssigned) {
-            if (level > 30) {
+            if (level > 11) {  // 11레벨 이상에서 고급기술 배우기 가능
                  if (y->learnableMoves[i].grade == MOVE_BASIC || y->learnableMoves[i].grade == MOVE_MEDIUM) {
                     if (y->forgottenMoveCount < MAX_LEARNABLE_MOVES) {
                         y->forgottenMoves[y->forgottenMoveCount++] = y->learnableMoves[i];
