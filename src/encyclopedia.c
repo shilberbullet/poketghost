@@ -484,8 +484,7 @@ void markYokaiAsCaught(int yokaiIndex) {
         // 이미 잡은 요괴인지 확인
         if (caughtYokai[yokaiIndex - 1] == 0) {
             caughtYokai[yokaiIndex - 1] = 1;
-            // 도감 데이터를 파일에 저장
-            saveCaughtYokaiData();
+            // 즉시 저장하지 않음 - 자동저장이나 수동저장 시에만 저장
         }
     }
 }

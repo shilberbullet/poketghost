@@ -15,6 +15,7 @@
 #include "../core/state.h"
 #include "logger.h"
 #include "statistics.h"
+#include "encyclopedia.h"
 #include <windows.h>
 #define SAVE_FILE "data/save.dat"
 
@@ -192,6 +193,10 @@ void saveGame() {
     }
     
     fclose(file);
+    
+    // 잡은 요괴 데이터 저장
+    saveCaughtYokaiData();
+    
     printText("게임이 저장되었습니다.\n");
 }
 
