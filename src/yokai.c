@@ -190,22 +190,146 @@ void loadYokaiFromFile(const char* filename) {
 }
 
 // learnableMoves에서 랜덤 4개를 moves에 복사하는 함수
-void assignRandomMoves(Yokai* y) {
+void assignRandomMoves(Yokai* y, int level) {
     LOG_FUNCTION_EXECUTION("assignRandomMoves");
-    int idx[MAX_LEARNABLE_MOVES];
-    for (int i = 0; i < y->learnableMoveCount; i++) idx[i] = i;
-    // Fisher-Yates shuffle
-    for (int i = y->learnableMoveCount - 1; i > 0; i--) {
-        int j = rand() % (i + 1);
-        int tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp;
+
+    // 일반 요괴들의 기존 로직
+    Move basicMoves[MAX_LEARNABLE_MOVES];
+    int basicCount = 0;
+    Move mediumMoves[MAX_LEARNABLE_MOVES];
+    int mediumCount = 0;
+    Move advancedMoves[MAX_LEARNABLE_MOVES];
+    int advancedCount = 0;
+
+    for (int i = 0; i < y->learnableMoveCount; i++) {
+        switch (y->learnableMoves[i].grade) {
+            case MOVE_BASIC:
+                basicMoves[basicCount++] = y->learnableMoves[i];
+                break;
+            case MOVE_MEDIUM:
+                mediumMoves[mediumCount++] = y->learnableMoves[i];
+                break;
+            case MOVE_ADVANCED:
+                advancedMoves[advancedCount++] = y->learnableMoves[i];
+                break;
+        }
     }
-    y->moveCount = (y->learnableMoveCount < MAX_MOVES) ? y->learnableMoveCount : MAX_MOVES;
-    y->learnedMoveCount = 0;  // 배운 기술 개수 초기화
-    for (int i = 0; i < y->moveCount; i++) {
-        y->moves[i].move = y->learnableMoves[idx[i]];
-        y->moves[i].currentPP = y->learnableMoves[idx[i]].pp;
-        // 배운 기술 목록에 추가
-        y->learnedMoves[y->learnedMoveCount++] = y->learnableMoves[idx[i]];
+
+    // Fisher-Yates shuffle for each grade
+    for (int i = basicCount - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        Move temp = basicMoves[i]; basicMoves[i] = basicMoves[j]; basicMoves[j] = temp;
+    }
+    for (int i = mediumCount - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        Move temp = mediumMoves[i]; mediumMoves[i] = mediumMoves[j]; mediumMoves[j] = temp;
+    }
+    for (int i = advancedCount - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        Move temp = advancedMoves[i]; advancedMoves[i] = advancedMoves[j]; advancedMoves[j] = temp;
+    }
+
+    y->moveCount = 0;
+    int needed = MAX_MOVES;
+
+    int basicToAssign = 0;
+    int mediumToAssign = 0;
+    int advancedToAssign = 0;
+
+    if (level < 10) {
+        basicToAssign = 4;
+    } else if (level < 30) {
+        basicToAssign = 2;
+        mediumToAssign = 2;
+    } else {
+        basicToAssign = 1;
+        mediumToAssign = 2;
+        advancedToAssign = 1;
+    }
+
+    // Assign moves based on calculated numbers
+    int assignedCount = 0;
+    for (int i = 0; i < basicToAssign && assignedCount < needed && i < basicCount; i++) {
+        y->moves[assignedCount].move = basicMoves[i];
+        y->moves[assignedCount].currentPP = basicMoves[i].pp;
+        assignedCount++;
+    }
+    for (int i = 0; i < mediumToAssign && assignedCount < needed && i < mediumCount; i++) {
+        y->moves[assignedCount].move = mediumMoves[i];
+        y->moves[assignedCount].currentPP = mediumMoves[i].pp;
+        assignedCount++;
+    }
+    for (int i = 0; i < advancedToAssign && assignedCount < needed && i < advancedCount; i++) {
+        y->moves[assignedCount].move = advancedMoves[i];
+        y->moves[assignedCount].currentPP = advancedMoves[i].pp;
+        assignedCount++;
+    }
+
+    y->moveCount = assignedCount;
+
+    // Fill remaining slots if any
+    if (y->moveCount < needed) {
+        Move* allMoves[] = {basicMoves, mediumMoves, advancedMoves};
+        int counts[] = {basicCount, mediumCount, advancedCount};
+        int currentIndices[] = {basicToAssign, mediumToAssign, advancedToAssign};
+
+        for (int i = 0; y->moveCount < needed; i++) {
+            bool added = false;
+            for (int j = 0; j < 3; j++) {
+                if (currentIndices[j] < counts[j]) {
+                    bool alreadyAssigned = false;
+                    for (int k = 0; k < y->moveCount; k++) {
+                        if (strcmp(y->moves[k].move.name, allMoves[j][currentIndices[j]].name) == 0) {
+                            alreadyAssigned = true;
+                            break;
+                        }
+                    }
+                    if (!alreadyAssigned) {
+                        y->moves[y->moveCount].move = allMoves[j][currentIndices[j]];
+                        y->moves[y->moveCount].currentPP = allMoves[j][currentIndices[j]].pp;
+                        y->moveCount++;
+                        added = true;
+                    }
+                    currentIndices[j]++;
+                }
+                if (y->moveCount >= needed) break;
+            }
+            if (!added) break; // No more moves to add
+        }
+    }
+
+    // Populate forgotten moves
+    y->forgottenMoveCount = 0;
+    for (int i = 0; i < y->learnableMoveCount; i++) {
+        bool isAssigned = false;
+        for (int j = 0; j < y->moveCount; j++) {
+            if (strcmp(y->learnableMoves[i].name, y->moves[j].move.name) == 0) {
+                isAssigned = true;
+                break;
+            }
+        }
+
+        if (!isAssigned) {
+            if (level > 30) {
+                 if (y->learnableMoves[i].grade == MOVE_BASIC || y->learnableMoves[i].grade == MOVE_MEDIUM) {
+                    if (y->forgottenMoveCount < MAX_LEARNABLE_MOVES) {
+                        y->forgottenMoves[y->forgottenMoveCount++] = y->learnableMoves[i];
+                    }
+                }
+            } else if (level > 10) {
+                if (y->learnableMoves[i].grade == MOVE_BASIC) {
+                     if (y->forgottenMoveCount < MAX_LEARNABLE_MOVES) {
+                        y->forgottenMoves[y->forgottenMoveCount++] = y->learnableMoves[i];
+                    }
+                }
+            }
+        }
+    }
+
+    y->learnedMoveCount = y->moveCount;
+    for(int i=0; i<y->learnedMoveCount; ++i)
+    {
+        y->learnedMoves[i] = y->moves[i].move;
     }
 }
 
@@ -251,35 +375,31 @@ void calculateLevelRange(int stage, int* minLevel, int* maxLevel) {
 // 랜덤 요괴 생성 함수 (레벨 지정)
 Yokai createRandomYokaiWithLevel(int level) {
     LOG_FUNCTION_EXECUTION("createRandomYokaiWithLevel");
-    int idx;
-    // 도깨비를 제외한 요괴만 선택
-    do {
-        idx = rand() % yokaiListCount;
-    } while (strcmp(yokaiList[idx].name, "도깨비") == 0);
+    int index = rand() % yokaiListCount;
+    Yokai newYokai = yokaiList[index];
+    newYokai.level = level;
+    newYokai.currentHP = calculateHP(&newYokai);
+    newYokai.id = generateYokaiId();
+    newYokai.status = YOKAI_NORMAL;
+    newYokai.exp = 0;
+    newYokai.yokaiInventoryCount = 0;
+    newYokai.magnifierCount = 0;
     
-    Yokai y = yokaiList[idx];
-    y.id = generateYokaiId();
-    y.level = level;
-    y.exp = 0;
-    y.currentHP = calculateHP(&y);
-    y.status = YOKAI_NORMAL;
-    y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
-    y.magnifierCount = 0;  // 돋보기 개수 초기화
-    assignRandomMoves(&y);
-    return y;
+    assignRandomMoves(&newYokai, level);
+    return newYokai;
 }
 
 // 랜덤 보스 요괴 생성 함수 (레벨 지정)
 Yokai createRandomBossYokaiWithLevel(int level) {
     LOG_FUNCTION_EXECUTION("createRandomBossYokaiWithLevel");
-    int idx = rand() % bossYokaiListCount;
-    Yokai y = bossYokaiList[idx];
-    y.id = generateYokaiId();  // 고유 ID 부여
-    y.level = level;
-    y.status = YOKAI_NORMAL;  // 기본 상태는 정상
-    y.currentHP = calculateHP(&y);  // calculateHP() 함수 사용
-    assignRandomMoves(&y);
-    return y;
+    int index = rand() % bossYokaiListCount;
+    Yokai newYokai = bossYokaiList[index];
+    newYokai.level = level;
+    newYokai.currentHP = calculateHP(&newYokai);
+    newYokai.id = generateYokaiId();
+    newYokai.status = YOKAI_NORMAL;
+    assignRandomMoves(&newYokai, level);
+    return newYokai;
 }
 
 // 기본 레벨(1)로 랜덤 요괴 생성하는 함수
@@ -296,19 +416,16 @@ Yokai createRandomBossYokai() {
 
 Yokai createRandomParadoxYokaiWithLevel(int level) {
     LOG_FUNCTION_EXECUTION("createRandomParadoxYokaiWithLevel");
-    if (paradoxYokaiListCount == 0) {
-        loadYokaiFromFile("data/yokai.txt");
-    }
-    int idx = rand() % paradoxYokaiListCount;
-    Yokai y = paradoxYokaiList[idx];
-    y.id = 0;
-    y.level = level;
-    y.status = YOKAI_NORMAL;
-    y.currentHP = calculateHP(&y);
-    y.yokaiInventoryCount = 0;  // 인벤토리 개수 초기화
-    y.magnifierCount = 0;  // 돋보기 개수 초기화
-    assignRandomMoves(&y);
-    return y;
+    int index = rand() % paradoxYokaiListCount;
+    Yokai newYokai = paradoxYokaiList[index];
+    newYokai.level = level;
+    newYokai.currentHP = calculateHP(&newYokai);
+    newYokai.id = generateYokaiId();
+    newYokai.status = YOKAI_NORMAL;
+    newYokai.yokaiInventoryCount = 0;
+    newYokai.magnifierCount = 0;
+    assignRandomMoves(&newYokai, level);
+    return newYokai;
 }
 
 void printYokaiInfo(const Yokai* yokai) {

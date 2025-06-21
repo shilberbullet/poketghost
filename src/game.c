@@ -20,6 +20,7 @@
 #include "battle.h"
 #include "reward.h"
 #include "savefile.h"
+#include "dialogue.h"
 #include <windows.h>
 #include <math.h>
 

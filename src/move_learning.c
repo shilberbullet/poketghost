@@ -30,17 +30,31 @@ bool canLearnNewMove(const Yokai* yokai) {
             }
         }
         
+        // 잊은 기술 목록에서도 체크
+        for (int j = 0; j < yokai->forgottenMoveCount; j++) {
+            if (strcmp(yokai->forgottenMoves[j].name, move.name) == 0) {
+                alreadyLearned = true;
+                break;
+            }
+        }
+        
         if (!alreadyLearned) {
             // 레벨 범위 확인
             switch (move.grade) {
                 case MOVE_BASIC:
-                    if (yokai->level >= 5 && yokai->level <= 10) return true;
+                    if (yokai->level >= 1) {
+                        return true;
+                    }
                     break;
                 case MOVE_MEDIUM:
-                    if (yokai->level >= 10 && yokai->level <= 30) return true;
+                    if (yokai->level >= 10) {
+                        return true;
+                    }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30 && yokai->level <= 100) return true;
+                    if (yokai->level >= 30) {
+                        return true;
+                    }
                     break;
             }
         }
@@ -134,17 +148,17 @@ bool tryLearnNewMove(Yokai* yokai) {
             // 레벨 범위 확인
             switch (move.grade) {
                 case MOVE_BASIC:
-                    if (yokai->level >= 5 && yokai->level <= 10) {
+                    if (yokai->level >= 1) {
                         availableMoves[availableCount++] = move;
                     }
                     break;
                 case MOVE_MEDIUM:
-                    if (yokai->level >= 10 && yokai->level <= 30) {
+                    if (yokai->level >= 10) {
                         availableMoves[availableCount++] = move;
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30 && yokai->level <= 60) {
+                    if (yokai->level >= 30) {
                         availableMoves[availableCount++] = move;
                     }
                     break;

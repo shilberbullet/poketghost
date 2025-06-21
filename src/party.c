@@ -21,7 +21,7 @@
 #define MAX_FORGOTTEN_MOVES 10  // 잊은 기술 최대 개수
 
 // 랜덤 기술 할당 함수 선언
-void assignRandomMoves(Yokai* y);
+void assignRandomMoves(Yokai* y, int level);
 
 // 파티 요괴 배열과 개수는 state 모듈에서 관리
 
@@ -41,12 +41,48 @@ void initParty() {
         strncpy(gParty[0].desc, dokkaebi->desc, YOKAI_DESC_MAX - 1);
         gParty[0].desc[YOKAI_DESC_MAX - 1] = '\0';
         
-        // learnableMoves 복사
+        // learnableMoves 복사 (레벨업 시 중급/고급 기술 배우기 위해 원본 유지)
         gParty[0].learnableMoveCount = dokkaebi->learnableMoveCount;
         for (int i = 0; i < dokkaebi->learnableMoveCount; i++) {
             gParty[0].learnableMoves[i] = dokkaebi->learnableMoves[i];
         }
-        assignRandomMoves(&gParty[0]);   // 랜덤 기술 할당
+        
+        // 도깨비 초기 기술: 하드코딩된 초급 기술 4개만 할당
+        Move dokkaebiBasicMoves[] = {
+            {"불씨던지기", TYPE_MONSTER, 25, 90, 20, "작은 불씨를 던져 화상을 입힌다", MOVE_BASIC},
+            {"돌던지기", TYPE_HUMAN, 25, 95, 25, "돌을 던져 적을 공격한다", MOVE_BASIC},
+            {"진흙던지기", TYPE_HUMAN, 20, 100, 25, "진흙을 뿌려 시야를 방해한다", MOVE_BASIC},
+            {"호미찌르기", TYPE_HUMAN, 25, 100, 20, "호미날로 적을 강하게 찌른다", MOVE_BASIC},
+            {"몸통박치기", TYPE_MONSTER, 25, 100, 20, "몸 전체로 부딪혀 공격한다", MOVE_BASIC},
+            {"소리지르기", TYPE_HUMAN, 20, 100, 30, "소리를 질러 적을 공격한다", MOVE_BASIC},
+            {"짖기", TYPE_ANIMAL, 15, 100, 30, "소리로 적을 공격한다", MOVE_BASIC},
+            {"할퀴기", TYPE_ANIMAL, 25, 100, 20, "날카로운 발톱으로 할퀴어 공격한다", MOVE_BASIC}
+        };
+        int dokkaebiBasicCount = 8;
+        
+        // 초급 기술 중 랜덤하게 4개 선택
+        gParty[0].moveCount = 0;
+        for (int i = 0; i < 4; i++) {
+            int randomIndex = rand() % dokkaebiBasicCount;
+            gParty[0].moves[i].move = dokkaebiBasicMoves[randomIndex];
+            gParty[0].moves[i].currentPP = dokkaebiBasicMoves[randomIndex].pp;
+            gParty[0].moveCount++;
+            
+            // 중복 방지: 선택된 기술을 배열 끝으로 이동
+            Move temp = dokkaebiBasicMoves[randomIndex];
+            dokkaebiBasicMoves[randomIndex] = dokkaebiBasicMoves[dokkaebiBasicCount - 1];
+            dokkaebiBasicMoves[dokkaebiBasicCount - 1] = temp;
+            dokkaebiBasicCount--;
+        }
+        
+        // 잊은 기술 목록 초기화 (도깨비는 생성 시 잊은 기술을 추가하지 않음)
+        gParty[0].forgottenMoveCount = 0;
+        
+        gParty[0].learnedMoveCount = gParty[0].moveCount;
+        for(int i=0; i<gParty[0].learnedMoveCount; ++i) {
+            gParty[0].learnedMoves[i] = gParty[0].moves[i].move;
+        }
+        
         gPartyCount = 1;
     }
 }
@@ -80,21 +116,7 @@ void releaseYokai(int index) {
             break;
         default:
             colorCode = "\033[0m";   // 기본색
-    }
-    
-    // 요괴 인벤토리 초기화
-    clearYokaiInventory(&gParty[index]);
-    
-    char buffer[256];
-    sprintf(buffer, "\n%s (%s%s\033[0m)(이)가 성불했습니다.\n", 
-        gParty[index].name,
-        colorCode,
-        typeNames[gParty[index].type]);
-    printText(buffer);
-
-    // 실제로 파티 배열에서 삭제 (뒤의 요괴들을 앞으로 당김)
-    for (int i = index; i < gPartyCount - 1; i++) {
-        gParty[i] = gParty[i + 1];
+            break;
     }
     gPartyCount--;
 }

@@ -3,6 +3,7 @@
 #include "text.h"
 #include "input.h"
 #include "state.h"
+#include "party.h"
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
@@ -74,7 +75,7 @@ void display_statistics_screen() {
     printTextAndWait(buffer);
     printTextAndWait("\n\n");
 
-    sprintf(buffer, "  잡은 요괴 수       : %d\n", total_stats.yokai_caught);
+    sprintf(buffer, "  동료로 만든 요괴 수 : %d\n", gPartyCount);
     printTextAndWait(buffer);
 
     sprintf(buffer, "  쓰러트린 요괴 수   : %d\n", total_stats.yokai_defeated);
