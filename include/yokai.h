@@ -9,8 +9,8 @@
 #define MAX_MOVES 4
 #define MAX_LEARNABLE_MOVES 50
 #define YOKAI_NAME_MAX 32
-#define MAX_YOKAI 32
-#define MAX_BOSS_YOKAI 8
+#define MAX_YOKAI 150
+#define MAX_BOSS_YOKAI 12
 #define YOKAI_DESC_MAX 128
 #define MAX_PARADOX_YOKAI 16
 #define MAX_MAGNIFIER_COUNT 5  // 최대 돋보기 개수

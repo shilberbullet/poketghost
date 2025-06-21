@@ -109,9 +109,21 @@ void loadYokaiFromFile(const char* filename) {
     char line[32768];
     int isBoss = 0;
     int isParadox = 0;
+    int lineCount = 0;
     while (fgets(line, sizeof(line), file)) {
-        if (strstr(line, "# 보스 요괴")) { isBoss = 1; isParadox = 0; continue; }
-        if (strstr(line, "# 패러독스 요괴")) { isParadox = 1; isBoss = 0; continue; }
+        lineCount++;
+        if (strstr(line, "# 보스 요괴")) { 
+            isBoss = 1; 
+            isParadox = 0; 
+            LOG_FUNCTION_EXECUTION("보스 요괴 섹션 시작");
+            continue; 
+        }
+        if (strstr(line, "# 패러독스 요괴")) { 
+            isParadox = 1; 
+            isBoss = 0; 
+            LOG_FUNCTION_EXECUTION("패러독스 요괴 섹션 시작");
+            continue; 
+        }
         if (line[0] == '#' || line[0] == '\n') continue;
         line[strcspn(line, "\n")] = 0;
         char* last_comma = strrchr(line, ',');
@@ -127,15 +139,23 @@ void loadYokaiFromFile(const char* filename) {
         char* desc = strtok(NULL, "");
         if (name && type && attack && defense && stamina && speed && desc && moves) {
             Yokai* y;
+            char logBuffer[512];
             if (isParadox && paradoxYokaiListCount < MAX_PARADOX_YOKAI) {
                 y = &paradoxYokaiList[paradoxYokaiListCount++];
+                sprintf(logBuffer, "패러독스 요괴 로드: %s (인덱스: %d)", name, paradoxYokaiListCount);
             } else if (!isBoss && yokaiListCount < MAX_YOKAI) {
                 y = &yokaiList[yokaiListCount++];
+                sprintf(logBuffer, "일반 요괴 로드: %s (인덱스: %d)", name, yokaiListCount);
             } else if (isBoss && bossYokaiListCount < MAX_BOSS_YOKAI) {
                 y = &bossYokaiList[bossYokaiListCount++];
+                sprintf(logBuffer, "보스 요괴 로드: %s (인덱스: %d)", name, bossYokaiListCount);
             } else {
+                sprintf(logBuffer, "요괴 로드 실패: %s (배열 가득참)", name);
+                LOG_FUNCTION_EXECUTION(logBuffer);
                 continue;
             }
+            LOG_FUNCTION_EXECUTION(logBuffer);
+            
             strncpy(y->name, name, YOKAI_NAME_MAX - 1);
             y->name[YOKAI_NAME_MAX - 1] = '\0';
             y->type = parseType(type);
@@ -187,6 +207,13 @@ void loadYokaiFromFile(const char* filename) {
         }
     }
     fclose(file);
+    
+    // 로드된 요괴 수 로그 출력
+    char logBuffer[256];
+    sprintf(logBuffer, "로드된 요괴 수: 일반=%d, 보스=%d, 패러독스=%d, 총=%d", 
+            yokaiListCount, bossYokaiListCount, paradoxYokaiListCount, 
+            yokaiListCount + bossYokaiListCount + paradoxYokaiListCount);
+    LOG_FUNCTION_EXECUTION(logBuffer);
 }
 
 // learnableMoves에서 랜덤 4개를 moves에 복사하는 함수

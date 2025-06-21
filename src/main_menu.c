@@ -15,6 +15,7 @@
 #include "region.h"
 #include "statistics.h"
 #include "dialogue.h"
+#include "encyclopedia.h"
 #include "../core/state.h"
 #include "logger.h"
 #include <windows.h>
@@ -92,9 +93,10 @@ void showMainMenu(void) {
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
         printText("4. 통계\n");
-        printText("5. 로그 보내기\n");
-        printText("6. 순위를 본다\n");
-        printText("7. 종료\n\n");
+        printText("5. 요괴 도감\n");
+        printText("6. 로그 보내기\n");
+        printText("7. 순위를 본다\n");
+        printText("8. 종료\n\n");
         printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
@@ -123,6 +125,9 @@ void handleMainMenuChoice(MainMenuOption choice) {
         case MAIN_MENU_STATISTICS:
             display_statistics_screen();
             break;
+        case MAIN_MENU_ENCYCLOPEDIA:
+            showEncyclopedia();
+            break;
         case MAIN_MENU_SEND_LOGS:
             sendLogsMenu();
             break;
@@ -145,6 +150,7 @@ void startNewGame(void) {
     gGameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
     init_player_statistics(); // 플레이어 통계 초기화
+    resetCaughtYokai(); // 도감 초기화
     
     // 시작 지역 선택
     system("cls");

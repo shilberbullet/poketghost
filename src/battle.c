@@ -18,6 +18,7 @@
 #include "hp_system.h"  // HP 시스템 헤더 추가
 #include "exp_system.h"  // 경험치 시스템 헤더 추가
 #include "battle_system.h"  // 새로 추가
+#include "encyclopedia.h"  // 도감 시스템 추가
 #include "../core/state.h"
 #include "roguelite.h"  // 로그라이트 시스템 추가
 #include "settings.h"
@@ -694,6 +695,15 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             if (useTalisman(&inventory[idx].item, enemy)) {
                 sprintf(buffer, "\n%s를 던졌다! 요괴를 잡았다!", inventory[idx].item.name);
                 printTextAndWait(buffer);
+                
+                // 도감에 요괴 기록
+                for (int i = 0; i < yokaiListCount; i++) {
+                    if (strcmp(yokaiList[i].name, enemy->name) == 0) {
+                        markYokaiAsCaught(i + 1);
+                        break;
+                    }
+                }
+                
                 // 요괴를 파티에 추가 (현재 전투 중인 요괴의 정보 사용)
                 if (addYokaiToParty(enemy)) {
                     sprintf(buffer, "\n%s가 동료가 되었습니다!", enemy->name);
@@ -757,11 +767,11 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 sprintf(buffer, "\n%s HP[", gParty[yokaiIdx].name);
                 if (hpPercentage <= 20.0f) {
-                    strcat(buffer, "\033[31m");
+                    strcat(buffer, "\033[31m"); // 빨간색
                 } else if (hpPercentage <= 50.0f) {
-                    strcat(buffer, "\033[33m");
+                    strcat(buffer, "\033[33m"); // 노란색
                 } else {
-                    strcat(buffer, "\033[1;32m");
+                    strcat(buffer, "\033[1;32m"); // 초록색
                 }
                 
                 for (int i = 0; i < HP_BAR_LENGTH; i++) {
@@ -772,7 +782,6 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     }
                 }
                 
-                // 색상 초기화 및 HP 바 종료
                 char tempBuffer[256];
                 sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
                 strcat(buffer, tempBuffer);
@@ -781,10 +790,9 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 }
                 strcat(buffer, "\n");
                 
-                // HP 바 전체를 한 번에 출력
                 printTextAndWait(buffer);
                 
-                // 전투 결과 확인
+                // 요괴가 기절했는지 확인
                 if (gParty[yokaiIdx].currentHP <= 0) {
                     gParty[yokaiIdx].status = YOKAI_FAINTED;
                     gParty[yokaiIdx].currentHP = 0;
@@ -800,10 +808,9 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                     
                     if (allFainted) {
                         handleRogueliteSystem();
-                        printTextAndWait("\n전투에서 패배했습니다...");
                         return 104; // 전투 패배
                     }
-
+                    
                     // 남은 동료가 있으면 즉시 교체 메뉴
                     int newIdx = selectPartyYokai();
                     while (gParty[newIdx].status == YOKAI_FAINTED) {
@@ -811,14 +818,10 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                         newIdx = selectPartyYokai();
                     }
                     lastYokaiIdx = newIdx;
-                    applyPeachHealingToParty(); // 복숭아 효과 적용
-                    turnCount++;
-                    return 0;
                 }
                 
                 applyPeachHealingToParty(); // 복숭아 효과 적용
                 turnCount++;
-                lastYokaiIdx = yokaiIdx;
                 return 0;
             }
         }

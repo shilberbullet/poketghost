@@ -9,9 +9,10 @@ typedef enum {
     MAIN_MENU_LOAD_GAME = 2,
     MAIN_MENU_SETTINGS = 3,
     MAIN_MENU_STATISTICS = 4,
-    MAIN_MENU_SEND_LOGS = 5,
-    MAIN_MENU_RANKING = 6,
-    MAIN_MENU_EXIT = 7
+    MAIN_MENU_ENCYCLOPEDIA = 5,
+    MAIN_MENU_SEND_LOGS = 6,
+    MAIN_MENU_RANKING = 7,
+    MAIN_MENU_EXIT = 8
 } MainMenuOption;
 
 // 메인 메뉴 표시 함수
