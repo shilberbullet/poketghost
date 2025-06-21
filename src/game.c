@@ -13,6 +13,7 @@
 #include "item.h"
 // 로그라이트 시스템 관련 함수
 #include "roguelite.h"
+#include "event_system.h"
 #include "logger.h"
 #include "../core/state.h"
 #include "input.h"
@@ -40,6 +41,9 @@ extern unsigned long long participatedId[];
 void initGame() {
     // 로그 시스템 초기화
     initLogger();
+    
+    // 이벤트 시스템 초기화
+    initEventSystem();
 
     // 게임의 기본 상태를 초기화
     gGameState.isRunning = 1;        // 게임 실행 상태를 true로 설정

@@ -11,6 +11,7 @@
 #include "battle.h"
 #include "text.h"
 #include "region.h"
+#include "event_system.h"
 #include "../core/state.h"
 #include "logger.h"
 #include "statistics.h"
@@ -170,6 +171,25 @@ void saveGame() {
     // 마지막으로 사용한 요괴 인덱스 저장
     fwrite(&lastYokaiIdx, sizeof(int), 1, file);
     
+    // 이벤트 데이터 저장
+    Event* currentEvent = getCurrentEvent();
+    if (currentEvent) {
+        // 이벤트가 활성화되어 있음을 나타내는 플래그
+        int hasActiveEvent = 1;
+        fwrite(&hasActiveEvent, sizeof(int), 1, file);
+        
+        // 이벤트 데이터 저장
+        fwrite(&currentEvent->type, sizeof(EventType), 1, file);
+        fwrite(&currentEvent->description, sizeof(char), 256, file);
+        fwrite(&currentEvent->target_region, sizeof(char), 32, file);
+        fwrite(&currentEvent->reward_money, sizeof(int), 1, file);
+        fwrite(&currentEvent->is_completed, sizeof(bool), 1, file);
+    } else {
+        // 활성 이벤트가 없음을 나타내는 플래그
+        int hasActiveEvent = 0;
+        fwrite(&hasActiveEvent, sizeof(int), 1, file);
+    }
+    
     fclose(file);
     printText("게임이 저장되었습니다.\n");
 }
@@ -314,6 +334,16 @@ int loadGameData() {
     
     // 마지막으로 사용한 요괴 인덱스 불러오기
     fread(&lastYokaiIdx, sizeof(int), 1, file);
+    
+    // 이벤트 데이터 불러오기
+    int hasActiveEvent;
+    fread(&hasActiveEvent, sizeof(int), 1, file);
+    if (hasActiveEvent) {
+        Event* loadedEvent = loadEventFromFile(file);
+        if (loadedEvent) {
+            setCurrentEvent(loadedEvent);
+        }
+    }
     
     fclose(file);
     gGameState.isLoadedGame = 1; // 이어하기 플래그 설정
