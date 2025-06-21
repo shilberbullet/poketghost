@@ -10,6 +10,7 @@
 #include "region.h"
 #include "../core/state.h"
 #include "logger.h"
+#include "dialogue.h"
 
 // 이벤트 발생 확률 설정
 #define EVENT_TRIGGER_CHANCE 20  // 20% 확률
@@ -100,8 +101,12 @@ void handleLetterDeliveryEvent(Event* event) {
     
     system("cls");
     printText("=== 이벤트 발생! ===\n\n");
-    printText(event->description);
-    printText("\n\n1. 예\n");
+    // 여인의 요청 대화
+    startDialogue(1007);
+    char buffer[256];
+    snprintf(buffer, sizeof(buffer), "목표 지역: %s\n", event->target_region);
+    printText(buffer);
+    printText("\n1. 예\n");
     printText("2. 아니요\n\n");
     printText("선택하세요: ");
     
@@ -114,7 +119,7 @@ void handleLetterDeliveryEvent(Event* event) {
     if (choice == 1) {
         // 편지 전달 수락
         currentEvent = event;
-        printText("\n편지 전달을 수락했습니다.\n");
+        startDialogue(1008);
         printText("목표 지역에 도달하면 편지를 전달할 수 있습니다.\n");
         printText("\n아무 키나 누르면 계속합니다...\n");
         _getch();
