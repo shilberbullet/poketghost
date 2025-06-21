@@ -2,3 +2,4 @@ user_name,yokai_caught,yokai_defeated,stages_completed,games_cleared
 이현준,0,6,6,0
 이상엽,0,16,17,0
 가상의인물A,1,1,1,1
+에베,1,2,2,0
