@@ -60,4 +60,8 @@ void markYokaiAsCaught(int yokaiIndex);
 // 잡은 요괴 정보를 초기화하는 함수
 void resetCaughtYokai(void);
 
+// 도감 관련 함수들
+void saveCaughtYokaiData(void);
+void loadCaughtYokaiData(void);
+
 #endif // ENCYCLOPEDIA_H 

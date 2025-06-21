@@ -7,6 +7,9 @@
 #include "move.h"
 #include "logger.h"
 #include "text.h"
+#include "encyclopedia.h"  // 도감 초기화를 위해 추가
+#include <time.h>
+#include <ctype.h>
 
 #ifndef YOKAI_DESC_MAX
 #define YOKAI_DESC_MAX 256
@@ -218,6 +221,9 @@ void loadYokaiFromFile(const char* filename) {
             yokaiListCount, bossYokaiListCount, paradoxYokaiListCount, 
             yokaiListCount + bossYokaiListCount + paradoxYokaiListCount);
     LOG_FUNCTION_EXECUTION(logBuffer);
+
+    // 도감 데이터 로드 (저장된 데이터가 있으면 로드, 없으면 도깨비만 초기화)
+    loadCaughtYokaiData();
 }
 
 // learnableMoves에서 랜덤 4개를 moves에 복사하는 함수
@@ -468,9 +474,29 @@ void printYokaiInfo(const Yokai* yokai) {
     printf("스피드: %d\n", yokai->speed);
     printf("상성: %s\n", typeNames[yokai->type]);
     printf("설명: %s\n", typeDescriptions[yokai->type]);
-    printf("\n기술 목록:\n");
-    for (int i = 0; i < yokai->moveCount; i++) {
-        printf("%d. %s\n", i + 1, yokai->moves[i].move.name);
+    printf("\n배울 수 있는 기술:\n");
+    for (int i = 0; i < yokai->learnableMoveCount; i++) {
+        const char* colorCode;
+        switch (yokai->learnableMoves[i].type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+        printf("%d. %s%s\033[0m\n", i + 1, colorCode, yokai->learnableMoves[i].name);
     }
     printf("\n");
 }

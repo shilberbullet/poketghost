@@ -191,7 +191,7 @@ void showYokaiBySpecificType(int typeFilter) {
     int typeCount = 0;
     for (int i = 0; i < totalYokaiCount; i++) {
         Yokai* yokai = getYokaiByIndex(i);
-        if (yokai && (typeFilter == 0 || yokai->type == typeFilter - 1)) {
+        if (yokai && (typeFilter == 0 || (int)yokai->type == typeFilter - 1)) {
             typeCount++;
         }
     }
@@ -211,7 +211,7 @@ void showYokaiBySpecificType(int typeFilter) {
         
         for (int i = 0; i < totalYokaiCount && displayed < yokaiPerPage; i++) {
             Yokai* yokai = getYokaiByIndex(i);
-            if (yokai && (typeFilter == 0 || yokai->type == typeFilter - 1)) {
+            if (yokai && (typeFilter == 0 || (int)yokai->type == typeFilter - 1)) {
                 if (currentIndex >= startIndex) {
                     char yokaiBuffer[256];
                     const char* caughtStatus = isYokaiCaught(i + 1) ? "✓" : "?";
@@ -281,8 +281,10 @@ void showCaughtYokai(void) {
         system("cls");
         printText("=== 잡은 요괴 목록 ===\n\n");
         printText("아직 잡은 요괴가 없습니다.\n");
-        printText("\n아무 키나 누르면 돌아갑니다...");
-        getchar();
+        printText("\n엔터를 눌러 돌아가기...");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+        clearInputBuffer(); // 콘솔 입력 버퍼 비우기      
         return;
     }
     
@@ -407,14 +409,36 @@ void showYokaiDetail(int yokaiIndex) {
     sprintf(buffer, "상태: %s\n", caughtStatus);
     printText(buffer);
     
-    printText("\n기술 목록:\n");
-    for (int i = 0; i < yokai->moveCount; i++) {
-        sprintf(buffer, "%d. %s\n", i + 1, yokai->moves[i].move.name);
+    printText("\n배울 수 있는 기술:\n");
+    for (int i = 0; i < yokai->learnableMoveCount; i++) {
+        const char* colorCode;
+        switch (yokai->learnableMoves[i].type) {
+            case TYPE_EVIL_SPIRIT:
+                colorCode = "\033[31m";  // 빨간색
+                break;
+            case TYPE_GHOST:
+                colorCode = "\033[35m";  // 보라색
+                break;
+            case TYPE_MONSTER:
+                colorCode = "\033[33m";  // 노란색
+                break;
+            case TYPE_HUMAN:
+                colorCode = "\033[36m";  // 청록색
+                break;
+            case TYPE_ANIMAL:
+                colorCode = "\033[32m";  // 초록색
+                break;
+            default:
+                colorCode = "\033[0m";   // 기본색
+        }
+        sprintf(buffer, "%d. %s%s\033[0m\n", i + 1, colorCode, yokai->learnableMoves[i].name);
         printText(buffer);
     }
     
-    printText("\n아무 키나 누르면 돌아갑니다...");
-    getchar();
+    printText("\n엔터를 눌러 돌아가기...");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+    clearInputBuffer(); // 콘솔 입력 버퍼 비우기
 }
 
 // 타입 이름을 한글로 변환하는 함수
@@ -458,10 +482,42 @@ int getCaughtYokaiCount(void) {
 void markYokaiAsCaught(int yokaiIndex) {
     if (yokaiIndex >= 1 && yokaiIndex <= totalYokaiCount) {
         caughtYokai[yokaiIndex - 1] = 1;
+        // 도감 데이터를 파일에 저장
+        saveCaughtYokaiData();
     }
 }
 
 // 잡은 요괴 정보를 초기화하는 함수
 void resetCaughtYokai(void) {
     memset(caughtYokai, 0, sizeof(caughtYokai));
+    
+    // 도깨비를 찾아서 잡은 상태로 설정
+    for (int i = 0; i < totalYokaiCount; i++) {
+        Yokai* yokai = getYokaiByIndex(i);
+        if (yokai && strcmp(yokai->name, "도깨비") == 0) {
+            caughtYokai[i] = 1;
+            break;
+        }
+    }
+}
+
+// 잡은 요괴 정보를 파일에 저장하는 함수
+void saveCaughtYokaiData(void) {
+    FILE* file = fopen("data/caught_yokai.dat", "wb");
+    if (file) {
+        fwrite(caughtYokai, sizeof(caughtYokai), 1, file);
+        fclose(file);
+    }
+}
+
+// 잡은 요괴 정보를 파일에서 로드하는 함수
+void loadCaughtYokaiData(void) {
+    FILE* file = fopen("data/caught_yokai.dat", "rb");
+    if (file) {
+        fread(caughtYokai, sizeof(caughtYokai), 1, file);
+        fclose(file);
+    } else {
+        // 파일이 없으면 도깨비만 잡은 상태로 초기화
+        resetCaughtYokai();
+    }
 } 

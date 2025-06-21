@@ -68,11 +68,24 @@ int* getPartyCountPtr();
  */
 void setPartyCount(int count);
 
+/**
+ * @brief 누적 포획 수 포인터를 가져오는 함수
+ * @return 누적 포획 수 포인터
+ */
+int* getTotalCaughtCountPtr();
+
+/**
+ * @brief 누적 포획 수를 설정하는 함수
+ * @param count 설정할 누적 포획 수
+ */
+void setTotalCaughtCount(int count);
+
 // 전역 상태 접근을 위한 편의 매크로
 #define gGameState   (*getGameState()) // 게임 상태 전역 변수
 #define gPlayer      (*getPlayer()) // 플레이어 전역 변수
 #define gStage       (*getCurrentStage()) // 현재 스테이지 전역 변수
 #define gParty       (getParty()) // 파티 요괴 배열 전역 변수
 #define gPartyCount  (*getPartyCountPtr()) // 파티 요괴 수 전역 변수
+#define gTotalCaughtCount (*getTotalCaughtCountPtr()) // 누적 포획 수 전역 변수
 
 #endif // STATE_H

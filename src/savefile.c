@@ -54,6 +54,7 @@ void saveGame() {
     
     // 동료 요괴 수 저장
     fwrite(&gPartyCount, sizeof(int), 1, file);
+    fwrite(&gTotalCaughtCount, sizeof(int), 1, file);
     
     // 동료 요괴 정보 저장
     for (int i = 0; i < gPartyCount; i++) {
@@ -224,6 +225,7 @@ int loadGameData() {
     
     // 동료 요괴 수 불러오기
     fread(&gPartyCount, sizeof(int), 1, file);
+    fread(&gTotalCaughtCount, sizeof(int), 1, file);
     
     // 동료 요괴 정보 불러오기
     for (int i = 0; i < gPartyCount; i++) {

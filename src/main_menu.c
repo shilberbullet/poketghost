@@ -150,7 +150,6 @@ void startNewGame(void) {
     gGameState.isLoadedGame = 0;  // 이어하기 플래그 해제
     resetItemRewardSystem(); // 아이템 보상 시스템 상태 초기화
     init_player_statistics(); // 플레이어 통계 초기화
-    resetCaughtYokai(); // 도감 초기화
     
     // 시작 지역 선택
     system("cls");
@@ -296,8 +295,11 @@ void sendLogsMenu(void) {
     } else {
         printText("\n옮길 로그 파일이 없습니다.\n");
     }
-    printText("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
-    _getch();
+    printText("\n엔터를 눌러 돌아가기...");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+    clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+                
 }
 
 // 게임 종료 함수는 exit.c에서 관리 
@@ -338,7 +340,7 @@ void showRankingMenu(void) {
     int found = 0;
     for (i = 0; i < user_count; i++) {
         if (strcmp(users[i].user_name, total_stats.user_name) == 0) {
-            users[i].yokai_caught = gPartyCount;
+            users[i].yokai_caught = gTotalCaughtCount;
             users[i].yokai_defeated = total_stats.yokai_defeated;
             users[i].stages_completed = total_stats.stages_completed;
             users[i].games_cleared = total_stats.games_cleared;
@@ -349,7 +351,7 @@ void showRankingMenu(void) {
     if (!found && user_count < 100) {
         strncpy(users[user_count].user_name, total_stats.user_name, 49);
         users[user_count].user_name[49] = '\0';
-        users[user_count].yokai_caught = gPartyCount;
+        users[user_count].yokai_caught = gTotalCaughtCount;
         users[user_count].yokai_defeated = total_stats.yokai_defeated;
         users[user_count].stages_completed = total_stats.stages_completed;
         users[user_count].games_cleared = total_stats.games_cleared;
@@ -377,8 +379,10 @@ void showRankingMenu(void) {
         }
         if (menu_choice == 5) {
             // 업로드
-            printText("\n아무 키나 누르면 업로드를 시작합니다...\n");
-            _getch();
+            printText("\n엔터를 눌러 업로드를 시작합니다...");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+            clearInputBuffer(); // 콘솔 입력 버퍼 비우기
             // Git 설정 자동 적용
             setupGitConfig();
             // GitHub 업로드 전에 pull 실행하여 버전 맞추기
@@ -402,8 +406,9 @@ void showRankingMenu(void) {
             } else {
                 printText("\n변경 사항이 없어 업로드를 생략합니다.\n");
             }
-            printText("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
-            _getch();
+            printText("\n엔터를 눌러 돌아가기...");
+            while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+            clearInputBuffer(); // 콘솔 입력 버퍼 비우기
             break;
         } else {
             qsort(users, user_count, sizeof(RankEntry), sorts[menu_choice-1]);
@@ -418,9 +423,11 @@ void showRankingMenu(void) {
                 printText(buffer);
             }
             printText("\n순위 데이터가 갱신되었습니다.\n");
-            printText("\n아무 키나 누르면 순위 항목 선택으로 돌아갑니다...\n");
-            _getch();
-        }
+            printText("\n엔터를 눌러 순위 항목 선택으로 돌아갑니다...");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
+            clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+            }
     }
     // ranking.txt 파일 저장(항상 최신화)
     fp = fopen("ranking/ranking.txt", "w");
