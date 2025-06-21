@@ -137,8 +137,8 @@ void getRandomItems(Item* outItems, int count) {
         ItemGrade targetGrade;
         
         // 등급별 확률 설정
-        if (randomValue < 30) targetGrade = ITEM_COMMON;      // 70%
-        else if (randomValue < 30) targetGrade = ITEM_RARE;   // 25%
+        if (randomValue < 70) targetGrade = ITEM_COMMON;      // 70%
+        else if (randomValue < 95) targetGrade = ITEM_RARE;   // 25%
         else targetGrade = ITEM_SUPERRARE;             // 5%
 
         // 해당 등급의 아이템 중 랜덤 선택
