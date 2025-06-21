@@ -34,6 +34,25 @@ bool shouldTriggerEvent(void) {
         return false; // 이미 활성 이벤트가 있으면 새로운 이벤트 발생 안함
     }
     
+    // 11스테이지 이전에는 이벤트 발생 안함
+    if (gStage.stageNumber < 11) {
+        return false;
+    }
+    
+    // 파이널 스테이지(81스테이지부터)에서는 이벤트 발생 안함
+    if (gStage.stageNumber >= 81) {
+        return false;
+    }
+    
+    // 10n+1~10n+3 스테이지 사이에만 이벤트 발생 (n >= 1)
+    int stageGroup = (gStage.stageNumber - 1) / 10; // 0부터 시작하는 그룹 번호
+    int stageInGroup = (gStage.stageNumber - 1) % 10; // 그룹 내에서의 위치 (0~9)
+    
+    // 10n+1~10n+3은 그룹 내에서 0, 1, 2 위치에 해당
+    if (stageInGroup < 0 || stageInGroup > 2) {
+        return false;
+    }
+    
     int chance = rand() % 100;
     return chance < EVENT_TRIGGER_CHANCE; // 설정된 확률로 이벤트 발생
 }
