@@ -11,8 +11,8 @@
 #include "../core/state.h"
 #include "logger.h"
 
-// 이벤트 발생 확률 설정 (테스트용으로 80%로 설정)
-#define EVENT_TRIGGER_CHANCE 80  // 80% 확률
+// 이벤트 발생 확률 설정
+#define EVENT_TRIGGER_CHANCE 20  // 20% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
@@ -51,16 +51,26 @@ Event* generateRandomEvent(void) {
     event->is_completed = false;
     event->reward_money = 100 + (rand() % 200); // 100~300전 보상
     
-    // 목표 지역 설정 (현재 지역이 아닌 다른 지역)
-    const char* currentRegion = getCurrentRegion();
-    const char* targetRegions[] = {"강원도", "경기도", "경상도", "전라도", "충청도", "제주도"};
-    int targetIndex;
+    // 방문하지 않은 지역 중에서 목표 지역 설정
+    char unvisitedRegions[MAX_REGIONS][REGION_NAME_LENGTH];
+    int unvisitedCount = getUnvisitedRegions(unvisitedRegions, MAX_REGIONS);
     
-    do {
-        targetIndex = rand() % 6;
-    } while (strcmp(targetRegions[targetIndex], currentRegion) == 0);
-    
-    strcpy(event->target_region, targetRegions[targetIndex]);
+    if (unvisitedCount > 0) {
+        // 방문하지 않은 지역 중에서 랜덤 선택
+        int targetIndex = rand() % unvisitedCount;
+        strcpy(event->target_region, unvisitedRegions[targetIndex]);
+    } else {
+        // 모든 지역을 방문했다면 현재 지역이 아닌 다른 지역 선택
+        const char* currentRegion = getCurrentRegion();
+        const char* allRegions[] = {"함경도", "평안도", "황해도", "강원도", "경기도", "충청도", "경상도", "전라도"};
+        int targetIndex;
+        
+        do {
+            targetIndex = rand() % 8;
+        } while (strcmp(allRegions[targetIndex], currentRegion) == 0);
+        
+        strcpy(event->target_region, allRegions[targetIndex]);
+    }
     
     // 이벤트 설명 생성
     snprintf(event->description, sizeof(event->description),

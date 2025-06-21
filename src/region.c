@@ -275,4 +275,19 @@ int isAllRegionsVisited(void) {
         if (!regionData[i].visited) return 0;
     }
     return 1;
+}
+
+// 방문하지 않은 지역 목록 가져오기
+int getUnvisitedRegions(char regions[][REGION_NAME_LENGTH], int maxCount) {
+    LOG_FUNCTION_EXECUTION("getUnvisitedRegions");
+    int count = 0;
+    
+    for (int i = 0; i < MAX_REGIONS && count < maxCount; i++) {
+        if (!regionData[i].visited) {
+            strcpy(regions[count], regionData[i].name);
+            count++;
+        }
+    }
+    
+    return count;
 } 

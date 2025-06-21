@@ -44,4 +44,7 @@ int moveToNextRegionWithMap(void);
 // 모든 지역 방문 여부 확인
 int isAllRegionsVisited(void);
 
+// 방문하지 않은 지역 목록 가져오기
+int getUnvisitedRegions(char regions[][REGION_NAME_LENGTH], int maxCount);
+
 #endif // REGION_H 
