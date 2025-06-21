@@ -52,7 +52,7 @@ bool canLearnNewMove(const Yokai* yokai) {
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30) {
+                    if (yokai->level >= 11) {  // 11레벨부터 고급기술 배우기 가능
                         return true;
                     }
                     break;
@@ -158,7 +158,7 @@ bool tryLearnNewMove(Yokai* yokai) {
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 30) {
+                    if (yokai->level >= 11) {  // 11레벨부터 고급기술 배우기 가능
                         availableMoves[availableCount++] = move;
                     }
                     break;
@@ -198,11 +198,32 @@ bool tryLearnNewMove(Yokai* yokai) {
                 colorCode = "\033[0m";   // 기본색
         }
         
+        // 기술 등급에 따른 색상 추가
+        const char* gradeColor = "";
+        const char* gradeText = "";
+        switch (selectedMove.grade) {
+            case MOVE_BASIC:
+                gradeColor = "\033[37m";  // 흰색
+                gradeText = "[초급]";
+                break;
+            case MOVE_MEDIUM:
+                gradeColor = "\033[33m";  // 노란색
+                gradeText = "[중급]";
+                break;
+            case MOVE_ADVANCED:
+                gradeColor = "\033[35m";  // 보라색
+                gradeText = "[고급]";
+                break;
+        }
+        
         char buffer[256];
-        sprintf(buffer, "1. %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d)\n", 
+        sprintf(buffer, "1. %s%s%s\033[0m %s%s%s\033[0m (공격력: %d, 명중률: %d%%, PP: %d)\n", 
             colorCode,
             selectedMove.name,
             colorCode,
+            gradeColor,
+            gradeText,
+            gradeColor,
             selectedMove.power,
             selectedMove.accuracy,
             selectedMove.pp
@@ -229,9 +250,17 @@ bool tryLearnNewMove(Yokai* yokai) {
                 yokai->moves[yokai->moveCount].move = selectedMove;
                 yokai->moves[yokai->moveCount].currentPP = selectedMove.pp;
                 yokai->moveCount++;
+                
+                // 고급기술 배움 시 특별 메시지
                 char buffer[256];
-                sprintf(buffer, "\n%s를 배웠습니다!\n", selectedMove.name);
-                printText(buffer);
+                if (selectedMove.grade == MOVE_ADVANCED) {
+                    sprintf(buffer, "\n🎉 %s가 고급기술 '%s'를 배웠습니다! 🎉\n", yokai->name, selectedMove.name);
+                    printText(buffer);
+                    printText("고급기술은 강력한 위력을 자랑합니다!\n");
+                } else {
+                    sprintf(buffer, "\n%s를 배웠습니다!\n", selectedMove.name);
+                    printText(buffer);
+                }
                 return true;
             } else {
                 // 기술 잊기 메뉴 표시
@@ -258,8 +287,15 @@ bool tryLearnNewMove(Yokai* yokai) {
                         yokai->moves[yokai->moveCount].currentPP = selectedMove.pp;
                         yokai->moveCount++;
                         
-                        sprintf(buffer, "%s를 배웠습니다!\n", selectedMove.name);
-                        printText(buffer);
+                        // 고급기술 배움 시 특별 메시지
+                        if (selectedMove.grade == MOVE_ADVANCED) {
+                            sprintf(buffer, "🎉 %s가 고급기술 '%s'를 배웠습니다! 🎉\n", yokai->name, selectedMove.name);
+                            printText(buffer);
+                            printText("고급기술은 강력한 위력을 자랑합니다!\n");
+                        } else {
+                            sprintf(buffer, "%s를 배웠습니다!\n", selectedMove.name);
+                            printText(buffer);
+                        }
                         return true;
                     }
                 }

@@ -11,6 +11,7 @@
 #include "../core/state.h"
 #include "yokai.h"
 #include "move_learning.h"
+#include "dialogue.h"
 #include "logger.h"
 
 // 레벨업에 필요한 경험치 계산 함수
@@ -129,7 +130,23 @@ void levelUp(Yokai* yokai) {
     printText(buffer);
     
     // 기술 학습 시도
-    if (tryLearnNewMove(yokai)) {
-        printText("\n새로운 기술을 배웠습니다!\n");
+    bool learnedNewMove = tryLearnNewMove(yokai);
+    if (learnedNewMove) {
+        // 고급기술 배움 여부 확인
+        bool learnedAdvancedMove = false;
+        for (int i = 0; i < yokai->moveCount; i++) {
+            if (yokai->moves[i].move.grade == MOVE_ADVANCED) {
+                learnedAdvancedMove = true;
+                break;
+            }
+        }
+        
+        if (learnedAdvancedMove) {
+            // 고급기술 배움 대화 시작
+            startDialogue(55);
+        } else {
+            // 일반 기술 배움 대화 시작
+            startDialogue(50);
+        }
     }
 } 
