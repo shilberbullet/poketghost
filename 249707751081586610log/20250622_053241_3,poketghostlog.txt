@@ -1,0 +1,56 @@
+[Sun Jun 22 05:32:41 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:41 2025] [함수실행] printText
+[Sun Jun 22 05:32:41 2025] [OUTPUT] 1. 새 게임 시작
+
+[Sun Jun 22 05:32:41 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:41 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] printText
+[Sun Jun 22 05:32:42 2025] [OUTPUT] 2. 이어하기
+
+[Sun Jun 22 05:32:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] printText
+[Sun Jun 22 05:32:42 2025] [OUTPUT] 3. 게임 설정
+
+[Sun Jun 22 05:32:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] printText
+[Sun Jun 22 05:32:42 2025] [OUTPUT] 4. 통계
+
+[Sun Jun 22 05:32:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:42 2025] [함수실행] printText
+[Sun Jun 22 05:32:42 2025] [OUTPUT] 5. 요괴 도감
+
+[Sun Jun 22 05:32:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] printText
+[Sun Jun 22 05:32:43 2025] [OUTPUT] 6. 로그 보내기
+
+[Sun Jun 22 05:32:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] printText
+[Sun Jun 22 05:32:43 2025] [OUTPUT] 7. 순위를 본다
+
+[Sun Jun 22 05:32:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] printText
+[Sun Jun 22 05:32:43 2025] [OUTPUT] 8. 종료
+
+
+[Sun Jun 22 05:32:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:43 2025] [함수실행] printText
+[Sun Jun 22 05:32:43 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sun Jun 22 05:32:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 05:32:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 05:32:44 2025] [함수실행] getIntInput
