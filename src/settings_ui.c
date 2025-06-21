@@ -29,7 +29,7 @@ void showSettingsMenu() {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -52,7 +52,7 @@ void showSettingsMenu() {
             case 6:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+                printText("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -85,7 +85,7 @@ void setTextSpeed() {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -97,12 +97,12 @@ void setTextSpeed() {
             case 5:
                 gameSettings.textSpeed = choice;
                 saveSettings();  // 설정 변경 시 파일에 저장
-                printTextAndWait("\n게임 출력 속도가 변경되었습니다.");
+                printText("\n게임 출력 속도가 변경되었습니다.");
                 return;
             case 6:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+                printText("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -131,7 +131,7 @@ void setTextDisplayMode() {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             continue;
         }
         
@@ -139,22 +139,22 @@ void setTextDisplayMode() {
             case 1:
                 gameSettings.textDisplayMode = 0;
                 saveSettings();  // 설정 변경 시 파일에 저장
-                printTextAndWait("\n텍스트 출력 방식이 '한 글자씩'으로 변경되었습니다.");
+                printText("\n텍스트 출력 방식이 '한 글자씩'으로 변경되었습니다.");
                 return;
             case 2:
                 gameSettings.textDisplayMode = 1;
                 saveSettings();  // 설정 변경 시 파일에 저장
-                printTextAndWait("\n텍스트 출력 방식이 '한 줄씩'으로 변경되었습니다.");
+                printText("\n텍스트 출력 방식이 '한 줄씩'으로 변경되었습니다.");
                 return;
             case 3:
                 gameSettings.textDisplayMode = 2;
                 saveSettings();  // 설정 변경 시 파일에 저장
-                printTextAndWait("\n텍스트 출력 방식이 '한 번에'로 변경되었습니다.");
+                printText("\n텍스트 출력 방식이 '한 번에'로 변경되었습니다.");
                 return;
             case 4:
                 return;
             default:
-                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+                printText("\n잘못된 선택입니다. 다시 선택하세요.");
                 break;
         }
     }
@@ -176,17 +176,17 @@ void setTypeHintDisplay() {
         case 1:
             gameSettings.showTypeHint = 1;
             saveSettings();
-            printTextAndWait("\n상성 힌트가 표시됩니다.");
+            printText("\n상성 힌트가 표시됩니다.");
             break;
         case 2:
             gameSettings.showTypeHint = 0;
             saveSettings();
-            printTextAndWait("\n상성 힌트가 표시되지 않습니다.");
+            printText("\n상성 힌트가 표시되지 않습니다.");
             break;
         case 3:
             return;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             setTypeHintDisplay();
             break;
     }
@@ -207,17 +207,17 @@ void setDebugMode() {
         case 1:
             gameSettings.debugMode = 1;
             saveSettings();
-            printTextAndWait("\n디버그 모드가 켜졌습니다.");
+            printText("\n디버그 모드가 켜졌습니다.");
             break;
         case 2:
             gameSettings.debugMode = 0;
             saveSettings();
-            printTextAndWait("\n디버그 모드가 꺼졌습니다.");
+            printText("\n디버그 모드가 꺼졌습니다.");
             break;
         case 3:
             return;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             setDebugMode();
             break;
     }
@@ -238,17 +238,17 @@ void setDialogueEnabled() {
         case 1:
             gameSettings.dialogueEnabled = 1;
             saveSettings();
-            printTextAndWait("\n대화 시스템이 켜졌습니다.");
+            printText("\n대화 시스템이 켜졌습니다.");
             break;
         case 2:
             gameSettings.dialogueEnabled = 0;
             saveSettings();
-            printTextAndWait("\n대화 시스템이 꺼졌습니다.");
+            printText("\n대화 시스템이 꺼졌습니다.");
             break;
         case 3:
             return;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             setDialogueEnabled();
             break;
     }

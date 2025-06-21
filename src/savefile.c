@@ -41,7 +41,7 @@ void saveGame() {
     if (gameSettings.debugMode) {
     char buffer[256];
     sprintf(buffer, "[DEBUG] 저장 시 turnCount: %d\n지역: %s\n지형: %s\n", turnCount, gStage.region, gStage.terrainName);
-    printTextAndWait(buffer);
+    printText(buffer);
     fastSleep(500);
     }
     
@@ -296,13 +296,13 @@ int loadGameData() {
     if (gameSettings.debugMode) {
         char buffer[256];
     sprintf(buffer, "[DEBUG] 로드 시 turnCount: %d\n", turnCount);
-        printTextAndWait(buffer);
+        printText(buffer);
         sprintf(buffer, "[DEBUG] 로드 시 스테이지 번호: %d\n", gStage.stageNumber);
-        printTextAndWait(buffer);
+        printText(buffer);
         sprintf(buffer, "[DEBUG] 로드 시 지역: %s\n", getCurrentRegion());
-        printTextAndWait(buffer);
+        printText(buffer);
         sprintf(buffer, "[DEBUG] 로드 시 지형: %s\n", getCurrentTerrain());
-        printTextAndWait(buffer);
+        printText(buffer);
         fastSleep(500);
     }
     
