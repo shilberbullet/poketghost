@@ -87,7 +87,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.5 ===\n\n");
+        printText("=== 포켓요괴v4.6 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -269,6 +269,9 @@ void sendLogsMenu(void) {
         printText("\n이제 해당 폴더가 GitHub에 업로드됩니다.\n");
         // Git 설정 자동 적용
         setupGitConfig();
+        // GitHub 업로드 전에 pull 실행하여 버전 맞추기
+        printText("\nGitHub에서 최신 버전을 가져오는 중...\n");
+        system("git pull");
         // GitHub 업로드: 해당 폴더만 add/commit/push
         char gitCmd[512];
         snprintf(gitCmd, sizeof(gitCmd),
@@ -363,6 +366,9 @@ void showRankingMenu(void) {
             _getch();
             // Git 설정 자동 적용
             setupGitConfig();
+            // GitHub 업로드 전에 pull 실행하여 버전 맞추기
+            printText("\nGitHub에서 최신 버전을 가져오는 중...\n");
+            system("git pull");
             // 변경 사항 확인
             system("git status --porcelain ranking/ranking.txt > temp_git_status.txt");
             FILE* status_fp = fopen("temp_git_status.txt", "r");
