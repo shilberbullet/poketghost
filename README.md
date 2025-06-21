@@ -276,24 +276,14 @@ poketghost/
 cd C:\
 ```
 
-#### 프로젝트 폴더 생성
-```
-mkdir poketghost
-```
-
-#### 생성한 폴더로 이동
-```
-cd poketghost
-```
-
 #### GitHub 저장소 클론
 ```
 git clone https://github.com/shilberbullet/poketghost.git
 ```
 
-#### 최신 코드 가져오기:
-```bash
-git pull origin main
+#### 생성한 폴더로 이동
+```
+cd poketghost
 ```
 
 ### 3. 컴파일 및 실행
@@ -305,6 +295,17 @@ gcc -o poketghost.exe src/*.c core/state.c -I include -I core -lm
 #### 게임 실행
 ```
 poketghost.exe
+```
+
+### 4. 업데이트
+#### 폴더로 이동
+```
+cd C:\poketghost
+```
+
+#### 최신버전 가져오기기
+```bash
+git pull origin main
 ```
 
 ## 게임 조작
