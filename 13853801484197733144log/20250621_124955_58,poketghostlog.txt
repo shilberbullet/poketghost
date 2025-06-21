@@ -1,0 +1,102 @@
+[Sat Jun 21 12:49:55 2025] [OUTPUT] ==================================================
+
+[Sat Jun 21 12:49:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] printText
+[Sat Jun 21 12:49:55 2025] [OUTPUT] 계속하려면 엔터키를 누르세요...
+
+[Sat Jun 21 12:49:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] showDialogue
+[Sat Jun 21 12:49:55 2025] [함수실행] printDialogueMessage
+[Sat Jun 21 12:49:55 2025] [함수실행] printText
+[Sat Jun 21 12:49:55 2025] [OUTPUT] 
+
+[Sat Jun 21 12:49:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:55 2025] [함수실행] printText
+[Sat Jun 21 12:49:55 2025] [OUTPUT] ==================================================
+
+[Sat Jun 21 12:49:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] printTextAndWait
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] [31m시스템[0m: [31m아이템을 획득했습니다![0m
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] ==================================================
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 계속하려면 엔터키를 누르세요...
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] endDialogue
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateIndividualExp
+[Sat Jun 21 12:49:56 2025] [함수실행] gainExp
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 
+도깨비가 32102의 경험치를 획득했습니다!
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateRequiredExp
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateRequiredExp
+[Sat Jun 21 12:49:56 2025] [함수실행] levelUp
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateHP
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateHP
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 
+도깨비가 레벨 125로 상승했습니다!
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] tryLearnNewMove
+[Sat Jun 21 12:49:56 2025] [함수실행] canLearnNewMove
+[Sat Jun 21 12:49:56 2025] [함수실행] calculateRequiredExp
+[Sat Jun 21 12:49:56 2025] [함수실행] getCurrentRegion
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 
+=== 축하합니다! ===
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 당신은 백두산의 정상을 정복했습니다!
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 게임 클리어를 축하합니다!
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] fastSleep
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] 게임 클리어 후 데이터 초기화 시작
+[Sat Jun 21 12:49:56 2025] [함수실행] resetItemRewardSystem
+[Sat Jun 21 12:49:56 2025] [함수실행] removeSaveFile
+[Sat Jun 21 12:49:56 2025] [함수실행] printText
+[Sat Jun 21 12:49:56 2025] [OUTPUT] 저장 파일이 삭제되었습니다.
+
+[Sat Jun 21 12:49:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:49:56 2025] 게임 클리어 후 데이터 초기화 완료
