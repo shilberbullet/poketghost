@@ -13,7 +13,7 @@
 #include "dialogue.h"
 
 // 이벤트 발생 확률 설정
-#define EVENT_TRIGGER_CHANCE 20  // 20% 확률
+#define EVENT_TRIGGER_CHANCE 50  // 20% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
@@ -39,17 +39,19 @@ bool shouldTriggerEvent(void) {
         return false;
     }
     
+    // 70스테이지부터는 이벤트 발생 안함 (더 이상 전달할 곳이 없음)
+    if (gStage.stageNumber >= 70) {
+        return false;
+    }
+    
     // 파이널 스테이지(81스테이지부터)에서는 이벤트 발생 안함
     if (gStage.stageNumber >= 81) {
         return false;
     }
     
-    // 10n+1~10n+3 스테이지 사이에만 이벤트 발생 (n >= 1)
-    int stageGroup = (gStage.stageNumber - 1) / 10; // 0부터 시작하는 그룹 번호
-    int stageInGroup = (gStage.stageNumber - 1) % 10; // 그룹 내에서의 위치 (0~9)
-    
-    // 10n+1~10n+3은 그룹 내에서 0, 1, 2 위치에 해당
-    if (stageInGroup < 0 || stageInGroup > 2) {
+    // 일의 자리가 2, 3, 4, 7, 8인 경우에만 이벤트 발생
+    int lastDigit = gStage.stageNumber % 10;
+    if (!(lastDigit == 2 || lastDigit == 3 || lastDigit == 4 || lastDigit == 7 || lastDigit == 8)) {
         return false;
     }
     
@@ -125,9 +127,10 @@ void handleLetterDeliveryEvent(Event* event) {
     char buffer[256];
     snprintf(buffer, sizeof(buffer), "목표 지역: %s\n", event->target_region);
     printText(buffer);
-    printText("\n1. 예\n");
-    printText("2. 아니요\n\n");
-    printText("선택하세요: ");
+    printText("편지를 전달해주시겠습니까? \n");
+    printText("1. 예\n");
+    printText("2. 아니요\n");
+    printText("숫자를 입력해주세요: ");
     
     int choice = getIntInput();
     while (choice != 1 && choice != 2) {
@@ -144,6 +147,7 @@ void handleLetterDeliveryEvent(Event* event) {
         _getch();
     } else {
         // 편지 전달 거절
+        startDialogue(1009);
         printText("\n편지 전달을 거절했습니다.\n");
         printText("\n아무 키나 누르면 계속합니다...\n");
         _getch();
