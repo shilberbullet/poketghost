@@ -1,0 +1,146 @@
+
+=== 게임 시작: Sat Jun 21 12:11:55 2025 ===
+[Sat Jun 21 12:11:55 2025] [함수실행] initEventSystem
+[Sat Jun 21 12:11:55 2025] [함수실행] loadItemsFromFile
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToGrade
+[Sat Jun 21 12:11:55 2025] [함수실행] stringToType
+[Sat Jun 21 12:11:55 2025] [함수실행] showMainMenu
+[Sat Jun 21 12:11:55 2025] [함수실행] showMainMenu
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] === 포켓요괴v5.3 ===
+
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 1. 새 게임 시작
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 2. 이어하기
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 3. 게임 설정
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 4. 통계
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 5. 요괴 도감
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 6. 로그 보내기
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 7. 순위를 본다
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:55 2025] [함수실행] printText
+[Sat Jun 21 12:11:55 2025] [OUTPUT] 8. 종료
+
+
+[Sat Jun 21 12:11:55 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:56 2025] [함수실행] printText
+[Sat Jun 21 12:11:56 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 12:11:56 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:11:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:56 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:11:56 2025] [함수실행] getIntInput
+[Sat Jun 21 12:12:53 2025] [INPUT] 정수 입력: 1
+[Sat Jun 21 12:12:53 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:53 2025] [함수실행] handleMainMenuChoice
+[Sat Jun 21 12:12:53 2025] [함수실행] startNewGame
+[Sat Jun 21 12:12:53 2025] [함수실행] resetItemRewardSystem
+[Sat Jun 21 12:12:54 2025] [함수실행] printText
+[Sat Jun 21 12:12:54 2025] [OUTPUT] === 시작 지역 선택 ===
+
+
+[Sat Jun 21 12:12:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] printText
+[Sat Jun 21 12:12:54 2025] [OUTPUT] 1. 경상도
+
+[Sat Jun 21 12:12:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] printText
+[Sat Jun 21 12:12:54 2025] [OUTPUT] 2. 전라도
+
+
+[Sat Jun 21 12:12:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] printText
+[Sat Jun 21 12:12:54 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sat Jun 21 12:12:54 2025] [함수실행] getTextDelay
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:54 2025] [함수실행] getIntInput
+[Sat Jun 21 12:12:55 2025] [INPUT] 정수 입력: 1
+[Sat Jun 21 12:12:55 2025] [함수실행] clearInputBuffer
+[Sat Jun 21 12:12:55 2025] [함수실행] setInitialRegion
