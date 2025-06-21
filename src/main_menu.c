@@ -245,6 +245,8 @@ void sendLogsMenu(void) {
     char buffer[256];
     sprintf(buffer, "폴더명: %s\n", folderName);
     printText(buffer);
+    
+    // 폴더 생성
     if (_mkdir(folderName) == -1 && errno != EEXIST) {
         sprintf(buffer, "errno: %d\n", errno); // 진단용 에러코드 출력
         printText(buffer);
@@ -281,25 +283,77 @@ void sendLogsMenu(void) {
     if (moved > 0) {
         printText("\n로그 파일이 성공적으로 이동되었습니다.\n");
         printText("\n이제 해당 폴더가 GitHub에 업로드됩니다.\n");
+        
         // Git 설정 자동 적용
         setupGitConfig();
-        // GitHub 업로드 전에 pull 실행하여 버전 맞추기
+        
+        // Git 상태 확인 및 정리
+        printText("\nGit 상태를 확인하고 정리하는 중...\n");
+        
+        // 진행 중인 병합이 있는지 확인하고 정리
+        if (system("git status --porcelain | findstr MERGE_HEAD > nul") == 0) {
+            printText("진행 중인 병합을 정리하는 중...\n");
+            system("git merge --abort");
+        }
+        
+        // 스테이지된 변경사항이 있는지 확인하고 정리
+        if (system("git diff --cached --quiet") != 0) {
+            printText("스테이지된 변경사항을 정리하는 중...\n");
+            system("git reset HEAD");
+        }
+        
+        // 작업 디렉토리의 변경사항이 있는지 확인
+        if (system("git diff --quiet") != 0) {
+            printText("작업 디렉토리의 변경사항을 정리하는 중...\n");
+            system("git checkout -- .");
+        }
+        
+        // GitHub에서 최신 버전을 가져오기
         printText("\nGitHub에서 최신 버전을 가져오는 중...\n");
-        system("git pull");
-        // GitHub 업로드: 해당 폴더만 add/commit/push
-        char gitCmd[512];
-        snprintf(gitCmd, sizeof(gitCmd),
-            "git add %s && git commit -m \"로그 업로드: %s\" && git push",
-            folderName, folderName);
-        system(gitCmd);
+        int pullResult = system("git pull --rebase");
+        
+        if (pullResult != 0) {
+            printText("Git pull에 실패했습니다. 강제로 최신 버전을 가져옵니다...\n");
+            system("git fetch origin");
+            system("git reset --hard origin/main");
+        }
+        
+        // 로그 폴더를 Git에 추가
+        printText("\n로그 폴더를 Git에 추가하는 중...\n");
+        char addCmd[256];
+        snprintf(addCmd, sizeof(addCmd), "git add %s", folderName);
+        system(addCmd);
+        
+        // 변경사항이 있는지 확인
+        if (system("git diff --cached --quiet") == 0) {
+            printText("\n업로드할 변경사항이 없습니다.\n");
+        } else {
+            // 커밋 생성
+            char commitCmd[512];
+            snprintf(commitCmd, sizeof(commitCmd), 
+                "git commit -m \"로그 업로드: %s - %s\"", 
+                folderName, total_stats.user_name);
+            system(commitCmd);
+            
+            // 푸시 시도
+            printText("\nGitHub에 업로드하는 중...\n");
+            int pushResult = system("git push");
+            
+            if (pushResult == 0) {
+                printText("\n로그가 성공적으로 GitHub에 업로드되었습니다!\n");
+            } else {
+                printText("\nGitHub 업로드에 실패했습니다.\n");
+                printText("나중에 다시 시도해주세요.\n");
+            }
+        }
     } else {
         printText("\n옮길 로그 파일이 없습니다.\n");
     }
+    
     printText("\n엔터를 눌러 돌아가기...");
     int c;
     while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
     clearInputBuffer(); // 콘솔 입력 버퍼 비우기
-                
 }
 
 // 게임 종료 함수는 exit.c에서 관리 
@@ -383,29 +437,64 @@ void showRankingMenu(void) {
             int c;
             while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
             clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+            
             // Git 설정 자동 적용
             setupGitConfig();
-            // GitHub 업로드 전에 pull 실행하여 버전 맞추기
+            
+            // Git 상태 확인 및 정리
+            printText("\nGit 상태를 확인하고 정리하는 중...\n");
+            
+            // 진행 중인 병합이 있는지 확인하고 정리
+            if (system("git status --porcelain | findstr MERGE_HEAD > nul") == 0) {
+                printText("진행 중인 병합을 정리하는 중...\n");
+                system("git merge --abort");
+            }
+            
+            // 스테이지된 변경사항이 있는지 확인하고 정리
+            if (system("git diff --cached --quiet") != 0) {
+                printText("스테이지된 변경사항을 정리하는 중...\n");
+                system("git reset HEAD");
+            }
+            
+            // 작업 디렉토리의 변경사항이 있는지 확인
+            if (system("git diff --quiet") != 0) {
+                printText("작업 디렉토리의 변경사항을 정리하는 중...\n");
+                system("git checkout -- .");
+            }
+            
+            // GitHub에서 최신 버전을 가져오기
             printText("\nGitHub에서 최신 버전을 가져오는 중...\n");
-            system("git pull");
-            // 변경 사항 확인
-            system("git status --porcelain ranking/ranking.txt > temp_git_status.txt");
-            FILE* status_fp = fopen("temp_git_status.txt", "r");
-            int hasChange = 0;
-            if (status_fp) {
-                int c = fgetc(status_fp);
-                if (c != EOF) hasChange = 1;
-                fclose(status_fp);
-                remove("temp_git_status.txt");
+            int pullResult = system("git pull --rebase");
+            
+            if (pullResult != 0) {
+                printText("Git pull에 실패했습니다. 강제로 최신 버전을 가져옵니다...\n");
+                system("git fetch origin");
+                system("git reset --hard origin/main");
             }
-            if (hasChange) {
-                system("git add ranking/ranking.txt");
-                system("git commit -m \"Update ranking\"");
-                system("git push");
-                printText("\n순위가 깃허브에 업로드되었습니다.\n");
+            
+            // ranking.txt 파일을 Git에 추가
+            printText("\n순위 파일을 Git에 추가하는 중...\n");
+            system("git add ranking/ranking.txt");
+            
+            // 변경사항이 있는지 확인
+            if (system("git diff --cached --quiet") == 0) {
+                printText("\n업로드할 변경사항이 없습니다.\n");
             } else {
-                printText("\n변경 사항이 없어 업로드를 생략합니다.\n");
+                // 커밋 생성
+                system("git commit -m \"Update ranking data\"");
+                
+                // 푸시 시도
+                printText("\nGitHub에 업로드하는 중...\n");
+                int pushResult = system("git push");
+                
+                if (pushResult == 0) {
+                    printText("\n순위가 성공적으로 GitHub에 업로드되었습니다!\n");
+                } else {
+                    printText("\nGitHub 업로드에 실패했습니다.\n");
+                    printText("나중에 다시 시도해주세요.\n");
+                }
             }
+            
             printText("\n엔터를 눌러 돌아가기...");
             while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
             clearInputBuffer(); // 콘솔 입력 버퍼 비우기
