@@ -184,12 +184,8 @@ void showDialogue(void) {
     // 대화 메시지 출력
     printDialogueMessage(dialogue->speaker, dialogue->message, dialogue->type);
     
-    // 사용자가 엔터키를 누를 때까지 대기
-    printText("계속하려면 엔터키를 누르세요...\n");
-    clearInputBuffer();
-    getchar();
-    clearInputBuffer();
-    
+    // 잠시 대기 후 자동으로 다음 대화로 진행
+    fastSleep(500);
     // 다음 대화가 있으면 자동으로 진행
     if (dialogue->nextDialogueId != -1) {
         gDialogueSystem.currentDialogueId = dialogue->nextDialogueId;

@@ -155,9 +155,9 @@ void startNewGame(void) {
     // 시작 지역 선택
     system("cls");
     startDialogue(1); 
-    printText("=== 시작 지역 선택 ===\n\n");
-    printText("1. 경상도\n");
-    printText("2. 전라도\n\n");
+    printText("=== 타고 갈 배 ===\n\n");
+    printText("1. 경상도행\n");
+    printText("2. 전라도행\n\n");
     printText("숫자를 입력해주세요: ");
     
     int choice = getIntInput();
