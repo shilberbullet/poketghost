@@ -253,6 +253,8 @@ void showBattleInterface() {
                 printText("게임 클리어를 축하합니다!\n");
                 gPlayer.stats.games_cleared++; // 게임 클리어 횟수 증가
                 update_total_statistics_on_save(); // 통계 저장
+                // 잡은 요괴 데이터 저장
+                saveCaughtYokaiData();
                 fastSleep(2000);
                 resetGameAfterClear();  // 게임 데이터 초기화
                 exit(0);
