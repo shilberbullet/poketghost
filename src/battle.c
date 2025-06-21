@@ -989,8 +989,22 @@ void printDamageMessage(Yokai* attacker, Yokai* defender, int damage) {
 // 복숭아 효과 함수: 전투 중인 요괴에게만 복숭아 1개당 최대 HP의 5% 회복(기절 제외)
 void applyPeachHealingToParty() {
     LOG_FUNCTION_EXECUTION("applyPeachHealingToParty");
-    // 전투 중인 요괴만 대상으로 함
+    // 전투에 실제로 참여한 요괴만 대상으로 함
     if (lastYokaiIdx >= 0 && lastYokaiIdx < gPartyCount) {
+        // 해당 요괴가 실제로 전투에 참여했는지 확인
+        bool isParticipated = false;
+        for (int i = 0; i < participatedCount; i++) {
+            if (participatedIdx[i] == lastYokaiIdx) {
+                isParticipated = true;
+                break;
+            }
+        }
+        
+        // 전투에 참여하지 않은 요괴는 복숭아 효과 적용 안함
+        if (!isParticipated) {
+            return;
+        }
+        
         Yokai* y = &gParty[lastYokaiIdx];
         if (y->status == YOKAI_FAINTED) return; // 기절한 요괴 제외
         
