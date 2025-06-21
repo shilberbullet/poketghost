@@ -934,7 +934,7 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
                 
                 if (allFainted) {
                     handleRogueliteSystem();
-                    printTextAndWait("\n전투에서 패배했습니다...");
+                    startDialogue(30); // 패배 대화
                     return 104; // 전투 패배
                 }
 
