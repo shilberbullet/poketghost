@@ -222,6 +222,7 @@ void showBattleInterface() {
     if (gStage.enemyCount == 0) {
         handleNormalStageClear();  // 일반 스테이지 클리어 처리
         nextStage();               // 다음 스테이지로 진행
+        // 이벤트 처리 후에는 showStageInfo를 호출하지 않음 (이미 이벤트 UI에서 출력됨)
         return;
     }
     

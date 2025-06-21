@@ -26,6 +26,7 @@ typedef struct {
     bool isNewGame; // 새 게임 여부
     bool isLoadedGame; // 로드된 게임 여부
     bool isManualSave;  // 수동 저장 플래그
+    bool skipStageInfo; // 이벤트 처리 후 스테이지 정보 출력 건너뛰기 플래그
 } GameState; // 게임의 전반적인 상태를 관리하는 구조체
 
 /**
