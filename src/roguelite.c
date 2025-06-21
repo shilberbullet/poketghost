@@ -50,13 +50,14 @@ void handleRogueliteSystem() {
     LOG_FUNCTION_EXECUTION("handleRogueliteSystem");
     printText("\n모든 요괴가 기절했습니다!\n");
     printText("더 이상 싸울 수 있는 요괴가 없습니다.\n");
+    startDialogue(30); // 패배 대화
     printTextAndWait("잠시 후 게임이 초기화됩니다...\n");
     fastSleep(500);
     // 세이브 파일 삭제
     removeSaveFile();
     // 게임 상태 초기화
     resetGame();
-    
+    startDialogue(35); // 패배 대화
     printText("\n게임이 초기화되었습니다.\n");
     printTextAndWait("새로운 모험을 시작하세요!\n");
     fastSleep(500);
