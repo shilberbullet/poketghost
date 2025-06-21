@@ -1,0 +1,1503 @@
+
+=== 게임 시작: Sat Jun 21 12:02:56 2025 ===
+[Sat Jun 21 12:02:56 2025] [함수실행] initLogger
+[Sat Jun 21 12:02:56 2025] [함수실행] initItemSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initItemSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initHealSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initHealSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initRegionSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initRegionSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initDialogueSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] initDialogueSystem
+[Sat Jun 21 12:02:56 2025] [함수실행] loadMovesFromFile
+[Sat Jun 21 12:02:56 2025] [함수실행] loadMovesFromFile
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] loadYokaiFromFile
+[Sat Jun 21 12:02:56 2025] [함수실행] loadYokaiFromFile
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 거루 (인덱스: 1)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 거잠 (인덱스: 2)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 고수여칠 (인덱스: 3)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 구렁이 아우 (인덱스: 4)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 그슨대 (인덱스: 5)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 금혈어 (인덱스: 6)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 노옹화구 (인덱스: 7)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 녹정 (인덱스: 8)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 단피몽두 (인덱스: 9)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 달걀귀신 (인덱스: 10)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 닷발괴물 (인덱스: 11)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 대영차 (인덱스: 12)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 도깨비 (인덱스: 13)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 독각귀 (인덱스: 14)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 불개 (인덱스: 15)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 불여우 (인덱스: 16)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 불화살귀 (인덱스: 17)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 사비하대어 (인덱스: 18)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 산치성 (인덱스: 19)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 살쾡이 요괴 (인덱스: 20)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼두일족응 (인덱스: 21)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼족구 (인덱스: 22)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼족섬 (인덱스: 23)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 상사석탕 (인덱스: 24)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 새타니 (인덱스: 25)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 소인 (인덱스: 26)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 손돌 (인덱스: 27)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 수금아 (인덱스: 28)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 수일이참대 (인덱스: 29)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 쌍두사목 (인덱스: 30)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 유엽화 (인덱스: 31)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 의가작수 (인덱스: 32)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 장두사 (인덱스: 33)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 적염귀 (인덱스: 34)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 제생요마 (인덱스: 35)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 지축 (인덱스: 36)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 청너구리 (인덱스: 37)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 토주원 (인덱스: 38)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 경어목야유광 (인덱스: 39)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 굴각 (인덱스: 40)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 귀태 (인덱스: 41)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 그슨새 (인덱스: 42)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 노구화위남 (인덱스: 43)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 누룩귀 (인덱스: 44)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 능원사 (인덱스: 45)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 두두리 (인덱스: 46)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 매구 (인덱스: 47)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 몽달귀신 (인덱스: 48)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 백제궁인 (인덱스: 49)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 보은섬여 (인덱스: 50)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 산적귀 (인덱스: 51)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 수면요마 (인덱스: 52)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 신구 (인덱스: 53)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 신지께 (인덱스: 54)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 아랑 (인덱스: 55)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 야광귀 (인덱스: 56)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 역귀 (인덱스: 57)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 연산 물귀신 (인덱스: 58)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 육혼 (인덱스: 59)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 이매망량 (인덱스: 60)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 이올 (인덱스: 61)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 인두조수 (인덱스: 62)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 조마귀 (인덱스: 63)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 지귀 (인덱스: 64)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 착착귀신 (인덱스: 65)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 처녀귀신 (인덱스: 66)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 처녀목귀 (인덱스: 67)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 청우 (인덱스: 68)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 총각귀신 (인덱스: 69)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 태자귀 (인덱스: 70)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 홍난삼녀 (인덱스: 71)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 개여시 (인덱스: 72)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 구미호 (인덱스: 73)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 금돼지 (인덱스: 74)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 길달 (인덱스: 75)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 나티 (인덱스: 76)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 노구화호 (인덱스: 77)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 노호정 (인덱스: 78)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 천마 (인덱스: 79)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 매기 (인덱스: 80)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 모선출처 (인덱스: 81)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 묘두사 (인덱스: 82)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 바람노루 (인덱스: 83)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 백마 (인덱스: 84)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 백여우 (인덱스: 85)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼목구 (인덱스: 86)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼족오 (인덱스: 87)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 새우니 (인덱스: 88)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 신기원요 (인덱스: 89)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 우와 을 (인덱스: 90)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 인면조 (인덱스: 91)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 청단마 (인덱스: 92)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 토두서조 (인덱스: 93)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 호문조 (인덱스: 94)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 강길 (인덱스: 95)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 거치녀 (인덱스: 96)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 고관대면 (인덱스: 97)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 도피사의 (인덱스: 98)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 망태기 할아버지 (인덱스: 99)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 살음도깨비 (인덱스: 100)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 설공찬 (인덱스: 101)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 왕신단지 (인덱스: 102)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 우렁각시 (인덱스: 103)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 장화홍련 (인덱스: 104)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 죽통미녀 (인덱스: 105)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 청양 (인덱스: 106)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 거구귀 (인덱스: 107)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 거악 (인덱스: 108)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 구렁덩덩 선비 (인덱스: 109)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 구반귀 (인덱스: 110)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 귀마왕 (인덱스: 111)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 김녕사굴 구렁이 (인덱스: 112)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 나군파 (인덱스: 113)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 녹족부인 (인덱스: 114)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 달귀 (인덱스: 115)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 대선사사 (인덱스: 116)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 려여귀 (인덱스: 117)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 마귀 (인덱스: 118)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 문경관 (인덱스: 119)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 산귀 (인덱스: 120)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 삼기호신 (인덱스: 121)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 성성 (인덱스: 122)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 손님 (인덱스: 123)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 신록 (인덱스: 124)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 우투리 (인덱스: 125)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 이수약우 (인덱스: 126)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 장자마리 (인덱스: 127)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 저퀴 (인덱스: 128)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 일반 요괴 로드: 청색구인 (인덱스: 129)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 섹션 시작
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 금갑장군 (인덱스: 1)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 일촌법사 (인덱스: 2)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 계룡 (인덱스: 3)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 견상여야록 (인덱스: 4)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 불가사리 (인덱스: 5)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 이목룡 (인덱스: 6)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 묘수좌 (인덱스: 7)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 도깨비불 (인덱스: 8)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 무수대망 (인덱스: 9)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 보스 요괴 로드: 어둑시니 (인덱스: 10)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 섹션 시작
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: 장산범 (인덱스: 1)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: 홍콩할매귀신 (인덱스: 2)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: 퉁퉁퉁퉁 사후르 (인덱스: 3)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: 사이렌헤드 (인덱스: 4)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: 슬렌더맨 (인덱스: 5)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] 패러독스 요괴 로드: Entity (인덱스: 6)
+[Sat Jun 21 12:02:56 2025] [함수실행] parseType
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+[Sat Jun 21 12:02:56 2025] [함수실행] findMoveByName
+
+=== 게임 시작: Sat Jun 21 12:02:56 2025 ===
