@@ -88,7 +88,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v5.4 ===\n\n");
+        printText("=== 포켓요괴v5.5 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -154,6 +154,7 @@ void startNewGame(void) {
     
     // 시작 지역 선택
     system("cls");
+    startDialogue(1); 
     printText("=== 시작 지역 선택 ===\n\n");
     printText("1. 경상도\n");
     printText("2. 전라도\n\n");
@@ -192,9 +193,9 @@ void startNewGame(void) {
     
     // 새 게임 시작 시 환영 대화 표시
     system("cls");
-    startDialogue(1);
     
     char buffer[256];
+    startDialogue(8);
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
     printText(buffer);
     fastSleep(500);

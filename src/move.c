@@ -24,10 +24,29 @@ static MoveGrade currentGrade = MOVE_BASIC;
 
 // 기술 데이터를 파일에서 로드하는 함수
 void loadMovesFromFile(const char* filename) {
+    printf("[DEBUG] loadMovesFromFile 함수 호출됨: %s\n", filename);
     LOG_FUNCTION_EXECUTION("loadMovesFromFile");
+    
+    // 디버그 정보 추가
+    char debugBuffer[256];
+    sprintf(debugBuffer, "[DEBUG] 기술 파일 로딩 시작: %s", filename);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
+    printf("%s\n", debugBuffer);
+    
     moveListCount = 0;  // 기술 목록 초기화
+    int basicCount = 0, mediumCount = 0, advancedCount = 0;  // 섹션별 기술 수 추적
+    
     FILE* file = fopen(filename, "r");
-    if (!file) return;
+    if (!file) {
+        sprintf(debugBuffer, "[DEBUG] 기술 파일을 열 수 없음: %s", filename);
+        LOG_FUNCTION_EXECUTION(debugBuffer);
+        printf("%s\n", debugBuffer);
+        return;
+    }
+    
+    sprintf(debugBuffer, "[DEBUG] 기술 파일 열기 성공: %s", filename);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
+    printf("%s\n", debugBuffer);
     
     char line[256];
     while (fgets(line, sizeof(line), file)) {
@@ -36,10 +55,13 @@ void loadMovesFromFile(const char* filename) {
             // 주석 라인에서 기술 등급 확인
             if (strstr(line, "초급 기술")) {
                 currentGrade = MOVE_BASIC;
+                printf("[DEBUG] 초급 기술 섹션 시작\n");
             } else if (strstr(line, "중급 기술")) {
                 currentGrade = MOVE_MEDIUM;
+                printf("[DEBUG] 중급 기술 섹션 시작\n");
             } else if (strstr(line, "고급 기술")) {
                 currentGrade = MOVE_ADVANCED;
+                printf("[DEBUG] 고급 기술 섹션 시작\n");
             }
             continue;
         }
@@ -62,18 +84,53 @@ void loadMovesFromFile(const char* filename) {
             moveList[moveListCount].pp = atoi(pp);                        // 기술 PP 저장
             strncpy(moveList[moveListCount].description, desc, 255);      // 기술 설명 복사
             moveList[moveListCount].grade = currentGrade;                 // 기술 등급 저장
+            
+            // 섹션별 기술 수 추적
+            switch (currentGrade) {
+                case MOVE_BASIC: basicCount++; break;
+                case MOVE_MEDIUM: mediumCount++; break;
+                case MOVE_ADVANCED: advancedCount++; break;
+            }
+            
+            // 디버그 정보 추가
+            char debugBuffer[256];
+            sprintf(debugBuffer, "[DEBUG] 로드된 기술: %s, 공격력: %d, 등급: %d", 
+                    moveList[moveListCount].name, moveList[moveListCount].power, moveList[moveListCount].grade);
+            LOG_FUNCTION_EXECUTION(debugBuffer);
+            printf("%s\n", debugBuffer);
+            
             moveListCount++;                                              // 기술 수 증가
         }
     }
     fclose(file);
+    
+    // 최종 로드된 기술 수 출력
+    sprintf(debugBuffer, "[DEBUG] 총 로드된 기술 수: %d (초급: %d, 중급: %d, 고급: %d)", 
+            moveListCount, basicCount, mediumCount, advancedCount);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
+    printf("%s\n", debugBuffer);
 }
 
 // 이름으로 기술을 찾는 함수
 Move* findMoveByName(const char* name) {
     LOG_FUNCTION_EXECUTION("findMoveByName");
+    
+    // 디버그 정보 추가
+    char debugBuffer[256];
+    sprintf(debugBuffer, "[DEBUG] 찾는 기술: '%s'", name);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
+    
     for (int i = 0; i < moveListCount; i++) {
-        if (strcmp(moveList[i].name, name) == 0) return &moveList[i];
+        if (strcmp(moveList[i].name, name) == 0) {
+            sprintf(debugBuffer, "[DEBUG] 기술을 찾았음: %s, 공격력: %d, 등급: %d", 
+                    moveList[i].name, moveList[i].power, moveList[i].grade);
+            LOG_FUNCTION_EXECUTION(debugBuffer);
+            return &moveList[i];
+        }
     }
+    
+    sprintf(debugBuffer, "[DEBUG] 기술을 찾지 못함: '%s'", name);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
     return NULL;
 }
 

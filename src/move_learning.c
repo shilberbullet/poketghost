@@ -39,7 +39,7 @@ bool canLearnNewMove(const Yokai* yokai) {
         }
         
         if (!alreadyLearned) {
-            // 레벨 범위 확인
+            // 레벨 범위 확인 - 수정된 조건
             switch (move.grade) {
                 case MOVE_BASIC:
                     if (yokai->level >= 1) {
@@ -52,7 +52,7 @@ bool canLearnNewMove(const Yokai* yokai) {
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 11) {  // 11레벨부터 고급기술 배우기 가능
+                    if (yokai->level >= 20) {  // 20레벨부터 고급기술 배우기 가능
                         return true;
                     }
                     break;
@@ -145,21 +145,36 @@ bool tryLearnNewMove(Yokai* yokai) {
         }
 
         if (!alreadyLearned) {
-            // 레벨 범위 확인
+            // 레벨 범위 확인 - 수정된 조건
             switch (move.grade) {
                 case MOVE_BASIC:
                     if (yokai->level >= 1) {
                         availableMoves[availableCount++] = move;
+                        // 디버그 정보 추가
+                        char debugBuffer[256];
+                        sprintf(debugBuffer, "[DEBUG] 추가된 기술: %s, 공격력: %d, 등급: %d", 
+                                move.name, move.power, move.grade);
+                        LOG_FUNCTION_EXECUTION(debugBuffer);
                     }
                     break;
                 case MOVE_MEDIUM:
                     if (yokai->level >= 10) {
                         availableMoves[availableCount++] = move;
+                        // 디버그 정보 추가
+                        char debugBuffer[256];
+                        sprintf(debugBuffer, "[DEBUG] 추가된 기술: %s, 공격력: %d, 등급: %d", 
+                                move.name, move.power, move.grade);
+                        LOG_FUNCTION_EXECUTION(debugBuffer);
                     }
                     break;
                 case MOVE_ADVANCED:
-                    if (yokai->level >= 11) {  // 11레벨부터 고급기술 배우기 가능
+                    if (yokai->level >= 20) {  // 20레벨부터 고급기술 배우기 가능
                         availableMoves[availableCount++] = move;
+                        // 디버그 정보 추가
+                        char debugBuffer[256];
+                        sprintf(debugBuffer, "[DEBUG] 추가된 기술: %s, 공격력: %d, 등급: %d", 
+                                move.name, move.power, move.grade);
+                        LOG_FUNCTION_EXECUTION(debugBuffer);
                     }
                     break;
             }
@@ -173,6 +188,12 @@ bool tryLearnNewMove(Yokai* yokai) {
     // 랜덤으로 1개의 기술만 선택
     int randomIndex = rand() % availableCount;
     Move selectedMove = availableMoves[randomIndex];
+
+    // 디버그 정보 추가 - 선택된 기술의 출처 확인
+    char debugBuffer[256];
+    sprintf(debugBuffer, "[DEBUG] 선택된 기술: %s, 공격력: %d, 등급: %d", 
+            selectedMove.name, selectedMove.power, selectedMove.grade);
+    LOG_FUNCTION_EXECUTION(debugBuffer);
 
     while (1) {
         // 선택된 기술 출력
@@ -229,6 +250,12 @@ bool tryLearnNewMove(Yokai* yokai) {
             selectedMove.pp
         );
         printText(buffer);
+        
+        // 디버그 정보 추가
+        char debugBuffer[256];
+        sprintf(debugBuffer, "[DEBUG] 기술명: %s, 실제 공격력: %d\n", selectedMove.name, selectedMove.power);
+        printText(debugBuffer);
+        
         printText("0. 기술을 배우지 않는다\n");
 
         // 사용자 선택
