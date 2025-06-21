@@ -266,7 +266,7 @@ int selectMoveToHeal(Yokai* targetYokai) {
         printText(buffer);
     }
     printText("0. 뒤로 가기\n");
-    printText("선택 (번호): ");
+    printText("숫자를 입력하세요: ");
     
     // 사용자 입력 받기
     int choice = getIntInput();

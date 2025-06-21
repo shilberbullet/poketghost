@@ -358,7 +358,7 @@ int selectPartyYokai() {
             statusText);
         printText(buffer);
     }
-    printText("선택 (번호): ");
+    printText("숫자를 입력하세요: ");
     int idx = getIntInput() - 1;
     if (idx < 0 || idx >= gPartyCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
@@ -428,7 +428,7 @@ int selectMove(const Yokai* yokai) {
             typeHint);
         printText(buffer);
     }
-    printText("선택 (번호): ");
+    printText("숫자를 입력하세요: ");
     int idx = getIntInput() - 1;
     if (idx < 0 || idx >= yokai->moveCount) {
         printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");

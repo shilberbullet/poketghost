@@ -1,4 +1,6 @@
 data/save.dat 
+data/statistics.dat
+data/settings.dat
 *.exe 
 logs/ 
 tasklist 

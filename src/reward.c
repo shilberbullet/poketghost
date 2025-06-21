@@ -213,7 +213,7 @@ void itemRewardSystem() {
     sprintf(resetBuffer, "\033[94m4. 아이템 목록 초기화 (%d전)\033[0m\n", resetCost);  // 하드코딩된 200전 대신 resetCost 사용
     printText(resetBuffer);
     printText("\033[95m5. 아이템을 받지 않고 넘어간다\033[0m\n");  // 밝은 보라
-    printText("선택 (번호): ");
+    printText("숫자를 입력하세요: ");
     int idx = getIntInput() - 1;
     
     if (idx == 4) {  // 아이템을 받지 않고 넘어가기 선택
