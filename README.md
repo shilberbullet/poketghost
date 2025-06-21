@@ -303,7 +303,7 @@ poketghost.exe
 cd C:\poketghost
 ```
 
-#### 최신버전 가져오기기
+#### 최신버전 가져오기
 ```bash
 git pull origin main
 ```
