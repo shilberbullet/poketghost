@@ -87,14 +87,14 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.4 ===\n\n");
+        printText("=== 포켓요괴v4.5 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
         printText("4. 통계\n");
         printText("5. 로그 보내기\n");
-        printText("6. 종료\n");
-        printText("7. 순위를 본다\n\n");
+        printText("6. 순위를 본다\n");
+        printText("7. 종료\n\n");
         printText("숫자를 입력해주세요: ");
         
         choice = getIntInput();
@@ -126,11 +126,11 @@ void handleMainMenuChoice(MainMenuOption choice) {
         case MAIN_MENU_SEND_LOGS:
             sendLogsMenu();
             break;
-        case MAIN_MENU_EXIT:
-            exitGame();
-            break;
         case MAIN_MENU_RANKING:
             showRankingMenu();
+            break;
+        case MAIN_MENU_EXIT:
+            exitGame();
             break;
         default:
             printText("\n잘못된 선택입니다. 다시 선택하세요.");
