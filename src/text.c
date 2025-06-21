@@ -17,12 +17,12 @@
 int getTextDelay() {
     LOG_FUNCTION_EXECUTION("getTextDelay");
     switch (gameSettings.textSpeed) {
-        case 1: return 15;   // 매우 느림 (10ms)
-        case 2: return 10;   // 느림 (5ms)
-        case 3: return 5;    // 보통 (3ms)
-        case 4: return 2.5;    // 빠름 (2ms)
-        case 5: return 1;    // 매우 빠름 (1ms)
-        default: return 5;   // 기본값: 보통 (5ms)
+        case 1: return 8;    // 매우 느림 (8ms) - 기존 15ms에서 빠르게
+        case 2: return 5;    // 느림 (5ms) - 기존 10ms에서 빠르게
+        case 3: return 3;    // 보통 (3ms) - 기존 5ms에서 빠르게
+        case 4: return 2;    // 빠름 (2ms) - 기존 2.5ms에서 빠르게
+        case 5: return 1;    // 매우 빠름 (1ms) - 0보다는 느리고 1ms
+        default: return 3;   // 기본값: 보통 (3ms)
     }
 }
 
@@ -42,7 +42,17 @@ void printText(const char* text) {
             for (int i = 0; text[i] != '\0'; i++) {
                 printf("%c", text[i]);   // 한 글자씩 출력
                 fflush(stdout);          // 버퍼 즉시 출력
-                Sleep(delay);            // 설정된 시간만큼 대기
+                
+                // 매우 빠름 모드에서는 Sleep(0)과 Sleep(1)을 번갈아 사용
+                if (gameSettings.textSpeed == 5) {
+                    if (i % 2 == 0) {
+                        Sleep(0);
+                    } else {
+                        Sleep(1);
+                    }
+                } else {
+                    Sleep(delay);            // 설정된 시간만큼 대기
+                }
                 
                 // 출력 중 입력이 들어오면 무시
                 while (_kbhit()) {

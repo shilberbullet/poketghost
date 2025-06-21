@@ -72,23 +72,23 @@ void display_statistics_screen() {
     char buffer[256];
     
     sprintf(buffer, "==================== %s님의 통계 ====================", total_stats.user_name);
-    printTextAndWait(buffer);
-    printTextAndWait("\n\n");
+    printText(buffer);
+    printText("\n\n");
 
     sprintf(buffer, "  동료로 만든 요괴 수 : %d\n", gPartyCount);
-    printTextAndWait(buffer);
+    printText(buffer);
 
     sprintf(buffer, "  쓰러트린 요괴 수   : %d\n", total_stats.yokai_defeated);
-    printTextAndWait(buffer);
+    printText(buffer);
 
     sprintf(buffer, "  클리어한 스테이지  : %d\n", total_stats.stages_completed);
-    printTextAndWait(buffer);
+    printText(buffer);
 
     sprintf(buffer, "  게임 클리어 횟수   : %d\n", total_stats.games_cleared);
-    printTextAndWait(buffer);
+    printText(buffer);
 
-    printTextAndWait("\n");
-    printTextAndWait("============================================\n\n");
+    printText("\n");
+    printText("============================================\n\n");
     
     printText("아무 키나 누르면 메인 메뉴로 돌아갑니다...");
     _getch();

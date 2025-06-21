@@ -135,7 +135,7 @@ int handleFullParty(const Yokai* newYokai) {
 
     int choice = getIntInput();
     if (choice == 1) {
-        printTextAndWait("\n잡은 요괴를 성불시켰습니다.");
+        printText("\n잡은 요괴를 성불시켰습니다.");
         fastSleep(500);
         return 0;
     } else if (choice == 2) {
@@ -207,22 +207,22 @@ int handleFullParty(const Yokai* newYokai) {
 
             if (yokaiChoice >= 0 && yokaiChoice < gPartyCount) {
                 if (yokaiChoice == 0) {
-                    printTextAndWait("\n도깨비는 성불시킬 수 없습니다. 다른 요괴를 선택하세요.");
+                    printText("\n도깨비는 성불시킬 수 없습니다. 다른 요괴를 선택하세요.");
                     continue;
                 }
                 char buffer[128];
                 sprintf(buffer, "\n%s를 성불시켰습니다.", gParty[yokaiChoice].name);
-                printTextAndWait(buffer);
+                printText(buffer);
                 // 선택된 요괴를 성불시키고 새로운 요괴 추가
                 releaseYokai(yokaiChoice);
                 return addYokaiToParty(newYokai);
             } else {
-                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+                printText("\n잘못된 선택입니다. 다시 선택하세요.");
                 continue;  // 다시 선택하도록 continue 추가
             }
         }
     } else {
-        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+        printText("\n잘못된 선택입니다. 다시 선택하세요.");
         return handleFullParty(newYokai); // 다시 선택 메뉴로
     }
     return 0;
@@ -468,13 +468,13 @@ void showYokaiSubMenu(const Yokai* yokai) {
                     }
                 }
                 if (idx == 0) {
-                    printTextAndWait("\n도깨비는 성불시킬 수 없습니다.\n");
+                    printText("\n도깨비는 성불시킬 수 없습니다.\n");
                 } else if (idx > 0 && idx < gPartyCount) {
                     releaseYokai(idx);
-                    printTextAndWait("\n성불이 완료되었습니다. 목록에서 사라집니다.\n");
+                    printText("\n성불이 완료되었습니다. 목록에서 사라집니다.\n");
                     return; // 성불 후 메뉴 종료
                 } else {
-                    printTextAndWait("\n오류: 요괴 인덱스를 찾을 수 없습니다.\n");
+                    printText("\n오류: 요괴 인덱스를 찾을 수 없습니다.\n");
                 }
                 break;
             }
@@ -535,7 +535,7 @@ void showYokaiSubMenu(const Yokai* yokai) {
                 break;
             }
             default:
-                printTextAndWait("\n잘못된 선택입니다.");
+                printText("\n잘못된 선택입니다.");
                 break;
         }
     }
@@ -563,12 +563,12 @@ void printParty() {
     
     if (choice > 0 && choice <= gPartyCount) {
         if (gParty[choice - 1].status == YOKAI_RELEASED) {
-            printTextAndWait("\n이미 성불한 요괴입니다.");
+            printText("\n이미 성불한 요괴입니다.");
             return;
         }
         showYokaiSubMenu(&gParty[choice - 1]);
     } else {
-        printTextAndWait("\n잘못된 선택입니다.");
+        printText("\n잘못된 선택입니다.");
     }
 }
 

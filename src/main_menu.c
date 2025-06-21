@@ -87,7 +87,7 @@ void showMainMenu(void) {
     
     while (gGameState.isRunning) {
         system("cls");  // 화면 지우기
-        printText("=== 포켓요괴v4.3 ===\n\n");
+        printText("=== 포켓요괴v4.4 ===\n\n");
         printText("1. 새 게임 시작\n");
         printText("2. 이어하기\n");
         printText("3. 게임 설정\n");
@@ -99,7 +99,7 @@ void showMainMenu(void) {
         
         choice = getIntInput();
         if (choice == -1) {
-            printTextAndWait("\n잘못된 입력입니다. 숫자를 입력해주세요.");
+            printText("\n잘못된 입력입니다. 숫자를 입력해주세요.");
             continue;
         }
         
@@ -133,7 +133,7 @@ void handleMainMenuChoice(MainMenuOption choice) {
             showRankingMenu();
             break;
         default:
-            printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.");
+            printText("\n잘못된 선택입니다. 다시 선택하세요.");
             break;
     }
 }
@@ -161,7 +161,7 @@ void startNewGame(void) {
     }
     
     if (!setInitialRegion(choice)) {
-        printTextAndWait("\n지역 설정에 실패했습니다.");
+        printText("\n지역 설정에 실패했습니다.");
         return;
     }
     
@@ -190,7 +190,7 @@ void startNewGame(void) {
     
     char buffer[256];
     sprintf(buffer, "\n%s에서 모험이 시작됩니다!\n", getCurrentRegion());
-    printTextAndWait(buffer);
+    printText(buffer);
     fastSleep(500);
     while (gGameState.isRunning) {
         showStageInfo();
@@ -203,13 +203,13 @@ void loadGame(void) {
     LOG_FUNCTION_EXECUTION("loadGame");
     if (loadGameData()) {
         set_session_initial_statistics(); // 세션 통계 초기화
-        printTextAndWait("\n저장된 게임을 불러왔습니다!");
+        printText("\n저장된 게임을 불러왔습니다!");
         while (gGameState.isRunning) {
             showStageInfo();
             showBattleInterface();
         }
     } else {
-        printTextAndWait("\n저장된 게임 데이터가 없습니다.");
+        printText("\n저장된 게임 데이터가 없습니다.");
     }
 }
 
@@ -228,13 +228,16 @@ void sendLogsMenu(void) {
     unsigned long long id = makeIdFromName(sanitizedName);
     char folderName[100];
     snprintf(folderName, sizeof(folderName), "%I64ulog", id);
-    printf("폴더명: %s\n", folderName);
+    char buffer[256];
+    sprintf(buffer, "폴더명: %s\n", folderName);
+    printText(buffer);
     if (_mkdir(folderName) == -1 && errno != EEXIST) {
-        printf("errno: %d\n", errno); // 진단용 에러코드 출력
+        sprintf(buffer, "errno: %d\n", errno); // 진단용 에러코드 출력
+        printText(buffer);
         char debugMsg[256];
         snprintf(debugMsg, sizeof(debugMsg), "폴더명: %s, errno: %d", folderName, errno);
-        printTextAndWait(debugMsg);
-        printTextAndWait("\n로그 폴더 생성에 실패했습니다.\n");
+        printText(debugMsg);
+        printText("\n로그 폴더 생성에 실패했습니다.\n");
         return;
     }
 
@@ -245,7 +248,7 @@ void sendLogsMenu(void) {
     snprintf(searchPath, sizeof(searchPath), "logs/*");
     handle = _findfirst(searchPath, &fileinfo);
     if (handle == -1) {
-        printTextAndWait("\n옮길 로그 파일이 없습니다.\n");
+        printText("\n옮길 로그 파일이 없습니다.\n");
         return;
     }
     int moved = 0;
@@ -262,8 +265,8 @@ void sendLogsMenu(void) {
     _findclose(handle);
 
     if (moved > 0) {
-        printTextAndWait("\n로그 파일이 성공적으로 이동되었습니다.\n");
-        printTextAndWait("\n이제 해당 폴더가 GitHub에 업로드됩니다.\n");
+        printText("\n로그 파일이 성공적으로 이동되었습니다.\n");
+        printText("\n이제 해당 폴더가 GitHub에 업로드됩니다.\n");
         // Git 설정 자동 적용
         setupGitConfig();
         // GitHub 업로드: 해당 폴더만 add/commit/push
@@ -273,9 +276,9 @@ void sendLogsMenu(void) {
             folderName, folderName);
         system(gitCmd);
     } else {
-        printTextAndWait("\n옮길 로그 파일이 없습니다.\n");
+        printText("\n옮길 로그 파일이 없습니다.\n");
     }
-    printTextAndWait("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
+    printText("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
     _getch();
 }
 
@@ -300,7 +303,7 @@ void showRankingMenu(void) {
     }
     FILE* fp = fopen("ranking/ranking.txt", "r");
     if (!fp) {
-        printTextAndWait("\n순위 파일을 열 수 없습니다.\n");
+        printText("\n순위 파일을 열 수 없습니다.\n");
         _getch();
         return;
     }
@@ -351,12 +354,12 @@ void showRankingMenu(void) {
             printText("선택하세요: ");
             menu_choice = getIntInput();
             if (menu_choice < 1 || menu_choice > 5) {
-                printTextAndWait("\n잘못된 입력입니다. 다시 선택하세요.\n");
+                printText("\n잘못된 입력입니다. 다시 선택하세요.\n");
             }
         }
         if (menu_choice == 5) {
             // 업로드
-            printTextAndWait("\n아무 키나 누르면 업로드를 시작합니다...\n");
+            printText("\n아무 키나 누르면 업로드를 시작합니다...\n");
             _getch();
             // Git 설정 자동 적용
             setupGitConfig();
@@ -378,7 +381,7 @@ void showRankingMenu(void) {
             } else {
                 printText("\n변경 사항이 없어 업로드를 생략합니다.\n");
             }
-            printTextAndWait("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
+            printText("\n아무 키나 누르면 메인 메뉴로 돌아갑니다...\n");
             _getch();
             break;
         } else {
@@ -394,7 +397,7 @@ void showRankingMenu(void) {
                 printText(buffer);
             }
             printText("\n순위 데이터가 갱신되었습니다.\n");
-            printTextAndWait("\n아무 키나 누르면 순위 항목 선택으로 돌아갑니다...\n");
+            printText("\n아무 키나 누르면 순위 항목 선택으로 돌아갑니다...\n");
             _getch();
         }
     }

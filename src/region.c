@@ -178,13 +178,13 @@ int moveToNextRegionWithMap(void) {
             for (int i = 0; i < unvisitedCount; i++) {
                 char buffer[64];
                 sprintf(buffer, "%d. %s\n", i+1, regionData[unvisitedRegions[i]].name);
-                printTextAndWait(buffer);
+                printText(buffer);
             }
             
             printText("선택 (번호): ");
             int choice = getIntInput() - 1;
             while (choice < 0 || choice >= unvisitedCount) {
-                printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.\n");
+                printText("\n잘못된 선택입니다. 다시 선택하세요.\n");
                 printText("선택 (번호): ");
                 choice = getIntInput() - 1;
             }
@@ -201,12 +201,12 @@ int moveToNextRegionWithMap(void) {
     for (int i = 0; i < availableCount; i++) {
         char buffer[64];
         sprintf(buffer, "%d. %s\n", i+1, regionData[availableRegions[i]].name);
-        printTextAndWait(buffer);
+        printText(buffer);
     }
     printText("선택 (번호): ");
     int choice = getIntInput() - 1;
     while (choice < 0 || choice >= availableCount) {
-        printTextAndWait("\n잘못된 선택입니다. 다시 선택하세요.\n");
+        printText("\n잘못된 선택입니다. 다시 선택하세요.\n");
         printText("선택 (번호): ");
         choice = getIntInput() - 1;
     }

@@ -17,7 +17,7 @@ void useSikhyeItem(const char* itemName, Yokai* targetYokai) {
     LOG_FUNCTION_EXECUTION("useSikhyeItem");
     // 대상 요괴가 선택되지 않은 경우
     if (targetYokai == NULL) {
-        printTextAndWait("\n회복할 요괴가 선택되지 않았습니다.");
+        printText("\n회복할 요괴가 선택되지 않았습니다.");
         return;
     }
 
