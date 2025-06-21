@@ -200,7 +200,11 @@ void startNewGame(void) {
     printText(buffer);
     fastSleep(500);
     while (gGameState.isRunning) {
-        showStageInfo();
+        if (!gGameState.skipStageInfo) {
+            showStageInfo();
+        } else {
+            gGameState.skipStageInfo = false; // 플래그 초기화
+        }
         showBattleInterface();
     }
 }
@@ -212,7 +216,11 @@ void loadGame(void) {
         set_session_initial_statistics(); // 세션 통계 초기화
         printText("\n저장된 게임을 불러왔습니다!");
         while (gGameState.isRunning) {
-            showStageInfo();
+            if (!gGameState.skipStageInfo) {
+                showStageInfo();
+            } else {
+                gGameState.skipStageInfo = false; // 플래그 초기화
+            }
             showBattleInterface();
         }
     } else {

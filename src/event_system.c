@@ -13,7 +13,7 @@
 #include "dialogue.h"
 
 // 이벤트 발생 확률 설정
-#define EVENT_TRIGGER_CHANCE 50  // 20% 확률
+#define EVENT_TRIGGER_CHANCE 90  // 20% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
@@ -121,16 +121,31 @@ void handleLetterDeliveryEvent(Event* event) {
     LOG_FUNCTION_EXECUTION("handleLetterDeliveryEvent");
     
     system("cls");
-    printText("=== 이벤트 발생! ===\n\n");
-    // 여인의 요청 대화
-    startDialogue(1007);
+    printText("=== 스테이지 정보 ===\n\n");
+    
+    // 스테이지 정보 출력
     char buffer[256];
-    snprintf(buffer, sizeof(buffer), "목표 지역: %s\n", event->target_region);
+    sprintf(buffer, "스테이지: %d\n", gStage.stageNumber);
+    printText(buffer);
+    sprintf(buffer, "지역: %s\n", getCurrentRegion());
+    printText(buffer);
+    sprintf(buffer, "지형: %s\n", getCurrentTerrain());
+    printText(buffer);
+    int hour = (gStage.stageNumber - 1) % 24;
+    sprintf(buffer, "시간: %02d시\n", hour);
+    printText(buffer);
+    sprintf(buffer, "보유 전: %d전\n", gPlayer.money);
+    printText(buffer);
+    
+    // 이벤트 대화
+    printText("모르는 여인이 말을 걸어 온다\n");
+    startDialogue(1007);
+    sprintf(buffer, "전달지역: %s\n", event->target_region);
     printText(buffer);
     printText("편지를 전달해주시겠습니까? \n");
     printText("1. 예\n");
     printText("2. 아니요\n");
-    printText("숫자를 입력해주세요: ");
+    printText("숫자를 입력하세요: ");
     
     int choice = getIntInput();
     while (choice != 1 && choice != 2) {
@@ -143,15 +158,15 @@ void handleLetterDeliveryEvent(Event* event) {
         currentEvent = event;
         startDialogue(1008);
         printText("목표 지역에 도달하면 편지를 전달할 수 있습니다.\n");
-        printText("\n아무 키나 누르면 계속합니다...\n");
-        _getch();
+        // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
+        gGameState.skipStageInfo = true;
     } else {
         // 편지 전달 거절
         startDialogue(1009);
         printText("\n편지 전달을 거절했습니다.\n");
-        printText("\n아무 키나 누르면 계속합니다...\n");
-        _getch();
         free(event);
+        // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
+        gGameState.skipStageInfo = true;
     }
 }
 

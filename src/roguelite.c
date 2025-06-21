@@ -15,6 +15,7 @@
 #include "savefile.h" // 세이브 파일 삭제를 위해 추가
 #include "../core/state.h"
 #include "logger.h"
+#include "dialogue.h"
 
 // 모든 요괴가 기절했는지 확인하는 함수
 bool areAllYokaiFainted() {
