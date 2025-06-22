@@ -303,8 +303,6 @@ int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
         if (defender == &currentEnemy) { // 방어자가 현재 상대 요괴인 경우
             currentEnemy.currentHP = 0; // 전역 변수의 HP를 0으로 설정
             currentEnemy.status = YOKAI_FAINTED; // 전역 변수의 상태를 기절로 설정
-            printTextAndWait("\n상대 요괴가 쓰러졌다!"); // 상대 요괴 기절 메시지 출력 및 대기
-            fastSleep(500); // 0.5초간 대기
             return 1; // 전투 승리를 나타내는 1 반환
         } else { // 방어자가 플레이어 요괴인 경우
             printTextAndWait("\n동료 요괴가 쓰러졌다!"); // 동료 요괴 기절 메시지 출력 및 대기

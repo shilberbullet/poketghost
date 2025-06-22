@@ -116,6 +116,42 @@ void handleEvent(Event* event) {
     }
 }
 
+// 편지 아이템을 찾거나 생성하는 함수
+Item* getLetterItem(const char* targetRegion) {
+    LOG_FUNCTION_EXECUTION("getLetterItem");
+    
+    // 기존 편지 아이템이 있는지 확인
+    for (int i = 0; i < itemListCount; i++) {
+        if (strcmp(itemList[i].name, "편지") == 0) {
+            return &itemList[i];
+        }
+    }
+    
+    // 편지 아이템이 없으면 생성
+    if (itemListCount >= itemListCapacity) {
+        // 아이템 목록 확장 필요
+        int newCapacity = itemListCapacity * 2;
+        Item* newList = (Item*)realloc(itemList, newCapacity * sizeof(Item));
+        if (newList == NULL) {
+            return NULL;
+        }
+        itemList = newList;
+        itemListCapacity = newCapacity;
+    }
+    
+    // 편지 아이템 생성
+    Item* letterItem = &itemList[itemListCount];
+    strcpy(letterItem->name, "편지");
+    char desc[ITEM_DESC_MAX];
+    snprintf(desc, sizeof(desc), "%s로 전달할 편지입니다.", targetRegion);
+    strcpy(letterItem->desc, desc);
+    letterItem->grade = ITEM_COMMON;
+    letterItem->type = ITEM_PLAYER;
+    
+    itemListCount++;
+    return letterItem;
+}
+
 // 편지 전달 이벤트 처리
 void handleLetterDeliveryEvent(Event* event) {
     LOG_FUNCTION_EXECUTION("handleLetterDeliveryEvent");
@@ -158,6 +194,14 @@ void handleLetterDeliveryEvent(Event* event) {
         currentEvent = event;
         startDialogue(1008);
         printText("목표 지역에 도달하면 편지를 전달할 수 있습니다.\n");
+        
+        // 편지 아이템을 인벤토리에 추가
+        Item* letterItem = getLetterItem(event->target_region);
+        if (letterItem) {
+            addItemToInventoryWithoutMessage(letterItem);
+            printText("편지를 인벤토리에 받았습니다.\n");
+        }
+        
         // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
         gGameState.skipStageInfo = true;
     } else {
@@ -234,6 +278,19 @@ void completeEvent(Event* event) {
             
             // 보상 지급
             gPlayer.money += event->reward_money;
+            
+            // 편지 아이템을 인벤토리에서 제거
+            for (int i = 0; i < inventoryCount; i++) {
+                if (strcmp(inventory[i].item.name, "편지") == 0) {
+                    // 편지 아이템 제거
+                    if (i < inventoryCount - 1) {
+                        inventory[i] = inventory[inventoryCount - 1];
+                    }
+                    inventoryCount--;
+                    printText("편지를 인벤토리에서 제거했습니다.\n");
+                    break;
+                }
+            }
             
             // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
             gGameState.skipStageInfo = true;

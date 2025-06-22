@@ -137,6 +137,8 @@ void resetGameState() { // 게임 상태 리셋 함수 시작
     gGameState.currentTime = 0;      // 게임 시간을 0으로 초기화
     gGameState.isNewGame = 1;        // 새 게임 플래그를 true로 설정
     gGameState.isLoadedGame = 0;     // 이어하기 플래그를 false로 설정
+    gGameState.isManualSave = 0;     // 수동 저장 플래그를 false로 설정
+    gGameState.skipCurrentStageAutoSave = 0; // 현재 스테이지 자동 저장 건너뛰기 플래그를 false로 설정
     gPlayer.money = 0;               // 전을 0으로 초기화
     inventoryCount = 0;             // 인벤토리 아이템 수를 0으로 초기화
     
@@ -180,6 +182,7 @@ void resetGameAfterClear() { // 게임 클리어 후 리셋 함수 시작
     gGameState.isNewGame = 1; // 새 게임 플래그를 true로 설정
     gGameState.isLoadedGame = 0; // 이어하기 플래그를 false로 설정
     gGameState.isManualSave = 0; // 수동 저장 플래그를 false로 설정
+    gGameState.skipCurrentStageAutoSave = 0; // 현재 스테이지 자동 저장 건너뛰기 플래그를 false로 설정
     
     // 플레이어 데이터 초기화
     gPlayer.money = 0; // 전화를 0으로 초기화

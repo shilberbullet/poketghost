@@ -22,6 +22,7 @@
 #include "statistics.h" // 통계 관련 함수 선언
 #include "dialogue.h" // 대화 시스템 관련 함수 선언
 #include "encyclopedia.h" // 도감 시스템 관련 함수 선언
+#include "settings.h" // 게임 설정 관련 함수 선언
 
 // 지형 이름 배열
 const char* terrainNames[] = { // 일반 스테이지에서 사용되는 지형 이름들
@@ -186,13 +187,46 @@ void nextStage() { // 다음 스테이지로 진행하는 함수
     // 새로운 스테이지 초기화
     initStage(&gStage, gStage.stageNumber); // 현재 스테이지 번호로 스테이지 초기화
     
+    // 디버그: 자동 저장 조건 확인
+    if (gameSettings.debugMode) {
+        char buffer[256];
+        sprintf(buffer, "[DEBUG] nextStage: 스테이지=%d, (스테이지-1)%%5=%d, isManualSave=%d\n", 
+               gStage.stageNumber, (gStage.stageNumber - 1) % 5, gGameState.isManualSave);
+        printText(buffer);
+        fastSleep(1000);
+    }
+    
     // 5의 배수 스테이지 완료 시 자동 저장 (수동 저장이 아닌 경우에만)
-    if ((gStage.stageNumber - 1) % 5 == 0 && !gGameState.isLoadedGame && !gGameState.isManualSave) { // 5의 배수 스테이지이고 로드된 게임이나 수동 저장이 아닌 경우
+    if ((gStage.stageNumber - 1) % 5 == 0 && !gGameState.isManualSave && !gGameState.skipCurrentStageAutoSave) { // 5의 배수 스테이지이고 수동 저장이 아니고 현재 스테이지 자동 저장 건너뛰기가 아닌 경우
+        if (gameSettings.debugMode) { // 디버그 모드일 때 자동 저장 조건 확인
+            char buffer[256];
+            sprintf(buffer, "[DEBUG] 자동 저장 조건 확인: 스테이지=%d, (스테이지-1)%%5=%d, isManualSave=%d, skipCurrentStageAutoSave=%d\n", 
+                   gStage.stageNumber, (gStage.stageNumber - 1) % 5, gGameState.isManualSave, gGameState.skipCurrentStageAutoSave);
+            printText(buffer);
+            fastSleep(1000);
+        }
         saveGame(); // 게임 저장
         char buffer[128];
         sprintf(buffer, "\n%d스테이지 완료! 게임이 자동 저장되었습니다.\n", gStage.stageNumber - 1); // 자동 저장 메시지 생성
         printText(buffer); // 자동 저장 메시지 출력
         fastSleep(500); // 0.5초 대기
+        gGameState.isManualSave = 0; // 수동 저장 플래그 초기화 (다음 자동 저장을 위해)
+    } else if (gameSettings.debugMode && (gStage.stageNumber - 1) % 5 == 0) { // 디버그 모드이고 5의 배수 스테이지인데 자동 저장이 안 되는 경우
+        char buffer[256];
+        sprintf(buffer, "[DEBUG] 자동 저장 실패: 스테이지=%d, isManualSave=%d, skipCurrentStageAutoSave=%d\n", gStage.stageNumber, gGameState.isManualSave, gGameState.skipCurrentStageAutoSave);
+        printText(buffer);
+        fastSleep(1000);
+    }
+    
+    // 다음 스테이지로 넘어갈 때 skipCurrentStageAutoSave 플래그 초기화
+    if (gGameState.skipCurrentStageAutoSave) {
+        gGameState.skipCurrentStageAutoSave = 0;
+        if (gameSettings.debugMode) {
+            char buffer[256];
+            sprintf(buffer, "[DEBUG] skipCurrentStageAutoSave 플래그 초기화\n");
+            printText(buffer);
+            fastSleep(500);
+        }
     }
 }
 

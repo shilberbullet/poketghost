@@ -195,6 +195,19 @@ void saveGame() {
     // 잡은 요괴 데이터 저장(별도 파일 또는 시스템)
     saveCaughtYokaiData(); // 잡은 요괴 데이터 저장 함수 호출
     
+    // 수동 저장 후 플래그 초기화 (다음 자동 저장을 위해)
+    if (gGameState.isManualSave) {
+        gGameState.isManualSave = 0;
+        // 현재 스테이지에서는 자동 저장을 하지 않도록 플래그 설정
+        gGameState.skipCurrentStageAutoSave = 1;
+        if (gameSettings.debugMode) {
+            char buffer[256];
+            sprintf(buffer, "[DEBUG] 수동 저장 후 isManualSave 플래그 초기화, skipCurrentStageAutoSave 설정\n");
+            printText(buffer);
+            fastSleep(500);
+        }
+    }
+    
     printText("게임이 저장되었습니다.\n"); // 저장 완료 메시지 출력
 }
 
