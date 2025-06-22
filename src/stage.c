@@ -292,6 +292,11 @@ void showBattleInterface() { // 전투 인터페이스를 표시하고 전투를
         enemy = gStage.enemies[rand() % gStage.enemyCount];  // 랜덤 적 요괴 선택
     }
 
+    // 최종보스 등장 시 특별한 대화 호출
+    if (gStage.stageNumber == 90 && !gGameState.isLoadedGame) { // 최종보스 스테이지이고 이어하기가 아닌 경우
+        startDialogue(5000); // 최종보스 등장 대화 시작
+    }
+
     int battleResult = startBattle(&enemy);  // 전투 시작
 
     if (gStage.isBossStage) { // 보스 스테이지인 경우
