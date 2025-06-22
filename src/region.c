@@ -7,6 +7,7 @@
 #include "../core/state.h" // 게임 상태 구조체 및 전역 변수 정의 헤더 파일
 #include <windows.h> // Windows API 함수 사용을 위한 헤더 파일
 #include <stdbool.h>  // bool 타입(참/거짓 논리값) 사용을 위한 헤더 파일
+#include <dialogue.h>
 
 // 게임 내 모든 지역 정보를 저장하는 정적 배열, 각 지역은 이름, 방문여부, 연결된 지역 수, 연결된 지역명 배열로 구성됨
 static Region regionData[MAX_REGIONS] = {
@@ -93,9 +94,8 @@ int moveToNextRegion(void) {
         if (unvisitedCount > 0) { // 방문하지 않은 지역이 하나라도 있으면
             int cost = gPlayer.money / 2; // 이동 비용(보유전의 50%) 계산
             gPlayer.money -= cost; // 이동 비용 차감
-            
-            printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n"); // 안내 메시지 출력
-            printText("방문하지 않은 랜덤한 지역으로 이동합니다.\n"); // 안내 메시지 출력
+            startDialogue(2000); // 이벤트 대사 출력
+            printText("행선지를 알수없는 배를 타고 이동합니다.\n"); // 안내 메시지 출력
             char buffer[128]; // 메시지 버퍼
             sprintf(buffer, "이동 비용으로 %d전을 지불했습니다. (남은 전: %d전)\n", cost, gPlayer.money); // 비용 안내 메시지 생성
             printText(buffer); // 메시지 출력
@@ -167,9 +167,8 @@ int moveToNextRegionWithMap(void) {
         if (unvisitedCount > 0) { // 방문하지 않은 지역이 하나라도 있으면
             int cost = gPlayer.money / 2; // 이동 비용(보유전의 50%) 계산
             gPlayer.money -= cost; // 이동 비용 차감
-            
-            printText("\n더 이상 이동할 수 있는 지역이 없습니다.\n"); // 안내 메시지 출력
-            printText("방문하지 않은 지역 중 하나를 선택하세요:\n"); // 안내 메시지 출력
+            startDialogue(2000); // 이벤트 대사 출력
+            printText("배를 타고 이동할 지역을 선택하세요:\n"); // 안내 메시지 출력
             char buffer[128]; // 메시지 버퍼
             sprintf(buffer, "이동 비용으로 %d전을 지불했습니다. (남은 전: %d전)\n", cost, gPlayer.money); // 비용 안내 메시지 생성
             printText(buffer); // 메시지 출력

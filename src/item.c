@@ -616,10 +616,10 @@ bool useTalisman(const Item* item, void* targetYokai) {
     float baseCatchRate = 0.0f;
     switch (item->grade) {
         case ITEM_COMMON:
-            baseCatchRate = 0.15f;
+            baseCatchRate = 0.05f;
             break;
         case ITEM_RARE:
-            baseCatchRate = 0.3;
+            baseCatchRate = 0.15f;
             break;
         case ITEM_SUPERRARE:
             baseCatchRate = 1;  // 100%

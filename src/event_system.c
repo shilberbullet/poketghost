@@ -15,7 +15,7 @@
 #include "reward.h"
 
 // 이벤트 발생 확률 설정
-#define EVENT_TRIGGER_CHANCE 5  // 5% 확률
+#define EVENT_TRIGGER_CHANCE 1 // 1% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
