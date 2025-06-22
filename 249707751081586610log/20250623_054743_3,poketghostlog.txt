@@ -1,0 +1,89 @@
+[Mon Jun 23 05:47:43 2025] [함수실행] fastSleep
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] showDialogue
+[Mon Jun 23 05:47:43 2025] [함수실행] printDialogueMessage
+[Mon Jun 23 05:47:43 2025] [함수실행] printText
+[Mon Jun 23 05:47:43 2025] [OUTPUT] 
+
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] printTextAndWait
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] printText
+[Mon Jun 23 05:47:43 2025] [OUTPUT] [33m시스템[0m: [33m부적을 통해 요괴를 동료로 만들거나 전투를 통해 요괴를 쓰러트려 성불시킬수 있습니다.[0m
+
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] fastSleep
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] showDialogue
+[Mon Jun 23 05:47:43 2025] [함수실행] printDialogueMessage
+[Mon Jun 23 05:47:43 2025] [함수실행] printText
+[Mon Jun 23 05:47:43 2025] [OUTPUT] 
+
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] printTextAndWait
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] printText
+[Mon Jun 23 05:47:43 2025] [OUTPUT] [33m시스템[0m: [33m전투에서 승리하면 요괴의 경험치가 올라가고, 새로운 기술을 배울 수도 있습니다.[0m
+
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:43 2025] [함수실행] fastSleep
+[Mon Jun 23 05:47:43 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] showDialogue
+[Mon Jun 23 05:47:44 2025] [함수실행] printDialogueMessage
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] 
+
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] printTextAndWait
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] [33m시스템[0m: [33m자! 이제 배를 타고 육지로 이동 해야 합니다.[0m
+
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] fastSleep
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] endDialogue
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] === 타고 갈 배 ===
+
+
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] 1. 경상도행
+
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] 2. 전라도행
+
+
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] printText
+[Mon Jun 23 05:47:44 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Mon Jun 23 05:47:44 2025] [함수실행] getTextDelay
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:44 2025] [함수실행] getIntInput
+[Mon Jun 23 05:47:45 2025] [INPUT] 정수 입력: 1
+[Mon Jun 23 05:47:45 2025] [함수실행] clearInputBuffer
+[Mon Jun 23 05:47:45 2025] [함수실행] setInitialRegion
