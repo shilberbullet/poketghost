@@ -1,0 +1,1500 @@
+[Sun Jun 22 22:17:34 2025] [OUTPUT] === 스테이지 정보 ===
+
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 스테이지: 48
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 지역: 황해도
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 지형: 마을
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 시간: 23시
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 보유 전: 13141전
+
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] showBattleInterface
+[Sun Jun 22 22:17:34 2025] [함수실행] calculateLevelRange
+[Sun Jun 22 22:17:34 2025] [함수실행] startBattle
+[Sun Jun 22 22:17:34 2025] [함수실행] startDialogue
+[Sun Jun 22 22:17:34 2025] [함수실행] showDialogue
+[Sun Jun 22 22:17:34 2025] [함수실행] printDialogueMessage
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] 
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:34 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] printText
+[Sun Jun 22 22:17:34 2025] [OUTPUT] [31m시스템[0m: [31m요괴와 눈이 마주쳤다[0m
+
+[Sun Jun 22 22:17:34 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:34 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:35 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:35 2025] [함수실행] endDialogue
+[Sun Jun 22 22:17:35 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:17:35 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:35 2025] [함수실행] printText
+[Sun Jun 22 22:17:35 2025] [OUTPUT] [34m묘두사 [32m[동물형][0m Lv.46 (이)가 싸움을 걸어왔다!
+
+[Sun Jun 22 22:17:35 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:35 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:35 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:35 2025] [함수실행] printText
+[Sun Jun 22 22:17:35 2025] [OUTPUT] [34m묘두사[0m HP[[1;32m████████████████████[0m] 164/164
+
+[Sun Jun 22 22:17:35 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:35 2025] [함수실행] showBattleMenu
+[Sun Jun 22 22:17:35 2025] [함수실행] printText
+[Sun Jun 22 22:17:35 2025] [OUTPUT] 
+무엇을 하시겠습니까?
+
+[Sun Jun 22 22:17:35 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:35 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 1. 싸운다
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 2. 부적을 던진다
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 3. 동료 요괴를 본다
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 4. 도망간다
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 5. 인벤토리를 본다
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 6. 게임을 저장하고 메뉴로 돌아간다
+
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:36 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] handleBattleChoice
+[Sun Jun 22 22:17:36 2025] [함수실행] selectPartyYokai
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 
+동료 요괴를 선택하세요:
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:36 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 1. 도깨비 [33m[괴수형][0m Lv.66 (HP: 427/427)[0m
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:36 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 2. 이매망량 [35m[원귀][0m Lv.39 (HP: 130/130)[0m
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:36 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 3. 불화살귀 [35m[원귀][0m Lv.46 (HP: 164/164)[0m
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:36 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 4. 바람노루 [32m[동물형][0m Lv.39 (HP: 146/146)[0m
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:36 2025] [함수실행] typeToString
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 5. 능원사 [35m[원귀][0m Lv.50 (HP: 81/211)[0m
+
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:36 2025] [함수실행] printText
+[Sun Jun 22 22:17:36 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:17:36 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:36 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:37 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] addParticipatedIdx
+[Sun Jun 22 22:17:37 2025] [함수실행] selectMove
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 
+사용할 기술을 선택하세요:
+
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 1. [32m할퀴기[32m[0m (공격력: 25, 명중률: 100%, PP: 18/20)
+
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 2. [36m쇠방울던지기[36m[0m (공격력: 30, 명중률: 90%, PP: 25/25) [31m(약한 공격)[0m
+
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 3. [33m연속박치기[33m[0m (공격력: 40, 명중률: 80%, PP: 13/15) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 4. [33m도깨비방망이[33m[0m (공격력: 50, 명중률: 85%, PP: 5/5) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] printText
+[Sun Jun 22 22:17:37 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:17:37 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:37 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:39 2025] [INPUT] 정수 입력: 3
+[Sun Jun 22 22:17:39 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:39 2025] [함수실행] executeTurnBattle
+[Sun Jun 22 22:17:39 2025] [함수실행] executeBattle
+[Sun Jun 22 22:17:39 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:39 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:39 2025] [함수실행] printText
+[Sun Jun 22 22:17:39 2025] [OUTPUT] 
+[33m도깨비[0m의 [33m연속박치기[0m!
+[Sun Jun 22 22:17:39 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:39 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:39 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:39 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:39 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:40 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] printText
+[Sun Jun 22 22:17:40 2025] [OUTPUT] 
+돋보기 2개의 효과로 명중률이 6% 증가! (80% → 86%)
+[Sun Jun 22 22:17:40 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:40 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:40 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:40 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:40 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] printText
+[Sun Jun 22 22:17:40 2025] [OUTPUT] 
+하지만 빗나갔다!
+[Sun Jun 22 22:17:40 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:40 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:40 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:41 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:41 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:41 2025] [함수실행] executeBattle
+[Sun Jun 22 22:17:41 2025] [함수실행] getEnemyNameColorExport
+[Sun Jun 22 22:17:41 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:17:41 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:41 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:41 2025] [함수실행] printText
+[Sun Jun 22 22:17:41 2025] [OUTPUT] 
+[34m묘두사[0m의 [32m울부짖기[0m!
+[Sun Jun 22 22:17:41 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:41 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:41 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:41 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:41 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] calculateDamage
+[Sun Jun 22 22:17:42 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:42 2025] [함수실행] tryActivateChapsalgyungdan
+[Sun Jun 22 22:17:42 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] printText
+[Sun Jun 22 22:17:42 2025] [OUTPUT] 
+도깨비에게 20의 데미지를 입혔다!
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:42 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] printText
+[Sun Jun 22 22:17:42 2025] [OUTPUT] 
+효과가 별로인 것 같다...
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:42 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] printText
+[Sun Jun 22 22:17:42 2025] [OUTPUT] 
+도깨비 HP[[1;32m███████████████████░[0m] 407/427
+
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:42 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:42 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] handleBattleResult
+[Sun Jun 22 22:17:43 2025] [함수실행] applyPeachHealingToParty
+[Sun Jun 22 22:17:43 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:43 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 
+도깨비가 복숭아 효과로 20의 체력을 회복했습니다! (407 → 427)
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] showBattleMenu
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 
+무엇을 하시겠습니까?
+
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 1. 싸운다
+
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 2. 부적을 던진다
+
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 3. 동료 요괴를 본다
+
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:43 2025] [함수실행] printText
+[Sun Jun 22 22:17:43 2025] [OUTPUT] 4. 동료 요괴 교체
+
+[Sun Jun 22 22:17:43 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:43 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] printText
+[Sun Jun 22 22:17:44 2025] [OUTPUT] 5. 도망간다
+
+[Sun Jun 22 22:17:44 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] printText
+[Sun Jun 22 22:17:44 2025] [OUTPUT] 6. 인벤토리를 본다
+
+[Sun Jun 22 22:17:44 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] printText
+[Sun Jun 22 22:17:44 2025] [OUTPUT] 7. 게임을 저장하고 메뉴로 돌아간다
+
+
+[Sun Jun 22 22:17:44 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] printText
+[Sun Jun 22 22:17:44 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sun Jun 22 22:17:44 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:44 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:49 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] handleBattleChoice
+[Sun Jun 22 22:17:49 2025] [함수실행] addParticipatedIdx
+[Sun Jun 22 22:17:49 2025] [함수실행] selectMove
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 
+사용할 기술을 선택하세요:
+
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 1. [32m할퀴기[32m[0m (공격력: 25, 명중률: 100%, PP: 18/20)
+
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 2. [36m쇠방울던지기[36m[0m (공격력: 30, 명중률: 90%, PP: 25/25) [31m(약한 공격)[0m
+
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 3. [33m연속박치기[33m[0m (공격력: 40, 명중률: 80%, PP: 12/15) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 4. [33m도깨비방망이[33m[0m (공격력: 50, 명중률: 85%, PP: 5/5) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] printText
+[Sun Jun 22 22:17:49 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:17:49 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:49 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:51 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:17:51 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:51 2025] [함수실행] executeTurnBattle
+[Sun Jun 22 22:17:51 2025] [함수실행] executeBattle
+[Sun Jun 22 22:17:51 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:51 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:51 2025] [함수실행] printText
+[Sun Jun 22 22:17:51 2025] [OUTPUT] 
+[33m도깨비[0m의 [33m도깨비방망이[0m!
+[Sun Jun 22 22:17:51 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:51 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:51 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:51 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:51 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:51 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:51 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:51 2025] [함수실행] printText
+[Sun Jun 22 22:17:51 2025] [OUTPUT] 
+돋보기 2개의 효과로 명중률이 6% 증가! (85% → 91%)
+[Sun Jun 22 22:17:51 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:51 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:52 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:52 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:52 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:52 2025] [함수실행] calculateDamage
+[Sun Jun 22 22:17:52 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:52 2025] [함수실행] getJakduCount
+[Sun Jun 22 22:17:52 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:52 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:52 2025] [함수실행] printText
+[Sun Jun 22 22:17:52 2025] [OUTPUT] 
+작두의 힘으로 데미지가 30% 증가했습니다!
+[Sun Jun 22 22:17:52 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:52 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:52 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:52 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:52 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] getEnemyNameColorExport
+[Sun Jun 22 22:17:53 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:17:53 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] printText
+[Sun Jun 22 22:17:53 2025] [OUTPUT] 
+[34m묘두사[0m에게 164의 데미지를 입혔다!
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:53 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:17:53 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] printText
+[Sun Jun 22 22:17:53 2025] [OUTPUT] 
+효과가 굉장했다!
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:53 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:53 2025] [함수실행] getEnemyNameColorExport
+[Sun Jun 22 22:17:53 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:17:53 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] printText
+[Sun Jun 22 22:17:53 2025] [OUTPUT] 
+[34m묘두사[0m HP[[31m░░░░░░░░░░░░░░░░░░░░[0m] 0/164
+
+[Sun Jun 22 22:17:53 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:53 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:54 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:54 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:54 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:54 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:54 2025] [함수실행] printText
+[Sun Jun 22 22:17:54 2025] [OUTPUT] 
+상대 요괴가 쓰러졌다!
+[Sun Jun 22 22:17:54 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:54 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:54 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:54 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:54 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:55 2025] [함수실행] handleBattleResult
+[Sun Jun 22 22:17:55 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:55 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:55 2025] [함수실행] printText
+[Sun Jun 22 22:17:55 2025] [OUTPUT] 
+묘두사(이)가 쓰러졌다!
+[Sun Jun 22 22:17:55 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:55 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:55 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:55 2025] [함수실행] fastSleep
+[Sun Jun 22 22:17:55 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] applyPeachHealingToParty
+[Sun Jun 22 22:17:56 2025] [함수실행] calculateHP
+[Sun Jun 22 22:17:56 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 
+도깨비가 복숭아 효과로 0의 체력을 회복했습니다! (427 → 427)
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] calculateBattleReward
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 
+9535전을 획득했습니다! (무당방울 보너스 +10%, 총 10488전, 현재 보유: 23629전)
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] calculateIndividualExp
+[Sun Jun 22 22:17:56 2025] [함수실행] gainExp
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 
+도깨비가 12070의 경험치를 획득했습니다!
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] calculateRequiredExp
+[Sun Jun 22 22:17:56 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:17:56 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:17:56 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:17:56 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:17:56 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 1. [0m평범한 양갱 [일반][0m - 선택한 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 2. [0m미지근한 식혜 [일반][0m - 동료 요괴의 선택한 기술 PP를 5만큼 회복한다
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 3. [33m나물 [희귀][0m - 동료 요괴의 많은 체력을 회복한다
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (1600전)[0m
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] printText
+[Sun Jun 22 22:17:56 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:17:56 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:56 2025] [함수실행] getIntInput
+[Sun Jun 22 22:17:58 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 
+1600전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 22029)
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:17:58 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:17:58 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 1. [31m곶감 [초희귀][0m - 동료 요괴의 모든 체력을 회복한다 
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 2. [0m제삿밥 [일반][0m - 동료 요괴의 약간의 체력을 회복 할수있다
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] getGradeName
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 3. [0m낡은부적 [일반][0m - 요괴를 낮은 확률로 동료로 만들수 있다
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (3200전)[0m
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:58 2025] [함수실행] printText
+[Sun Jun 22 22:17:58 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:17:58 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:17:58 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:59 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:17:59 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:02 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 
+3200전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 18829)
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:02 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:02 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:02 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 1. [0m낡은부적 [일반][0m - 요괴를 낮은 확률로 동료로 만들수 있다
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 2. [0m제삿밥 [일반][0m - 동료 요괴의 약간의 체력을 회복 할수있다
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 3. [33m이상한 양갱 [희귀][0m - 모든 동료 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (6400전)[0m
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] printText
+[Sun Jun 22 22:18:02 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:02 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:02 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:04 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 
+6400전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 12429)
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:04 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:04 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 1. [0m평범한 양갱 [일반][0m - 선택한 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 2. [33m버섯죽 [희귀][0m - 요괴의 잊은 기술을 1개 배울수 있다
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 3. [0m낡은부적 [일반][0m - 요괴를 낮은 확률로 동료로 만들수 있다
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (12800전)[0m
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] printText
+[Sun Jun 22 22:18:04 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:04 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:04 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:08 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 
+양갱을 먹을 요괴를 선택하세요:
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 1. 도깨비 Lv.66 (HP: 427/427)[0m
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 2. 이매망량 Lv.39 (HP: 130/130)[0m
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 3. 불화살귀 Lv.46 (HP: 164/164)[0m
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 4. 바람노루 Lv.39 (HP: 146/146)[0m
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 5. 능원사 Lv.50 (HP: 81/211)[0m
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 0. 뒤로 가기
+
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:08 2025] [함수실행] printText
+[Sun Jun 22 22:18:08 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sun Jun 22 22:18:08 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:08 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:09 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] useYokaiItem
+[Sun Jun 22 22:18:09 2025] [함수실행] useYanggaeng
+[Sun Jun 22 22:18:09 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:09 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:09 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:09 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:09 2025] [함수실행] printText
+[Sun Jun 22 22:18:09 2025] [OUTPUT] 
+도깨비의 레벨이 66에서 67로 상승했습니다!
+
+[Sun Jun 22 22:18:09 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:09 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:09 2025] [함수실행] printText
+[Sun Jun 22 22:18:09 2025] [OUTPUT] 
+도깨비가 평범한 양갱를 먹었습니다!
+
+[Sun Jun 22 22:18:09 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:09 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:09 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:10 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:10 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:10 2025] [함수실행] getCurrentRegion
+[Sun Jun 22 22:18:10 2025] [함수실행] handleNormalStageClear
+[Sun Jun 22 22:18:10 2025] [함수실행] checkEventCompletion
+[Sun Jun 22 22:18:10 2025] [함수실행] isLetterDeliveryCompleted
+[Sun Jun 22 22:18:10 2025] [함수실행] getCurrentRegion
+[Sun Jun 22 22:18:10 2025] [함수실행] nextStage
+[Sun Jun 22 22:18:10 2025] [함수실행] initStage
+[Sun Jun 22 22:18:10 2025] [함수실행] initNormalStage
+[Sun Jun 22 22:18:10 2025] [함수실행] getCurrentRegion
+[Sun Jun 22 22:18:10 2025] [함수실행] calculateLevelRange
+[Sun Jun 22 22:18:10 2025] [함수실행] shouldTriggerEvent
+[Sun Jun 22 22:18:10 2025] [함수실행] generateNormalStageEnemies
+[Sun Jun 22 22:18:10 2025] [함수실행] createRandomYokaiWithLevel
+[Sun Jun 22 22:18:10 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:10 2025] [함수실행] generateYokaiId
+[Sun Jun 22 22:18:10 2025] [함수실행] assignRandomMoves
+[Sun Jun 22 22:18:10 2025] [함수실행] createRandomYokaiWithLevel
+[Sun Jun 22 22:18:10 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:10 2025] [함수실행] generateYokaiId
+[Sun Jun 22 22:18:10 2025] [함수실행] assignRandomMoves
+[Sun Jun 22 22:18:10 2025] [함수실행] createRandomYokaiWithLevel
+[Sun Jun 22 22:18:10 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:10 2025] [함수실행] generateYokaiId
+[Sun Jun 22 22:18:10 2025] [함수실행] assignRandomMoves
+[Sun Jun 22 22:18:10 2025] [함수실행] showStageInfo
+[Sun Jun 22 22:18:10 2025] [함수실행] printText
+[Sun Jun 22 22:18:10 2025] [OUTPUT] === 스테이지 정보 ===
+
+
+[Sun Jun 22 22:18:10 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:10 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:10 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:10 2025] [함수실행] printText
+[Sun Jun 22 22:18:10 2025] [OUTPUT] 스테이지: 49
+
+[Sun Jun 22 22:18:10 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:10 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:10 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:10 2025] [함수실행] printText
+[Sun Jun 22 22:18:10 2025] [OUTPUT] 지역: 황해도
+
+[Sun Jun 22 22:18:10 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:10 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] printText
+[Sun Jun 22 22:18:11 2025] [OUTPUT] 지형: 강
+
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] printText
+[Sun Jun 22 22:18:11 2025] [OUTPUT] 시간: 00시
+
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] printText
+[Sun Jun 22 22:18:11 2025] [OUTPUT] 보유 전: 12429전
+
+
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] showBattleInterface
+[Sun Jun 22 22:18:11 2025] [함수실행] calculateLevelRange
+[Sun Jun 22 22:18:11 2025] [함수실행] startBattle
+[Sun Jun 22 22:18:11 2025] [함수실행] startDialogue
+[Sun Jun 22 22:18:11 2025] [함수실행] showDialogue
+[Sun Jun 22 22:18:11 2025] [함수실행] printDialogueMessage
+[Sun Jun 22 22:18:11 2025] [함수실행] printText
+[Sun Jun 22 22:18:11 2025] [OUTPUT] 
+
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] printText
+[Sun Jun 22 22:18:11 2025] [OUTPUT] [31m시스템[0m: [31m요괴와 눈이 마주쳤다[0m
+
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:11 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:11 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] endDialogue
+[Sun Jun 22 22:18:12 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:18:12 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] [34m금돼지 [32m[동물형][0m Lv.47 (이)가 싸움을 걸어왔다!
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:12 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] [34m금돼지[0m HP[[1;32m████████████████████[0m] 218/218
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] showBattleMenu
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 
+무엇을 하시겠습니까?
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 1. 싸운다
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 2. 부적을 던진다
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 3. 동료 요괴를 본다
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 4. 도망간다
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 5. 인벤토리를 본다
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 6. 게임을 저장하고 메뉴로 돌아간다
+
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 숫자를 입력해주세요: 
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:12 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:12 2025] [함수실행] handleBattleChoice
+[Sun Jun 22 22:18:12 2025] [함수실행] selectPartyYokai
+[Sun Jun 22 22:18:12 2025] [함수실행] printText
+[Sun Jun 22 22:18:12 2025] [OUTPUT] 
+동료 요괴를 선택하세요:
+
+[Sun Jun 22 22:18:12 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:12 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:13 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 1. 도깨비 [33m[괴수형][0m Lv.67 (HP: 440/440)[0m
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:13 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 2. 이매망량 [35m[원귀][0m Lv.39 (HP: 130/130)[0m
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:13 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 3. 불화살귀 [35m[원귀][0m Lv.46 (HP: 164/164)[0m
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:13 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 4. 바람노루 [32m[동물형][0m Lv.39 (HP: 146/146)[0m
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:13 2025] [함수실행] typeToString
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 5. 능원사 [35m[원귀][0m Lv.50 (HP: 81/211)[0m
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:13 2025] [INPUT] 정수 입력: 1
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] addParticipatedIdx
+[Sun Jun 22 22:18:13 2025] [함수실행] selectMove
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 
+사용할 기술을 선택하세요:
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:13 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:13 2025] [함수실행] printText
+[Sun Jun 22 22:18:13 2025] [OUTPUT] 1. [32m할퀴기[32m[0m (공격력: 25, 명중률: 100%, PP: 18/20)
+
+[Sun Jun 22 22:18:13 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:13 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:14 2025] [함수실행] printText
+[Sun Jun 22 22:18:14 2025] [OUTPUT] 2. [36m쇠방울던지기[36m[0m (공격력: 30, 명중률: 90%, PP: 25/25) [31m(약한 공격)[0m
+
+[Sun Jun 22 22:18:14 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:14 2025] [함수실행] printText
+[Sun Jun 22 22:18:14 2025] [OUTPUT] 3. [33m연속박치기[33m[0m (공격력: 40, 명중률: 80%, PP: 12/15) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:18:14 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:14 2025] [함수실행] printText
+[Sun Jun 22 22:18:14 2025] [OUTPUT] 4. [33m도깨비방망이[33m[0m (공격력: 50, 명중률: 85%, PP: 4/5) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:18:14 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] printText
+[Sun Jun 22 22:18:14 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:14 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:14 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:17 2025] [INPUT] 정수 입력: 0
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:17 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:17 2025] [함수실행] printText
+[Sun Jun 22 22:18:17 2025] [OUTPUT] 
+잘못된 선택입니다. 다시 선택하세요.
+[Sun Jun 22 22:18:17 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] selectMove
+[Sun Jun 22 22:18:17 2025] [함수실행] printText
+[Sun Jun 22 22:18:17 2025] [OUTPUT] 
+사용할 기술을 선택하세요:
+
+[Sun Jun 22 22:18:17 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:17 2025] [함수실행] printText
+[Sun Jun 22 22:18:17 2025] [OUTPUT] 1. [32m할퀴기[32m[0m (공격력: 25, 명중률: 100%, PP: 18/20)
+
+[Sun Jun 22 22:18:17 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:17 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:17 2025] [함수실행] printText
+[Sun Jun 22 22:18:17 2025] [OUTPUT] 2. [36m쇠방울던지기[36m[0m (공격력: 30, 명중률: 90%, PP: 25/25) [31m(약한 공격)[0m
+
+[Sun Jun 22 22:18:17 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:17 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:18 2025] [함수실행] printText
+[Sun Jun 22 22:18:18 2025] [OUTPUT] 3. [33m연속박치기[33m[0m (공격력: 40, 명중률: 80%, PP: 12/15) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:18:18 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:18 2025] [함수실행] printText
+[Sun Jun 22 22:18:18 2025] [OUTPUT] 4. [33m도깨비방망이[33m[0m (공격력: 50, 명중률: 85%, PP: 4/5) [32m(강한 공격)[0m
+
+[Sun Jun 22 22:18:18 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] printText
+[Sun Jun 22 22:18:18 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:18 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:18 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:19 2025] [INPUT] 정수 입력: 3
+[Sun Jun 22 22:18:19 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:19 2025] [함수실행] executeTurnBattle
+[Sun Jun 22 22:18:19 2025] [함수실행] executeBattle
+[Sun Jun 22 22:18:19 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:19 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:19 2025] [함수실행] printText
+[Sun Jun 22 22:18:19 2025] [OUTPUT] 
+[33m도깨비[0m의 [33m연속박치기[0m!
+[Sun Jun 22 22:18:19 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:19 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:19 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:19 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:19 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:20 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:20 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:20 2025] [함수실행] printText
+[Sun Jun 22 22:18:20 2025] [OUTPUT] 
+돋보기 2개의 효과로 명중률이 6% 증가! (80% → 86%)
+[Sun Jun 22 22:18:20 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:20 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:20 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:20 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:20 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:21 2025] [함수실행] calculateDamage
+[Sun Jun 22 22:18:21 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:21 2025] [함수실행] getJakduCount
+[Sun Jun 22 22:18:21 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:21 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:21 2025] [함수실행] printText
+[Sun Jun 22 22:18:21 2025] [OUTPUT] 
+작두의 힘으로 데미지가 30% 증가했습니다!
+[Sun Jun 22 22:18:21 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:21 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:21 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:21 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:21 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] getEnemyNameColorExport
+[Sun Jun 22 22:18:22 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:18:22 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] printText
+[Sun Jun 22 22:18:22 2025] [OUTPUT] 
+[34m금돼지[0m에게 218의 데미지를 입혔다!
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] getTypeEffectiveness
+[Sun Jun 22 22:18:22 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] printText
+[Sun Jun 22 22:18:22 2025] [OUTPUT] 
+효과가 굉장했다!
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:22 2025] [함수실행] getEnemyNameColorExport
+[Sun Jun 22 22:18:22 2025] [함수실행] getEnemyNameColor
+[Sun Jun 22 22:18:22 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] printText
+[Sun Jun 22 22:18:22 2025] [OUTPUT] 
+[34m금돼지[0m HP[[31m░░░░░░░░░░░░░░░░░░░░[0m] 0/218
+
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:22 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:22 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:23 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:23 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:23 2025] [함수실행] printText
+[Sun Jun 22 22:18:23 2025] [OUTPUT] 
+상대 요괴가 쓰러졌다!
+[Sun Jun 22 22:18:23 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:23 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:23 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:23 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:23 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] handleBattleResult
+[Sun Jun 22 22:18:24 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] printText
+[Sun Jun 22 22:18:24 2025] [OUTPUT] 
+금돼지(이)가 쓰러졌다!
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:24 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:24 2025] [함수실행] fastSleep
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] applyPeachHealingToParty
+[Sun Jun 22 22:18:24 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:24 2025] [함수실행] printTextAndWait
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] printText
+[Sun Jun 22 22:18:24 2025] [OUTPUT] 
+도깨비가 복숭아 효과로 0의 체력을 회복했습니다! (440 → 440)
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:24 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:24 2025] [함수실행] calculateBattleReward
+[Sun Jun 22 22:18:24 2025] [함수실행] printText
+[Sun Jun 22 22:18:24 2025] [OUTPUT] 
+10431전을 획득했습니다! (무당방울 보너스 +10%, 총 11474전, 현재 보유: 23903전)
+
+[Sun Jun 22 22:18:24 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:24 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateIndividualExp
+[Sun Jun 22 22:18:25 2025] [함수실행] gainExp
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 
+도깨비가 13836의 경험치를 획득했습니다!
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateRequiredExp
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateRequiredExp
+[Sun Jun 22 22:18:25 2025] [함수실행] levelUp
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateHP
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 
+도깨비가 레벨 68로 상승했습니다!
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] tryLearnNewMove
+[Sun Jun 22 22:18:25 2025] [함수실행] canLearnNewMove
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateRequiredExp
+[Sun Jun 22 22:18:25 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:25 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:25 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 1. [0m제삿밥 [일반][0m - 동료 요괴의 약간의 체력을 회복 할수있다
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 2. [0m미지근한 식혜 [일반][0m - 동료 요괴의 선택한 기술 PP를 5만큼 회복한다
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 3. [33m이상한 양갱 [희귀][0m - 모든 동료 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (1600전)[0m
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] printText
+[Sun Jun 22 22:18:25 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:25 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:25 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:28 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 
+1600전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 22303)
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:28 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:28 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 1. [33m버섯죽 [희귀][0m - 요괴의 잊은 기술을 1개 배울수 있다
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 2. [0m미지근한 식혜 [일반][0m - 동료 요괴의 선택한 기술 PP를 5만큼 회복한다
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 3. [0m제삿밥 [일반][0m - 동료 요괴의 약간의 체력을 회복 할수있다
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (3200전)[0m
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] printText
+[Sun Jun 22 22:18:28 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:28 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:28 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:29 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 
+3200전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 19103)
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:29 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:29 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 1. [33m빳빳한 부적 [희귀][0m - 요괴를 높은 확률로 동료로 만들수 있다
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 2. [0m낡은부적 [일반][0m - 요괴를 낮은 확률로 동료로 만들수 있다
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 3. [0m평범한 양갱 [일반][0m - 선택한 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] [94m4. 아이템 목록 초기화 (6400전)[0m
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] [95m5. 아이템을 받지 않고 넘어간다[0m
+
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] printText
+[Sun Jun 22 22:18:29 2025] [OUTPUT] 숫자를 입력하세요: 
+[Sun Jun 22 22:18:29 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:29 2025] [함수실행] getIntInput
+[Sun Jun 22 22:18:31 2025] [INPUT] 정수 입력: 4
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] printText
+[Sun Jun 22 22:18:31 2025] [OUTPUT] 
+6400전을 사용하여 아이템 목록을 초기화했습니다! (남은 전: 12703)
+
+[Sun Jun 22 22:18:31 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] itemRewardSystem
+[Sun Jun 22 22:18:31 2025] [함수실행] calculateResetCost
+[Sun Jun 22 22:18:31 2025] [함수실행] getRandomItems
+[Sun Jun 22 22:18:31 2025] [함수실행] printText
+[Sun Jun 22 22:18:31 2025] [OUTPUT] 
+=== 아이템 보상 ===
+
+[Sun Jun 22 22:18:31 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:31 2025] [함수실행] printText
+[Sun Jun 22 22:18:31 2025] [OUTPUT] 1. [33m이상한 양갱 [희귀][0m - 모든 동료 요괴의 레벨을 1 올려준다
+
+[Sun Jun 22 22:18:31 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:31 2025] [함수실행] printText
+[Sun Jun 22 22:18:31 2025] [OUTPUT] 2. [0m제삿밥 [일반][0m - 동료 요괴의 약간의 체력을 회복 할수있다
+
+[Sun Jun 22 22:18:31 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] getGradeName
+[Sun Jun 22 22:18:31 2025] [함수실행] printText
+[Sun Jun 22 22:18:31 2025] [OUTPUT] 3. [31m복숭아 [초희귀][0m - 동료 요괴가 지니고 있으면 매턴 약간의 체력을 회복한다
+
+[Sun Jun 22 22:18:31 2025] [함수실행] getTextDelay
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
+[Sun Jun 22 22:18:31 2025] [함수실행] clearInputBuffer
