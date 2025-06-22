@@ -185,6 +185,8 @@ void saveGame() {
         fwrite(&currentEvent->target_region, sizeof(char), 32, file); // 이벤트 대상 지역명 저장
         fwrite(&currentEvent->reward_money, sizeof(int), 1, file); // 이벤트 보상 금액 저장
         fwrite(&currentEvent->is_completed, sizeof(bool), 1, file); // 이벤트 완료 여부 저장
+        fwrite(&currentEvent->target_reached, sizeof(bool), 1, file); // 목표지역 도달 여부 저장
+        fwrite(&currentEvent->created_stage, sizeof(int), 1, file); // 생성 시점 스테이지 번호 저장
     } else { // 이벤트가 없으면
         int hasActiveEvent = 0; // 이벤트 비활성화 플래그
         fwrite(&hasActiveEvent, sizeof(int), 1, file); // 플래그 저장
@@ -206,9 +208,9 @@ void saveGame() {
             printText(buffer);
             fastSleep(500);
         }
+        printText("게임이 저장되었습니다.\n"); // 저장 완료 메시지 출력
     }
     
-    printText("게임이 저장되었습니다.\n"); // 저장 완료 메시지 출력
 }
 
 // 게임 데이터 불러오기 함수 정의 시작

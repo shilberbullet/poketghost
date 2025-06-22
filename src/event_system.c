@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <conio.h>
+#include <math.h>
 #include "event_system.h"
 #include "text.h"
 #include "input.h"
@@ -11,9 +12,10 @@
 #include "../core/state.h"
 #include "logger.h"
 #include "dialogue.h"
+#include "reward.h"
 
 // 이벤트 발생 확률 설정
-#define EVENT_TRIGGER_CHANCE 20  // 20% 확률
+#define EVENT_TRIGGER_CHANCE 5  // 5% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
@@ -59,8 +61,39 @@ bool shouldTriggerEvent(void) {
     return chance < EVENT_TRIGGER_CHANCE; // 설정된 확률로 이벤트 발생
 }
 
+// 이벤트 보상 계산 함수
+int calculateEventReward(int stageNumber) {
+    LOG_FUNCTION_EXECUTION("calculateEventReward");
+    
+    // 디버그: 스테이지 번호 확인
+    char buffer[256];
+    sprintf(buffer, "[DEBUG] 이벤트 보상 계산 - 스테이지: %d\n", stageNumber);
+    printText(buffer);
+    
+    // 기본 보상: 100전
+    int baseReward = 100;
+    
+    // 스테이지 보너스: 스테이지가 올라갈수록 보상이 점진적으로 증가
+    // 예: 1스테이지 = 100, 2스테이지 = 110, 3스테이지 = 121, 4스테이지 = 133, ...
+    int stageBonus = (int)(baseReward * pow(1.1, stageNumber - 1));
+    
+    // 랜덤 보너스: 0-49전
+    int randomBonus = rand() % 50;
+    
+    // 디버그: 계산 과정 출력
+    sprintf(buffer, "[DEBUG] 기본보상: %d, 스테이지보너스: %d, 랜덤보너스: %d\n", baseReward, stageBonus, randomBonus);
+    printText(buffer);
+    
+    // 최종 보상 계산
+    int finalReward = stageBonus + randomBonus;
+    sprintf(buffer, "[DEBUG] 최종 이벤트 보상: %d\n", finalReward);
+    printText(buffer);
+    
+    return finalReward;
+}
+
 // 랜덤 이벤트 생성
-Event* generateRandomEvent(void) {
+Event* generateRandomEvent(int stageNumber) {
     LOG_FUNCTION_EXECUTION("generateRandomEvent");
     
     Event* event = (Event*)malloc(sizeof(Event));
@@ -71,7 +104,12 @@ Event* generateRandomEvent(void) {
     // 현재는 편지 전달 이벤트만 구현
     event->type = EVENT_LETTER_DELIVERY;
     event->is_completed = false;
-    event->reward_money = 100 + (rand() % 200); // 100~300전 보상
+    event->target_reached = false;  // 목표지역 도달 여부 초기화
+    event->created_stage = stageNumber;  // 이벤트 생성 시점의 스테이지 번호 저장
+    
+    // 이벤트 보상의 10배로 설정 (정확한 스테이지 번호 사용)
+    int eventReward = calculateEventReward(stageNumber);
+    event->reward_money = eventReward * 10;
     
     // 방문하지 않은 지역 중에서 목표 지역 설정
     char unvisitedRegions[MAX_REGIONS][REGION_NAME_LENGTH];
@@ -208,6 +246,7 @@ void handleLetterDeliveryEvent(Event* event) {
         // 편지 전달 거절
         startDialogue(1009);
         printText("\n편지 전달을 거절했습니다.\n");
+        fastSleep(500);
         free(event);
         // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
         gGameState.skipStageInfo = true;
@@ -239,7 +278,19 @@ bool isLetterDeliveryCompleted(Event* event) {
     }
     
     const char* currentRegion = getCurrentRegion();
-    return strcmp(currentRegion, event->target_region) == 0;
+    
+    // 목표지역에 도달했는지 확인
+    if (!event->target_reached && strcmp(currentRegion, event->target_region) == 0) {
+        event->target_reached = true;
+        return false; // 목표지역 도달했지만 아직 완료 조건은 아님
+    }
+    
+    // 목표지역에 도달한 후 일의자리가 2인 스테이지에서 완료
+    if (event->target_reached && (gStage.stageNumber % 10) == 2) {
+        return true;
+    }
+    
+    return false;
 }
 
 // 이벤트 완료 처리
@@ -254,30 +305,18 @@ void completeEvent(Event* event) {
     
     switch (event->type) {
         case EVENT_LETTER_DELIVERY:
-            system("cls");
-            printText("=== 스테이지 정보 ===\n\n");
-            
-            // 스테이지 정보 출력
-            char buffer[256];
-            sprintf(buffer, "스테이지: %d\n", gStage.stageNumber);
-            printText(buffer);
-            sprintf(buffer, "지역: %s\n", getCurrentRegion());
-            printText(buffer);
-            sprintf(buffer, "지형: %s\n", getCurrentTerrain());
-            printText(buffer);
-            int hour = (gStage.stageNumber - 1) % 24;
-            sprintf(buffer, "시간: %02d시\n", hour);
-            printText(buffer);
-            sprintf(buffer, "보유 전: %d전\n", gPlayer.money);
-            printText(buffer);
-            
             // 이벤트 완료 메시지
-            printText("편지를 전달했습니다!\n");
-            snprintf(buffer, sizeof(buffer), "보상으로 %d전을 받았습니다.\n", event->reward_money);
-            printText(buffer);
+            printText("한 남성이 말을 걸어왔다\n");
+            printText("\n편지를 전달하겠습니까?\n");
+            printText("1. 예\n");
+            printText("2. 아니요\n");
+            printText("숫자를 입력하세요: ");
             
-            // 보상 지급
-            gPlayer.money += event->reward_money;
+            int choice = getIntInput();
+            while (choice != 1 && choice != 2) {
+                printText("\n잘못된 선택입니다. 다시 선택하세요: ");
+                choice = getIntInput();
+            }
             
             // 편지 아이템을 인벤토리에서 제거
             for (int i = 0; i < inventoryCount; i++) {
@@ -287,9 +326,38 @@ void completeEvent(Event* event) {
                         inventory[i] = inventory[inventoryCount - 1];
                     }
                     inventoryCount--;
-                    printText("편지를 인벤토리에서 제거했습니다.\n");
                     break;
                 }
+            }
+            
+            if (choice == 1) {
+                startDialogue(1030);
+                // 예 선택: 보상 지급
+                printText("편지를 전달했습니다!\n");
+                char buffer[256];
+                // 디버그: 보상 및 생성 스테이지 출력
+                snprintf(buffer, sizeof(buffer), "[DEBUG] 지급 보상: %d, 생성 스테이지: %d\n", event->reward_money, event->created_stage);
+                printText(buffer);
+                
+                // 현재 스테이지 번호를 사용하여 보상을 다시 계산
+                int currentReward = calculateEventReward(gStage.stageNumber) * 10;
+                snprintf(buffer, sizeof(buffer), "[DEBUG] 현재 스테이지(%d) 기준 보상: %d\n", gStage.stageNumber, currentReward);
+                printText(buffer);
+                
+                snprintf(buffer, sizeof(buffer), "보상으로 %d전을 받았습니다.\n", currentReward);
+                printText(buffer);
+                gPlayer.money += currentReward;
+                
+                // 아이템 보상 시스템 호출
+                itemRewardSystem();
+            } else {
+                startDialogue(1020);
+                // 아니요 선택: 전의 절반을 잃음
+                char buffer[256];
+                int penalty = gPlayer.money / 2;
+                gPlayer.money -= penalty;
+                snprintf(buffer, sizeof(buffer), "편지 전달을 거절했습니다. 전의 절반(%d전)을 잃었습니다.\n", penalty);
+                printText(buffer);
             }
             
             // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
@@ -326,6 +394,8 @@ Event* loadEventFromFile(FILE* file) { // 파일에서 이벤트 로드 함수 �
     fread(&event->target_region, sizeof(char), 32, file); // 목표 지역 읽기
     fread(&event->reward_money, sizeof(int), 1, file); // 보상 금액 읽기
     fread(&event->is_completed, sizeof(bool), 1, file); // 완료 상태 읽기
+    fread(&event->target_reached, sizeof(bool), 1, file); // 목표지역 도달 여부 읽기
+    fread(&event->created_stage, sizeof(int), 1, file); // 생성 시점 스테이지 번호 읽기
     
     return event; // 로드된 이벤트 반환
 }

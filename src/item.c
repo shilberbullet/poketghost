@@ -160,7 +160,7 @@ void getRandomItems(Item* outItems, int count) { // 랜덤 아이템 추출 함�
         else if (randomValue < 95) targetGrade = ITEM_RARE;   // 25% 확률로 희귀 등급
         else targetGrade = ITEM_SUPERRARE;             // 5% 확률로 초희귀 등급
 
-        // 해당 등급의 아이템 중 랜덤 선택
+        // 해당 등급의 아이템 중 랜덤 선택 (편지 제외)
         int validItems = 0; // 유효한 아이템 개수
         int* validIndices = (int*)malloc(itemListCount * sizeof(int)); // 유효한 인덱스 배열 할당
         if (validIndices == NULL) { // 메모리 할당 실패시
@@ -169,6 +169,11 @@ void getRandomItems(Item* outItems, int count) { // 랜덤 아이템 추출 함�
         }
         
         for (int j = 0; j < itemListCount; j++) { // 모든 아이템 검사
+            // 편지 아이템은 제외
+            if (strcmp(itemList[j].name, "편지") == 0) {
+                continue; // 편지 아이템 건너뛰기
+            }
+            
             if (itemList[j].grade == targetGrade) { // 목표 등급과 일치하는 경우
                 validIndices[validItems++] = j; // 유효한 인덱스 배열에 추가
             }

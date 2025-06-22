@@ -28,6 +28,9 @@
 // 일반 스테이지 초기화 함수
 void initNormalStage(StageInfo* stage, int stageNumber) {  // 일반 스테이지 초기화 함수 시작
     LOG_FUNCTION_EXECUTION("initNormalStage");  // 함수 실행 로그 기록
+    char debugbuf[128];
+    sprintf(debugbuf, "[DEBUG] initNormalStage 진입, stageNumber: %d\n", stageNumber);
+    printText(debugbuf);
     stage->stageNumber = stageNumber;  // 스테이지 번호 설정
     stage->isBossStage = false;  // 일반 스테이지 플래그 설정
     
@@ -45,15 +48,28 @@ void initNormalStage(StageInfo* stage, int stageNumber) {  // 일반 스테이�
     if (shouldTriggerEvent()) {  // 이벤트 발생 조건 확인
         // 이벤트 발생 시 요괴 없이 이벤트만 실행
         stage->enemyCount = 0;  // 적 수를 0으로 설정
-        Event* event = generateRandomEvent();  // 랜덤 이벤트 생성
+        Event* event = generateRandomEvent(stageNumber);  // 랜덤 이벤트 생성 (정확한 스테이지 번호 전달)
         if (event) {  // 이벤트가 생성된 경우
             handleEvent(event);  // 이벤트 처리
         }
     } else {  // 이벤트가 발생하지 않는 경우
-        // 일반 스테이지는 3-5마리
-        stage->enemyCount = rand() % 3 + 3;  // 3-5마리 랜덤 적 수 설정
-        // 적 요괴 생성
-        generateNormalStageEnemies(stage);  // 일반 스테이지 적 요괴 생성
+        // 이벤트 완료 조건인 스테이지인지 확인
+        Event* currentEvent = getCurrentEvent();
+        bool isEventCompletionStage = false;
+        
+        if (currentEvent && currentEvent->target_reached && (stageNumber % 10) == 2) {
+            isEventCompletionStage = true;
+        }
+        
+        if (isEventCompletionStage) {
+            // 이벤트 완료 조건인 스테이지에서는 요괴 없이 이벤트 완료만 처리
+            stage->enemyCount = 0;
+        } else {
+            // 일반 스테이지는 3-5마리
+            stage->enemyCount = rand() % 3 + 3;  // 3-5마리 랜덤 적 수 설정
+            // 적 요괴 생성
+            generateNormalStageEnemies(stage);  // 일반 스테이지 적 요괴 생성
+        }
     }
 }
 

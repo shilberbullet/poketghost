@@ -173,6 +173,15 @@ void nextStage() { // 다음 스테이지로 진행하는 함수
                 sprintf(buffer, "\n지도 아이템을 사용하여 %s로 이동했습니다.\n", getCurrentRegion()); // 이동 메시지 생성
                 printText(buffer); // 이동 메시지 출력
                 displayConnectedRegions(); // 연결된 지역 표시
+                
+                // 보스 스테이지 완료 후 지역 변경 시 자동 저장
+                if (!gGameState.isManualSave && !gGameState.skipCurrentStageAutoSave) {
+                    saveGame(); // 게임 저장
+                    char buffer[128];
+                    sprintf(buffer, "\n지역 변경 완료! 게임이 자동 저장되었습니다.\n"); // 자동 저장 메시지 생성
+                    printText(buffer); // 자동 저장 메시지 출력
+                    fastSleep(500); // 0.5초 대기
+                }
             }
         } else { // 지도가 없는 경우
             if (moveToNextRegion()) { // 일반적인 방법으로 다음 지역으로 이동
@@ -180,6 +189,15 @@ void nextStage() { // 다음 스테이지로 진행하는 함수
                 sprintf(buffer, "\n%s로 이동했습니다.\n", getCurrentRegion()); // 이동 메시지 생성
                 printText(buffer); // 이동 메시지 출력
                 displayConnectedRegions(); // 연결된 지역 표시
+                
+                // 보스 스테이지 완료 후 지역 변경 시 자동 저장
+                if (!gGameState.isManualSave && !gGameState.skipCurrentStageAutoSave) {
+                    saveGame(); // 게임 저장
+                    char buffer[128];
+                    sprintf(buffer, "\n지역 변경 완료! 게임이 자동 저장되었습니다.\n"); // 자동 저장 메시지 생성
+                    printText(buffer); // 자동 저장 메시지 출력
+                    fastSleep(500); // 0.5초 대기
+                }
             }
         }
     }
@@ -224,8 +242,8 @@ void nextStage() { // 다음 스테이지로 진행하는 함수
         if (gameSettings.debugMode) {
             char buffer[256];
             sprintf(buffer, "[DEBUG] skipCurrentStageAutoSave 플래그 초기화\n");
-            printText(buffer);
-            fastSleep(500);
+        printText(buffer);
+        fastSleep(500);
         }
     }
 }

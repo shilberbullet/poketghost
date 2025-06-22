@@ -88,6 +88,14 @@ float calculateDamage(const Yokai* attacker, const Yokai* defender, const Move* 
 // 공격자와 방어자 간의 전투를 실행하고 결과(1=승리, 0=계속)를 반환하는 함수 선언
 int executeBattle(Yokai* attacker, Yokai* defender, int moveIndex) {
     LOG_FUNCTION_EXECUTION("executeBattle"); // 함수 실행 시 로깅(함수명 기록)
+    
+    // 기절한 요괴는 공격할 수 없음
+    if (attacker->status == YOKAI_FAINTED) {
+        printTextAndWait("\n기절한 요괴는 공격할 수 없습니다!");
+        fastSleep(500);
+        return 0;
+    }
+    
     // 사용할 기술 정보 가져오기
     const Move* move = &attacker->moves[moveIndex].move;
     
@@ -334,10 +342,12 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
     Yokai* firstDefender = playerFirst ? enemyYokai : playerYokai; // 먼저 공격받을 요괴 포인터 설정
     int firstMoveIndex = playerFirst ? playerMoveIndex : (rand() % enemyYokai->moveCount); // 첫 번째 공격에 사용할 기술 인덱스 결정
     
-    // 첫 번째 공격 실행
-    int result = executeBattle(firstAttacker, firstDefender, firstMoveIndex); // 첫 번째 공격 실행 및 결과 저장
-    if (result == 1) { // 첫 번째 공격으로 승리가 결정된 경우
-        return playerFirst ? 1 : -1;  // 선공자가 승리한 경우 플레이어 승리(1) 또는 적 승리(-1) 반환
+    // 첫 번째 공격 실행 (기절한 요괴는 공격하지 않음)
+    if (firstAttacker->status != YOKAI_FAINTED) {
+        int result = executeBattle(firstAttacker, firstDefender, firstMoveIndex); // 첫 번째 공격 실행 및 결과 저장
+        if (result == 1) { // 첫 번째 공격으로 승리가 결정된 경우
+            return playerFirst ? 1 : -1;  // 선공자가 승리한 경우 플레이어 승리(1) 또는 적 승리(-1) 반환
+        }
     }
     
     // 후공 요괴의 공격 준비 시작
@@ -345,10 +355,12 @@ int executeTurnBattle(Yokai* playerYokai, Yokai* enemyYokai, int playerMoveIndex
     Yokai* secondDefender = playerFirst ? playerYokai : enemyYokai; // 나중에 공격받을 요괴 포인터 설정
     int secondMoveIndex = playerFirst ? (rand() % enemyYokai->moveCount) : playerMoveIndex; // 두 번째 공격에 사용할 기술 인덱스 결정
     
-    // 두 번째 공격 실행
-    result = executeBattle(secondAttacker, secondDefender, secondMoveIndex); // 두 번째 공격 실행 및 결과 저장
-    if (result == 1) { // 두 번째 공격으로 승리가 결정된 경우
-        return playerFirst ? -1 : 1;  // 후공자가 승리한 경우 적 승리(-1) 또는 플레이어 승리(1) 반환
+    // 두 번째 공격 실행 (기절한 요괴는 공격하지 않음)
+    if (secondAttacker->status != YOKAI_FAINTED) {
+        int result = executeBattle(secondAttacker, secondDefender, secondMoveIndex); // 두 번째 공격 실행 및 결과 저장
+        if (result == 1) { // 두 번째 공격으로 승리가 결정된 경우
+            return playerFirst ? -1 : 1;  // 후공자가 승리한 경우 적 승리(-1) 또는 플레이어 승리(1) 반환
+        }
     }
     
     return 0;  // 전투가 계속됨을 나타내는 0 반환
@@ -379,6 +391,14 @@ void handleBattleResult(Yokai* attacker, Yokai* defender, int result) {
 // PP가 부족한 경우 사용하는 기본 공격을 실행하는 함수 선언
 int struggleBattle(Yokai* attacker, Yokai* defender) {
     LOG_FUNCTION_EXECUTION("struggleBattle"); // 함수 실행 시 로깅(함수명 기록)
+    
+    // 기절한 요괴는 발버둥할 수 없음
+    if (attacker->status == YOKAI_FAINTED) {
+        printTextAndWait("\n기절한 요괴는 발버둥할 수 없습니다!");
+        fastSleep(500);
+        return 0;
+    }
+    
     // 발버둥 공격 메시지 출력
     printTextAndWait("\n발버둥을 시도했다!"); // 발버둥 시도 메시지 출력 및 대기
     fastSleep(500); // 0.5초간 대기

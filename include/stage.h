@@ -48,6 +48,12 @@ void showStageInfo();
 void showBattleInterface();
 
 /**
+ * @brief 다음 스테이지로 진행하는 함수
+ * @details 현재 스테이지를 완료하고 다음 스테이지로 이동
+ */
+void nextStage();
+
+/**
  * @brief 현재 지형 이름을 반환하는 함수
  * @return 현재 지형 이름 문자열 - 플레이어가 위치한 지형의 한글 이름
  * @details 현재 스테이지의 지형 타입에 해당하는 이름을 반환
