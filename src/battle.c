@@ -986,8 +986,107 @@ int handleBattleChoice(BattleChoice choice, Yokai* enemy) {
             lastYokaiIdx = newYokaiIdx;
             return 0;
         }
-        case BATTLE_RUN:
-            return tryToEscape(); // 도망 시도
+        case BATTLE_RUN: {
+            int escapeResult = tryToEscape(); // 도망 시도
+            if (escapeResult == ESCAPE_SUCCESS) {
+                return 103; // 도망 성공
+            } else {
+                // 도망 실패 시 상대 요괴의 공격을 받음
+                // 첫 턴이면 요괴를 선택한 후 상대 요괴의 공격을 받음
+                int yokaiIdx;
+                if (turnCount == 1) {
+                    yokaiIdx = selectPartyYokai(); // 동료 요괴 선택
+                    if (yokaiIdx == -1) {
+                        return 0; // 뒤로 돌아가기
+                    }
+                    lastYokaiIdx = yokaiIdx;
+                } else {
+                    // 첫 턴이 아니면 이전에 선택한 요괴 사용
+                    yokaiIdx = lastYokaiIdx;
+                }
+                
+                // 상대 요괴의 랜덤 기술 선택
+                int enemyMoveIdx = rand() % enemy->moveCount;
+                
+                // 상대 요괴의 공격만 실행 (플레이어는 공격하지 않음)
+                float damage = calculateDamage(enemy, &gParty[yokaiIdx], &enemy->moves[enemyMoveIdx].move);
+                float actualDamage = damage;
+                if (actualDamage > gParty[yokaiIdx].currentHP) {
+                    actualDamage = gParty[yokaiIdx].currentHP;
+                }
+                
+                gParty[yokaiIdx].currentHP -= actualDamage;
+                
+                // 데미지 메시지 출력
+                char buffer[256];
+                sprintf(buffer, "\n%s에게 %.0f의 데미지를 입었다!", gParty[yokaiIdx].name, actualDamage);
+                printTextAndWait(buffer);
+                
+                // HP 바 업데이트
+                float maxHP = calculateHP(&gParty[yokaiIdx]);
+                float hpPercentage = (gParty[yokaiIdx].currentHP / maxHP) * 100.0f;
+                int filledLength = (int)((hpPercentage / 100.0f) * HP_BAR_LENGTH);
+                
+                sprintf(buffer, "\n%s HP[", gParty[yokaiIdx].name);
+                if (hpPercentage <= 20.0f) {
+                    strcat(buffer, "\033[31m"); // 빨간색
+                } else if (hpPercentage <= 50.0f) {
+                    strcat(buffer, "\033[33m"); // 노란색
+                } else {
+                    strcat(buffer, "\033[1;32m"); // 초록색
+                }
+                
+                for (int i = 0; i < HP_BAR_LENGTH; i++) {
+                    if (i < filledLength) {
+                        strcat(buffer, "█");
+                    } else {
+                        strcat(buffer, "░");
+                    }
+                }
+                
+                char tempBuffer[256];
+                sprintf(tempBuffer, "\033[0m] %.0f/%.0f", gParty[yokaiIdx].currentHP, maxHP);
+                strcat(buffer, tempBuffer);
+                if (gParty[yokaiIdx].status == YOKAI_FAINTED) {
+                    strcat(buffer, " (기절)");
+                }
+                strcat(buffer, "\n");
+                
+                printTextAndWait(buffer);
+                
+                // 요괴가 기절했는지 확인
+                if (gParty[yokaiIdx].currentHP <= 0) {
+                    gParty[yokaiIdx].status = YOKAI_FAINTED;
+                    gParty[yokaiIdx].currentHP = 0;
+                    
+                    // 모든 요괴가 기절했는지 확인
+                    bool allFainted = true;
+                    for (int i = 0; i < gPartyCount; i++) {
+                        if (gParty[i].status != YOKAI_FAINTED) {
+                            allFainted = false;
+                            break;
+                        }
+                    }
+                    
+                    if (allFainted) {
+                        handleRogueliteSystem();
+                        return 104; // 전투 패배
+                    }
+                    
+                    // 남은 동료가 있으면 즉시 교체 메뉴
+                    int newIdx = selectPartyYokai();
+                    while (gParty[newIdx].status == YOKAI_FAINTED) {
+                        printTextAndWait("\n기절한 요괴는 선택할 수 없습니다. 다시 선택하세요.");
+                        newIdx = selectPartyYokai();
+                    }
+                    lastYokaiIdx = newIdx;
+                }
+                
+                applyPeachHealingToParty(); // 복숭아 효과 적용
+                turnCount++;
+                return 0;
+            }
+        }
         case BATTLE_CHECK_INVENTORY:
             showItemMenu(); // 인벤토리 출력
             break;

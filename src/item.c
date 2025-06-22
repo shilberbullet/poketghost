@@ -610,26 +610,31 @@ bool useTalisman(const Item* item, void* targetYokai) {
     float hpRatio = yokai->currentHP / maxHP;
     
     // HP 비율에 따른 포획률 보정 (HP가 낮을수록 포획률 증가)
-    float hpBonus = 1.0f - hpRatio;  // HP가 0%일 때 1.0, 100%일 때 0.0
+    float hpBonus = (1.0f - hpRatio) * 0.3f;  // HP가 0%일 때 0.3, 100%일 때 0.0
     
     // 부적 등급에 따른 기본 포획률
     float baseCatchRate = 0.0f;
     switch (item->grade) {
         case ITEM_COMMON:
-            baseCatchRate = 0.05f;
+            baseCatchRate = 0.2f;  // 20%
             break;
         case ITEM_RARE:
-            baseCatchRate = 0.15f;
+            baseCatchRate = 0.25f;  // 25%
             break;
         case ITEM_SUPERRARE:
             baseCatchRate = 1;  // 100%
             break;
         default:
-            baseCatchRate = 0.15;
+            baseCatchRate = 0.25f;
     }
     
     // 최종 포획률 계산 (기본 포획률 + HP 보너스)
     float finalCatchRate = baseCatchRate + hpBonus;
+    
+    // 포획률을 100%로 제한
+    if (finalCatchRate > 1.0f) {
+        finalCatchRate = 1.0f;
+    }
     
     // 포획 시도
     if ((float)rand() / RAND_MAX < finalCatchRate) {
