@@ -112,7 +112,7 @@ int startBattle(const Yokai* enemy) {
     }
     
     // 전투 시작 대화 표시
-    startDialogue(10); // 전투 시작 대화
+    startDialogue(15); // 전투 시작 대화
     
     // 현재 전투 중인 상대 요괴 정보 저장
     currentEnemy = *enemy; // 적 요괴 정보 복사
