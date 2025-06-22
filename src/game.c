@@ -8,8 +8,11 @@
 
 // 표준 입출력 함수를 위한 헤더
 #include <stdio.h> // 표준 입출력 함수
+// 표준 라이브러리 함수를 위한 헤더
 #include <stdlib.h> // 표준 라이브러리 함수
+// 문자열 처리 함수를 위한 헤더
 #include <string.h> // 문자열 처리 함수
+// 시간 관련 함수를 위한 헤더
 #include <time.h> // 시간 관련 함수
 // 게임 관련 함수와 구조체 정의
 #include "game.h" // 게임 관련 헤더
@@ -21,16 +24,27 @@
 #include "item.h" // 아이템 관련 헤더
 // 로그라이트 시스템 관련 함수
 #include "roguelite.h" // 로그라이트 시스템 헤더
+// 이벤트 시스템 관련 함수
 #include "event_system.h" // 이벤트 시스템 헤더
+// 로거 관련 함수
 #include "logger.h" // 로거 헤더
+// 게임 상태 관련 함수
 #include "../core/state.h" // 게임 상태 헤더
+// 입력 처리 관련 함수
 #include "input.h" // 입력 처리 헤더
+// 스테이지 관련 함수
 #include "stage.h" // 스테이지 헤더
+// 전투 관련 함수
 #include "battle.h" // 전투 헤더
+// 보상 관련 함수
 #include "reward.h" // 보상 헤더
+// 저장 파일 관련 함수
 #include "savefile.h" // 저장 파일 헤더
+// 대화 시스템 관련 함수
 #include "dialogue.h" // 대화 시스템 헤더
+// 윈도우 API 관련 함수
 #include <windows.h> // 윈도우 API
+// 수학 함수를 위한 헤더
 #include <math.h> // 수학 함수
 
 // 상수 정의
@@ -42,6 +56,7 @@ extern int turnCount; // 현재 턴 수
 extern int participatedCount; // 전투에 참여한 요괴 수
 extern int participatedIdx[]; // 전투에 참여한 요괴 인덱스 배열
 extern unsigned long long participatedId[]; // 전투에 참여한 요괴 ID 배열
+// extern int lastYokaiIdx; // 마지막 요괴 인덱스 (필요시 주석 해제)
 
 // 전역 게임 상태와 플레이어 정보는 state 모듈에서 관리
  
@@ -49,7 +64,7 @@ extern unsigned long long participatedId[]; // 전투에 참여한 요괴 ID 배
  * @brief 게임을 초기화하는 함수
  * @details 게임 시작 시 필요한 모든 시스템을 초기화합니다.
  */
-void initGame() {
+void initGame() { // 게임 초기화 함수 시작
     // 로그 시스템 초기화
     initLogger(); // 로깅 시스템 초기화
     
@@ -76,7 +91,7 @@ void initGame() {
  * @brief 플레이어의 전화를 증가시키는 함수
  * @param amount 증가시킬 전화 양
  */
-void addMoney(int amount) {
+void addMoney(int amount) { // 전화 추가 함수 시작
     // 무당방울 아이템의 효과를 계산 (최대 5개까지 효과 적용)
     int mudangCount = 0; // 무당방울 개수 초기화
     for (int i = 0; i < inventoryCount; i++) { // 인벤토리 전체 검사
@@ -105,7 +120,7 @@ void addMoney(int amount) {
 /**
  * @brief 현재 보유 전화를 화면에 표시하는 함수
  */
-void showMoney() {
+void showMoney() { // 전화 표시 함수 시작
     char buffer[128]; // 메시지 버퍼
     sprintf(buffer, "\n현재 보유 전: %d전\n", gPlayer.money); // 현재 전화 정보
     printText(buffer); // 메시지 출력
@@ -115,7 +130,7 @@ void showMoney() {
  * @brief 게임 상태를 완전히 초기화하는 함수
  * @details 게임 재시작 시 상태를 리셋합니다.
  */
-void resetGameState() {
+void resetGameState() { // 게임 상태 리셋 함수 시작
     // 게임 상태를 기본값으로 초기화
     gGameState.isRunning = 1;        // 게임 실행 상태를 true로 설정
     gGameState.currentStage = 1;     // 현재 스테이지를 1로 설정
@@ -147,7 +162,7 @@ void resetGameState() {
  * @brief 게임 종료 시 정리 작업을 수행하는 함수
  * @details 메모리 해제 등의 정리 작업을 수행합니다.
  */
-void cleanupGame() {
+void cleanupGame() { // 게임 정리 함수 시작
     cleanupLogger(); // 로거 정리
 }
 
@@ -155,7 +170,7 @@ void cleanupGame() {
  * @brief 게임 클리어 후 데이터를 초기화하는 함수
  * @details 게임 클리어 후 다음 게임을 위한 초기화를 수행합니다.
  */
-void resetGameAfterClear() {
+void resetGameAfterClear() { // 게임 클리어 후 리셋 함수 시작
     logMessage("게임 클리어 후 데이터 초기화 시작"); // 초기화 시작 로그
     
     // 게임 상태 초기화
@@ -193,7 +208,6 @@ void resetGameAfterClear() {
     // 전투 관련 변수 초기화
     turnCount = 0; // 턴 수를 0으로 초기화
     participatedCount = 0; // 참여 요괴 수를 0으로 초기화
-    lastYokaiIdx = 0; // 마지막 요괴 인덱스를 0으로 초기화
     for (int i = 0; i < MAX_PARTY; i++) { // 참여 요괴 배열 초기화
         participatedIdx[i] = 0; // 참여 요괴 인덱스를 0으로 초기화
         participatedId[i] = 0; // 참여 요괴 ID를 0으로 초기화

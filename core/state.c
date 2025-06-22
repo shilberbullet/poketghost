@@ -6,6 +6,7 @@
  * @version 5.3
  */
 
+// 상태 관리 헤더 파일 포함
 #include "state.h" // 상태 관리 헤더
 
 // 전역 상태 변수들 (static으로 외부에서 직접 접근 불가)
@@ -20,7 +21,7 @@ static int _totalCaughtCount = 0; // 누적 포획 수 전역 변수
  * @brief 게임 상태를 가져오는 함수
  * @return 게임 상태 포인터
  */
-GameState* getGameState() {
+GameState* getGameState() { // 게임 상태 가져오기 함수 시작
     return &_gameState; // 게임 상태 포인터 반환
 }
 
@@ -28,7 +29,7 @@ GameState* getGameState() {
  * @brief 게임 상태를 설정하는 함수
  * @param state 설정할 게임 상태
  */
-void setGameState(GameState state) {
+void setGameState(GameState state) { // 게임 상태 설정 함수 시작
     _gameState = state; // 게임 상태 설정
 }
 
@@ -36,7 +37,7 @@ void setGameState(GameState state) {
  * @brief 플레이어 정보를 가져오는 함수
  * @return 플레이어 포인터
  */
-Player* getPlayer() {
+Player* getPlayer() { // 플레이어 정보 가져오기 함수 시작
     return &_player; // 플레이어 포인터 반환
 }
 
@@ -44,7 +45,7 @@ Player* getPlayer() {
  * @brief 플레이어 정보를 설정하는 함수
  * @param player 설정할 플레이어 정보
  */
-void setPlayer(Player player) {
+void setPlayer(Player player) { // 플레이어 정보 설정 함수 시작
     _player = player; // 플레이어 정보 설정
 }
 
@@ -52,7 +53,7 @@ void setPlayer(Player player) {
  * @brief 현재 스테이지 정보를 가져오는 함수
  * @return 현재 스테이지 포인터
  */
-StageInfo* getCurrentStage() {
+StageInfo* getCurrentStage() { // 현재 스테이지 정보 가져오기 함수 시작
     return &_currentStage; // 현재 스테이지 포인터 반환
 }
 
@@ -60,7 +61,7 @@ StageInfo* getCurrentStage() {
  * @brief 현재 스테이지 정보를 설정하는 함수
  * @param stage 설정할 스테이지 정보
  */
-void setCurrentStage(StageInfo stage) {
+void setCurrentStage(StageInfo stage) { // 현재 스테이지 정보 설정 함수 시작
     _currentStage = stage; // 현재 스테이지 정보 설정
 }
 
@@ -68,7 +69,7 @@ void setCurrentStage(StageInfo stage) {
  * @brief 파티 요괴 배열을 가져오는 함수
  * @return 파티 요괴 배열 포인터
  */
-Yokai* getParty() {
+Yokai* getParty() { // 파티 요괴 배열 가져오기 함수 시작
     return _party; // 파티 요괴 배열 포인터 반환
 }
 
@@ -76,7 +77,7 @@ Yokai* getParty() {
  * @brief 파티 요괴 수 포인터를 가져오는 함수
  * @return 파티 요괴 수 포인터
  */
-int* getPartyCountPtr() {
+int* getPartyCountPtr() { // 파티 요괴 수 포인터 가져오기 함수 시작
     return &_partyCount; // 파티 요괴 수 포인터 반환
 }
 
@@ -84,7 +85,7 @@ int* getPartyCountPtr() {
  * @brief 파티 요괴 수를 설정하는 함수
  * @param count 설정할 파티 요괴 수
  */
-void setPartyCount(int count) {
+void setPartyCount(int count) { // 파티 요괴 수 설정 함수 시작
     _partyCount = count; // 파티 요괴 수 설정
 }
 
@@ -92,7 +93,7 @@ void setPartyCount(int count) {
  * @brief 누적 포획 수 포인터를 가져오는 함수
  * @return 누적 포획 수 포인터
  */
-int* getTotalCaughtCountPtr() {
+int* getTotalCaughtCountPtr() { // 누적 포획 수 포인터 가져오기 함수 시작
     return &_totalCaughtCount; // 누적 포획 수 포인터 반환
 }
 
@@ -100,6 +101,6 @@ int* getTotalCaughtCountPtr() {
  * @brief 누적 포획 수를 설정하는 함수
  * @param count 설정할 누적 포획 수
  */
-void setTotalCaughtCount(int count) {
+void setTotalCaughtCount(int count) { // 누적 포획 수 설정 함수 시작
     _totalCaughtCount = count; // 누적 포획 수 설정
 }

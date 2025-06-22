@@ -364,7 +364,7 @@ void assignRandomMoves(Yokai* y, int level) {
         }
 
         if (!isAssigned) {
-            if (level > 20) {  // 20레벨 이상에서 고급기술 배우기 가능
+            if (level > 30) {  // 30레벨 이상에서 고급기술 배우기 가능
                  if (y->learnableMoves[i].grade == MOVE_BASIC || y->learnableMoves[i].grade == MOVE_MEDIUM) {
                     if (y->forgottenMoveCount < MAX_LEARNABLE_MOVES) {
                         y->forgottenMoves[y->forgottenMoveCount++] = y->learnableMoves[i]; // 미장착 기술 추가

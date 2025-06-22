@@ -6,15 +6,22 @@
  * @version 5.3
  */
 
+// 로거 관련 함수와 구조체 정의
 #include "logger.h" // 로거 헤더
+// 윈도우 API를 위한 헤더
 #include <windows.h> // 윈도우 API
+// 디렉토리 생성 함수를 위한 헤더
 #include <direct.h> // 디렉토리 생성 함수
+// 오류 번호를 위한 헤더
 #include <errno.h> // 오류 번호
+// 문자열 처리 함수를 위한 헤더
 #include <string.h> // 문자열 처리 함수
 
+// 상수 정의
 #define LOG_FILENAME_BASE "poketghostlog.txt" // 로그 파일 기본 이름
 #define LOG_MAX_LINES 1500 // 로그 파일당 최대 줄 수
 
+// 전역 변수 선언
 static FILE* logFile = NULL; // 로그 파일 포인터
 static int logLineCount = 0; // 현재 로그 파일의 줄 수
 static int logFileIndex = 0; // 로그 파일 인덱스
@@ -25,7 +32,7 @@ static char currentLogFileName[256] = ""; // 현재 로그 파일명
  * @param buffer 파일명을 저장할 버퍼
  * @param size 버퍼 크기
  */
-static void makeLogFileName(char* buffer, size_t size) {
+static void makeLogFileName(char* buffer, size_t size) { // 로그 파일명 생성 함수 시작
     time_t now = time(NULL); // 현재 시간 가져오기
     struct tm* t = localtime(&now); // 로컬 시간으로 변환
     snprintf(buffer, size, "logs/%04d%02d%02d_%02d%02d%02d_%d,%s", // 파일명 형식
@@ -37,7 +44,7 @@ static void makeLogFileName(char* buffer, size_t size) {
 /**
  * @brief 로그 파일을 여는 함수 (분할 포함)
  */
-static void openLogFile() {
+static void openLogFile() { // 로그 파일 열기 함수 시작
     makeLogFileName(currentLogFileName, sizeof(currentLogFileName)); // 파일명 생성
     logFile = fopen(currentLogFileName, "a"); // 추가 모드로 파일 열기
     // 파일의 기존 줄 수를 세서 logLineCount에 반영
@@ -55,7 +62,7 @@ static void openLogFile() {
 /**
  * @brief 로그 파일 분할을 체크하고 분할하는 함수
  */
-static void checkLogFileSplit() {
+static void checkLogFileSplit() { // 로그 파일 분할 체크 함수 시작
     if (logLineCount >= LOG_MAX_LINES) { // 최대 줄 수에 도달했으면
         if (logFile) fclose(logFile); // 현재 파일 닫기
         logFileIndex++; // 파일 인덱스 증가
@@ -67,7 +74,7 @@ static void checkLogFileSplit() {
  * @brief 로그 시스템을 초기화하는 함수
  * @details 로그 파일명 자동 생성 및 분할 관리
  */
-void initLogger() {
+void initLogger() { // 로거 초기화 함수 시작
     // logs 디렉토리 생성
     if (_mkdir("logs") == -1 && errno != EEXIST) { // 디렉토리 생성 실패 확인
         printf("로그 디렉토리 생성 실패\n"); // 오류 메시지
@@ -93,7 +100,7 @@ void initLogger() {
  * @param str 검사할 문자열
  * @return 개행 문자 개수
  */
-static int count_newlines(const char* str) {
+static int count_newlines(const char* str) { // 개행 문자 개수 세기 함수 시작
     int count = 0; // 카운터 초기화
     while (*str) { // 문자열 끝까지
         if (*str == '\n') count++; // 개행 문자 카운트
@@ -107,7 +114,7 @@ static int count_newlines(const char* str) {
  * @param format 메시지 형식 문자열
  * @param ... 가변 인자
  */
-void logMessage(const char* format, ...) {
+void logMessage(const char* format, ...) { // 일반 메시지 로그 함수 시작
     if (logFile == NULL) return; // 로그 파일이 없으면 종료
     checkLogFileSplit(); // 파일 분할 체크
     char buffer[2048]; // 메시지 버퍼
@@ -132,7 +139,7 @@ void logMessage(const char* format, ...) {
  * @param format 출력 형식 문자열
  * @param ... 가변 인자
  */
-void logOutput(const char* format, ...) {
+void logOutput(const char* format, ...) { // 출력 로그 함수 시작
     if (logFile == NULL) return; // 로그 파일이 없으면 종료
     checkLogFileSplit(); // 파일 분할 체크
     char buffer[2048]; // 메시지 버퍼
@@ -157,7 +164,7 @@ void logOutput(const char* format, ...) {
  * @param format 입력 형식 문자열
  * @param ... 가변 인자
  */
-void logInput(const char* format, ...) {
+void logInput(const char* format, ...) { // 입력 로그 함수 시작
     if (logFile == NULL) return; // 로그 파일이 없으면 종료
     checkLogFileSplit(); // 파일 분할 체크
     char buffer[2048]; // 메시지 버퍼
@@ -182,7 +189,7 @@ void logInput(const char* format, ...) {
  * @param format 오류 형식 문자열
  * @param ... 가변 인자
  */
-void logError(const char* format, ...) {
+void logError(const char* format, ...) { // 오류 로그 함수 시작
     if (logFile == NULL) return; // 로그 파일이 없으면 종료
     checkLogFileSplit(); // 파일 분할 체크
     char buffer[2048]; // 메시지 버퍼

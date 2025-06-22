@@ -13,7 +13,7 @@
 #include "dialogue.h"
 
 // 이벤트 발생 확률 설정
-#define EVENT_TRIGGER_CHANCE 90  // 20% 확률
+#define EVENT_TRIGGER_CHANCE 20  // 20% 확률
 
 // 전역 변수로 현재 활성 이벤트 저장
 static Event* currentEvent = NULL;
@@ -211,19 +211,32 @@ void completeEvent(Event* event) {
     switch (event->type) {
         case EVENT_LETTER_DELIVERY:
             system("cls");
-            printText("=== 이벤트 완료! ===\n\n");
-            printText("편지를 전달했습니다!\n");
+            printText("=== 스테이지 정보 ===\n\n");
+            
+            // 스테이지 정보 출력
             char buffer[256];
+            sprintf(buffer, "스테이지: %d\n", gStage.stageNumber);
+            printText(buffer);
+            sprintf(buffer, "지역: %s\n", getCurrentRegion());
+            printText(buffer);
+            sprintf(buffer, "지형: %s\n", getCurrentTerrain());
+            printText(buffer);
+            int hour = (gStage.stageNumber - 1) % 24;
+            sprintf(buffer, "시간: %02d시\n", hour);
+            printText(buffer);
+            sprintf(buffer, "보유 전: %d전\n", gPlayer.money);
+            printText(buffer);
+            
+            // 이벤트 완료 메시지
+            printText("편지를 전달했습니다!\n");
             snprintf(buffer, sizeof(buffer), "보상으로 %d전을 받았습니다.\n", event->reward_money);
             printText(buffer);
             
             // 보상 지급
             gPlayer.money += event->reward_money;
             
-            printText("\n엔터를 눌러 돌아가기...");
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF); // 표준 입력 버퍼 비우기
-            clearInputBuffer(); // 콘솔 입력 버퍼 비우기
+            // 이벤트 처리 후 스테이지 정보 출력 건너뛰기
+            gGameState.skipStageInfo = true;
             break;
         default:
             break;
@@ -235,33 +248,33 @@ void completeEvent(Event* event) {
 }
 
 // 현재 활성 이벤트 반환
-Event* getCurrentEvent(void) {
-    return currentEvent;
+Event* getCurrentEvent(void) { // 현재 활성 이벤트 반환 함수 시작
+    return currentEvent; // 현재 이벤트 포인터 반환
 }
 
 // 파일에서 이벤트 로드
-Event* loadEventFromFile(FILE* file) {
-    LOG_FUNCTION_EXECUTION("loadEventFromFile");
+Event* loadEventFromFile(FILE* file) { // 파일에서 이벤트 로드 함수 시작
+    LOG_FUNCTION_EXECUTION("loadEventFromFile"); // 함수 실행 로그 기록
     
-    if (!file) return NULL;
+    if (!file) return NULL; // 파일이 NULL인 경우 NULL 반환
     
-    Event* event = (Event*)malloc(sizeof(Event));
-    if (!event) {
-        return NULL;
+    Event* event = (Event*)malloc(sizeof(Event)); // 이벤트 구조체 메모리 할당
+    if (!event) { // 메모리 할당 실패한 경우
+        return NULL; // NULL 반환
     }
     
     // 이벤트 데이터 읽기
-    fread(&event->type, sizeof(EventType), 1, file);
-    fread(&event->description, sizeof(char), 256, file);
-    fread(&event->target_region, sizeof(char), 32, file);
-    fread(&event->reward_money, sizeof(int), 1, file);
-    fread(&event->is_completed, sizeof(bool), 1, file);
+    fread(&event->type, sizeof(EventType), 1, file); // 이벤트 타입 읽기
+    fread(&event->description, sizeof(char), 256, file); // 이벤트 설명 읽기
+    fread(&event->target_region, sizeof(char), 32, file); // 목표 지역 읽기
+    fread(&event->reward_money, sizeof(int), 1, file); // 보상 금액 읽기
+    fread(&event->is_completed, sizeof(bool), 1, file); // 완료 상태 읽기
     
-    return event;
+    return event; // 로드된 이벤트 반환
 }
 
 // 현재 이벤트 설정
-void setCurrentEvent(Event* event) {
-    LOG_FUNCTION_EXECUTION("setCurrentEvent");
-    currentEvent = event;
+void setCurrentEvent(Event* event) { // 현재 이벤트 설정 함수 시작
+    LOG_FUNCTION_EXECUTION("setCurrentEvent"); // 함수 실행 로그 기록
+    currentEvent = event; // 현재 이벤트 포인터 설정
 } 

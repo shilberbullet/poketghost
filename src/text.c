@@ -25,7 +25,7 @@
  * @brief 텍스트 출력 속도에 따른 대기 시간을 계산하는 함수
  * @return 대기 시간 (밀리초)
  */
-int getTextDelay() {
+int getTextDelay() { // 텍스트 지연 시간 계산 함수 시작
     LOG_FUNCTION_EXECUTION("getTextDelay"); // 함수 실행 로그
     switch (gameSettings.textSpeed) { // 텍스트 속도 설정에 따라
         case 1: return 8;    // 매우 느림 (8ms) - 기존 15ms에서 빠르게
@@ -41,7 +41,7 @@ int getTextDelay() {
  * @brief 텍스트를 한 글자씩 출력하는 함수
  * @param text 출력할 텍스트
  */
-void printText(const char* text) {
+void printText(const char* text) { // 텍스트 출력 함수 시작
     LOG_FUNCTION_EXECUTION("printText"); // 함수 실행 로그
     // 출력 로깅
     logOutput("%s", text); // 출력 내용을 로그에 기록
@@ -95,7 +95,7 @@ void printText(const char* text) {
  * @brief 텍스트를 출력하고 1초 대기 후 자동으로 넘어가는 함수
  * @param text 출력할 텍스트
  */
-void printTextAndWait(const char* text) {
+void printTextAndWait(const char* text) { // 텍스트 출력 후 대기 함수 시작
     LOG_FUNCTION_EXECUTION("printTextAndWait"); // 함수 실행 로그
     int delay = getTextDelay(); // 현재 텍스트 속도로 대기 시간 계산
 
@@ -107,7 +107,7 @@ void printTextAndWait(const char* text) {
  * @brief 텍스트 속도에 비례한 sleep 함수
  * @param base 기본 대기 시간 (사용하지 않음)
  */
-void fastSleep(int base) {
+void fastSleep(int base) { // 빠른 대기 함수 시작
     LOG_FUNCTION_EXECUTION("fastSleep"); // 함수 실행 로그
     (void)base; // base 매개변수 사용하지 않음 (경고 방지)
     int delay = getTextDelay(); // 현재 텍스트 속도로 대기 시간 계산

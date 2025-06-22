@@ -23,7 +23,7 @@
  * @brief 입력 버퍼를 비우는 함수
  * @details 이전 입력을 무시하고 새로운 입력을 받기 위해 사용
  */
-void clearInputBuffer() {
+void clearInputBuffer() { // 입력 버퍼 비우기 함수 시작
     LOG_FUNCTION_EXECUTION("clearInputBuffer"); // 함수 실행 로그
     while (_kbhit()) {  // 버퍼에 문자가 있는 동안
         _getch();       // 문자를 읽어서 버퍼에서 제거
@@ -34,7 +34,7 @@ void clearInputBuffer() {
  * @brief 안전한 정수 입력을 받는 함수
  * @return 입력받은 정수, 오류 시 -1
  */
-int getIntInput() {
+int getIntInput() { // 정수 입력 받기 함수 시작
     LOG_FUNCTION_EXECUTION("getIntInput"); // 함수 실행 로그
     char input[256];    // 입력 문자열을 저장할 버퍼
     int number;         // 변환된 숫자를 저장할 변수
@@ -85,7 +85,7 @@ int getIntInput() {
  * @brief 문자 입력을 받는 함수
  * @return 입력받은 문자
  */
-char getCharInput() {
+char getCharInput() { // 문자 입력 받기 함수 시작
     LOG_FUNCTION_EXECUTION("getCharInput"); // 함수 실행 로그
     char input = _getch(); // 문자 입력 받기
     
@@ -99,7 +99,7 @@ char getCharInput() {
  * @brief 엔터 키 입력을 기다리는 함수
  * @details 사용자가 엔터를 누를 때까지 대기
  */
-void waitForEnter() {
+void waitForEnter() { // 엔터키 대기 함수 시작
     LOG_FUNCTION_EXECUTION("waitForEnter"); // 함수 실행 로그
     logInput("엔터키 입력 대기"); // 입력 로그
     clearInputBuffer();  // 입력 버퍼 비우기
@@ -109,7 +109,7 @@ void waitForEnter() {
 /**
  * @brief 아무 키나 입력을 기다리는 함수
  */
-void waitForInput() {
+void waitForInput() { // 키 입력 대기 함수 시작
     LOG_FUNCTION_EXECUTION("waitForInput"); // 함수 실행 로그
     logInput("아무 키나 입력 대기"); // 입력 로그
     _getch(); // 키 입력 대기
@@ -121,7 +121,7 @@ void waitForInput() {
  * @param max 최대값
  * @return 입력받은 정수, 범위 밖이면 -1
  */
-int getNumberInput(int min, int max) {
+int getNumberInput(int min, int max) { // 범위 내 숫자 입력 함수 시작
     LOG_FUNCTION_EXECUTION("getNumberInput"); // 함수 실행 로그
     int num; // 입력받을 숫자
     while (1) { // 무한 루프
